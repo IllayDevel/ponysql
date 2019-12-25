@@ -1,0 +1,1016 @@
+lscript0
++--------+
+| result |
++--------+
+| 0      |
++--------+
+e
+lscript1
++--------+
+| result |
++--------+
+| 0      |
++--------+
+e
+lscript2
++--------+
+| result |
++--------+
+| 0      |
++--------+
+e
+lscript3
++--------+
+| result |
++--------+
+| 0      |
++--------+
+e
+lscript4
++--------+
+| result |
++--------+
+| 0      |
++--------+
+e
+lscript5
++--------+
+| result |
++--------+
+| 0      |
++--------+
+e
+lscript6
++--------+
+| result |
++--------+
+| 0      |
++--------+
+e
+lscript7
++--------+
+| result |
++--------+
+| 0      |
++--------+
+e
+lscript8
++--------+
+| result |
++--------+
+| 0      |
++--------+
+e
+lscript9
++--------+
+| result |
++--------+
+| 0      |
++--------+
+e
+lscript10
++--------+
+| result |
++--------+
+| 0      |
++--------+
+e
+lscript11
++--------+
+| result |
++--------+
+| 0      |
++--------+
+e
+lscript12
++--------+
+| result |
++--------+
+| 0      |
++--------+
+e
+lscript13
++--------+
+| result |
++--------+
+| 0      |
++--------+
+e
+lscript14
++--------+
+| result |
++--------+
+| 0      |
++--------+
+e
+lscript15
++------------+-----------------------------------------+
+| table_name | user_privs                              |
++------------+-----------------------------------------+
+| AirCraft   | SELECT INSERT UPDATE DELETE ALTER DROP  |
+| Customer   | SELECT INSERT UPDATE DELETE ALTER DROP  |
+| Flight     | SELECT INSERT UPDATE DELETE ALTER DROP  |
+| Ticket     | SELECT INSERT UPDATE DELETE ALTER DROP  |
++------------+-----------------------------------------+
+e
+lscript16
++--------+
+| result |
++--------+
+| 2      |
++--------+
+e
+lscript17
++--------+
+| result |
++--------+
+| 9      |
++--------+
+e
+lscript18
++--------+
+| result |
++--------+
+| 2      |
++--------+
+e
+lscript19
++--------+
+| result |
++--------+
+| 34     |
++--------+
+e
+lscript20
++--------+
+| result |
++--------+
+| 16     |
++--------+
+e
+lscript21
++--------+
+| result |
++--------+
+| 18     |
++--------+
+e
+lscript22
++--------+
+| result |
++--------+
+| 0      |
++--------+
+e
+lscript23
++--------+
+| result |
++--------+
+| 7      |
++--------+
+e
+lscript24
++--------+
+| result |
++--------+
+| 43     |
++--------+
+e
+lscript25
++--------+
+| result |
++--------+
+| 7      |
++--------+
+e
+lscript26
++--------+
+| result |
++--------+
+| 7      |
++--------+
+e
+lscript27
++--------+
+| result |
++--------+
+| 8      |
++--------+
+e
+lscript28
++--------+
+| result |
++--------+
+| 0      |
++--------+
+e
+lscript29
++--------+
+| result |
++--------+
+| 0      |
++--------+
+e
+lscript30
++------+-----------------+------------------------+-------+-------+
+| id   | name            | description            | color | seats |
++------+-----------------+------------------------+-------+-------+
+| 0    | DC-10-A         | DC-10 Passenger Plane  | green | 245   |
+| 1    | DC-10-B         | DC-10 Passenger Plane  | green | 245   |
+| 2    | DC-10-C         | DC-10 Passenger Plane  | green | 245   |
+| 3    | DC-10-D         | DC-10 Passenger Plane  | green | 245   |
+| 4    | DC-10-E         | DC-10 Passenger Plane  | green | 245   |
+| 5    | DC-10-F         | DC-10 Passenger Plane  | green | 245   |
+| 6    | DC-10-G         | DC-10 Passenger Plane  | green | 245   |
+| 7    | DC-10-H         | DC-10 Passenger Plane  | green | 245   |
+| 8    | DC-10-I         | DC-10 Passenger Plane  | green | 245   |
+| 9    | DC-10-J         | DC-10 Passenger Plane  | green | 245   |
+| 10   | DC-10-K         | DC-10 Passenger Plane  | green | 245   |
+| 11   | DC-10-L         | DC-10 Passenger Plane  | green | 245   |
+| 12   | DC-10-M         | DC-10 Passenger Plane  | green | 245   |
+| 13   | DC-10-N         | DC-10 Passenger Plane  | green | 245   |
+| 14   | DC-10-O         | DC-10 Passenger Plane  | green | 245   |
+| 15   | DC-10-P         | DC-10 Passenger Plane  | green | 245   |
+| 34   | AB0093-1        | AB0093 Passenger Plane | green | 245   |
+| 35   | AB0093-2        | AB0093 Passenger Plane | green | 245   |
+| 36   | AB0093-3        | AB0093 Passenger Plane | green | 245   |
+| 37   | AB0093-4        | AB0093 Passenger Plane | green | 245   |
+| 38   | AB0093-5        | AB0093 Passenger Plane | green | 245   |
+| 39   | AB0093-6        | AB0093 Passenger Plane | green | 245   |
+| 40   | AB0093-7        | AB0093 Passenger Plane | green | 245   |
+| 41   | AB0093-8        | AB0093 Passenger Plane | green | 245   |
+| 42   | AB0093-9        | AB0093 Passenger Plane | green | 245   |
+| 16   | DC-12-A-upd     | DC-12 Passenger Plane  | green | 245   |
+| 17   | DC-12-B-upd     | DC-12 Passenger Plane  | green | 245   |
+| 18   | DC-12-C-upd     | DC-12 Passenger Plane  | green | 245   |
+| 19   | DC-12-D-upd     | DC-12 Passenger Plane  | green | 245   |
+| 20   | DC-12-E-upd     | DC-12 Passenger Plane  | green | 245   |
+| 21   | DC-12-F-upd     | DC-12 Passenger Plane  | green | 245   |
+| 22   | DC-12-Fa-upd    | DC-12 Passenger Plane  | green | 245   |
+| 23   | DC-12-G-upd     | DC-12 Passenger Plane  | green | 245   |
+| 24   | DC-12-H-upd     | DC-12 Passenger Plane  | green | 245   |
+| 25   | DC-12-I-upd     | DC-12 Passenger Plane  | green | 245   |
+| 26   | DC-12-J-upd     | DC-12 Passenger Plane  | green | 245   |
+| 27   | DC-12-K-upd     | DC-12 Passenger Plane  | green | 245   |
+| 28   | DC-12-L-upd     | DC-12 Passenger Plane  | green | 245   |
+| 29   | DC-12-M-upd     | DC-12 Passenger Plane  | green | 245   |
+| 30   | DC-12-N-upd     | DC-12 Passenger Plane  | green | 245   |
+| 31   | DC-12-O-upd     | DC-12 Passenger Plane  | green | 245   |
+| 32   | DC-12-Oa-upd    | DC-12 Passenger Plane  | green | 245   |
+| 33   | DC-12-P-upd     | DC-12 Passenger Plane  | green | 245   |
+| 1000 | DC-10-A-33      | DC-10 Passenger Plane  | green | 245   |
+| 1001 | DC-10-B-33      | DC-10 Passenger Plane  | green | 245   |
+| 1002 | DC-10-C-33      | DC-10 Passenger Plane  | green | 245   |
+| 1003 | DC-10-D-33      | DC-10 Passenger Plane  | green | 245   |
+| 1004 | DC-10-E-33      | DC-10 Passenger Plane  | green | 245   |
+| 1005 | DC-10-F-33      | DC-10 Passenger Plane  | green | 245   |
+| 1006 | DC-10-G-33      | DC-10 Passenger Plane  | green | 245   |
+| 1007 | DC-10-H-33      | DC-10 Passenger Plane  | green | 245   |
+| 1008 | DC-10-I-33      | DC-10 Passenger Plane  | green | 245   |
+| 1009 | DC-10-J-33      | DC-10 Passenger Plane  | green | 245   |
+| 1010 | DC-10-K-33      | DC-10 Passenger Plane  | green | 245   |
+| 1011 | DC-10-L-33      | DC-10 Passenger Plane  | green | 245   |
+| 1012 | DC-10-M-33      | DC-10 Passenger Plane  | green | 245   |
+| 1013 | DC-10-N-33      | DC-10 Passenger Plane  | green | 245   |
+| 1014 | DC-10-O-33      | DC-10 Passenger Plane  | green | 245   |
+| 1015 | DC-10-P-33      | DC-10 Passenger Plane  | green | 245   |
+| 1034 | AB0093-1-33     | AB0093 Passenger Plane | green | 245   |
+| 1035 | AB0093-2-33     | AB0093 Passenger Plane | green | 245   |
+| 1036 | AB0093-3-33     | AB0093 Passenger Plane | green | 245   |
+| 1037 | AB0093-4-33     | AB0093 Passenger Plane | green | 245   |
+| 1038 | AB0093-5-33     | AB0093 Passenger Plane | green | 245   |
+| 1039 | AB0093-6-33     | AB0093 Passenger Plane | green | 245   |
+| 1040 | AB0093-7-33     | AB0093 Passenger Plane | green | 245   |
+| 1041 | AB0093-8-33     | AB0093 Passenger Plane | green | 245   |
+| 1042 | AB0093-9-33     | AB0093 Passenger Plane | green | 245   |
+| 1016 | DC-12-A-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1017 | DC-12-B-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1018 | DC-12-C-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1019 | DC-12-D-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1020 | DC-12-E-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1021 | DC-12-F-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1022 | DC-12-Fa-upd-33 | DC-12 Passenger Plane  | green | 245   |
+| 1023 | DC-12-G-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1024 | DC-12-H-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1025 | DC-12-I-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1026 | DC-12-J-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1027 | DC-12-K-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1028 | DC-12-L-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1029 | DC-12-M-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1030 | DC-12-N-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1031 | DC-12-O-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1032 | DC-12-Oa-upd-33 | DC-12 Passenger Plane  | green | 245   |
+| 1033 | DC-12-P-upd-33  | DC-12 Passenger Plane  | green | 245   |
++------+-----------------+------------------------+-------+-------+
+e
+lscript31
++----+------+-------------+-------+-------+
+| id | name | description | color | seats |
++----+------+-------------+-------+-------+
++----+------+-------------+-------+-------+
+e
+lscript32
++------+-----------------+------------------------+-------+-------+
+| id   | name            | description            | color | seats |
++------+-----------------+------------------------+-------+-------+
+| 1001 | DC-10-B-33      | DC-10 Passenger Plane  | green | 245   |
+| 1002 | DC-10-C-33      | DC-10 Passenger Plane  | green | 245   |
+| 1003 | DC-10-D-33      | DC-10 Passenger Plane  | green | 245   |
+| 1004 | DC-10-E-33      | DC-10 Passenger Plane  | green | 245   |
+| 1005 | DC-10-F-33      | DC-10 Passenger Plane  | green | 245   |
+| 1006 | DC-10-G-33      | DC-10 Passenger Plane  | green | 245   |
+| 1007 | DC-10-H-33      | DC-10 Passenger Plane  | green | 245   |
+| 1008 | DC-10-I-33      | DC-10 Passenger Plane  | green | 245   |
+| 1009 | DC-10-J-33      | DC-10 Passenger Plane  | green | 245   |
+| 1010 | DC-10-K-33      | DC-10 Passenger Plane  | green | 245   |
+| 1011 | DC-10-L-33      | DC-10 Passenger Plane  | green | 245   |
+| 1012 | DC-10-M-33      | DC-10 Passenger Plane  | green | 245   |
+| 1013 | DC-10-N-33      | DC-10 Passenger Plane  | green | 245   |
+| 1014 | DC-10-O-33      | DC-10 Passenger Plane  | green | 245   |
+| 1015 | DC-10-P-33      | DC-10 Passenger Plane  | green | 245   |
+| 1016 | DC-12-A-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1017 | DC-12-B-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1018 | DC-12-C-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1019 | DC-12-D-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1020 | DC-12-E-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1021 | DC-12-F-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1022 | DC-12-Fa-upd-33 | DC-12 Passenger Plane  | green | 245   |
+| 1023 | DC-12-G-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1024 | DC-12-H-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1025 | DC-12-I-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1026 | DC-12-J-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1027 | DC-12-K-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1028 | DC-12-L-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1029 | DC-12-M-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1030 | DC-12-N-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1031 | DC-12-O-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1032 | DC-12-Oa-upd-33 | DC-12 Passenger Plane  | green | 245   |
+| 1033 | DC-12-P-upd-33  | DC-12 Passenger Plane  | green | 245   |
+| 1034 | AB0093-1-33     | AB0093 Passenger Plane | green | 245   |
+| 1035 | AB0093-2-33     | AB0093 Passenger Plane | green | 245   |
+| 1036 | AB0093-3-33     | AB0093 Passenger Plane | green | 245   |
+| 1037 | AB0093-4-33     | AB0093 Passenger Plane | green | 245   |
+| 1038 | AB0093-5-33     | AB0093 Passenger Plane | green | 245   |
+| 1039 | AB0093-6-33     | AB0093 Passenger Plane | green | 245   |
+| 1040 | AB0093-7-33     | AB0093 Passenger Plane | green | 245   |
+| 1041 | AB0093-8-33     | AB0093 Passenger Plane | green | 245   |
+| 1042 | AB0093-9-33     | AB0093 Passenger Plane | green | 245   |
++------+-----------------+------------------------+-------+-------+
+e
+lscript33
++--------------------------+---------------+-------------+---------------------+--------------------------+--------------------------+-----------------------+
+| CONCAT('a','BCD','EF',1) | (5 + 10) * 20 | SIGN(-4333) | ROUND(4334.54493,2) | LOWER('JIIKLDKF kfooeF') | UPPER('kOFdsood oFpQQW') | SUBSTRING('tubs',0,3) |
++--------------------------+---------------+-------------+---------------------+--------------------------+--------------------------+-----------------------+
+| aBCDEF1                  | 300           | -1          | 4334.54             | jiikldkf kfooef          | KOFDSOOD OFPQQW          | tub                   |
++--------------------------+---------------+-------------+---------------------+--------------------------+--------------------------+-----------------------+
+e
+lscript34
++------------------------+-----------------------------------+--------------------+-----------------------+
+| LEAST('a','b','A','B') | GREATEST('h','H','l','L','9','3') | LEAST(6,8,6,3,4,1) | GREATEST(6,8,6,3,4,1) |
++------------------------+-----------------------------------+--------------------+-----------------------+
+| A                      | l                                 | 1                  | 8                     |
++------------------------+-----------------------------------+--------------------+-----------------------+
+e
+lscript35
++---------------------------------------+--------------------------------------+-----------------------------------+------------------------------------+--------------------------------------+-------------------------------------+-----------------------+-----------------------+-------------------------------+-------------------------------+-----------------------+-------------------------------------+-------------------------------------+
+| sql_trim('trailing','a','abbbbcaaaa') | sql_trim('leading','a','abbbbcaaaa') | sql_trim('both','a','abbbbcaaaa') | sql_trim('both','abc','abcabcabc') | sql_trim('both','abc','abcabcababc') | sql_trim('both','ab','abcabcababc') | LTRIM('      yak   ') | RTRIM('      yak   ') | LENGTH(LTRIM('      yak   ')) | LENGTH(RTRIM('      yak   ')) | RTRIM('aaaaaayakaaa') | sql_trim('both',' ','aaaaaayakaaa') | sql_trim('both',' ','      yak   ') |
++---------------------------------------+--------------------------------------+-----------------------------------+------------------------------------+--------------------------------------+-------------------------------------+-----------------------+-----------------------+-------------------------------+-------------------------------+-----------------------+-------------------------------------+-------------------------------------+
+| abbbbc                                | bbbbcaaaa                            | bbbbc                             |                                    | ab                                   | cabcababc                           | yak                   |       yak             | 6                             | 12                            | aaaaaayakaaa          | aaaaaayakaaa                        | yak                                 |
++---------------------------------------+--------------------------------------+-----------------------------------+------------------------------------+--------------------------------------+-------------------------------------+-----------------------+-----------------------+-------------------------------+-------------------------------+-----------------------+-------------------------------------+-------------------------------------+
+e
+lscript36
++----+--------------+----------------+-----------------------+----------+----------+----------+
+| id | number       | name           | address1              | address2 | address3 | address4 |
++----+--------------+----------------+-----------------------+----------+----------+----------+
+| 0  | 05530-6528   | Bobby Davis    | 7 Main Road           |          |          |          |
+| 1  | 055396-6540  | Peter Lack     | 19 Fredrickson Street |          |          |          |
+| 2  | 0553192-6552 | Bob Dobe       | 911 Copitait Av.      |          |          |          |
+| 3  | 0553288-6564 | Richard Daniel | 25 Broom Street       |          |          |          |
+| 4  | 0553384-6576 | James Gresh    | 1228 Davis Bv.        |          |          |          |
+| 5  | 0553480-6588 | Ian Peterson   | 9 Mig Flip St.        |          |          |          |
+| 6  | 0553576-6600 | Tobias Downer  | 96 Yemm Street        |          |          |          |
++----+--------------+----------------+-----------------------+----------+----------+----------+
+e
+lscript37
++----+--------------+---------------+-----------------------+----------+----------+----------+--------+
+| id | number       | name          | address1              | address2 | address3 | address4 | price  |
++----+--------------+---------------+-----------------------+----------+----------+----------+--------+
+| 0  | 05530-6528   | Bobby Davis   | 7 Main Road           |          |          |          | 700.00 |
+| 0  | 05530-6528   | Bobby Davis   | 7 Main Road           |          |          |          | 660.00 |
+| 1  | 055396-6540  | Peter Lack    | 19 Fredrickson Street |          |          |          | 420.00 |
+| 2  | 0553192-6552 | Bob Dobe      | 911 Copitait Av.      |          |          |          | 400.00 |
+| 2  | 0553192-6552 | Bob Dobe      | 911 Copitait Av.      |          |          |          | 440.00 |
+| 2  | 0553192-6552 | Bob Dobe      | 911 Copitait Av.      |          |          |          | 360.00 |
+| 5  | 0553480-6588 | Ian Peterson  | 9 Mig Flip St.        |          |          |          | 250.00 |
+| 6  | 0553576-6600 | Tobias Downer | 96 Yemm Street        |          |          |          | 480.00 |
++----+--------------+---------------+-----------------------+----------+----------+----------+--------+
+e
+lscript38
++---------------+
+| name          |
++---------------+
+| Bob Dobe      |
+| Bobby Davis   |
+| Ian Peterson  |
+| Peter Lack    |
+| Tobias Downer |
++---------------+
+e
+lscript39
++----------------+--------+
+| name           | number |
++----------------+--------+
+| Bob Dobe       | EN-13  |
+| Bob Dobe       | EN-15  |
+| Bob Dobe       | KL-72  |
+| Bobby Davis    | DL-12  |
+| Bobby Davis    | WD-14  |
+| Ian Peterson   | EN-15  |
+| James Gresh    | NULL   |
+| Peter Lack     | DL-47  |
+| Richard Daniel | NULL   |
+| Tobias Downer  | EN-13  |
++----------------+--------+
+e
+lscript40
++--------+--------+
+| number | price  |
++--------+--------+
+| DL-12  | 700.00 |
+| DL-47  | 420.00 |
+| EN-13  | 440.00 |
+| EN-13  | 480.00 |
+| EN-15  | 400.00 |
+| EN-15  | 250.00 |
+| KL-72  | 360.00 |
+| LL-90  | NULL   |
+| WD-14  | 660.00 |
++--------+--------+
+e
+lscript41
++--------+-------------------+
+| number | AVG(Ticket.price) |
++--------+-------------------+
+| DL-12  | 700.0000000000    |
+| DL-47  | 420.0000000000    |
+| EN-13  | 460.0000000000    |
+| EN-15  | 325.0000000000    |
+| KL-72  | 360.0000000000    |
+| LL-90  | NULL              |
+| WD-14  | 660.0000000000    |
++--------+-------------------+
+e
+lscript42
++----------+----------+
+| test_col | testcol2 |
++----------+----------+
+| test1    | test2    |
+| test3    | test4    |
+| A400     | A200     |
+| A900     | B433     |
+| D400     | A200     |
+| U65900   | B1433    |
+| UA900    | D        |
+| Z        |          |
+|          | C333     |
+| NULL     | JJII     |
+| NULL     | AFDD     |
++----------+----------+
+e
+lscript43
++----------+----------+
+| test_col | testcol2 |
++----------+----------+
+|          | C333     |
++----------+----------+
+e
+lscript44
++----------+----------+
+| test_col | testcol2 |
++----------+----------+
+| A400     | A200     |
+| A900     | B433     |
++----------+----------+
+e
+lscript45
++----------+----------+
+| test_col | testcol2 |
++----------+----------+
+| A400     | A200     |
+| A900     | B433     |
++----------+----------+
+e
+lscript46
++----------+----------+
+| test_col | testcol2 |
++----------+----------+
+| A400     | A200     |
+| A900     | B433     |
+| D400     | A200     |
+| U65900   | B1433    |
+| Z        |          |
++----------+----------+
+e
+lscript47
++----------+----------+
+| test_col | testcol2 |
++----------+----------+
+| A400     | A200     |
+| A900     | B433     |
+| D400     | A200     |
+| U65900   | B1433    |
+| Z        |          |
++----------+----------+
+e
+lscript48
++----------+----------+
+| test_col | testcol2 |
++----------+----------+
+| test1    | test2    |
+| test3    | test4    |
+| UA900    | D        |
+|          | C333     |
++----------+----------+
+e
+lscript49
++----------+----------+
+| test_col | testcol2 |
++----------+----------+
+| NULL     | JJII     |
+| NULL     | AFDD     |
++----------+----------+
+e
+lscript50
++----------+----------+
+| test_col | testcol2 |
++----------+----------+
+|          | C333     |
+| A400     | A200     |
+| A900     | B433     |
+| D400     | A200     |
+| U65900   | B1433    |
+| UA900    | D        |
+| Z        |          |
+| test1    | test2    |
+| test3    | test4    |
++----------+----------+
+e
+lscript51
++----------+----------+
+| test_col | testcol2 |
++----------+----------+
+| NULL     | JJII     |
+| NULL     | AFDD     |
++----------+----------+
+e
+lscript52
++----------+----------+
+| test_col | testcol2 |
++----------+----------+
+|          | C333     |
+| A400     | A200     |
+| A900     | B433     |
+| D400     | A200     |
+| U65900   | B1433    |
+| UA900    | D        |
+| Z        |          |
+| test1    | test2    |
+| test3    | test4    |
++----------+----------+
+e
+lscript53
++----------+----------+
+| test_col | testcol2 |
++----------+----------+
+| NULL     | JJII     |
+| NULL     | AFDD     |
+|          | C333     |
+| A400     | A200     |
+| A900     | B433     |
+| D400     | A200     |
+| U65900   | B1433    |
+| UA900    | D        |
+| Z        |          |
+| test1    | test2    |
+| test3    | test4    |
++----------+----------+
+e
+lscript54
++------+-----------------+-----------------------+-------+-------+---------------+
+| id   | name            | description           | color | seats | 1 / id = NULL |
++------+-----------------+-----------------------+-------+-------+---------------+
+| 0    | DC-10-A         | DC-10 Passenger Plane | green | 245   | true          |
+| 1033 | DC-12-P-upd-33  | DC-12 Passenger Plane | green | 245   | false         |
+| 1032 | DC-12-Oa-upd-33 | DC-12 Passenger Plane | green | 245   | false         |
+| 1031 | DC-12-O-upd-33  | DC-12 Passenger Plane | green | 245   | false         |
+| 1030 | DC-12-N-upd-33  | DC-12 Passenger Plane | green | 245   | false         |
+| 1029 | DC-12-M-upd-33  | DC-12 Passenger Plane | green | 245   | false         |
+| 1028 | DC-12-L-upd-33  | DC-12 Passenger Plane | green | 245   | false         |
+| 1027 | DC-12-K-upd-33  | DC-12 Passenger Plane | green | 245   | false         |
+| 1026 | DC-12-J-upd-33  | DC-12 Passenger Plane | green | 245   | false         |
+| 1025 | DC-12-I-upd-33  | DC-12 Passenger Plane | green | 245   | false         |
+| 1024 | DC-12-H-upd-33  | DC-12 Passenger Plane | green | 245   | false         |
+| 1023 | DC-12-G-upd-33  | DC-12 Passenger Plane | green | 245   | false         |
+| 1022 | DC-12-Fa-upd-33 | DC-12 Passenger Plane | green | 245   | false         |
+| 1021 | DC-12-F-upd-33  | DC-12 Passenger Plane | green | 245   | false         |
+| 1020 | DC-12-E-upd-33  | DC-12 Passenger Plane | green | 245   | false         |
+| 1019 | DC-12-D-upd-33  | DC-12 Passenger Plane | green | 245   | false         |
+| 1018 | DC-12-C-upd-33  | DC-12 Passenger Plane | green | 245   | false         |
+| 1017 | DC-12-B-upd-33  | DC-12 Passenger Plane | green | 245   | false         |
+| 1016 | DC-12-A-upd-33  | DC-12 Passenger Plane | green | 245   | false         |
+| 1015 | DC-10-P-33      | DC-10 Passenger Plane | green | 245   | false         |
+| 1014 | DC-10-O-33      | DC-10 Passenger Plane | green | 245   | false         |
+| 1013 | DC-10-N-33      | DC-10 Passenger Plane | green | 245   | false         |
+| 1012 | DC-10-M-33      | DC-10 Passenger Plane | green | 245   | false         |
+| 1011 | DC-10-L-33      | DC-10 Passenger Plane | green | 245   | false         |
+| 1010 | DC-10-K-33      | DC-10 Passenger Plane | green | 245   | false         |
+| 1009 | DC-10-J-33      | DC-10 Passenger Plane | green | 245   | false         |
+| 1008 | DC-10-I-33      | DC-10 Passenger Plane | green | 245   | false         |
+| 1007 | DC-10-H-33      | DC-10 Passenger Plane | green | 245   | false         |
+| 1006 | DC-10-G-33      | DC-10 Passenger Plane | green | 245   | false         |
+| 1005 | DC-10-F-33      | DC-10 Passenger Plane | green | 245   | false         |
+| 1004 | DC-10-E-33      | DC-10 Passenger Plane | green | 245   | false         |
+| 1003 | DC-10-D-33      | DC-10 Passenger Plane | green | 245   | false         |
+| 1002 | DC-10-C-33      | DC-10 Passenger Plane | green | 245   | false         |
+| 1001 | DC-10-B-33      | DC-10 Passenger Plane | green | 245   | false         |
+| 1000 | DC-10-A-33      | DC-10 Passenger Plane | green | 245   | false         |
+| 33   | DC-12-P-upd     | DC-12 Passenger Plane | green | 245   | false         |
+| 32   | DC-12-Oa-upd    | DC-12 Passenger Plane | green | 245   | false         |
+| 31   | DC-12-O-upd     | DC-12 Passenger Plane | green | 245   | false         |
+| 30   | DC-12-N-upd     | DC-12 Passenger Plane | green | 245   | false         |
+| 29   | DC-12-M-upd     | DC-12 Passenger Plane | green | 245   | false         |
+| 28   | DC-12-L-upd     | DC-12 Passenger Plane | green | 245   | false         |
+| 27   | DC-12-K-upd     | DC-12 Passenger Plane | green | 245   | false         |
+| 26   | DC-12-J-upd     | DC-12 Passenger Plane | green | 245   | false         |
+| 25   | DC-12-I-upd     | DC-12 Passenger Plane | green | 245   | false         |
+| 24   | DC-12-H-upd     | DC-12 Passenger Plane | green | 245   | false         |
+| 23   | DC-12-G-upd     | DC-12 Passenger Plane | green | 245   | false         |
+| 22   | DC-12-Fa-upd    | DC-12 Passenger Plane | green | 245   | false         |
+| 21   | DC-12-F-upd     | DC-12 Passenger Plane | green | 245   | false         |
+| 20   | DC-12-E-upd     | DC-12 Passenger Plane | green | 245   | false         |
+| 19   | DC-12-D-upd     | DC-12 Passenger Plane | green | 245   | false         |
+| 18   | DC-12-C-upd     | DC-12 Passenger Plane | green | 245   | false         |
+| 17   | DC-12-B-upd     | DC-12 Passenger Plane | green | 245   | false         |
+| 16   | DC-12-A-upd     | DC-12 Passenger Plane | green | 245   | false         |
+| 15   | DC-10-P         | DC-10 Passenger Plane | green | 245   | false         |
+| 14   | DC-10-O         | DC-10 Passenger Plane | green | 245   | false         |
+| 13   | DC-10-N         | DC-10 Passenger Plane | green | 245   | false         |
+| 12   | DC-10-M         | DC-10 Passenger Plane | green | 245   | false         |
+| 11   | DC-10-L         | DC-10 Passenger Plane | green | 245   | false         |
+| 10   | DC-10-K         | DC-10 Passenger Plane | green | 245   | false         |
+| 9    | DC-10-J         | DC-10 Passenger Plane | green | 245   | false         |
+| 8    | DC-10-I         | DC-10 Passenger Plane | green | 245   | false         |
+| 7    | DC-10-H         | DC-10 Passenger Plane | green | 245   | false         |
+| 6    | DC-10-G         | DC-10 Passenger Plane | green | 245   | false         |
+| 5    | DC-10-F         | DC-10 Passenger Plane | green | 245   | false         |
+| 4    | DC-10-E         | DC-10 Passenger Plane | green | 245   | false         |
+| 3    | DC-10-D         | DC-10 Passenger Plane | green | 245   | false         |
+| 2    | DC-10-C         | DC-10 Passenger Plane | green | 245   | false         |
+| 1    | DC-10-B         | DC-10 Passenger Plane | green | 245   | false         |
++------+-----------------+-----------------------+-------+-------+---------------+
+e
+lscript55
++------+-----------------+------------------------+-------+-------+--------------+
+| id   | name            | description            | color | seats | inv          |
++------+-----------------+------------------------+-------+-------+--------------+
+| 0    | DC-10-A         | DC-10 Passenger Plane  | green | 245   | NULL         |
+| 1042 | AB0093-9-33     | AB0093 Passenger Plane | green | 245   | 0.0009596929 |
+| 1041 | AB0093-8-33     | AB0093 Passenger Plane | green | 245   | 0.0009606148 |
+| 1040 | AB0093-7-33     | AB0093 Passenger Plane | green | 245   | 0.0009615385 |
+| 1039 | AB0093-6-33     | AB0093 Passenger Plane | green | 245   | 0.0009624639 |
+| 1038 | AB0093-5-33     | AB0093 Passenger Plane | green | 245   | 0.0009633911 |
+| 1037 | AB0093-4-33     | AB0093 Passenger Plane | green | 245   | 0.0009643202 |
+| 1036 | AB0093-3-33     | AB0093 Passenger Plane | green | 245   | 0.0009652510 |
+| 1035 | AB0093-2-33     | AB0093 Passenger Plane | green | 245   | 0.0009661836 |
+| 1034 | AB0093-1-33     | AB0093 Passenger Plane | green | 245   | 0.0009671180 |
+| 1033 | DC-12-P-upd-33  | DC-12 Passenger Plane  | green | 245   | 0.0009680542 |
+| 1032 | DC-12-Oa-upd-33 | DC-12 Passenger Plane  | green | 245   | 0.0009689922 |
+| 1031 | DC-12-O-upd-33  | DC-12 Passenger Plane  | green | 245   | 0.0009699321 |
+| 1030 | DC-12-N-upd-33  | DC-12 Passenger Plane  | green | 245   | 0.0009708738 |
+| 1029 | DC-12-M-upd-33  | DC-12 Passenger Plane  | green | 245   | 0.0009718173 |
+| 1028 | DC-12-L-upd-33  | DC-12 Passenger Plane  | green | 245   | 0.0009727626 |
+| 1027 | DC-12-K-upd-33  | DC-12 Passenger Plane  | green | 245   | 0.0009737098 |
+| 1026 | DC-12-J-upd-33  | DC-12 Passenger Plane  | green | 245   | 0.0009746589 |
+| 1025 | DC-12-I-upd-33  | DC-12 Passenger Plane  | green | 245   | 0.0009756098 |
+| 1024 | DC-12-H-upd-33  | DC-12 Passenger Plane  | green | 245   | 0.0009765625 |
+| 1023 | DC-12-G-upd-33  | DC-12 Passenger Plane  | green | 245   | 0.0009775171 |
+| 1022 | DC-12-Fa-upd-33 | DC-12 Passenger Plane  | green | 245   | 0.0009784736 |
+| 1021 | DC-12-F-upd-33  | DC-12 Passenger Plane  | green | 245   | 0.0009794319 |
+| 1020 | DC-12-E-upd-33  | DC-12 Passenger Plane  | green | 245   | 0.0009803922 |
+| 1019 | DC-12-D-upd-33  | DC-12 Passenger Plane  | green | 245   | 0.0009813543 |
+| 1018 | DC-12-C-upd-33  | DC-12 Passenger Plane  | green | 245   | 0.0009823183 |
+| 1017 | DC-12-B-upd-33  | DC-12 Passenger Plane  | green | 245   | 0.0009832842 |
+| 1016 | DC-12-A-upd-33  | DC-12 Passenger Plane  | green | 245   | 0.0009842520 |
+| 1015 | DC-10-P-33      | DC-10 Passenger Plane  | green | 245   | 0.0009852217 |
+| 1014 | DC-10-O-33      | DC-10 Passenger Plane  | green | 245   | 0.0009861933 |
+| 1013 | DC-10-N-33      | DC-10 Passenger Plane  | green | 245   | 0.0009871668 |
+| 1012 | DC-10-M-33      | DC-10 Passenger Plane  | green | 245   | 0.0009881423 |
+| 1011 | DC-10-L-33      | DC-10 Passenger Plane  | green | 245   | 0.0009891197 |
+| 1010 | DC-10-K-33      | DC-10 Passenger Plane  | green | 245   | 0.0009900990 |
+| 1009 | DC-10-J-33      | DC-10 Passenger Plane  | green | 245   | 0.0009910803 |
+| 1008 | DC-10-I-33      | DC-10 Passenger Plane  | green | 245   | 0.0009920635 |
+| 1007 | DC-10-H-33      | DC-10 Passenger Plane  | green | 245   | 0.0009930487 |
+| 1006 | DC-10-G-33      | DC-10 Passenger Plane  | green | 245   | 0.0009940358 |
+| 1005 | DC-10-F-33      | DC-10 Passenger Plane  | green | 245   | 0.0009950249 |
+| 1004 | DC-10-E-33      | DC-10 Passenger Plane  | green | 245   | 0.0009960159 |
+| 1003 | DC-10-D-33      | DC-10 Passenger Plane  | green | 245   | 0.0009970090 |
+| 1002 | DC-10-C-33      | DC-10 Passenger Plane  | green | 245   | 0.0009980040 |
+| 1001 | DC-10-B-33      | DC-10 Passenger Plane  | green | 245   | 0.0009990010 |
+| 1000 | DC-10-A-33      | DC-10 Passenger Plane  | green | 245   | 0.0010000000 |
+| 42   | AB0093-9        | AB0093 Passenger Plane | green | 245   | 0.0238095238 |
+| 41   | AB0093-8        | AB0093 Passenger Plane | green | 245   | 0.0243902439 |
+| 40   | AB0093-7        | AB0093 Passenger Plane | green | 245   | 0.0250000000 |
+| 39   | AB0093-6        | AB0093 Passenger Plane | green | 245   | 0.0256410256 |
+| 38   | AB0093-5        | AB0093 Passenger Plane | green | 245   | 0.0263157895 |
+| 37   | AB0093-4        | AB0093 Passenger Plane | green | 245   | 0.0270270270 |
+| 36   | AB0093-3        | AB0093 Passenger Plane | green | 245   | 0.0277777778 |
+| 35   | AB0093-2        | AB0093 Passenger Plane | green | 245   | 0.0285714286 |
+| 34   | AB0093-1        | AB0093 Passenger Plane | green | 245   | 0.0294117647 |
+| 33   | DC-12-P-upd     | DC-12 Passenger Plane  | green | 245   | 0.0303030303 |
+| 32   | DC-12-Oa-upd    | DC-12 Passenger Plane  | green | 245   | 0.0312500000 |
+| 31   | DC-12-O-upd     | DC-12 Passenger Plane  | green | 245   | 0.0322580645 |
+| 30   | DC-12-N-upd     | DC-12 Passenger Plane  | green | 245   | 0.0333333333 |
+| 29   | DC-12-M-upd     | DC-12 Passenger Plane  | green | 245   | 0.0344827586 |
+| 28   | DC-12-L-upd     | DC-12 Passenger Plane  | green | 245   | 0.0357142857 |
+| 27   | DC-12-K-upd     | DC-12 Passenger Plane  | green | 245   | 0.0370370370 |
+| 26   | DC-12-J-upd     | DC-12 Passenger Plane  | green | 245   | 0.0384615385 |
+| 25   | DC-12-I-upd     | DC-12 Passenger Plane  | green | 245   | 0.0400000000 |
+| 24   | DC-12-H-upd     | DC-12 Passenger Plane  | green | 245   | 0.0416666667 |
+| 23   | DC-12-G-upd     | DC-12 Passenger Plane  | green | 245   | 0.0434782609 |
+| 22   | DC-12-Fa-upd    | DC-12 Passenger Plane  | green | 245   | 0.0454545455 |
+| 21   | DC-12-F-upd     | DC-12 Passenger Plane  | green | 245   | 0.0476190476 |
+| 20   | DC-12-E-upd     | DC-12 Passenger Plane  | green | 245   | 0.0500000000 |
+| 19   | DC-12-D-upd     | DC-12 Passenger Plane  | green | 245   | 0.0526315789 |
+| 18   | DC-12-C-upd     | DC-12 Passenger Plane  | green | 245   | 0.0555555556 |
+| 17   | DC-12-B-upd     | DC-12 Passenger Plane  | green | 245   | 0.0588235294 |
+| 16   | DC-12-A-upd     | DC-12 Passenger Plane  | green | 245   | 0.0625000000 |
+| 15   | DC-10-P         | DC-10 Passenger Plane  | green | 245   | 0.0666666667 |
+| 14   | DC-10-O         | DC-10 Passenger Plane  | green | 245   | 0.0714285714 |
+| 13   | DC-10-N         | DC-10 Passenger Plane  | green | 245   | 0.0769230769 |
+| 12   | DC-10-M         | DC-10 Passenger Plane  | green | 245   | 0.0833333333 |
+| 11   | DC-10-L         | DC-10 Passenger Plane  | green | 245   | 0.0909090909 |
+| 10   | DC-10-K         | DC-10 Passenger Plane  | green | 245   | 0.1000000000 |
+| 9    | DC-10-J         | DC-10 Passenger Plane  | green | 245   | 0.1111111111 |
+| 8    | DC-10-I         | DC-10 Passenger Plane  | green | 245   | 0.1250000000 |
+| 7    | DC-10-H         | DC-10 Passenger Plane  | green | 245   | 0.1428571429 |
+| 6    | DC-10-G         | DC-10 Passenger Plane  | green | 245   | 0.1666666667 |
+| 5    | DC-10-F         | DC-10 Passenger Plane  | green | 245   | 0.2000000000 |
+| 4    | DC-10-E         | DC-10 Passenger Plane  | green | 245   | 0.2500000000 |
+| 3    | DC-10-D         | DC-10 Passenger Plane  | green | 245   | 0.3333333333 |
+| 2    | DC-10-C         | DC-10 Passenger Plane  | green | 245   | 0.5000000000 |
+| 1    | DC-10-B         | DC-10 Passenger Plane  | green | 245   | 1.0000000000 |
++------+-----------------+------------------------+-------+-------+--------------+
+e
+lscript57
++------+
+| '''' |
++------+
+| '    |
++------+
+e
+lscript58
++---------------+
+| '''Quoted!''' |
++---------------+
+| 'Quoted!'     |
++---------------+
+e
+lscript59
++---------------+
+| '\'Quoted!\'' |
++---------------+
+| 'Quoted!'     |
++---------------+
+e
+lscript60
++-------------------+
+| 'Toby''s example' |
++-------------------+
+| Toby's example    |
++-------------------+
+e
+lscript62
++--------+
+| result |
++--------+
+| 0      |
++--------+
+e
+lscript63
++----------+-----------+-----------+-----------+
+| count(*) | min(col1) | max(col1) | avg(col1) |
++----------+-----------+-----------+-----------+
+| 0        | NULL      | NULL      | NULL      |
++----------+-----------+-----------+-----------+
+e
+lscript64
++--------+
+| result |
++--------+
+| 1      |
++--------+
+e
+lscript65
++----------+-----------+-----------+---------------+
+| count(*) | min(col1) | max(col1) | avg(col1)     |
++----------+-----------+-----------+---------------+
+| 1        | 30        | 30        | 30.0000000000 |
++----------+-----------+-----------+---------------+
+e
+lscript66
++--------+
+| result |
++--------+
+| 1      |
++--------+
+e
+lscript67
++----------+-----------+-----------+---------------+
+| count(*) | min(col1) | max(col1) | avg(col1)     |
++----------+-----------+-----------+---------------+
+| 2        | 15        | 30        | 22.5000000000 |
++----------+-----------+-----------+---------------+
+e
+lscript68
++--------+
+| result |
++--------+
+| 5      |
++--------+
+e
+lscript69
++--------+
+| result |
++--------+
+| 5      |
++--------+
+e
+lscript70
++------+------+
+| col1 | col2 |
++------+------+
+| 10   | 12   |
+| 10   | 25   |
+| 10   | 25   |
+| 10   | 30   |
+| 15   | 12   |
+| 15   | 25   |
+| 15   | 30   |
+| 15   | 30   |
+| 19   | 12   |
+| 19   | 12   |
+| 19   | 25   |
+| 30   | 30   |
++------+------+
+e
+lscript71
++------+------+----------+
+| col1 | col2 | count(*) |
++------+------+----------+
+| 10   | 12   | 4        |
+| 15   | 30   | 4        |
+| 19   | 12   | 3        |
+| 30   | 30   | 1        |
++------+------+----------+
+e
+lscript72
++------+------+----------+
+| col1 | col2 | count(*) |
++------+------+----------+
+| 10   | 12   | 1        |
+| 10   | 25   | 2        |
+| 10   | 30   | 1        |
+| 15   | 12   | 1        |
+| 15   | 25   | 1        |
+| 15   | 30   | 2        |
+| 19   | 12   | 2        |
+| 19   | 25   | 1        |
+| 30   | 30   | 1        |
++------+------+----------+
+e
+lscript73
++------+------+
+| col1 | col2 |
++------+------+
+| 19   | 12   |
+| 19   | 25   |
+| 30   | 30   |
++------+------+
+e
+lscript74
++------+------+
+| col1 | col2 |
++------+------+
+| 10   | 12   |
+| 10   | 25   |
+| 10   | 30   |
+| 15   | 12   |
+| 15   | 25   |
+| 15   | 30   |
++------+------+
+e
+lscript75
++------+------+
+| col1 | col2 |
++------+------+
++------+------+
+e
+lscript76
++----------+-----------+-----------+
+| count(*) | min(col1) | max(col1) |
++----------+-----------+-----------+
+| 4        | 19        | 30        |
++----------+-----------+-----------+
+e
+lscript77
++----------+-----------+-----------+
+| count(*) | min(col1) | max(col1) |
++----------+-----------+-----------+
+| 8        | 10        | 15        |
++----------+-----------+-----------+
+e
+lscript78
++----------+-----------+-----------+
+| count(*) | min(col1) | max(col1) |
++----------+-----------+-----------+
+| 0        | NULL      | NULL      |
++----------+-----------+-----------+
+e
+lscript80
++---------------------------------------------+------+------+
+| _new_JavaObject('java.awt.Point',col1,col2) | col1 | col2 |
++---------------------------------------------+------+------+
+| java.awt.Point[x=10,y=12]                   | 10   | 12   |
+| java.awt.Point[x=15,y=12]                   | 15   | 12   |
+| java.awt.Point[x=19,y=12]                   | 19   | 12   |
+| java.awt.Point[x=19,y=12]                   | 19   | 12   |
+| java.awt.Point[x=10,y=25]                   | 10   | 25   |
+| java.awt.Point[x=10,y=25]                   | 10   | 25   |
+| java.awt.Point[x=15,y=25]                   | 15   | 25   |
+| java.awt.Point[x=19,y=25]                   | 19   | 25   |
+| java.awt.Point[x=10,y=30]                   | 10   | 30   |
+| java.awt.Point[x=15,y=30]                   | 15   | 30   |
+| java.awt.Point[x=15,y=30]                   | 15   | 30   |
+| java.awt.Point[x=30,y=30]                   | 30   | 30   |
++---------------------------------------------+------+------+
+e
+lscript81
++------------------------------------------------------------+------+------+
+| _new_JavaObject('java.awt.Point',(col1 * 8) + 20,col2 / 5) | col1 | col2 |
++------------------------------------------------------------+------+------+
+| java.awt.Point[x=140,y=5]                                  | 15   | 25   |
+| java.awt.Point[x=172,y=5]                                  | 19   | 25   |
+| java.awt.Point[x=140,y=6]                                  | 15   | 30   |
+| java.awt.Point[x=140,y=6]                                  | 15   | 30   |
+| java.awt.Point[x=260,y=6]                                  | 30   | 30   |
++------------------------------------------------------------+------+------+
+e
+lscript83
++---------------+
+| COUNT(number) |
++---------------+
+| 7             |
++---------------+
+e
+lscript84
++------------------------+
+| distinct_count(number) |
++------------------------+
+| 7                      |
++------------------------+
+e
+lscript85
++---------------------------------------+
+| distinct_count(SUBSTRING(number,0,1)) |
++---------------------------------------+
+| 5                                     |
++---------------------------------------+
+e
+lscript86
++-----------------------------------------------------------------------------------+
+| distinct_count(IF(id = 12 or id = 37,NULL,SUBSTRING(name,0,4)),SUBSTRING(id,0,1)) |
++-----------------------------------------------------------------------------------+
+| 15                                                                                |
++-----------------------------------------------------------------------------------+
+e
+lscript87
++-------------------------------------------------+-------------------+
+| IF(id = 12 or id = 37,NULL,SUBSTRING(name,0,4)) | SUBSTRING(id,0,1) |
++-------------------------------------------------+-------------------+
+| NULL                                            | 1                 |
+| NULL                                            | 3                 |
+| AB00                                            | 1                 |
+| AB00                                            | 3                 |
+| AB00                                            | 4                 |
+| DC-1                                            | 0                 |
+| DC-1                                            | 1                 |
+| DC-1                                            | 2                 |
+| DC-1                                            | 3                 |
+| DC-1                                            | 4                 |
+| DC-1                                            | 5                 |
+| DC-1                                            | 6                 |
+| DC-1                                            | 7                 |
+| DC-1                                            | 8                 |
+| DC-1                                            | 9                 |
++-------------------------------------------------+-------------------+
+e

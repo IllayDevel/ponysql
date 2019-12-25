@@ -1,0 +1,27 @@
+// NOTE: We assume that SubQueryTest has populared the database.
+
+<sql>
+   SELECT * FROM T1 
+    WHERE T1.c1 IN ( SELECT T2.c1 FROM T2 )
+ ORDER BY T1.c1
+</sql>
+
+<sql>
+   SELECT * FROM T1 
+    WHERE T1.c1 NOT IN ( SELECT T2.c1 FROM T2 )
+ ORDER BY T1.c1
+</sql>
+
+<sql>
+   SELECT * FROM T1 
+    WHERE T1.c1 = ( SELECT AVG(T3.c1) FROM T3 )
+ ORDER BY T1.c1
+</sql>
+
+<sql>
+   SELECT * FROM T1 
+    WHERE T1.c1 > ANY ( SELECT T3.c1 FROM T3 )
+ ORDER BY T1.c1
+</sql>
+
+

@@ -1,0 +1,410 @@
+
+   CREATE SCHEMA TESTS;
+
+   CREATE TABLE AirCraft
+  (              id NUMERIC NOT NULL,
+               name VARCHAR(50),
+        description VARCHAR(9000000),
+
+     CONSTRAINT pk_aircraft PRIMARY KEY ( id )
+  );
+
+   CREATE TABLE Customer
+  (              id NUMERIC NOT NULL,
+             number VARCHAR(50),
+               name VARCHAR(100),
+           address1 VARCHAR(250),
+           address2 VARCHAR(250),
+           address3 VARCHAR(250),
+           address4 VARCHAR(250),
+
+      CONSTRAINT pk_customer PRIMARY KEY ( id )
+  );
+
+   CREATE TABLE Flight
+  (              id NUMERIC NOT NULL,
+             number VARCHAR(50),
+             "from" VARCHAR(150),
+               "to" VARCHAR(150),
+            departs VARCHAR(100),
+            arrives VARCHAR(100),
+        aircraft_id NUMERIC,
+
+      CONSTRAINT pk_flight PRIMARY KEY ( id ),
+      CONSTRAINT from_to_check CHECK ( "from" <> "to" )
+  );
+
+   CREATE TABLE Ticket
+  (              id NUMERIC NOT NULL,
+        customer_id NUMERIC NOT NULL,
+          flight_id NUMERIC NOT NULL,
+              price NUMERIC,
+
+      CONSTRAINT pk_ticket PRIMARY KEY ( id ),
+      CONSTRAINT fk_1 FOREIGN KEY ( customer_id ) REFERENCES Customer,
+      CONSTRAINT fk_2 FOREIGN KEY ( flight_id ) REFERENCES Flight
+  );
+
+   CREATE TABLE TESTS.BinaryTest
+  (              id NUMERIC NOT NULL UNIQUE,
+               name VARCHAR(250),
+         binary_col LONGVARBINARY,
+        binary_col2 LONGVARBINARY
+  );
+
+   CREATE TABLE TESTS.MiscTest
+  (         test_col VARCHAR(250),
+            testcol2 VARCHAR(250)
+  );
+
+   CREATE TABLE TESTS.DropTest ( test_col INTEGER );
+   DROP TABLE TESTS.DropTest;
+   CREATE TABLE TESTS.DropTest (
+            test_col VARCHAR(50),
+            test_col2 NUMERIC,
+            test_col3 VARCHAR(3000000)
+   );
+   DROP TABLE TESTS.DropTest;
+
+
+  CREATE TRIGGER flight_trigger INSERT ON Flight;
+  CREATE TRIGGER aircraft_trigger INSERT ON AirCraft;
+  CREATE TRIGGER aircraft_update_trigger UPDATE ON AirCraft;
+  CREATE TRIGGER customer_trigger INSERT ON Customer;
+
+
+   SHOW TABLES;
+
+
+   INSERT INTO TESTS.BinaryTest
+       ( id, name, binary_col, binary_col2 )
+     VALUES
+       ( UNIQUEKEY('TESTS.BinaryTest'), '\'Binary Test1\'', 'Is this stored as Binary?', 'Store this as binary please.' ),
+       ( UNIQUEKEY('TESTS.BinaryTest'), '\'Binary Test2\'', 1000.43, 'Another test to see if this is stored as a binary.' )
+;
+
+   INSERT INTO TESTS.MiscTest
+       ( test_col, testcol2 )
+     VALUES
+       ( 'test1', 'test2'  ),
+       ( 'test3', 'test4'  ),
+       ( 'A400', 'A200'    ),
+       ( 'A900', 'B433'    ),
+       ( 'D400', 'A200'    ),
+       ( 'U65900', 'B1433' ),
+       ( 'UA900', 'D'      ),
+       ( 'Z', ''           ),
+       ( '', 'C333'        )
+;
+
+   INSERT INTO TESTS.MiscTest
+       ( testcol2 )
+     VALUES
+       ( 'JJII' ),
+       ( 'AFDD' )
+;
+
+   INSERT INTO AirCraft
+       ( id, name, description )
+     VALUES
+       ( UNIQUEKEY('AirCraft'), 'DC-10-A', 'DC-10 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-10-B', 'DC-10 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-10-C', 'DC-10 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-10-D', 'DC-10 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-10-E', 'DC-10 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-10-F', 'DC-10 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-10-G', 'DC-10 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-10-H', 'DC-10 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-10-I', 'DC-10 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-10-J', 'DC-10 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-10-K', 'DC-10 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-10-L', 'DC-10 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-10-M', 'DC-10 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-10-N', 'DC-10 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-10-O', 'DC-10 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-10-P', 'DC-10 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-12-A', 'DC-12 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-12-B', 'DC-12 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-12-C', 'DC-12 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-12-D', 'DC-12 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-12-E', 'DC-12 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-12-F', 'DC-12 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-12-Fa', 'DC-12 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-12-G', 'DC-12 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-12-H', 'DC-12 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-12-I', 'DC-12 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-12-J', 'DC-12 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-12-K', 'DC-12 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-12-L', 'DC-12 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-12-M', 'DC-12 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-12-N', 'DC-12 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-12-O', 'DC-12 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-12-Oa', 'DC-12 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'DC-12-P', 'DC-12 Passenger Plane' )
+;
+
+   INSERT INTO AirCraft
+       ( id, name, description )
+     VALUES
+       ( UNIQUEKEY('AirCraft'), 'AB0093-1', 'AB0093 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'AB0093-2', 'AB0093 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'AB0093-3', 'AB0093 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'AB0093-4', 'AB0093 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'AB0093-5', 'AB0093 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'AB0093-6', 'AB0093 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'AB0093-7', 'AB0093 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'AB0093-8', 'AB0093 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'AB0093-9', 'AB0093 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'AB0093-10', 'AB0093 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'AB0093-11', 'AB0093 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'AB0093-12', 'AB0093 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'AB0093-13', 'AB0093 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'AB0093-14', 'AB0093 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'AB0093-15', 'AB0093 Passenger Plane' ),
+       ( UNIQUEKEY('AirCraft'), 'AB0093-16', 'AB0093 Passenger Plane' )
+;
+
+   UPDATE AirCraft SET "AirCraft.name" = CONCAT("AirCraft.name", '-upd')
+     WHERE "APP.AirCraft.name" LIKE 'DC-12-%'
+;
+
+   DELETE FROM AirCraft WHERE description = 'NOTHING';
+   DELETE FROM AirCraft WHERE AirCraft.name LIKE '%-1_';
+   INSERT INTO AirCraft SELECT id + 1000, CONCAT(name, '-33'), description FROM AirCraft;
+
+
+   INSERT INTO Customer
+       ( id, number, name, address1, address2, address3, address4 )
+     VALUES
+       ( UNIQUEKEY('Customer'), CONCAT('0553', (id * 96), '-', ((id + 544) * 12)),
+            'Bobby Davis', '7 Main Road', '', '', '' ),
+       ( UNIQUEKEY('Customer'), CONCAT('0553', (id * 96), '-', ((id + 544) * 12)),
+            'Peter Lack', '19 Fredrickson Street', '', '', '' ),
+       ( UNIQUEKEY('Customer'), CONCAT('0553', (id * 96), '-', ((id + 544) * 12)),
+            'Bob Dobe', '911 Copitait Av.', '', '', '' ),
+       ( UNIQUEKEY('Customer'), CONCAT('0553', (id * 96), '-', ((id + 544) * 12)),
+            'Richard Daniel', '25 Broom Street', '', '', '' ),
+       ( UNIQUEKEY('Customer'), CONCAT('0553', (id * 96), '-', ((id + 544) * 12)),
+            'James Gresh', '1228 Davis Bv.', '', '', '' ),
+       ( UNIQUEKEY('Customer'), CONCAT('0553', (id * 96), '-', ((id + 544) * 12)),
+            'Ian Peterson', '9 Mig Flip St.', '', '', '' ),
+       ( UNIQUEKEY('Customer'), CONCAT('0553', (id * 96), '-', ((id + 544) * 12)),
+            'Tobias Downer', '96 Yemm Street', '', '', '' )
+;
+
+   INSERT INTO Flight
+       ( id, number, "from", "to", departs, arrives, aircraft_id )
+     VALUES
+       ( UNIQUEKEY('Flight'), 'EN-13', 'Manchester, England', 'Dublin, Ireland',
+         'September 1, 2001 13:15', 'September 1, 2001 15:20', 5 ),
+       ( UNIQUEKEY('Flight'), 'EN-15', 'Sheffield, England', 'Isle Of Wight, England',
+         'September 7, 2001 10:45', 'September 2, 2001 13:25', 8 ),
+       ( UNIQUEKEY('Flight'), 'KL-72', 'Paris, France', 'Tokyo, Japan',
+         'September 9, 2001 17:10', 'September 10, 2001 04:00', 13 ),
+       ( UNIQUEKEY('Flight'), 'DL-12', 'Melbourne, Australia', 'New York, USA',
+         'September 12, 2001 09:30', 'September 13, 2001 00:15', 15 ),
+       ( UNIQUEKEY('Flight'), 'WD-14', 'New York, USA', 'Amsterdam, Holland',
+         'September 13, 2001 00:45', 'September 13, 2001 11:10', 20 ),
+       ( UNIQUEKEY('Flight'), 'LL-90', 'Hong Kong, China', 'Calcutta, India',
+         'September 23, 2001 12:10', 'September 23, 2001 19:55', 3 ),
+       ( UNIQUEKEY('Flight'), 'DL-47', 'Cincinnati', 'London - Heathrow',
+         'October 2, 2001 02:15', 'October 2, 2001 11:15', 14 )
+;
+
+   INSERT INTO Ticket
+       ( id, customer_id, flight_id, price )
+     VALUES
+       ( UNIQUEKEY('Ticket'), 3, 2, 400.00 ),
+       ( UNIQUEKEY('Ticket'), 3, 1, 440.00 ),
+       ( UNIQUEKEY('Ticket'), 3, 3, 360.00 ),
+       ( UNIQUEKEY('Ticket'), 6, 2, 250.00 ),
+       ( UNIQUEKEY('Ticket'), 7, 1, 480.00 ),
+       ( UNIQUEKEY('Ticket'), 1, 4, 700.00 ),
+       ( UNIQUEKEY('Ticket'), 1, 5, 660.00 ),
+       ( UNIQUEKEY('Ticket'), 2, 7, 420.00 )
+;
+
+
+   ALTER TABLE AirCraft ADD color VARCHAR(200) DEFAULT 'green';
+   ALTER TABLE AirCraft ADD seats INT DEFAULT 245;
+
+
+   SELECT * FROM AirCraft
+;
+
+   SELECT * FROM AirCraft WHERE id < 0
+;
+
+   SELECT * FROM AirCraft WHERE id < 0 OR id > 1000
+;
+
+
+   SELECT CONCAT('a', 'BCD', 'EF', 1),
+          (5 + 10) * 20,
+          SIGN(-4333),
+          ROUND(4334.54493, 2),
+          LOWER('JIIKLDKF kfooeF'),
+          UPPER('kOFdsood oFpQQW'),
+          SUBSTRING('tubs', 0, 3)
+;
+
+   SELECT LEAST('a', 'b', 'A', 'B'),
+          GREATEST('h', 'H', 'l', 'L', '9', '3'),
+          LEAST(6, 8, 6, 3, 4, 1),
+          GREATEST(6, 8, 6, 3, 4, 1)
+;
+          
+   SELECT TRIM(TRAILING 'a' FROM 'abbbbcaaaa'),
+          TRIM(LEADING 'a' FROM 'abbbbcaaaa'),
+          TRIM(BOTH 'a' FROM 'abbbbcaaaa'),
+          TRIM('abc' FROM 'abcabcabc'),
+          TRIM('abc' FROM 'abcabcababc'),
+          TRIM('ab' FROM 'abcabcababc'),
+          LTRIM('      yak   '),
+          RTRIM('      yak   '),
+          LENGTH(LTRIM('      yak   ')),
+          LENGTH(RTRIM('      yak   ')),
+          RTRIM('aaaaaayakaaa'),
+          TRIM('aaaaaayakaaa'),
+          TRIM('      yak   ')
+   ;
+
+
+
+   SELECT *
+     FROM Customer
+;
+
+   SELECT Customer.*, Ticket.price
+     FROM Customer, Ticket
+    WHERE Customer.id = Ticket.customer_id
+;
+
+   SELECT Customer.name
+     FROM Customer
+    WHERE Customer.id IN ( SELECT customer_id FROM Ticket )
+ ORDER BY Customer.name
+;
+
+
+   SELECT Customer.name, Flight.number
+     FROM Customer LEFT OUTER JOIN Ticket ON Customer.id = Ticket.customer_id
+                   LEFT OUTER JOIN Flight ON Ticket.flight_id = Flight.id
+ ORDER BY Customer.name
+;
+
+   SELECT Flight.number, Ticket.price
+     FROM Flight LEFT OUTER JOIN Ticket ON ( Flight.id = Ticket.flight_id )
+ ORDER BY Flight.number
+;
+
+   SELECT Flight.number, AVG(Ticket.price)
+     FROM Flight LEFT OUTER JOIN Ticket ON ( Flight.id = Ticket.flight_id )
+ GROUP BY Flight.number
+ ORDER BY Flight.number
+;
+
+
+
+   SELECT * FROM TESTS.MiscTest;
+
+   SELECT *
+     FROM TESTS.MiscTest
+    WHERE test_col LIKE ''
+;
+
+   SELECT *
+     FROM TESTS.MiscTest
+    WHERE test_col LIKE 'A%'
+;
+
+   SELECT *
+     FROM TESTS.MiscTest
+    WHERE test_col REGEX 'A.*'
+;
+
+   SELECT *
+     FROM TESTS.MiscTest
+    WHERE test_col REGEX /.[0-9]*/
+;
+
+   SELECT *
+     FROM TESTS.MiscTest
+    WHERE test_col REGEX /.[0-9]*/ = true
+;
+
+   SELECT *
+     FROM TESTS.MiscTest
+    WHERE test_col REGEX /.[0-9]*/ = false
+;
+
+   SELECT * FROM TESTS.MiscTest WHERE test_col IS NULL;
+
+   SELECT * FROM TESTS.MiscTest WHERE test_col IS NOT NULL;
+
+   SELECT * FROM TESTS.MiscTest WHERE MiscTest.test_col = NULL;
+
+   SELECT * FROM TESTS.MiscTest WHERE TESTS.MiscTest.test_col <> NULL;
+
+   SELECT * FROM TESTS.MiscTest WHERE test_col >= NULL;
+
+   SELECT *, 1 / id = NULL FROM AirCraft WHERE description REGEX /dc.+/i ORDER BY 1 / id;
+
+   SELECT *, 1 / id AS inv FROM AirCraft ORDER BY inv;
+
+// Escaping in string literals.
+;
+
+   SELECT '''';
+   SELECT '''Quoted!''';
+   SELECT '\'Quoted!\'';
+   SELECT 'Toby''s example';
+
+// Aggregate functions over lists with no group by clause
+;
+
+   CREATE TABLE count_test ( col1 INTEGER, col2 INTEGER );
+   SELECT count(*), min(col1), max(col1), avg(col1) FROM count_test;
+   INSERT INTO count_test ( col1, col2 ) VALUES ( 30, 30 );
+   SELECT count(*), min(col1), max(col1), avg(col1) FROM count_test;
+   INSERT INTO count_test ( col1, col2 ) VALUES ( 15, 30 );
+   SELECT count(*), min(col1), max(col1), avg(col1) FROM count_test;
+
+   INSERT INTO count_test ( col1, col2 ) VALUES ( 15, 12 ), ( 15, 25 ), ( 15, 30 ), ( 19, 12 ), ( 19, 25 );
+   INSERT INTO count_test ( col1, col2 ) VALUES ( 10, 12 ), ( 10, 25 ), ( 10, 30 ), ( 19, 12 ), ( 10, 25 );
+
+   SELECT col1, col2 FROM count_test ORDER BY col1, col2;
+   SELECT col1, col2, count(*) FROM count_test GROUP BY col1 ORDER BY col1, col2;
+   SELECT col1, col2, count(*) FROM count_test GROUP BY col1, col2 ORDER BY col1, col2;
+
+   SELECT col1, col2 FROM count_test WHERE col1 >= 19 GROUP BY col1, col2 ORDER BY col1, col2;
+   SELECT col1, col2 FROM count_test WHERE col1 < 19 GROUP BY col1, col2 ORDER BY col1, col2;
+   SELECT col1, col2 FROM count_test WHERE col1 > 1000 GROUP BY col1, col2 ORDER BY col1, col2;
+
+   SELECT count(*), min(col1), max(col1) FROM count_test WHERE col1 >= 19;
+   SELECT count(*), min(col1), max(col1) FROM count_test WHERE col1 < 19;
+   SELECT count(*), min(col1), max(col1) FROM count_test WHERE col1 > 1000;
+
+// Instantiation of Java objects
+;
+
+     SELECT new java.awt.Point(col1, col2), col1, col2 FROM count_test ORDER BY col2, col1;
+     SELECT new java.awt.Point((col1 * 8) + 20, col2 / 5), col1, col2
+       FROM count_test
+      WHERE col1 >= 15 AND col2 > 12
+   ORDER BY col2, (col1 * 8) + 20;
+
+// Distinct counts
+;
+
+    SELECT COUNT(number) FROM Flight;
+    SELECT COUNT(DISTINCT number) FROM Flight;
+    SELECT COUNT(DISTINCT SUBSTRING(number, 0, 1)) FROM Flight;
+    SELECT COUNT(DISTINCT IF(id == 12 OR id == 37, NULL, SUBSTRING(name, 0, 4)),
+                          SUBSTRING(id, 0, 1) )
+      FROM AirCraft;
+    SELECT DISTINCT IF(id == 12 OR id == 37, NULL, SUBSTRING(name, 0, 4)),
+                    SUBSTRING(id, 0, 1)
+      FROM AirCraft;
+
+
