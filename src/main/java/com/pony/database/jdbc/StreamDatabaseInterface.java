@@ -17,7 +17,6 @@
 
 package com.pony.database.jdbc;
 
-import java.sql.SQLException;
 import java.io.*;
 
 /**

@@ -19,10 +19,8 @@ package com.pony.database;
 
 //import java.io.ByteArrayInputStream;
 
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.DataInput;
 
 /**
  * This is a reusable cell stream object that is extended from the

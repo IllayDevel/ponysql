@@ -29,7 +29,6 @@ import java.sql.*;
 import java.io.*;
 import java.util.Collections;
 import java.util.ArrayList;
-import java.util.Vector;
 
 /**
  * A test of concurrent insert and delete queries.

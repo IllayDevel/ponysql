@@ -17,8 +17,6 @@
 
 package com.pony.database;
 
-import java.util.ArrayList;
-
 import com.pony.util.IntegerVector;
 
 /**

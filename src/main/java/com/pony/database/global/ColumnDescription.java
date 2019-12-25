@@ -18,8 +18,6 @@
 package com.pony.database.global;
 
 import java.io.*;
-import java.util.Date;
-import java.math.BigDecimal;
 
 /**
  * This is a description of a column and the data it stores.  Specifically it

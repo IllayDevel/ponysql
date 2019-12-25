@@ -18,8 +18,6 @@
 package com.pony.database;
 
 import com.pony.util.Cache;
-import com.pony.database.global.ObjectTranslator;
-import com.pony.database.global.ByteLongObject;
 import com.pony.debug.*;
 
 /**

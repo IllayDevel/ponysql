@@ -19,9 +19,6 @@ package com.pony.database.interpret;
 
 import com.pony.database.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * A no operation statement.
  *

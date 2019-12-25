@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.io.File;
 
 import com.pony.debug.DebugLogger;
-import com.pony.debug.Lvl;
 
 /**
  * A paged random access buffer manager that caches access between a Store and

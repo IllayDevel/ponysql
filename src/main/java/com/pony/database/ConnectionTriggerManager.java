@@ -20,9 +20,7 @@ package com.pony.database;
 import java.io.*;
 import java.util.ArrayList;
 
-import com.pony.debug.Lvl;
 import com.pony.util.IntegerVector;
-import com.pony.util.BigNumber;
 
 /**
  * A trigger manager on a DatabaseConnection that maintains a list of all
@@ -368,7 +366,7 @@ public final class ConnectionTriggerManager {
     /**
      * Container class for all trigger actions defined on the database.
      */
-    private class TriggerInfo {
+    private static class TriggerInfo {
         String schema;
         String name;
         int type;

@@ -19,8 +19,6 @@ package com.pony.database.interpret;
 
 import com.pony.database.*;
 
-import java.util.List;
-
 /**
  * Handler for User commands for creating, altering and dropping user accounts
  * in the database.

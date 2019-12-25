@@ -18,14 +18,11 @@
 package com.pony.database;
 
 import com.pony.debug.*;
-import com.pony.util.Cache;
-import com.pony.database.global.ByteLongObject;
 import com.pony.database.global.Ref;
 import com.pony.database.jdbc.SQLQuery;
 
 import java.util.HashMap;
 import java.util.ArrayList;
-import java.math.BigDecimal;
 
 /**
  * An object that represents a connection to a Database.  This object handles

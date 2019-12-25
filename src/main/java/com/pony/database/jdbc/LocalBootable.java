@@ -19,7 +19,6 @@ package com.pony.database.jdbc;
 
 import com.pony.database.control.DBConfig;
 
-import java.io.File;
 import java.sql.SQLException;
 
 /**

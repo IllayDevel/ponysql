@@ -21,13 +21,6 @@ import com.pony.database.Database;
 import com.pony.database.DatabaseSystem;
 import com.pony.database.DatabaseException;
 import com.pony.debug.*;
-import com.pony.util.LogWriter;
-
-import java.io.File;
-import java.io.Writer;
-import java.io.PrintWriter;
-import java.io.IOException;
-import java.util.Date;
 
 /**
  * An object that provides methods for creating and controlling database

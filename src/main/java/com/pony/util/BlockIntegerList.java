@@ -17,8 +17,6 @@
 
 package com.pony.util;
 
-import java.util.ArrayList;
-
 /**
  * An implementation of AbstractBlockIntegerList that stores all int values in
  * blocks that are entirely stored in main memory.  This type of structure

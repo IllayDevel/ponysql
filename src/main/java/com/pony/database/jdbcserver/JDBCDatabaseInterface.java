@@ -19,7 +19,6 @@ package com.pony.database.jdbcserver;
 
 import com.pony.database.*;
 import com.pony.database.jdbc.*;
-import com.pony.util.StringUtil;
 import com.pony.debug.*;
 
 import java.sql.SQLException;

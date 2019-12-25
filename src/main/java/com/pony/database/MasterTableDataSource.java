@@ -17,15 +17,11 @@
 
 package com.pony.database;
 
-import java.util.ArrayList;
 import java.io.*;
 
 import com.pony.util.IntegerListInterface;
 import com.pony.util.IntegerIterator;
 import com.pony.util.IntegerVector;
-import com.pony.util.ByteArrayUtil;
-import com.pony.util.UserTerminal;
-import com.pony.util.Cache;
 import com.pony.debug.*;
 
 /**

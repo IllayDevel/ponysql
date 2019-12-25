@@ -22,18 +22,10 @@ package com.pony.database.jdbcserver;
 import com.pony.database.control.DBConfig;
 import com.pony.database.control.DBSystem;
 import com.pony.database.control.DBController;
-import com.pony.database.control.DefaultDBConfig;
-import com.pony.database.DatabaseSystem;
 import com.pony.database.Database;
-import com.pony.database.DatabaseException;
 import com.pony.database.jdbc.LocalBootable;
-import com.pony.database.jdbc.DatabaseCallBack;
 import com.pony.database.jdbc.DatabaseInterface;
-import com.pony.database.jdbc.QueryResponse;
-import com.pony.database.jdbc.ResultPart;
-import com.pony.database.jdbc.SQLQuery;
 
-import java.io.File;
 import java.sql.SQLException;
 
 /**

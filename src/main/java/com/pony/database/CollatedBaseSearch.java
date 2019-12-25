@@ -20,7 +20,6 @@ package com.pony.database;
 import java.io.*;
 
 import com.pony.util.IntegerVector;
-import com.pony.util.BlockIntegerList;
 
 /**
  * An implementation of SelectableScheme that is based on some collated set of

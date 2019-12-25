@@ -22,7 +22,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 import java.util.HashMap;
 import java.util.Set;
-import java.text.*;
 
 /**
  * A factory that generates Function objects given a function name and a

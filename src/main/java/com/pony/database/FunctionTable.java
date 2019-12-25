@@ -17,14 +17,9 @@
 
 package com.pony.database;
 
-import com.pony.database.global.Types;
-import com.pony.database.global.ByteLongObject;
-import com.pony.util.Cache;
 import com.pony.util.IntegerVector;
 import com.pony.debug.*;
 import com.pony.util.BigNumber;
-
-import java.util.Date;
 
 /**
  * A table that has a number of columns and as many rows as the refering

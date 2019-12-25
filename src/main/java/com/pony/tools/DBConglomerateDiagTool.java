@@ -261,7 +261,7 @@ class ConglomerateViewPane extends JRootPane {
     /**
      * The view of the content of a store.
      */
-    private class StoreViewPane extends JPanel {
+    private static class StoreViewPane extends JPanel {
 
         /**
          * The JTable that contains the information.

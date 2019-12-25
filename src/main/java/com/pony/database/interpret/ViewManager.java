@@ -20,7 +20,6 @@ package com.pony.database.interpret;
 import com.pony.database.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Handler for creating and dropping views in the database.

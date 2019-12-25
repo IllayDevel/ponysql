@@ -22,8 +22,6 @@ import java.util.Date;
 
 import com.pony.util.BigNumber;
 
-import java.math.BigInteger;
-
 /**
  * Provides static methods for transfering different types of objects over
  * a Data input/output stream.

@@ -24,7 +24,6 @@ import com.pony.database.Variable;
 import com.pony.database.TableName;
 import com.pony.database.TObject;
 import com.pony.database.TType;
-import com.pony.database.global.*;
 import com.pony.util.BigNumber;
 
 /**

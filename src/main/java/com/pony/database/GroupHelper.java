@@ -17,11 +17,6 @@
 
 package com.pony.database;
 
-import com.pony.util.IntegerVector;
-
-import java.util.ArrayList;
-import java.io.IOException;
-
 /**
  * This is a static class that provides the functionality for seperating a
  * table into distinct groups.  This class is used in the

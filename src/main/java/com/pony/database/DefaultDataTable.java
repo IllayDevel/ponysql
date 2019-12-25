@@ -19,10 +19,6 @@ package com.pony.database;
 
 import com.pony.util.IntegerVector;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.InputStream;
-
 /**
  * This represents a default implementation of a DataTable.  It encapsulates
  * information that is core to all DataTable objects.  That is,

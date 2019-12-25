@@ -17,15 +17,13 @@
 
 package com.pony.database;
 
-import com.pony.util.Stats;
 import com.pony.debug.*;
 import com.pony.database.control.DBConfig;
 //import java.io.File;
-import java.util.List;
 import java.util.ArrayList;
 //import java.util.ResourceBundle;
 //import java.util.MissingResourceException;
-import java.util.Properties;
+
 
 /**
  * This class provides information about shared resources available for the

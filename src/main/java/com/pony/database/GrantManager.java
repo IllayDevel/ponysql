@@ -17,8 +17,6 @@
 
 package com.pony.database;
 
-import java.sql.*;
-
 import com.pony.util.IntegerVector;
 import com.pony.util.BigNumber;
 import com.pony.util.Cache;

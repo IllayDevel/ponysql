@@ -17,9 +17,6 @@
 
 package com.pony.database.interpret;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.pony.database.*;
 
 /**

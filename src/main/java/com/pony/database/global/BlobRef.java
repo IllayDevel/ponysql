@@ -17,8 +17,6 @@
 
 package com.pony.database.global;
 
-import java.io.IOException;
-
 /**
  * A lightweight interface that is a reference to a blob in a BlobStore.  This
  * interface allows for data to be read and written to a blob.  Writing to a

@@ -20,8 +20,6 @@ package com.pony.database;
 import com.pony.util.Cache;
 import com.pony.debug.*;
 
-import java.util.HashMap;
-
 /**
  * This object represents a cache for accesses to the the data cells within
  * a Table.  Whenever a column/row index to a cell is accessed, the cache is

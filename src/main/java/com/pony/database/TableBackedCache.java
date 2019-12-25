@@ -17,7 +17,6 @@
 
 package com.pony.database;
 
-import com.pony.util.Cache;
 import com.pony.util.IntegerVector;
 
 /**

@@ -18,7 +18,6 @@
 package com.pony.database;
 
 import com.pony.util.BigNumber;
-import com.pony.database.global.SQLTypes;
 
 /**
  * An implementation of MutableTableDataSource that presents information

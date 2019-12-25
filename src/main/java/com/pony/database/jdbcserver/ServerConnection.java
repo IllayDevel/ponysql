@@ -17,9 +17,6 @@
 
 package com.pony.database.jdbcserver;
 
-import com.pony.database.Database;
-import com.pony.database.User;
-
 import java.io.IOException;
 
 /**

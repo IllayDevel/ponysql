@@ -18,7 +18,6 @@
 package com.pony.database;
 
 import com.pony.util.IntegerVector;
-import com.pony.util.BlockIntegerList;
 
 /**
  * A Table that represents the result of one or more other tables joined

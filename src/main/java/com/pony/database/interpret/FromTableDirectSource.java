@@ -19,9 +19,6 @@ package com.pony.database.interpret;
 
 import com.pony.database.*;
 
-import java.util.List;
-import java.util.Collections;
-
 /**
  * An implementation of FromTableInterface that wraps around an
  * TableName/AbstractDataTable object.  The handles case insensitive

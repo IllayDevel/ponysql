@@ -28,8 +28,6 @@ import com.pony.util.AbstractBlockIntegerList;
 import com.pony.util.BlockIntegerList;
 import com.pony.util.BlockIntegerList.IntArrayListBlock;
 import com.pony.util.IntegerListBlockInterface;
-import com.pony.util.IntegerIterator;
-import com.pony.util.IndexComparator;
 import com.pony.util.ByteBuffer;
 import com.pony.util.ByteArrayUtil;
 import com.pony.util.IntegerVector;

@@ -23,7 +23,6 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.FileInputStream;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.Hashtable;
 import java.util.Properties;
 import java.util.Enumeration;

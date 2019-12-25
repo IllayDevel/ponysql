@@ -27,7 +27,6 @@ import java.util.Map;
 import com.pony.debug.*;
 import com.pony.util.Log;
 import com.pony.util.Stats;
-import com.pony.util.Cache;
 import com.pony.database.global.*;
 import com.pony.database.control.DefaultDBConfig;
 import com.pony.database.jdbc.MSQLException;

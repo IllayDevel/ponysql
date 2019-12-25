@@ -22,7 +22,6 @@ import java.sql.SQLException;
 
 import com.pony.database.jdbc.MConnection;
 import com.pony.database.jdbc.DatabaseCallBack;
-import com.pony.database.jdbc.DatabaseInterface;
 import com.pony.database.jdbcserver.AbstractJDBCDatabaseInterface;
 
 /**

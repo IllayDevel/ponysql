@@ -17,8 +17,6 @@
 
 package com.pony.database;
 
-import java.util.ArrayList;
-
 /**
  * A class that acts as a container for any system tables that are generated
  * from information inside the database engine.  For example, the database

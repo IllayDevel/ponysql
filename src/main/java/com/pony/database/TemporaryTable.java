@@ -19,10 +19,6 @@ package com.pony.database;
 
 import java.util.ArrayList;
 
-import com.pony.util.IntegerVector;
-import com.pony.debug.*;
-import com.pony.database.global.TypeUtil;
-
 /**
  * This class represents a temporary table that is built from data that is
  * not related to any underlying DataTable object from the database.

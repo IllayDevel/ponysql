@@ -17,7 +17,6 @@
 
 package com.pony.database;
 
-import com.pony.database.global.Types;
 import com.pony.util.IntegerVector;
 import com.pony.util.BlockIntegerList;
 import com.pony.util.IntegerIterator;

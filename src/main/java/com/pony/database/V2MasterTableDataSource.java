@@ -19,17 +19,12 @@ package com.pony.database;
 
 import com.pony.store.*;
 import com.pony.debug.*;
-import com.pony.util.ByteArrayUtil;
 import com.pony.util.IntegerListInterface;
 import com.pony.util.UserTerminal;
 import com.pony.database.global.ObjectTransfer;
-import com.pony.database.global.StringObject;
-import com.pony.database.global.ClobRef;
 import com.pony.database.global.Ref;
 
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.*;

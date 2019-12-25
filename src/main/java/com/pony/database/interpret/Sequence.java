@@ -18,7 +18,6 @@
 package com.pony.database.interpret;
 
 import com.pony.database.*;
-import com.pony.debug.*;
 
 /**
  * A statement tree for creating and dropping sequence generators.

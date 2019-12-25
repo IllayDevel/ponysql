@@ -20,7 +20,6 @@ package com.pony.util;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Iterator;
-import java.io.*;
 
 /**
  * Various String utilities.

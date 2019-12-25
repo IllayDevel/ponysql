@@ -19,9 +19,7 @@ package com.pony.database.jdbcserver;
 
 import com.pony.database.*;
 import com.pony.database.global.*;
-import com.pony.database.interpret.Statement;
 import com.pony.database.interpret.SQLQueryExecutor;
-import com.pony.database.sql.SQL;
 import com.pony.database.sql.ParseException;
 import com.pony.database.jdbc.*;
 import com.pony.util.IntegerVector;

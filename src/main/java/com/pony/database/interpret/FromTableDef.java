@@ -19,7 +19,6 @@ package com.pony.database.interpret;
 
 import com.pony.database.ExpressionPreparer;
 import com.pony.database.DatabaseException;
-import com.pony.database.StatementTree;
 
 /**
  * Describes a single table declaration in the from clause of a table

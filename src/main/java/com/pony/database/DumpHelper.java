@@ -17,7 +17,6 @@
 
 package com.pony.database;
 
-import java.io.IOException;
 import java.io.PrintStream;
 
 /**

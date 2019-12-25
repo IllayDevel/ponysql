@@ -17,17 +17,8 @@
 
 package com.pony.database;
 
-import com.pony.database.global.SQLTypes;
 import com.pony.util.IntegerVector;
 import com.pony.debug.*;
-
-import java.math.BigDecimal;
-import java.util.Vector;
-import java.util.ArrayList;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.InputStream;
-import java.io.File;
 
 /**
  * DataTable is a wrapper for a MutableTableDataSource that fits into the

@@ -19,9 +19,6 @@ package com.pony.database.interpret;
 
 import com.pony.database.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Misc statements that I couldn't be bothered to roll a new Statement class
  * for.  These have to be exceptional statements that do not read or write

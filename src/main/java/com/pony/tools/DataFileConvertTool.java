@@ -22,7 +22,6 @@ import java.io.*;
 import com.pony.database.*;
 import com.pony.database.control.*;
 import com.pony.util.CommandLine;
-import com.pony.debug.*;
 
 /**
  * A tool for converting between different versions of the database file

@@ -26,8 +26,6 @@ import java.util.Vector;
 
 import com.pony.database.global.ColumnDescription;
 import com.pony.database.global.ByteLongObject;
-import com.pony.database.global.CastHelper;
-import com.pony.database.global.ObjectTransfer;
 import com.pony.database.global.StreamableObject;
 import com.pony.database.global.ObjectTranslator;
 import com.pony.database.global.SQLTypes;

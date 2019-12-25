@@ -19,7 +19,6 @@ package com.pony.database.jdbc;
 
 import java.io.*;
 import java.sql.*;
-import java.util.Properties;
 import java.util.Vector;
 
 import com.pony.database.global.ColumnDescription;

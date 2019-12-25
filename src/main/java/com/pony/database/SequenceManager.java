@@ -22,7 +22,6 @@ import com.pony.util.IntegerVector;
 import com.pony.util.BigNumber;
 
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * An object that manages the creation and removal of sequence keys, and that

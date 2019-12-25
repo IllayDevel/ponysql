@@ -18,7 +18,6 @@
 package com.pony.database.jdbcserver;
 
 import com.pony.debug.DebugLogger;
-import com.pony.database.Database;
 import com.pony.database.jdbc.ProtocolConstants;
 import com.pony.database.jdbc.DatabaseInterface;
 import com.pony.util.LengthMarkedBufferedInputStream;

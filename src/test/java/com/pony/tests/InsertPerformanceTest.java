@@ -20,7 +20,6 @@ package com.pony.tests;
 import com.pony.util.CommandLine;
 
 import java.sql.*;
-import java.io.*;
 
 /**
  *

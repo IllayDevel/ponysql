@@ -21,7 +21,6 @@ import java.io.InputStream;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 
-import com.pony.database.global.SQLTypes;
 import com.pony.database.global.ByteLongObject;
 import com.pony.database.global.BlobRef;
 import com.pony.database.global.BlobAccessor;

@@ -23,7 +23,6 @@ import java.io.IOException;
 import com.pony.store.Store;
 import com.pony.store.AreaWriter;
 import com.pony.store.MutableArea;
-import com.pony.store.Area;
 
 /**
  * A structure that provides a fast way to read and write fixed sized nodes in

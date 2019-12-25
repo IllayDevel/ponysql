@@ -17,8 +17,6 @@
 
 package com.pony.database;
 
-import com.pony.util.IntegerVector;
-
 /**
  * This is an implementation of a Table that references a DataTable as its
  * parent.  This is a one-to-one relationship unlike the VirtualTable class

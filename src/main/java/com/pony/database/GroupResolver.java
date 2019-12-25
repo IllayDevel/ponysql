@@ -17,8 +17,6 @@
 
 package com.pony.database;
 
-import com.pony.util.IntegerVector;
-
 /**
  * Similar to VariableResolver, this method is used by grouping Functions to
  * find information about the current group being evaluated (used for

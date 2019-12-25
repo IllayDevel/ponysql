@@ -19,14 +19,8 @@ package com.pony.database.interpret;
 
 import com.pony.database.*;
 import com.pony.debug.*;
-import com.pony.util.IntegerVector;
 
-import java.util.Set;
-import java.util.List;
-import java.util.Vector;
-import java.util.Iterator;
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Logic for interpreting an SQL SELECT statement.

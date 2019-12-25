@@ -17,20 +17,10 @@
 
 package com.pony.database.interpret;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Properties;
-import java.util.Arrays;
-import java.util.Collections;
 import java.sql.SQLException;
 
 import com.pony.database.*;
 import com.pony.database.sql.ParseException;
-import com.pony.util.Stats;
-import com.pony.database.global.Types;
-import com.pony.database.global.StandardMessages;
-import com.pony.database.global.SQLTypes;
 import com.pony.database.jdbc.SQLQuery;
 
 /**

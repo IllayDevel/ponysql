@@ -17,7 +17,6 @@
 
 package com.pony.database.jdbcserver;
 
-import com.pony.database.DatabaseSystem;
 import com.pony.database.Database;
 import com.pony.debug.*;
 
@@ -25,8 +24,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.InetAddress;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.ResourceBundle;
 
 /**
  * A TCP/IP socket server that opens a single port and allows JDBC clients

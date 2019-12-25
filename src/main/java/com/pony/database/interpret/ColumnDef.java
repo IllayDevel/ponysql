@@ -21,9 +21,6 @@ import com.pony.database.*;
 import com.pony.database.sql.ParseException;
 import com.pony.database.sql.SQLConstants;
 import com.pony.database.sql.Token;
-import com.pony.database.global.SQLTypes;
-
-import java.util.ArrayList;
 
 /**
  * Represents a column definition (description).

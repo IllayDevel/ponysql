@@ -18,11 +18,8 @@
 package com.pony.database;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.Comparator;
 
 import com.pony.util.IntegerVector;
-import com.pony.util.BlockIntegerList;
 
 /**
  * This is a scheme that performs a blind search of a given set.  It records

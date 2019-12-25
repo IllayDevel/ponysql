@@ -17,8 +17,6 @@
 
 package com.pony.database;
 
-import com.pony.util.IntegerVector;
-
 /**
  * An object that encapsulates all row modification information about a table
  * when a change to the table is about to be committed.  The object provides

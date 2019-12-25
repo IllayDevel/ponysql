@@ -17,10 +17,6 @@
 
 package com.pony.database.interpret;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.math.BigDecimal;
-
 import com.pony.database.*;
 
 /**

@@ -25,7 +25,6 @@ import com.pony.database.global.ObjectTranslator;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * An open transaction that manages all data access to the

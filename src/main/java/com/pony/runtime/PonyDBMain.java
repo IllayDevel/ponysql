@@ -17,9 +17,6 @@
 
 package com.pony.runtime;
 
-import com.pony.database.DatabaseException;
-import com.pony.database.DatabaseSystem;
-import com.pony.database.Database;
 import com.pony.database.control.DefaultDBConfig;
 import com.pony.database.control.TCPJDBCServer;
 import com.pony.database.control.DBController;
@@ -27,9 +24,7 @@ import com.pony.database.control.DBConfig;
 import com.pony.database.control.DBSystem;
 import com.pony.util.CommandLine;
 import com.pony.database.global.StandardMessages;
-import com.pony.database.jdbc.*;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.File;
 import java.sql.*;

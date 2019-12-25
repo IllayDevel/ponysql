@@ -17,15 +17,11 @@
 
 package com.pony.database.jdbcserver;
 
-import com.pony.database.User;
 import com.pony.database.Database;
-import com.pony.database.DatabaseSystem;
 import com.pony.debug.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.ResourceBundle;
 
 /**
  * A generic database server class that provides a thread that dispatches

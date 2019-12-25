@@ -17,8 +17,6 @@
 
 package com.pony.database;
 
-import com.pony.util.Cache;
-
 /**
  * Encapsulates the information about a single user logged into the system.
  * The class provides access to information in the user database.

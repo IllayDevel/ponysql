@@ -19,10 +19,6 @@ package com.pony.database.interpret;
 
 import com.pony.database.*;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * A statement that calls a procedure, and returns a resultant table.  This 
  * is used to perform some sort of function over the database.  For example,

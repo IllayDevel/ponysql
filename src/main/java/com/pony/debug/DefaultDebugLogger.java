@@ -17,7 +17,6 @@
 
 package com.pony.debug;
 
-import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.Writer;
 

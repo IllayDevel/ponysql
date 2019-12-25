@@ -20,7 +20,6 @@ package com.pony.database.interpret;
 import com.pony.database.Variable;
 import com.pony.database.TableName;
 import com.pony.database.Expression;
-import com.pony.database.DatabaseSystem;
 import com.pony.database.DatabaseException;
 import com.pony.database.StatementException;
 import com.pony.database.ExpressionPreparer;
