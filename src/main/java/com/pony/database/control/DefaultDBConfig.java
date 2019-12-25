@@ -41,7 +41,7 @@ public class DefaultDBConfig extends AbstractDBConfig {
     /**
      * Constructs the configuration.
      *
-     * @param the current path of the configuration in the file system.  This is
+     * @param current_path the current path of the configuration in the file system.  This is
      *   useful if the configuration is based on a file with relative paths set
      *   in it.
      */
@@ -158,7 +158,7 @@ public class DefaultDBConfig extends AbstractDBConfig {
      * A Hashtable of default configuration values.  This maps from property_key
      * to ConfigProperty object that describes the property.
      */
-    private static Hashtable CONFIG_DEFAULTS = new Hashtable();
+    private static final Hashtable CONFIG_DEFAULTS = new Hashtable();
 
     /**
      * Adds a default property to the CONFIG_DEFAULTS map.
@@ -221,10 +221,10 @@ public class DefaultDBConfig extends AbstractDBConfig {
      */
     private static class ConfigProperty {
 
-        private String key;
-        private String default_value;
-        private String type;
-        private String comment;
+        private final String key;
+        private final String default_value;
+        private final String type;
+        private final String comment;
 
         ConfigProperty(String key, String default_value, String type,
                        String comment) {

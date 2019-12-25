@@ -36,7 +36,7 @@ final class UnicodeToBinaryStream extends InputStream {
     /**
      * The Reader we are wrapping.
      */
-    private Reader reader;
+    private final Reader reader;
 
     /**
      * If this is 0 we are on the left byte of the character.  If this is 1 we

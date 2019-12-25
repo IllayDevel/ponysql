@@ -34,7 +34,7 @@ public final class SimpleTableQuery {
     /**
      * The DataTableDef for this table.
      */
-    private DataTableDef table_def;
+    private final DataTableDef table_def;
 
     /**
      * The TableDataSource we are wrapping.

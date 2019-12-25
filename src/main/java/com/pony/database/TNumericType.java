@@ -32,12 +32,12 @@ public final class TNumericType extends TType {
     /**
      * The size of the number.
      */
-    private int size;
+    private final int size;
 
     /**
      * The scale of the number.
      */
-    private int scale;
+    private final int scale;
 
 
     /**

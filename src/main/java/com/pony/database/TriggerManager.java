@@ -49,19 +49,19 @@ final class TriggerManager {
     /**
      * The parent TransactionSystem object.
      */
-    private TransactionSystem system;
+    private final TransactionSystem system;
 
     /**
      * Maps from the user session (User) to the list of TriggerAction objects
      * for this user.
      */
-    private HashMapList listener_map;
+    private final HashMapList listener_map;
 
     /**
      * Maps from the trigger source string to the list of TriggerAction
      * objects that are listening for events from this source.
      */
-    private HashMapList table_map;
+    private final HashMapList table_map;
 
     /**
      * Constructor.
@@ -191,11 +191,11 @@ final class TriggerManager {
      */
     private static class TriggerAction {
 
-        private DatabaseConnection database;
-        private String trigger_name;   // The name of the trigger.
-        private TriggerListener listener;       // The trigger listener.
-        private String trigger_source; // The source of the trigger.
-        private int trigger_event;  // Event we are to listen for.
+        private final DatabaseConnection database;
+        private final String trigger_name;   // The name of the trigger.
+        private final TriggerListener listener;       // The trigger listener.
+        private final String trigger_source; // The source of the trigger.
+        private final int trigger_event;  // Event we are to listen for.
 
         /**
          * Constructor.

@@ -38,7 +38,7 @@ public final class TStringType extends TType {
     /**
      * The maximum allowed size for the string.
      */
-    private int max_size;
+    private final int max_size;
 
     /**
      * The locale of the string.
@@ -49,13 +49,13 @@ public final class TStringType extends TType {
      * The strength of the collator for this string (as defined in
      * java.text.Collator).
      */
-    private int strength;
+    private final int strength;
 
     /**
      * The decomposition mode of the collator for this string type (as defined in
      * java.text.Collator).
      */
-    private int decomposition;
+    private final int decomposition;
 
     /**
      * The Collator object for this type, created when we first compare objects.

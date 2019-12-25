@@ -264,14 +264,14 @@ public final class Expression implements java.io.Serializable, Cloneable {
     /**
      * Pushes an element onto the evaluation stack.
      */
-    private final void push(Object ob) {
+    private void push(Object ob) {
         eval_stack.add(ob);
     }
 
     /**
      * Pops an element from the evaluation stack.
      */
-    private final Object pop() {
+    private Object pop() {
         return eval_stack.remove(eval_stack.size() - 1);
     }
 

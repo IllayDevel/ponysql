@@ -123,7 +123,7 @@ final class DataCellCache {
     /**
      * Returns an approximation of the amount of memory taken by a TObject.
      */
-    private static final int amountMemory(TObject cell) {
+    private static int amountMemory(TObject cell) {
         return 16 + cell.approximateMemoryUse();
     }
 

@@ -34,7 +34,7 @@ abstract class GTDataSource implements MutableTableDataSource {
     /**
      * The TransactionSystem object for this table.
      */
-    private TransactionSystem system;
+    private final TransactionSystem system;
 
 
     /**

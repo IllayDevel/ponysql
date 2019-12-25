@@ -42,20 +42,20 @@ public abstract class SimpleTransaction {
     /**
      * The TransactionSystem context.
      */
-    private TransactionSystem system;
+    private final TransactionSystem system;
 
     /**
      * The list of tables that represent this transaction's view of the database.
      * (MasterTableDataSource).
      */
-    private ArrayList visible_tables;
+    private final ArrayList visible_tables;
 
     /**
      * An IndexSet for each visible table from the above list.  These objects
      * are used to represent index information for all tables.
      * (IndexSet)
      */
-    private ArrayList table_indices;
+    private final ArrayList table_indices;
 
     /**
      * A queue of MasterTableDataSource and IndexSet objects that are pending to
@@ -67,17 +67,17 @@ public abstract class SimpleTransaction {
      * A cache of tables that have been accessed via this transaction.  This is
      * a map of table_name -> MutableTableDataSource.
      */
-    private HashMap table_cache;
+    private final HashMap table_cache;
 
     /**
      * A local cache for sequence values.
      */
-    private HashMap sequence_value_cache;
+    private final HashMap sequence_value_cache;
 
     /**
      * The SequenceManager for this abstract transaction.
      */
-    private SequenceManager sequence_manager;
+    private final SequenceManager sequence_manager;
 
     /**
      * If true, this is a read-only transaction and does not permit any type of

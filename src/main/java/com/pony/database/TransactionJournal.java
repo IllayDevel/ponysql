@@ -44,15 +44,15 @@ final class TransactionJournal {
     /**
      * Journal commands.
      */
-    static byte TABLE_ADD = 1;  // Add a row to a table.
+    static final byte TABLE_ADD = 1;  // Add a row to a table.
     // (params: table_id, row_index)
-    static byte TABLE_REMOVE = 2;  // Remove a row from a table.
+    static final byte TABLE_REMOVE = 2;  // Remove a row from a table.
     // (params: table_id, row_index)
-    static byte TABLE_CREATE = 3;  // Create a new table.
+    static final byte TABLE_CREATE = 3;  // Create a new table.
     // (params: table_id)
-    static byte TABLE_DROP = 4;  // Drop a table.
+    static final byte TABLE_DROP = 4;  // Drop a table.
     // (params: table_id)
-    static byte TABLE_CONSTRAINT_ALTER = 5; // Alter constraints of a table.
+    static final byte TABLE_CONSTRAINT_ALTER = 5; // Alter constraints of a table.
     // (params: table_id)
 
     /**
@@ -69,7 +69,7 @@ final class TransactionJournal {
      * This object records the 'table_id' of the touched tables in a sorted
      * list.
      */
-    private IntegerVector touched_tables;
+    private final IntegerVector touched_tables;
 
     /**
      * A byte[] array that represents the set of commands a transaction
@@ -82,14 +82,11 @@ final class TransactionJournal {
      * For example, a 'TABLE_ADD' journal log will have as parameters the
      * table id the row was added to, and the row_index that was added.
      */
-    private IntegerVector command_parameters;
+    private final IntegerVector command_parameters;
 
-    /**
-     * Optimization, these flags are set to true when various types of journal
-     * entries are made to the transaction journal.
-     */
-    private boolean has_added_table_rows, has_removed_table_rows,
-            has_created_tables, has_dropped_tables, has_constraint_alterations;
+    private boolean has_created_tables;
+    private boolean has_dropped_tables;
+    private boolean has_constraint_alterations;
 
     /**
      * Constructs a blank journal.
@@ -100,8 +97,12 @@ final class TransactionJournal {
         command_parameters = new IntegerVector(32);
         touched_tables = new IntegerVector(8);
 
-        has_added_table_rows = false;
-        has_removed_table_rows = false;
+        /**
+         * Optimization, these flags are set to true when various types of journal
+         * entries are made to the transaction journal.
+         */
+        boolean has_added_table_rows = false;
+        boolean has_removed_table_rows = false;
         has_created_tables = false;
         has_dropped_tables = false;
         has_constraint_alterations = false;

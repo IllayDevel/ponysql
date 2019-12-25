@@ -219,7 +219,7 @@ public final class InsertSearch extends CollatedBaseSearch {
      *   'select*' methods find the relationship of a TObject in the column
      *   set.
      */
-    private final IndexComparator safeSetComparator() {
+    private IndexComparator safeSetComparator() {
 //    synchronized (uid_lock) {
         return set_comparator;
 //    }

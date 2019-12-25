@@ -34,7 +34,7 @@ public class ByteLongObject implements java.io.Serializable, BlobAccessor {
     /**
      * The binary data.
      */
-    private byte[] data;
+    private final byte[] data;
 
     /**
      * Constructor.

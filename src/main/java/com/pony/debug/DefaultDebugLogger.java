@@ -78,8 +78,8 @@ public class DefaultDebugLogger implements DebugLogger {
      * Internal method that writes out the given information on the output
      * stream provided.
      */
-    private final void internalWrite(PrintWriter out,
-                                     int level, String class_string, String message) {
+    private void internalWrite(PrintWriter out,
+                               int level, String class_string, String message) {
         synchronized (out) {
             if (level < MESSAGE) {
                 out.print("> ");
@@ -156,7 +156,7 @@ public class DefaultDebugLogger implements DebugLogger {
 
     }
 
-    private final void writeTime() {
+    private void writeTime() {
         synchronized (out) {
             out.print("[ TIME: ");
             out.print(new java.util.Date(System.currentTimeMillis()));

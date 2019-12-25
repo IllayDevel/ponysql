@@ -49,12 +49,12 @@ public class MConnection implements Connection, DatabaseCallBack {
      * frequently.  Note that cells are only cached within a ResultSet bounds.
      * Two different ResultSet's will not share cells in the cache.
      */
-    private RowCache row_cache;
+    private final RowCache row_cache;
 
     /**
      * The JDBC URL used to make this connection.
      */
-    private String url;
+    private final String url;
 
     /**
      * SQL warnings for this connection.
@@ -75,7 +75,7 @@ public class MConnection implements Connection, DatabaseCallBack {
     /**
      * The interface to the database.
      */
-    private DatabaseInterface db_interface;
+    private final DatabaseInterface db_interface;
 
     /**
      * The list of trigger listeners registered with the connection.

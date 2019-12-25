@@ -33,12 +33,12 @@ public class DataIndexSetDef {
     /**
      * The TableName this index set meta data is for.
      */
-    private TableName table_name;
+    private final TableName table_name;
 
     /**
      * The list of indexes in the table.
      */
-    private ArrayList index_list;
+    private final ArrayList index_list;
 
     /**
      * True if this object is immutable.

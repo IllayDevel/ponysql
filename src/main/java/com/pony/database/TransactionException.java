@@ -62,7 +62,7 @@ public class TransactionException extends Exception {
     /**
      * The type of error.
      */
-    private int type;
+    private final int type;
 
     public TransactionException(int type, String message) {
         super(message);

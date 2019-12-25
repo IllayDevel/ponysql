@@ -31,11 +31,6 @@ import java.util.ArrayList;
 
 public class MiscTest {
 
-    /**
-     * The global connection instance.
-     */
-    private static Connection connection;
-
     private static void printSyntax() {
         System.out.println(
                 "Syntax: MiscTest -url [jdbc_url] -u [username] -p [password]");
@@ -80,6 +75,10 @@ public class MiscTest {
 
         // Make a connection with the database.  This will create the database
         // and log into the newly created database.
+        /**
+         * The global connection instance.
+         */
+        Connection connection;
         try {
             connection = DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {

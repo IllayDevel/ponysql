@@ -47,7 +47,7 @@ public abstract class PagedInputStream extends InputStream {
     /**
      * The total size of the underlying dataset.
      */
-    private long size;
+    private final long size;
 
     /**
      * The start buffer position.

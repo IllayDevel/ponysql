@@ -196,11 +196,11 @@ public class BigTablesTest {
      */
     private static class LargeAlgorithmicBinaryStream extends InputStream {
 
-        int max_size;
+        final int max_size;
         int index;
 
-        int param1;
-        int param2;
+        final int param1;
+        final int param2;
 
         public LargeAlgorithmicBinaryStream(int max_size, int param1, int param2) {
             this.max_size = max_size;

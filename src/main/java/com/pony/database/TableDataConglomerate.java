@@ -155,20 +155,20 @@ public class TableDataConglomerate {
     /**
      * The SequenceManager object for this conglomerate.
      */
-    private SequenceManager sequence_manager;
+    private final SequenceManager sequence_manager;
 
     /**
      * The list of transactions that are currently open over this conglomerate.
      * This list is ordered from lowest commit_id to highest.  This object is
      * shared with all the children MasterTableDataSource objects.
      */
-    private OpenTransactionList open_transactions;
+    private final OpenTransactionList open_transactions;
 
     /**
      * The list of all name space journals for the history of committed
      * transactions.
      */
-    private ArrayList namespace_journal_list;
+    private final ArrayList namespace_journal_list;
 
     // ---------- Table event listener ----------
 
@@ -1520,7 +1520,7 @@ public class TableDataConglomerate {
      */
     private static class TableRowVariableResolver implements VariableResolver {
 
-        private TableDataSource table;
+        private final TableDataSource table;
         private int row_index = -1;
 
         public TableRowVariableResolver(TableDataSource table, int row) {
@@ -3208,17 +3208,17 @@ public class TableDataConglomerate {
         /**
          * The commit_id of this journal entry.
          */
-        long commit_id;
+        final long commit_id;
 
         /**
          * The list of names created in this journal.
          */
-        ArrayList created_names;
+        final ArrayList created_names;
 
         /**
          * The list of names dropped in this journal.
          */
-        ArrayList dropped_names;
+        final ArrayList dropped_names;
 
         /**
          * Constructs the journal.

@@ -39,7 +39,7 @@ final class RawTableInformation {
      * A Vector containing a list of DataTables, and 'row index' IntegerVectors
      * of the given rows in the table.
      */
-    private Vector raw_info;
+    private final Vector raw_info;
 
     /**
      * The constructor.

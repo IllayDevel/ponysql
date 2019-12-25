@@ -48,7 +48,7 @@ public class JDBCDatabaseInterface extends AbstractJDBCDatabaseInterface {
     /**
      * The unique host name denoting the client that's connected.
      */
-    private String host_name;
+    private final String host_name;
 
     /**
      * Sets up the processor.

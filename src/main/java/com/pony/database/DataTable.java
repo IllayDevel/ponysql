@@ -43,12 +43,12 @@ public final class DataTable extends DefaultDataTable {
     /**
      * The DatabaseConnection object that is the parent of this DataTable.
      */
-    private DatabaseConnection connection;
+    private final DatabaseConnection connection;
 
     /**
      * A low level access to the underlying transactional data source.
      */
-    private MutableTableDataSource data_source;
+    private final MutableTableDataSource data_source;
 
 
     /**

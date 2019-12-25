@@ -33,7 +33,7 @@ public final class Stats {
     /**
      * Where the stat properties are held.
      */
-    private HashMap properties;
+    private final HashMap properties;
 
     /**
      * Constructs the object.
@@ -44,12 +44,7 @@ public final class Stats {
         properties = new HashMap(250, 0.50f);
     }
 
-    /**
-     * Resets all stats that start with "{session}" to 0.  This should be
-     * called when we are collecting stats over a given session and a session
-     * has finished.
-     */
-    public synchronized void resetSession() {
+    public synchronized String[] keysComparator() {
         Set key_set = properties.keySet();
         String[] keys = new String[key_set.size()];
         int index = 0;
@@ -58,7 +53,16 @@ public final class Stats {
             keys[index] = (String) it.next();
             ++index;
         }
+        return keys;
+    }
 
+    /**
+     * Resets all stats that start with "{session}" to 0.  This should be
+     * called when we are collecting stats over a given session and a session
+     * has finished.
+     */
+    public synchronized void resetSession() {
+        String[] keys = keysComparator();
         // If key starts with a "{session}" then reset it to 0.
         for (int i = 0; i < keys.length; ++i) {
             if (keys[i].startsWith("{session}")) {
@@ -142,19 +146,9 @@ public final class Stats {
      * highest.
      */
     public synchronized String[] keyList() {
-        Set key_set = properties.keySet();
-
-        String[] keys = new String[key_set.size()];
-        int index = 0;
-        Iterator it = key_set.iterator();
-        while (it.hasNext()) {
-            keys[index] = (String) it.next();
-            ++index;
-        }
-
+        String[] keys = keysComparator();
         // Sort the keys
         Arrays.sort(keys, STRING_COMPARATOR);
-
         return keys;
     }
 

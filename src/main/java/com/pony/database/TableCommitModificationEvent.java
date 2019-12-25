@@ -34,24 +34,24 @@ public class TableCommitModificationEvent {
      * A SimpleTransaction that can be used to query tables in the database -
      * the view of which will be the view when the transaction is committed.
      */
-    private SimpleTransaction transaction;
+    private final SimpleTransaction transaction;
 
     /**
      * The name of the table that is being changed.
      */
-    private TableName table_name;
+    private final TableName table_name;
 
     /**
      * A normalized list of all rows that were added by the transaction being
      * committed.
      */
-    private int[] added_rows;
+    private final int[] added_rows;
 
     /**
      * A normalized list of all rows that were removed by the transaction being
      * committed.
      */
-    private int[] removed_rows;
+    private final int[] removed_rows;
 
     /**
      * Constructs the event.

@@ -45,13 +45,13 @@ final class OpenTransactionList {
     /**
      * The system that this transaction list is part of.
      */
-    private TransactionSystem system;
+    private final TransactionSystem system;
 
     /**
      * The list of open transactions.
      * (Transaction).
      */
-    private ArrayList open_transactions;
+    private final ArrayList open_transactions;
 
     /**
      * A list of Error objects created when the transaction is added to the open

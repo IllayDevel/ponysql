@@ -43,7 +43,7 @@ public class SQL implements SQLConstants {
      * Set to true if the SQL identifiers are converted to upper case.
      * NOTE: Purely experimental feature!
      */
-    private boolean case_insensitive_identifiers = false;
+    private final boolean case_insensitive_identifiers = false;
 
     /**
      * The parameter id.
@@ -4697,7 +4697,7 @@ public class SQL implements SQLConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final private boolean jj_2_1(int xla) {
+    private boolean jj_2_1(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
         boolean retval = !jj_3_1();
@@ -4705,7 +4705,7 @@ public class SQL implements SQLConstants {
         return retval;
     }
 
-    final private boolean jj_2_2(int xla) {
+    private boolean jj_2_2(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
         boolean retval = !jj_3_2();
@@ -4713,7 +4713,7 @@ public class SQL implements SQLConstants {
         return retval;
     }
 
-    final private boolean jj_2_3(int xla) {
+    private boolean jj_2_3(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
         boolean retval = !jj_3_3();
@@ -4721,7 +4721,7 @@ public class SQL implements SQLConstants {
         return retval;
     }
 
-    final private boolean jj_2_4(int xla) {
+    private boolean jj_2_4(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
         boolean retval = !jj_3_4();
@@ -4729,7 +4729,7 @@ public class SQL implements SQLConstants {
         return retval;
     }
 
-    final private boolean jj_2_5(int xla) {
+    private boolean jj_2_5(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
         boolean retval = !jj_3_5();
@@ -4737,7 +4737,7 @@ public class SQL implements SQLConstants {
         return retval;
     }
 
-    final private boolean jj_2_6(int xla) {
+    private boolean jj_2_6(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
         boolean retval = !jj_3_6();
@@ -4745,7 +4745,7 @@ public class SQL implements SQLConstants {
         return retval;
     }
 
-    final private boolean jj_2_7(int xla) {
+    private boolean jj_2_7(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
         boolean retval = !jj_3_7();
@@ -4753,7 +4753,7 @@ public class SQL implements SQLConstants {
         return retval;
     }
 
-    final private boolean jj_2_8(int xla) {
+    private boolean jj_2_8(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
         boolean retval = !jj_3_8();
@@ -4761,7 +4761,7 @@ public class SQL implements SQLConstants {
         return retval;
     }
 
-    final private boolean jj_2_9(int xla) {
+    private boolean jj_2_9(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
         boolean retval = !jj_3_9();
@@ -4769,7 +4769,7 @@ public class SQL implements SQLConstants {
         return retval;
     }
 
-    final private boolean jj_2_10(int xla) {
+    private boolean jj_2_10(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
         boolean retval = !jj_3_10();
@@ -4777,7 +4777,7 @@ public class SQL implements SQLConstants {
         return retval;
     }
 
-    final private boolean jj_2_11(int xla) {
+    private boolean jj_2_11(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
         boolean retval = !jj_3_11();
@@ -4785,7 +4785,7 @@ public class SQL implements SQLConstants {
         return retval;
     }
 
-    final private boolean jj_2_12(int xla) {
+    private boolean jj_2_12(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
         boolean retval = !jj_3_12();
@@ -4793,7 +4793,7 @@ public class SQL implements SQLConstants {
         return retval;
     }
 
-    final private boolean jj_2_13(int xla) {
+    private boolean jj_2_13(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
         boolean retval = !jj_3_13();
@@ -4801,7 +4801,7 @@ public class SQL implements SQLConstants {
         return retval;
     }
 
-    final private boolean jj_2_14(int xla) {
+    private boolean jj_2_14(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
         boolean retval = !jj_3_14();
@@ -4809,7 +4809,7 @@ public class SQL implements SQLConstants {
         return retval;
     }
 
-    final private boolean jj_2_15(int xla) {
+    private boolean jj_2_15(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
         boolean retval = !jj_3_15();
@@ -4817,7 +4817,7 @@ public class SQL implements SQLConstants {
         return retval;
     }
 
-    final private boolean jj_2_16(int xla) {
+    private boolean jj_2_16(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
         boolean retval = !jj_3_16();
@@ -4825,7 +4825,7 @@ public class SQL implements SQLConstants {
         return retval;
     }
 
-    final private boolean jj_2_17(int xla) {
+    private boolean jj_2_17(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
         boolean retval = !jj_3_17();
@@ -4833,7 +4833,7 @@ public class SQL implements SQLConstants {
         return retval;
     }
 
-    final private boolean jj_3R_137() {
+    private boolean jj_3R_137() {
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3R_138()) jj_scanpos = xsp;
@@ -4841,7 +4841,7 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_36() {
+    private boolean jj_3R_36() {
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3R_61()) {
@@ -4852,43 +4852,43 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_130() {
+    private boolean jj_3R_130() {
         if (jj_scan_token(PASSWORD)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_120() {
+    private boolean jj_3R_120() {
         if (jj_scan_token(SOME)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_55() {
+    private boolean jj_3R_55() {
         if (jj_scan_token(TRAILING)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_20() {
+    private boolean jj_3R_20() {
         if (jj_3R_39()) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_136() {
+    private boolean jj_3R_136() {
         if (jj_scan_token(ACTION)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_19() {
+    private boolean jj_3R_19() {
         if (jj_3R_38()) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3_11() {
+    private boolean jj_3_11() {
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3R_22()) {
@@ -4904,19 +4904,19 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_122() {
+    private boolean jj_3R_122() {
         if (jj_3R_137()) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_90() {
+    private boolean jj_3R_90() {
         if (jj_scan_token(NOT)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_18() {
+    private boolean jj_3R_18() {
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3_11()) {
@@ -4933,7 +4933,7 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_63() {
+    private boolean jj_3R_63() {
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3R_90()) jj_scanpos = xsp;
@@ -4945,13 +4945,13 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_121() {
+    private boolean jj_3R_121() {
         if (jj_scan_token(STAR)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_29() {
+    private boolean jj_3R_29() {
         if (jj_scan_token(NOT)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         if (jj_scan_token(IN)) return true;
@@ -4959,19 +4959,19 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_119() {
+    private boolean jj_3R_119() {
         if (jj_scan_token(ALL)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_28() {
+    private boolean jj_3R_28() {
         if (jj_scan_token(IN)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_87() {
+    private boolean jj_3R_87() {
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3R_121()) {
@@ -4982,37 +4982,37 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_54() {
+    private boolean jj_3R_54() {
         if (jj_scan_token(BOTH)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_132() {
+    private boolean jj_3R_132() {
         if (jj_scan_token(GROUPS)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3_9() {
+    private boolean jj_3_9() {
         if (jj_3R_18()) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_135() {
+    private boolean jj_3R_135() {
         if (jj_scan_token(JAVA)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_129() {
+    private boolean jj_3R_129() {
         if (jj_scan_token(ACCOUNT)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3_10() {
+    private boolean jj_3_10() {
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3R_19()) {
@@ -5025,19 +5025,19 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_118() {
+    private boolean jj_3R_118() {
         if (jj_scan_token(ANY)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3_6() {
+    private boolean jj_3_6() {
         if (jj_3R_17()) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_85() {
+    private boolean jj_3R_85() {
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3R_118()) {
@@ -5051,7 +5051,7 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_48() {
+    private boolean jj_3R_48() {
         if (jj_3R_84()) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         Token xsp;
@@ -5061,19 +5061,19 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_126() {
+    private boolean jj_3R_126() {
         if (jj_3R_21()) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_83() {
+    private boolean jj_3R_83() {
         if (jj_scan_token(DOT_DELIMINATED_REF)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3_15() {
+    private boolean jj_3_15() {
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3R_28()) {
@@ -5084,7 +5084,7 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_30() {
+    private boolean jj_3R_30() {
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3R_53()) {
@@ -5098,13 +5098,13 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_53() {
+    private boolean jj_3R_53() {
         if (jj_scan_token(LEADING)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_25() {
+    private boolean jj_3R_25() {
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3_15()) {
@@ -5115,43 +5115,43 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_134() {
+    private boolean jj_3R_134() {
         if (jj_scan_token(NAME)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_131() {
+    private boolean jj_3R_131() {
         if (jj_scan_token(PRIVILEGES)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_117() {
+    private boolean jj_3R_117() {
         if (jj_scan_token(NOTEQ)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_128() {
+    private boolean jj_3R_128() {
         if (jj_scan_token(OPTION)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_82() {
+    private boolean jj_3R_82() {
         if (jj_3R_21()) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_127() {
+    private boolean jj_3R_127() {
         if (jj_scan_token(IDENTIFIER)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_52() {
+    private boolean jj_3R_52() {
         if (jj_3R_89()) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         if (jj_scan_token(208)) return true;
@@ -5163,13 +5163,13 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_31() {
+    private boolean jj_3R_31() {
         if (jj_scan_token(STRING_LITERAL)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_98() {
+    private boolean jj_3R_98() {
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3R_127()) {
@@ -5204,7 +5204,7 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3_17() {
+    private boolean jj_3_17() {
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3R_30()) jj_scanpos = xsp;
@@ -5217,19 +5217,19 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_86() {
+    private boolean jj_3R_86() {
         if (jj_scan_token(DISTINCT)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_116() {
+    private boolean jj_3R_116() {
         if (jj_scan_token(LEEQ)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_51() {
+    private boolean jj_3R_51() {
         if (jj_scan_token(CAST)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         if (jj_scan_token(208)) return true;
@@ -5239,31 +5239,31 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_91() {
+    private boolean jj_3R_91() {
         if (jj_3R_126()) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_125() {
+    private boolean jj_3R_125() {
         if (jj_scan_token(IDENTIFIER)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_115() {
+    private boolean jj_3R_115() {
         if (jj_scan_token(GREQ)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_104() {
+    private boolean jj_3R_104() {
         if (jj_scan_token(LEEQ)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_50() {
+    private boolean jj_3R_50() {
         if (jj_scan_token(TRIM)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         if (jj_scan_token(208)) return true;
@@ -5277,7 +5277,7 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3_5() {
+    private boolean jj_3_5() {
         if (jj_scan_token(LONG)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         if (jj_scan_token(BINARY)) return true;
@@ -5287,7 +5287,7 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3_4() {
+    private boolean jj_3_4() {
         if (jj_scan_token(BINARY)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         if (jj_scan_token(VARYING)) return true;
@@ -5295,7 +5295,7 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_49() {
+    private boolean jj_3R_49() {
         if (jj_scan_token(COUNT)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         if (jj_scan_token(208)) return true;
@@ -5311,31 +5311,31 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_26() {
+    private boolean jj_3R_26() {
         if (jj_scan_token(208)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_114() {
+    private boolean jj_3R_114() {
         if (jj_scan_token(LE)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_124() {
+    private boolean jj_3R_124() {
         if (jj_scan_token(USER)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_88() {
+    private boolean jj_3R_88() {
         if (jj_3R_82()) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_27() {
+    private boolean jj_3R_27() {
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3R_49()) {
@@ -5352,49 +5352,49 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_106() {
+    private boolean jj_3R_106() {
         if (jj_scan_token(IS)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_103() {
+    private boolean jj_3R_103() {
         if (jj_scan_token(GREQ)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_94() {
+    private boolean jj_3R_94() {
         if (jj_scan_token(SUBTRACT)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_113() {
+    private boolean jj_3R_113() {
         if (jj_scan_token(GR)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_123() {
+    private boolean jj_3R_123() {
         if (jj_scan_token(IF)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_58() {
+    private boolean jj_3R_58() {
         if (jj_scan_token(LONGVARCHAR)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_102() {
+    private boolean jj_3R_102() {
         if (jj_scan_token(LE)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_89() {
+    private boolean jj_3R_89() {
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3R_123()) {
@@ -5408,97 +5408,97 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_93() {
+    private boolean jj_3R_93() {
         if (jj_scan_token(ADD)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_112() {
+    private boolean jj_3R_112() {
         if (jj_scan_token(EQUALS)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_101() {
+    private boolean jj_3R_101() {
         if (jj_scan_token(GR)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_60() {
+    private boolean jj_3R_60() {
         if (jj_scan_token(CHARACTER)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_97() {
+    private boolean jj_3R_97() {
         if (jj_scan_token(SUBTRACT)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_80() {
+    private boolean jj_3R_80() {
         if (jj_3R_98()) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_57() {
+    private boolean jj_3R_57() {
         if (jj_scan_token(STRING)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_64() {
+    private boolean jj_3R_64() {
         if (jj_scan_token(CONCAT)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_79() {
+    private boolean jj_3R_79() {
         if (jj_scan_token(QUOTED_DELIMINATED_REF)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_78() {
+    private boolean jj_3R_78() {
         if (jj_scan_token(DOT_DELIMINATED_REF)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_77() {
+    private boolean jj_3R_77() {
         if (jj_scan_token(QUOTED_VARIABLE)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_76() {
+    private boolean jj_3R_76() {
         if (jj_scan_token(NUMBER_LITERAL)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_95() {
+    private boolean jj_3R_95() {
         if (jj_scan_token(STAR)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_92() {
+    private boolean jj_3R_92() {
         if (jj_scan_token(DIVIDE)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_96() {
+    private boolean jj_3R_96() {
         if (jj_scan_token(ADD)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_75() {
+    private boolean jj_3R_75() {
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3R_96()) {
@@ -5509,31 +5509,31 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_35() {
+    private boolean jj_3R_35() {
         if (jj_scan_token(CLOB)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_59() {
+    private boolean jj_3R_59() {
         if (jj_scan_token(CHAR)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_34() {
+    private boolean jj_3R_34() {
         if (jj_scan_token(VARCHAR)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_56() {
+    private boolean jj_3R_56() {
         if (jj_scan_token(TEXT)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_33() {
+    private boolean jj_3R_33() {
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3R_59()) {
@@ -5544,7 +5544,7 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_65() {
+    private boolean jj_3R_65() {
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3R_92()) {
@@ -5561,7 +5561,7 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_32() {
+    private boolean jj_3R_32() {
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3R_56()) {
@@ -5575,13 +5575,13 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_100() {
+    private boolean jj_3R_100() {
         if (jj_scan_token(EQUALS)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_46() {
+    private boolean jj_3R_46() {
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3R_75()) jj_scanpos = xsp;
@@ -5604,7 +5604,7 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3_3() {
+    private boolean jj_3_3() {
         if (jj_scan_token(LONG)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         if (jj_scan_token(CHARACTER)) return true;
@@ -5614,7 +5614,7 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_17() {
+    private boolean jj_3R_17() {
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3_2()) {
@@ -5637,7 +5637,7 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3_2() {
+    private boolean jj_3_2() {
         if (jj_scan_token(CHARACTER)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         if (jj_scan_token(VARYING)) return true;
@@ -5645,19 +5645,19 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_74() {
+    private boolean jj_3R_74() {
         if (jj_scan_token(NULL_LITERAL)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_110() {
+    private boolean jj_3R_110() {
         if (jj_scan_token(OR)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_108() {
+    private boolean jj_3R_108() {
         if (jj_scan_token(NOT)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         if (jj_scan_token(LIKE)) return true;
@@ -5665,25 +5665,25 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_73() {
+    private boolean jj_3R_73() {
         if (jj_scan_token(BOOLEAN_LITERAL)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_111() {
+    private boolean jj_3R_111() {
         if (jj_scan_token(ASSIGNMENT)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_72() {
+    private boolean jj_3R_72() {
         if (jj_scan_token(STRING_LITERAL)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_84() {
+    private boolean jj_3R_84() {
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3R_111()) {
@@ -5709,7 +5709,7 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_45() {
+    private boolean jj_3R_45() {
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3R_72()) {
@@ -5723,7 +5723,7 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_44() {
+    private boolean jj_3R_44() {
         if (jj_scan_token(NEW)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         if (jj_3R_83()) return true;
@@ -5731,19 +5731,19 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_109() {
+    private boolean jj_3R_109() {
         if (jj_scan_token(AND)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_107() {
+    private boolean jj_3R_107() {
         if (jj_scan_token(LIKE)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3_16() {
+    private boolean jj_3_16() {
         if (jj_scan_token(IS)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         if (jj_scan_token(NOT)) return true;
@@ -5751,25 +5751,25 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_105() {
+    private boolean jj_3R_105() {
         if (jj_scan_token(NOTEQ)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_99() {
+    private boolean jj_3R_99() {
         if (jj_scan_token(ASSIGNMENT)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_71() {
+    private boolean jj_3R_71() {
         if (jj_scan_token(CURRENT_DATE)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_81() {
+    private boolean jj_3R_81() {
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3R_99()) {
@@ -5813,19 +5813,19 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_70() {
+    private boolean jj_3R_70() {
         if (jj_scan_token(CURRENT_TIME)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_69() {
+    private boolean jj_3R_69() {
         if (jj_scan_token(CURRENT_TIMESTAMP)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_43() {
+    private boolean jj_3R_43() {
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3R_69()) {
@@ -5839,31 +5839,31 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_38() {
+    private boolean jj_3R_38() {
         if (jj_3R_64()) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_68() {
+    private boolean jj_3R_68() {
         if (jj_scan_token(TIMESTAMP)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_67() {
+    private boolean jj_3R_67() {
         if (jj_scan_token(TIME)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_66() {
+    private boolean jj_3R_66() {
         if (jj_scan_token(DATE)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_42() {
+    private boolean jj_3R_42() {
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3R_66()) {
@@ -5879,7 +5879,7 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3_8() {
+    private boolean jj_3_8() {
         if (jj_scan_token(SET)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         if (jj_scan_token(NULL_LITERAL)) return true;
@@ -5887,19 +5887,19 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3_14() {
+    private boolean jj_3_14() {
         if (jj_3R_27()) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_39() {
+    private boolean jj_3R_39() {
         if (jj_3R_65()) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3_13() {
+    private boolean jj_3_13() {
         if (jj_scan_token(NOT)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         if (jj_3R_21()) return true;
@@ -5907,7 +5907,7 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3_1() {
+    private boolean jj_3_1() {
         if (jj_scan_token(SET)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         if (jj_scan_token(GROUPS)) return true;
@@ -5915,13 +5915,13 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_41() {
+    private boolean jj_3R_41() {
         if (jj_scan_token(PARAMETER_REF)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_40() {
+    private boolean jj_3R_40() {
         if (jj_scan_token(208)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         if (jj_3R_82()) return true;
@@ -5929,7 +5929,7 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_21() {
+    private boolean jj_3R_21() {
         Token xsp;
         xsp = jj_scanpos;
         if (jj_3R_40()) {
@@ -5961,13 +5961,13 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_47() {
+    private boolean jj_3R_47() {
         if (jj_3R_81()) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3_7() {
+    private boolean jj_3_7() {
         if (jj_scan_token(ON)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         if (jj_scan_token(DELETE)) return true;
@@ -5975,25 +5975,25 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_62() {
+    private boolean jj_3R_62() {
         if (jj_scan_token(REGEX_LITERAL)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_37() {
+    private boolean jj_3R_37() {
         if (jj_3R_63()) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_24() {
+    private boolean jj_3R_24() {
         if (jj_3R_38()) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3_12() {
+    private boolean jj_3_12() {
         if (jj_3R_25()) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         if (jj_3R_26()) return true;
@@ -6001,19 +6001,19 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_23() {
+    private boolean jj_3R_23() {
         if (jj_3R_39()) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_22() {
+    private boolean jj_3R_22() {
         if (jj_3R_47()) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_61() {
+    private boolean jj_3R_61() {
         if (jj_scan_token(REGEX)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         if (jj_3R_82()) return true;
@@ -6021,13 +6021,13 @@ public class SQL implements SQLConstants {
         return false;
     }
 
-    final private boolean jj_3R_138() {
+    private boolean jj_3R_138() {
         if (jj_3R_88()) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
     }
 
-    final private boolean jj_3R_133() {
+    private boolean jj_3R_133() {
         if (jj_scan_token(LANGUAGE)) return true;
         if (jj_la == 0 && jj_scanpos == jj_lastpos) return false;
         return false;
@@ -6039,7 +6039,7 @@ public class SQL implements SQLConstants {
     private int jj_ntk;
     private Token jj_scanpos, jj_lastpos;
     private int jj_la;
-    public boolean lookingAhead = false;
+    public final boolean lookingAhead = false;
     private boolean jj_semLA;
     private int jj_gen;
     final private int[] jj_la1 = new int[189];
@@ -6112,7 +6112,7 @@ public class SQL implements SQLConstants {
         for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
     }
 
-    final private Token jj_consume_token(int kind) throws ParseException {
+    private Token jj_consume_token(int kind) throws ParseException {
         Token oldToken;
         if ((oldToken = token).next != null) token = token.next;
         else token = token.next = token_source.getNextToken();
@@ -6136,7 +6136,7 @@ public class SQL implements SQLConstants {
         throw generateParseException();
     }
 
-    final private boolean jj_scan_token(int kind) {
+    private boolean jj_scan_token(int kind) {
         if (jj_scanpos == jj_lastpos) {
             jj_la--;
             if (jj_scanpos.next == null) {
@@ -6176,17 +6176,17 @@ public class SQL implements SQLConstants {
         return t;
     }
 
-    final private int jj_ntk() {
+    private int jj_ntk() {
         if ((jj_nt = token.next) == null)
             return (jj_ntk = (token.next = token_source.getNextToken()).kind);
         else
             return (jj_ntk = jj_nt.kind);
     }
 
-    private java.util.Vector jj_expentries = new java.util.Vector();
+    private final java.util.Vector jj_expentries = new java.util.Vector();
     private int[] jj_expentry;
     private int jj_kind = -1;
-    private int[] jj_lasttokens = new int[100];
+    private final int[] jj_lasttokens = new int[100];
     private int jj_endpos;
 
     private void jj_add_error_token(int kind, int pos) {
@@ -6277,7 +6277,7 @@ public class SQL implements SQLConstants {
     final public void disable_tracing() {
     }
 
-    final private void jj_rescan_token() {
+    private void jj_rescan_token() {
         jj_rescan = true;
         for (int i = 0; i < 17; i++) {
             JJCalls p = jj_2_rtns[i];
@@ -6345,7 +6345,7 @@ public class SQL implements SQLConstants {
         jj_rescan = false;
     }
 
-    final private void jj_save(int index, int xla) {
+    private void jj_save(int index, int xla) {
         JJCalls p = jj_2_rtns[index];
         while (p.gen > jj_gen) {
             if (p.next == null) {

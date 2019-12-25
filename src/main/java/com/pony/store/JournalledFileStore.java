@@ -49,7 +49,7 @@ public final class JournalledFileStore extends AbstractStore {
      * The JournalledResource object that's used to journal all read/write
      * operations to the above 'store_accessor'.
      */
-    private JournalledResource store_resource;
+    private final JournalledResource store_resource;
 
 
     /**

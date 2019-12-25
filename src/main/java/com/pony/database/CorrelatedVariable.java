@@ -41,7 +41,7 @@ public class CorrelatedVariable implements Cloneable, java.io.Serializable {
      * The number of sub-query branches back that the reference for this
      * variable can be found.
      */
-    private int query_level_offset;
+    private final int query_level_offset;
 
     /**
      * The temporary value this variable has been set to evaluate to.

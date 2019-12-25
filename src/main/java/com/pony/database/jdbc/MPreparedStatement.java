@@ -196,7 +196,7 @@ class MPreparedStatement extends MStatement implements PreparedStatement {
     }
 
     public void setBoolean(int parameterIndex, boolean x) throws SQLException {
-        statement.setVar(parameterIndex - 1, new Boolean(x));
+        statement.setVar(parameterIndex - 1, x);
     }
 
     public void setByte(int parameterIndex, byte x) throws SQLException {

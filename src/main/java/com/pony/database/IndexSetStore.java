@@ -88,11 +88,6 @@ final class IndexSetStore {
     private final DebugLogger debug;
 
     /**
-     * The TransactionSystem for this index set.
-     */
-    private final TransactionSystem system;
-
-    /**
      * The Store that contains all the data of the index store.
      */
     private Store store;
@@ -137,7 +132,9 @@ final class IndexSetStore {
      */
     public IndexSetStore(Store store, final TransactionSystem system) {
         this.store = store;
-        this.system = system;
+        /**
+         * The TransactionSystem for this index set.
+         */
         this.debug = system.Debug();
     }
 
@@ -702,7 +699,7 @@ final class IndexSetStore {
     /**
      * A convenience static empty integer list array.
      */
-    private static IndexIntegerList[] EMPTY_INTEGER_LISTS =
+    private static final IndexIntegerList[] EMPTY_INTEGER_LISTS =
             new IndexIntegerList[0];
 
 
@@ -1105,12 +1102,12 @@ final class IndexSetStore {
         /**
          * The number of the index in the store that this list represents.
          */
-        private int index_num;
+        private final int index_num;
 
         /**
          * The maximum block size.
          */
-        private int max_block_size;
+        private final int max_block_size;
 
         /**
          * Set to true when disposed.
@@ -1120,7 +1117,7 @@ final class IndexSetStore {
         /**
          * The mapped elements that were deleted.
          */
-        private ArrayList deleted_blocks = new ArrayList();
+        private final ArrayList deleted_blocks = new ArrayList();
 
 
         /**
@@ -1208,7 +1205,7 @@ final class IndexSetStore {
         /**
          * The index of this block in the index set.
          */
-        private int index_num;
+        private final int index_num;
 
         /**
          * A pointer that references the area in the store.

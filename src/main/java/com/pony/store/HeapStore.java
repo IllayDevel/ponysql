@@ -54,7 +54,7 @@ public final class HeapStore implements Store {
     /**
      * A hash map of area pointer to byte[] array that represents the area.
      */
-    private HeapAreaElement[] area_map;
+    private final HeapAreaElement[] area_map;
 
     /**
      * A unique id key incremented for each new area created.

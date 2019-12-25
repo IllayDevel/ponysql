@@ -60,7 +60,7 @@ public abstract class AbstractStore implements Store {
     /**
      * True if this is read-only.
      */
-    protected boolean read_only;
+    protected final boolean read_only;
 
     /**
      * The total amount of allocated space within this store since the store
@@ -240,7 +240,7 @@ public abstract class AbstractStore implements Store {
     /**
      * Reads an 8 byte long at the given position in the data area.
      */
-    private byte[] buf = new byte[8];
+    private final byte[] buf = new byte[8];
 
     private long readLongAt(long position) throws IOException {
         readByteArrayFrom(position, buf, 0, 8);
@@ -735,15 +735,15 @@ public abstract class AbstractStore implements Store {
     /**
      * WriteByteTo pass-through method.
      */
-    private final void writeByteToPT(long position, int b) throws IOException {
+    private void writeByteToPT(long position, int b) throws IOException {
         writeByteTo(position, b);
     }
 
     /**
      * WriteByteArrayTo pass-through method.
      */
-    private final void writeByteArrayToPT(long position,
-                                          byte[] buf, int off, int len) throws IOException {
+    private void writeByteArrayToPT(long position,
+                                    byte[] buf, int off, int len) throws IOException {
         writeByteArrayTo(position, buf, off, len);
     }
 
@@ -945,8 +945,8 @@ public abstract class AbstractStore implements Store {
     }
 
 
-    private long[] header_info = new long[2];
-    private long[] header_info2 = new long[2];
+    private final long[] header_info = new long[2];
+    private final long[] header_info2 = new long[2];
 
 
     /**
@@ -1394,7 +1394,7 @@ public abstract class AbstractStore implements Store {
     private class StoreAreaInputStream extends InputStream {
 
         private long pointer;
-        private long end_pointer;
+        private final long end_pointer;
         private long mark;
 
         public StoreAreaInputStream(long pointer, long max_size) {

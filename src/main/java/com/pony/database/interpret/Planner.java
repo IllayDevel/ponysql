@@ -38,13 +38,13 @@ public class Planner {
     /**
      * The name of the GROUP BY function table.
      */
-    private static TableName GROUP_BY_FUNCTION_TABLE = new TableName(
+    private static final TableName GROUP_BY_FUNCTION_TABLE = new TableName(
             "FUNCTIONTABLE");
 
     /**
      * Used to generate unique marker names.
      */
-    private static Random marker_randomizer = new Random();
+    private static final Random marker_randomizer = new Random();
 
 
     /**
@@ -818,23 +818,23 @@ public class Planner {
         /**
          * The name of the table where functions are defined.
          */
-        private static TableName FUNCTION_TABLE_NAME =
+        private static final TableName FUNCTION_TABLE_NAME =
                 new TableName("FUNCTIONTABLE");
 
         /**
          * The tables we are selecting from.
          */
-        private TableExpressionFromSet from_set;
+        private final TableExpressionFromSet from_set;
 
         /**
          * The list of SelectColumn.
          */
-        ArrayList s_col_list;
+        final ArrayList s_col_list;
 
         /**
          * The list of functions in this column set.
          */
-        ArrayList function_col_list;
+        final ArrayList function_col_list;
 
         /**
          * The current number of 'FUNCTIONTABLE.' columns in the table.  This is
@@ -1575,7 +1575,7 @@ public class Planner {
         // An expression plan for a constant expression.  These are very
         // optimizable indeed.
         private class ConstantExpressionPlan extends ExpressionPlan {
-            private Expression expression;
+            private final Expression expression;
 
             public ConstantExpressionPlan(Expression e) {
                 expression = e;
@@ -1593,9 +1593,9 @@ public class Planner {
         }
 
         private class SimpleSelectExpressionPlan extends ExpressionPlan {
-            private Variable single_var;
-            private Operator op;
-            private Expression expression;
+            private final Variable single_var;
+            private final Operator op;
+            private final Expression expression;
 
             public SimpleSelectExpressionPlan(Variable v, Operator op,
                                               Expression e) {
@@ -1613,8 +1613,8 @@ public class Planner {
         }
 
         private class SimpleSingleExpressionPlan extends ExpressionPlan {
-            private Variable single_var;
-            private Expression expression;
+            private final Variable single_var;
+            private final Expression expression;
 
             public SimpleSingleExpressionPlan(Variable v, Expression e) {
                 single_var = v;
@@ -1630,8 +1630,8 @@ public class Planner {
         }
 
         private class ComplexSingleExpressionPlan extends ExpressionPlan {
-            private Variable single_var;
-            private Expression expression;
+            private final Variable single_var;
+            private final Expression expression;
 
             public ComplexSingleExpressionPlan(Variable v, Expression e) {
                 single_var = v;
@@ -1647,8 +1647,8 @@ public class Planner {
         }
 
         private class SimplePatternExpressionPlan extends ExpressionPlan {
-            private Variable single_var;
-            private Expression expression;
+            private final Variable single_var;
+            private final Expression expression;
 
             public SimplePatternExpressionPlan(Variable v, Expression e) {
                 single_var = v;
@@ -1664,7 +1664,7 @@ public class Planner {
         }
 
         private class ExhaustiveSelectExpressionPlan extends ExpressionPlan {
-            private Expression expression;
+            private final Expression expression;
 
             public ExhaustiveSelectExpressionPlan(Expression e) {
                 expression = e;
@@ -1682,8 +1682,8 @@ public class Planner {
         }
 
         private class ExhaustiveSubQueryExpressionPlan extends ExpressionPlan {
-            private List all_vars;
-            private Expression expression;
+            private final List all_vars;
+            private final Expression expression;
 
             public ExhaustiveSubQueryExpressionPlan(List vars, Expression e) {
                 this.all_vars = vars;
@@ -1700,7 +1700,7 @@ public class Planner {
         }
 
         private class SimpleSubQueryExpressionPlan extends ExpressionPlan {
-            private Expression expression;
+            private final Expression expression;
 
             public SimpleSubQueryExpressionPlan(Expression e) {
                 this.expression = e;
@@ -1724,7 +1724,7 @@ public class Planner {
         }
 
         private class ExhaustiveJoinExpressionPlan extends ExpressionPlan {
-            private Expression expression;
+            private final Expression expression;
 
             public ExhaustiveJoinExpressionPlan(Expression e) {
                 this.expression = e;
@@ -1742,7 +1742,7 @@ public class Planner {
         }
 
         private class StandardJoinExpressionPlan extends ExpressionPlan {
-            private Expression expression;
+            private final Expression expression;
 
             public StandardJoinExpressionPlan(Expression e) {
                 this.expression = e;
@@ -1814,7 +1814,7 @@ public class Planner {
         }
 
         private class SubLogicExpressionPlan extends ExpressionPlan {
-            private Expression expression;
+            private final Expression expression;
 
             public SubLogicExpressionPlan(Expression e) {
                 this.expression = e;

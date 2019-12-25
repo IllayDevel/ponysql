@@ -31,7 +31,7 @@ public class CommandLine {
     /**
      * The command line arguments.
      */
-    private String[] args;
+    private final String[] args;
 
     /**
      * Constructs the command line parser from the String[] array passed as the

@@ -28,7 +28,7 @@ public class DatabaseQueryContext extends AbstractQueryContext {
     /**
      * The DatabaseConnection.
      */
-    private DatabaseConnection database;
+    private final DatabaseConnection database;
 
     /**
      * Constructs the QueryContext.

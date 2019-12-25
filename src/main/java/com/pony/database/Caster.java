@@ -76,11 +76,11 @@ public class Caster {
             BigNumber.fromDouble(Float.MAX_VALUE);
 
     /** The minimum positive float value as a BigNumber. */
-    private static BigNumber minBigNumFloat =
+    private static final BigNumber minBigNumFloat =
             BigNumber.fromDouble(Float.MIN_VALUE);
 
     /** The maximum positive double value as a BigNumber. */
-    private static BigNumber maxBigNumDouble =
+    private static final BigNumber maxBigNumDouble =
             BigNumber.fromDouble(Double.MAX_VALUE);
 
     /**
@@ -111,7 +111,6 @@ public class Caster {
      * argument types.
      *
      * @param constructs The set of constructors from which to select.
-     * @param argSqlTypes The SQL types of the database arguments to be passed
      *        to the constructor.
      * @return The constructor with the lowest cost, or null if there
      *         are no constructors that match the args.
@@ -310,44 +309,44 @@ public class Caster {
     }
 
     // These arrays are used in the getCastingCost method below.
-    private static String[] bitPrims = {"boolean"};
-    private static Class[] bitClasses = {Boolean.class};
+    private static final String[] bitPrims = {"boolean"};
+    private static final Class[] bitClasses = {Boolean.class};
 
-    private static String[] tinyPrims = {"byte", "short", "int", "long"};
-    private static Class[] tinyClasses = {Byte.class, Short.class,
+    private static final String[] tinyPrims = {"byte", "short", "int", "long"};
+    private static final Class[] tinyClasses = {Byte.class, Short.class,
             Integer.class, Long.class, Number.class};
 
-    private static String[] smallPrims = {"short", "int", "long"};
-    private static Class[] smallClasses = {Short.class, Integer.class,
+    private static final String[] smallPrims = {"short", "int", "long"};
+    private static final Class[] smallClasses = {Short.class, Integer.class,
             Long.class, Number.class};
 
-    private static String[] intPrims = {"int", "long"};
-    private static Class[] intClasses = {Integer.class, Long.class,
+    private static final String[] intPrims = {"int", "long"};
+    private static final Class[] intClasses = {Integer.class, Long.class,
             Number.class};
 
-    private static String[] bigPrims = {"long"};
-    private static Class[] bigClasses = {Long.class, Number.class};
+    private static final String[] bigPrims = {"long"};
+    private static final Class[] bigClasses = {Long.class, Number.class};
 
-    private static String[] floatPrims = {"float", "double"};
-    private static Class[] floatClasses = {Float.class, Double.class,
+    private static final String[] floatPrims = {"float", "double"};
+    private static final Class[] floatClasses = {Float.class, Double.class,
             Number.class};
 
-    private static String[] doublePrims = {"double"};
-    private static Class[] doubleClasses = {Double.class, Number.class};
+    private static final String[] doublePrims = {"double"};
+    private static final Class[] doubleClasses = {Double.class, Number.class};
 
-    private static String[] stringPrims = {};
-    private static Class[] stringClasses = {String.class};
+    private static final String[] stringPrims = {};
+    private static final Class[] stringClasses = {String.class};
 
-    private static String[] datePrims = {};
-    private static Class[] dateClasses = {java.sql.Date.class,
+    private static final String[] datePrims = {};
+    private static final Class[] dateClasses = {java.sql.Date.class,
             java.util.Date.class};
 
-    private static String[] timePrims = {};
-    private static Class[] timeClasses = {java.sql.Time.class,
+    private static final String[] timePrims = {};
+    private static final Class[] timeClasses = {java.sql.Time.class,
             java.util.Date.class};
 
-    private static String[] timestampPrims = {};
-    private static Class[] timestampClasses = {java.sql.Timestamp.class,
+    private static final String[] timestampPrims = {};
+    private static final Class[] timestampClasses = {java.sql.Timestamp.class,
             java.util.Date.class};
 
     /**

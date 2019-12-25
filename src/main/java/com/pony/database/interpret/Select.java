@@ -63,7 +63,7 @@ public class Select extends Statement {
      * select from a table in the plan, a UserAccessException is thrown.  This is
      * a static method.
      */
-    static final void checkUserSelectPermissions(
+    static void checkUserSelectPermissions(
             DatabaseQueryContext context, User user, QueryPlanNode plan)
             throws DatabaseException {
 

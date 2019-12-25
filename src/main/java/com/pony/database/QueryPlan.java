@@ -215,12 +215,12 @@ public class QueryPlan {
         /**
          * The name of the table to fetch.
          */
-        private TableName table_name;
+        private final TableName table_name;
 
         /**
          * The name to alias the table as.
          */
-        private TableName alias_name;
+        private final TableName alias_name;
 
         public FetchTableNode(TableName table_name, TableName aliased_as) {
             this.table_name = table_name;
@@ -324,12 +324,12 @@ public class QueryPlan {
         /**
          * The name of the view to fetch.
          */
-        private TableName table_name;
+        private final TableName table_name;
 
         /**
          * The name to alias the table as.
          */
-        private TableName alias_name;
+        private final TableName alias_name;
 
         public FetchViewNode(TableName table_name, TableName aliased_as) {
             this.table_name = table_name;
@@ -571,7 +571,7 @@ public class QueryPlan {
         /**
          * The operator to select under (=, <>, >, <, >=, <=).
          */
-        private Operator op;
+        private final Operator op;
 
         /**
          * The RHS expression.
@@ -631,12 +631,12 @@ public class QueryPlan {
         /**
          * The list of columns to select the range of.
          */
-        private Variable[] columns;
+        private final Variable[] columns;
 
         /**
          * The values of the cells to equi-select (must be constant expressions).
          */
-        private Expression[] values;
+        private final Expression[] values;
 
         public MultiColumnEquiSelectNode(QueryPlanNode child,
                                          Variable[] columns, Expression[] values) {
@@ -901,12 +901,12 @@ public class QueryPlan {
         /**
          * The original columns in the child that we are to make the subset of.
          */
-        private Variable[] original_columns;
+        private final Variable[] original_columns;
 
         /**
          * New names to assign the columns.
          */
-        private Variable[] new_column_names;
+        private final Variable[] new_column_names;
 
 
         public SubsetNode(QueryPlanNode child,
@@ -1019,7 +1019,7 @@ public class QueryPlan {
         /**
          * The list of columns to be distinct.
          */
-        private Variable[] columns;
+        private final Variable[] columns;
 
         public DistinctNode(QueryPlanNode child, Variable[] columns) {
             super(child);
@@ -1066,12 +1066,12 @@ public class QueryPlan {
         /**
          * The list of columns to sort.
          */
-        private Variable[] columns;
+        private final Variable[] columns;
 
         /**
          * Whether to sort the column in ascending or descending order
          */
-        private boolean[] correct_ascending;
+        private final boolean[] correct_ascending;
 
         public SortNode(QueryPlanNode child, Variable[] columns,
                         boolean[] ascending) {
@@ -1152,7 +1152,7 @@ public class QueryPlan {
         /**
          * The columns to group by.
          */
-        private Variable[] columns;
+        private final Variable[] columns;
 
         /**
          * The group max column.
@@ -1163,12 +1163,12 @@ public class QueryPlan {
          * Any aggregate functions (or regular function columns) that are to be
          * planned.
          */
-        private Expression[] function_list;
+        private final Expression[] function_list;
 
         /**
          * The list of names to give each function table.
          */
-        private String[] name_list;
+        private final String[] name_list;
 
 
         /**
@@ -1271,12 +1271,12 @@ public class QueryPlan {
         /**
          * The list of functions to create.
          */
-        private Expression[] function_list;
+        private final Expression[] function_list;
 
         /**
          * The list of names to give each function table.
          */
-        private String[] name_list;
+        private final String[] name_list;
 
         /**
          * Constructor.
@@ -1344,7 +1344,7 @@ public class QueryPlan {
         /**
          * The name of this mark.
          */
-        private String mark_name;
+        private final String mark_name;
 
         /**
          * Constructor.
@@ -1381,7 +1381,7 @@ public class QueryPlan {
         /**
          * The unique identifier of this cache point.
          */
-        private long id;
+        private final long id;
 
         private final static Object GLOB_LOCK = new Object();
         private static int GLOB_ID = 0;
@@ -1461,12 +1461,12 @@ public class QueryPlan {
         /**
          * The columns in the left table.
          */
-        private Variable[] left_columns;
+        private final Variable[] left_columns;
 
         /**
          * The columns in the right table.
          */
-        private Variable[] right_columns;
+        private final Variable[] right_columns;
 
         public EquiJoinNode(QueryPlanNode left, QueryPlanNode right,
                             Variable[] left_cols, Variable[] right_cols) {
@@ -1544,7 +1544,7 @@ public class QueryPlan {
         /**
          * The operator to join under (=, <>, >, <, >=, <=).
          */
-        private Operator join_op;
+        private final Operator join_op;
 
         /**
          * The expression evaluated on the right table.
@@ -1643,7 +1643,7 @@ public class QueryPlan {
          * The name of the mark that points to the left table that represents
          * the complete set.
          */
-        private String complete_mark_name;
+        private final String complete_mark_name;
 
         public LeftOuterJoinNode(QueryPlanNode child, String complete_mark_name) {
             super(child);
@@ -1719,13 +1719,13 @@ public class QueryPlan {
          * The composite operation
          * (either CompositeTable.UNION, EXCEPT, INTERSECT).
          */
-        private int composite_op;
+        private final int composite_op;
 
         /**
          * If this is true, the composite includes all results from both children,
          * otherwise removes deplicates.
          */
-        private boolean all_op;
+        private final boolean all_op;
 
         public CompositeNode(QueryPlanNode left, QueryPlanNode right,
                              int composite_op, boolean all_op) {
@@ -1766,12 +1766,12 @@ public class QueryPlan {
         /**
          * The columns in the left table.
          */
-        private Variable[] left_columns;
+        private final Variable[] left_columns;
 
         /**
          * The SubQuery operator, eg. '= ANY', '<> ALL'
          */
-        private Operator sub_query_operator;
+        private final Operator sub_query_operator;
 
         public NonCorrelatedAnyAllNode(QueryPlanNode left, QueryPlanNode right,
                                        Variable[] left_vars, Operator subquery_op) {

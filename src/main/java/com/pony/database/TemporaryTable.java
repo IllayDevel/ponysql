@@ -38,7 +38,7 @@ public final class TemporaryTable extends DefaultDataTable {
     /**
      * The DataTableDef object that describes the columns in this table.
      */
-    private DataTableDef table_def;
+    private final DataTableDef table_def;
 
     /**
      * A Vector that represents the storage of TObject[] arrays for each row
@@ -296,8 +296,8 @@ public final class TemporaryTable extends DefaultDataTable {
     /**
      * Creates a table with a single column with the given name and type.
      */
-    static final TemporaryTable singleColumnTable(Database database,
-                                                  String col_name, Class c) {
+    static TemporaryTable singleColumnTable(Database database,
+                                            String col_name, Class c) {
         TType ttype = TType.fromClass(c);
         DataTableColumnDef col_def = new DataTableColumnDef();
         col_def.setName(col_name);

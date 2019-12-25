@@ -54,27 +54,27 @@ final class RIDList {
     /**
      * The TransactionSystem that we are in.
      */
-    private TransactionSystem system;
+    private final TransactionSystem system;
 
     /**
      * The master table for the column this is in.
      */
-    private MasterTableDataSource master_table;
+    private final MasterTableDataSource master_table;
 
     /**
      * The TableName of the table.
      */
-    private TableName table_name;
+    private final TableName table_name;
 
     /**
      * The name of the column of this rid list.
      */
-    private String column_name;
+    private final String column_name;
 
     /**
      * The column in the master table.
      */
-    private int column;
+    private final int column;
 
     /**
      * The sorted list of rows in this set.  This is sorted from min to max
@@ -119,7 +119,7 @@ final class RIDList {
      */
     private IntegerVector concurrent_modification_info;
     private ArrayList concurrent_modification_data;
-    private Object modification_lock = new Object();
+    private final Object modification_lock = new Object();
 
     /**
      * Set to true if a request to build the rid list is on the event dispatcher.

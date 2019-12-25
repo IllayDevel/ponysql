@@ -69,18 +69,18 @@ public class FunctionTable extends DefaultDataTable {
      * The DataTableDef object that describes the columns in this function
      * table.
      */
-    private DataTableDef fun_table_def;
+    private final DataTableDef fun_table_def;
 
     /**
      * The table that this function table cross references.  This is not a
      * parent table, but more like the table we will eventually be joined with.
      */
-    private Table cross_ref_table;
+    private final Table cross_ref_table;
 
     /**
      * The TableVariableResolver for the table we are cross referencing.
      */
-    private TableVariableResolver cr_resolver;
+    private final TableVariableResolver cr_resolver;
 
     /**
      * The TableGroupResolver for the table.
@@ -90,13 +90,13 @@ public class FunctionTable extends DefaultDataTable {
     /**
      * The list of expressions that are evaluated to form each column.
      */
-    private Expression[] exp_list;
+    private final Expression[] exp_list;
 
     /**
      * Some information about the expression list.  If the value is 0 then the
      * column is simple to solve and shouldn't be cached.
      */
-    private byte[] exp_info;
+    private final byte[] exp_info;
 
     /**
      * The lookup mapping for row->group_index used for grouping.
@@ -123,16 +123,11 @@ public class FunctionTable extends DefaultDataTable {
      * The total size of the whole table group size.
      */
     private int whole_table_group_size;
-    /**
-     * If the whole table is a simple enumeration (row index is 0 to getRowCount)
-     * then this is true.
-     */
-    private boolean whole_table_is_simple_enum;
 
     /**
      * The context of this function table.
      */
-    private QueryContext context;
+    private final QueryContext context;
 
 
     /**
@@ -232,7 +227,11 @@ public class FunctionTable extends DefaultDataTable {
         // Set up 'whole_table_group' to the list of all rows in the reference
         // table.
         RowEnumeration en = getReferenceTable().rowEnumeration();
-        whole_table_is_simple_enum = en instanceof SimpleRowEnumeration;
+        /**
+         * If the whole table is a simple enumeration (row index is 0 to getRowCount)
+         * then this is true.
+         */
+        boolean whole_table_is_simple_enum = en instanceof SimpleRowEnumeration;
         if (!whole_table_is_simple_enum) {
             whole_table_group = new IntegerVector(getReferenceTable().getRowCount());
             while (en.hasMoreRows()) {

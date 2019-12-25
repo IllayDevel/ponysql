@@ -36,7 +36,7 @@ public class FilterTable extends Table {
     /**
      * The Table we are filtering the columns from.
      */
-    protected Table parent;
+    protected final Table parent;
 
     /**
      * The schemes to describe the entity relation in the given column.

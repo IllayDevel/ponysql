@@ -202,7 +202,7 @@ public abstract class AbstractBlockIntegerList
     /**
      * Inserts a ListBlock at the given block in the list of ListBlock's.
      */
-    private final IntegerListBlockInterface
+    private IntegerListBlockInterface
     insertListBlock(int index, IntegerListBlockInterface list_block) {
         block_list.add(index, list_block);
 
@@ -233,7 +233,7 @@ public abstract class AbstractBlockIntegerList
      * Removes a IntegerListBlockInterface from the given index in the list of
      * IntegerListBlockInterface's.
      */
-    private final void removeListBlock(int index) {
+    private void removeListBlock(int index) {
         // Alter linked list pointers.
         IntegerListBlockInterface new_prev = null;
         IntegerListBlockInterface new_next = null;
@@ -259,8 +259,8 @@ public abstract class AbstractBlockIntegerList
     /**
      * Inserts a value in the given block position in the list.
      */
-    private final void insertIntoBlock(int val, int block_index,
-                                       IntegerListBlockInterface block, int position) {
+    private void insertIntoBlock(int val, int block_index,
+                                 IntegerListBlockInterface block, int position) {
         block.insertIntAt(val, position);
         ++count;
         // Is the block full?
@@ -322,7 +322,7 @@ public abstract class AbstractBlockIntegerList
      * IntegerListBlockInterface within 'block_list' of the block that contains
      * the given key value using the IndexComparator as a lookup comparator.
      */
-    private final int findBlockContaining(Object key, IndexComparator c) {
+    private int findBlockContaining(Object key, IndexComparator c) {
         if (count == 0) {
             return -1;
         }
@@ -359,7 +359,7 @@ public abstract class AbstractBlockIntegerList
      * IntegerListBlockInterface within 'block_list' of the block that contains
      * the given key value using the IndexComparator as a lookup comparator.
      */
-    private final int findLastBlock(Object key, IndexComparator c) {
+    private int findLastBlock(Object key, IndexComparator c) {
         if (count == 0) {
             return -1;
         }
@@ -413,7 +413,7 @@ public abstract class AbstractBlockIntegerList
      * IntegerListBlockInterface within 'block_list' of the block that contains
      * the given key value using the IndexComparator as a lookup comparator.
      */
-    private final int findFirstBlock(Object key, IndexComparator c) {
+    private int findFirstBlock(Object key, IndexComparator c) {
         if (count == 0) {
             return -1;
         }
@@ -465,7 +465,7 @@ public abstract class AbstractBlockIntegerList
      * IntegerListBlockInterface within 'block_list' of the block that contains
      * the given value.
      */
-    private final int findFirstBlock(int val) {
+    private int findFirstBlock(int val) {
         if (count == 0) {
             return -1;
         }
@@ -516,7 +516,7 @@ public abstract class AbstractBlockIntegerList
      * IntegerListBlockInterface within 'block_list' of the block that contains
      * the given value.
      */
-    private final int findLastBlock(int val) {
+    private int findLastBlock(int val) {
         if (count == 0) {
             return -1;
         }
@@ -1026,7 +1026,7 @@ public abstract class AbstractBlockIntegerList
     private final class BILIterator implements IntegerIterator {
 
 
-        private int start_offset;
+        private final int start_offset;
         private int end_offset;
         private IntegerListBlockInterface current_block;
         private int current_block_size;

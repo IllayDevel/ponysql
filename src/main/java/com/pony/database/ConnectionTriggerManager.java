@@ -40,13 +40,13 @@ public final class ConnectionTriggerManager {
     /**
      * The DatabaseConnection.
      */
-    private DatabaseConnection connection;
+    private final DatabaseConnection connection;
 
     /**
      * The list of triggers currently in view.
      * (TriggerInfo)
      */
-    private ArrayList triggers_active;
+    private final ArrayList triggers_active;
 
     /**
      * If this is false then the list is not validated and must be refreshed

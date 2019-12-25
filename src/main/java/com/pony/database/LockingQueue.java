@@ -44,12 +44,12 @@ final class LockingQueue {
     /**
      * The DataTable this queue is 'protecting'
      */
-    private DataTable parent_table;
+    private final DataTable parent_table;
 
     /**
      * This is the queue that stores the table locks.
      */
-    private ArrayList queue;
+    private final ArrayList queue;
 
     /**
      * The Constructor.

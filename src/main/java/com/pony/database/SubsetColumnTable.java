@@ -43,13 +43,6 @@ public final class SubsetColumnTable extends FilterTable
     private int[] column_map;
 
     /**
-     * Maps from the column in the parent table, to the column in this table.
-     * The size of this should match the number of columns in the parent
-     * table.
-     */
-    private int[] reverse_column_map;
-
-    /**
      * The DataTableDef object that describes the subset column of this
      * table.
      */
@@ -77,7 +70,12 @@ public final class SubsetColumnTable extends FilterTable
      * array would be { 4, 8, 1, 2 }.
      */
     public void setColumnMap(int[] mapping, Variable[] aliases) {
-        reverse_column_map = new int[parent.getColumnCount()];
+        /**
+         * Maps from the column in the parent table, to the column in this table.
+         * The size of this should match the number of columns in the parent
+         * table.
+         */
+        int[] reverse_column_map = new int[parent.getColumnCount()];
         for (int i = 0; i < reverse_column_map.length; ++i) {
             reverse_column_map[i] = -1;
         }

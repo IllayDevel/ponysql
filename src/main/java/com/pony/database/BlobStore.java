@@ -63,13 +63,13 @@ final class BlobStore implements BlobStoreInterface {
     /**
      * The outer Store object that is to contain the blob store.
      */
-    private Store store;
+    private final Store store;
 
     /**
      * The FixedRecordList structure that maintains a list of fixed size records
      * for blob reference counting.
      */
-    private FixedRecordList fixed_list;
+    private final FixedRecordList fixed_list;
 
     /**
      * The first delete chain element.
@@ -942,7 +942,7 @@ final class BlobStore implements BlobStoreInterface {
 
         final static int B_SIZE = 64 * 1024;
 
-        private long reference_id;
+        private final long reference_id;
 
         public BLOBInputStream(final long reference_id, final long size) {
             super(B_SIZE, size);

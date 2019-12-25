@@ -33,17 +33,17 @@ public class CompositeTable extends Table implements RootTable {
     /**
      * The composite function for finding the union of the tables.
      */
-    public static int UNION = 1;
+    public static final int UNION = 1;
 
     /**
      * The composite function for finding the interestion of the tables.
      */
-    public static int INTERSECT = 2;
+    public static final int INTERSECT = 2;
 
     /**
      * The composite function for finding the difference of the tables.
      */
-    public static int EXCEPT = 3;
+    public static final int EXCEPT = 3;
 
 
     // ---------- Members ----------
@@ -52,12 +52,12 @@ public class CompositeTable extends Table implements RootTable {
      * The 'master table' used to resolve information about this table such as
      * fields and field types.
      */
-    private Table master_table;
+    private final Table master_table;
 
     /**
      * The tables being made a composite of.
      */
-    private Table[] composite_tables;
+    private final Table[] composite_tables;
 
     /**
      * The list of indexes of rows to include in each table.
@@ -67,7 +67,7 @@ public class CompositeTable extends Table implements RootTable {
     /**
      * The schemes to describe the entity relation in the given column.
      */
-    private SelectableScheme[] column_scheme;
+    private final SelectableScheme[] column_scheme;
 
     /**
      * The number of root locks on this table.

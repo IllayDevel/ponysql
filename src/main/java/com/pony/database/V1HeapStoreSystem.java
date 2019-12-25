@@ -34,12 +34,12 @@ class V1HeapStoreSystem implements StoreSystem {
     /**
      * A mapping from name to Store object for this heap store system.
      */
-    private HashMap name_store_map;
+    private final HashMap name_store_map;
 
     /**
      * A mapping from Store object to name.
      */
-    private HashMap store_name_map;
+    private final HashMap store_name_map;
 
 
     /**

@@ -36,12 +36,12 @@ public final class LengthMarkedBufferedInputStream extends FilterInputStream {
     /**
      * The initial buffer size of the internal input buffer.
      */
-    private static int INITIAL_BUFFER_SIZE = 512;
+    private static final int INITIAL_BUFFER_SIZE = 512;
 
     /**
      * The chained InputStream that is underneath this object.
      */
-    private InputStream in;
+    private final InputStream in;
 
     /**
      * The buffer that is used to read in whatever is on the stream.

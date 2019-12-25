@@ -33,30 +33,30 @@ public class DataIndexDef {
     /**
      * The name of this index.
      */
-    private String index_name;
+    private final String index_name;
 
     /**
      * The list of column name that this index represents.  For example, if this
      * is a composite primary key, this would contain each column name in the
      * primary key.
      */
-    private String[] column_names;
+    private final String[] column_names;
 
     /**
      * Returns the index set pointer of this index.  This value is used when
      * requesting the index from an IndexSet.
      */
-    private int index_pointer;
+    private final int index_pointer;
 
     /**
      * The type of Index this is.  Currently only 'BLIST' is supported.
      */
-    private String index_type;
+    private final String index_type;
 
     /**
      * True if this index may only contain unique values.
      */
-    private boolean unique;
+    private final boolean unique;
 
     /**
      * Constructor.

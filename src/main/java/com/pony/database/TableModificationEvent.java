@@ -92,17 +92,17 @@ public class TableModificationEvent {
     /**
      * The DatabaseConnection of the table that the modification occurred in.
      */
-    private DatabaseConnection connection;
+    private final DatabaseConnection connection;
 
     /**
      * The name of the table that was modified.
      */
-    private TableName table_name;
+    private final TableName table_name;
 
     /**
      * The type of event that occurred.
      */
-    private int event_type;
+    private final int event_type;
 
     /**
      * A RowData object representing the row that is being inserted by this
@@ -110,7 +110,7 @@ public class TableModificationEvent {
      * type is BEFORE then this data represents the new data in the table and
      * can be modified.  This represents the NEW information.
      */
-    private RowData row_data;
+    private final RowData row_data;
 
     /**
      * The row index of the table that is before removed by this modification.

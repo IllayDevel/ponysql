@@ -73,7 +73,7 @@ public class DatabaseConstraintViolationException extends RuntimeException {
     /**
      * The error code.
      */
-    private int error_code;
+    private final int error_code;
 
     /**
      * Constructor.

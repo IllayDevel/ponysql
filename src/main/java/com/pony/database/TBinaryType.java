@@ -40,7 +40,7 @@ public class TBinaryType extends TType {
      * This constrained size of the binary block of data or -1 if there is no
      * size limit.
      */
-    private int max_size;
+    private final int max_size;
 
     /**
      * Constructs the type.

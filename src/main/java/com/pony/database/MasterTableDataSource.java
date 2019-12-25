@@ -64,13 +64,13 @@ abstract class MasterTableDataSource {
      * The global TransactionSystem object that points to the global system
      * that this table source belongs to.
      */
-    private TransactionSystem system;
+    private final TransactionSystem system;
 
     /**
      * The StoreSystem implementation that represents the data persistence
      * layer.
      */
-    private StoreSystem store_system;
+    private final StoreSystem store_system;
 
     // ---------- State information ----------
 
@@ -148,20 +148,13 @@ abstract class MasterTableDataSource {
 
     // --------- Parent information ----------
 
-    /**
-     * The list of all open transactions managed by the parent conglomerate.
-     * This is a thread safe object, and is updated whenever new transactions
-     * are created, or transactions are closed.
-     */
-    private OpenTransactionList open_transactions;
-
     // ---------- Row garbage collection ----------
 
     /**
      * Manages scanning and deleting of rows marked as deleted within this
      * data source.
      */
-    protected MasterTableGarbageCollector garbage_collector;
+    protected final MasterTableGarbageCollector garbage_collector;
 
     // ---------- Blob management ----------
 
@@ -169,7 +162,7 @@ abstract class MasterTableDataSource {
      * An abstracted reference to a BlobStore for managing blob references and
      * blob data.
      */
-    protected BlobStoreInterface blob_store_interface;
+    protected final BlobStoreInterface blob_store_interface;
 
     // ---------- Stat keys ----------
 
@@ -195,7 +188,11 @@ abstract class MasterTableDataSource {
 
         this.system = system;
         this.store_system = store_system;
-        this.open_transactions = open_transactions;
+        /**
+         * The list of all open transactions managed by the parent conglomerate.
+         * This is a thread safe object, and is updated whenever new transactions
+         * are created, or transactions are closed.
+         */
         this.blob_store_interface = blob_store_interface;
         this.garbage_collector = new MasterTableGarbageCollector(this);
         this.cache = system.getDataCellCache();
@@ -1330,12 +1327,7 @@ abstract class MasterTableDataSource {
         /**
          * True if the transaction is read-only.
          */
-        private boolean tran_read_only;
-
-        /**
-         * The name of this table.
-         */
-        private TableName table_name;
+        private final boolean tran_read_only;
 
         /**
          * The 'recovery point' to which the row index in this table source has
@@ -1364,7 +1356,7 @@ abstract class MasterTableDataSource {
          * The SelectableScheme array that represents the schemes for the
          * columns within this transaction.
          */
-        private SelectableScheme[] column_schemes;
+        private final SelectableScheme[] column_schemes;
 
         /**
          * A journal of changes to this source since it was created.
@@ -1386,7 +1378,10 @@ abstract class MasterTableDataSource {
             this.index_set =
                     transaction.getIndexSetForTable(MasterTableDataSource.this);
             int col_count = getDataTableDef().columnCount();
-            this.table_name = getDataTableDef().getTableName();
+            /**
+             * The name of this table.
+             */
+            TableName table_name = getDataTableDef().getTableName();
             this.tran_read_only = transaction.isReadOnly();
             row_list_rebuild = 0;
             scheme_rebuilds = new int[col_count];

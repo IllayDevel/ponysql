@@ -39,7 +39,7 @@ final class INHelper {
      *   only keep for compatibility with DQL system.  The may return multiple
      *   values from 'table1'
      */
-    final static IntegerVector origIn(Table table1, Table table2,
+    static IntegerVector origIn(Table table1, Table table2,
                                       int column1, int column2) {
 
         // First pick the the smallest and largest table.  We only want to iterate
@@ -112,7 +112,7 @@ final class INHelper {
      * This correctly implements the 'in' relation.  The 'origIn' implementation
      * may return multiple rows from the largest table.
      */
-    final static IntegerVector in(Table table1, Table table2,
+    static IntegerVector in(Table table1, Table table2,
                                   int column1, int column2) {
 
         // First pick the the smallest and largest table.  We only want to iterate
@@ -189,7 +189,7 @@ final class INHelper {
     /**
      * A multi-column version of IN.
      */
-    final static IntegerVector in(Table table1, Table table2,
+    static IntegerVector in(Table table1, Table table2,
                                   int[] t1_cols, int[] t2_cols) {
         if (t1_cols.length > 1) {
             throw new Error("Multi-column 'in' not supported.");
@@ -202,7 +202,7 @@ final class INHelper {
      * ISSUE: This will be less efficient than 'in' if table1 has many rows and
      *   table2 has few rows.
      */
-    final static IntegerVector notIn(Table table1, Table table2,
+    static IntegerVector notIn(Table table1, Table table2,
                                      int col1, int col2) {
 
         // Handle trivial cases
@@ -249,7 +249,7 @@ final class INHelper {
     /**
      * A multi-column version of NOT IN.
      */
-    final static IntegerVector notIn(Table table1, Table table2,
+    static IntegerVector notIn(Table table1, Table table2,
                                      int[] t1_cols, int[] t2_cols) {
         if (t1_cols.length > 1) {
             throw new Error("Multi-column 'not in' not supported.");

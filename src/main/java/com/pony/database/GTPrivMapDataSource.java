@@ -37,7 +37,7 @@ public class GTPrivMapDataSource extends GTDataSource {
     /**
      * Number of bits.
      */
-    private static int BIT_COUNT = Privileges.BIT_COUNT;
+    private static final int BIT_COUNT = Privileges.BIT_COUNT;
 
 
     /**

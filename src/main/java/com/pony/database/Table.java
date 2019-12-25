@@ -42,7 +42,7 @@ public abstract class Table implements TableDataSource {
 
     // Set to true to output query debugging information.  All table operation
     // commands will be output.
-    protected static boolean DEBUG_QUERY = true;
+    protected static final boolean DEBUG_QUERY = true;
 
 
     /**
@@ -1250,7 +1250,7 @@ public abstract class Table implements TableDataSource {
      * Helper function.  Returns the index in the String array of the given
      * string value.
      */
-    private final int indexStringArray(String val, String[] array) {
+    private int indexStringArray(String val, String[] array) {
         for (int n = 0; n < array.length; ++n) {
             if (array[n].equals(val)) {
                 return n;
@@ -1717,7 +1717,7 @@ public abstract class Table implements TableDataSource {
 
     // Stores col name -> col index lookups
     private HashMap col_name_lookup;
-    private Object COL_LOOKUP_LOCK = new Object();
+    private final Object COL_LOOKUP_LOCK = new Object();
 
     /**
      * A faster way to find a column index given a string column name.  This

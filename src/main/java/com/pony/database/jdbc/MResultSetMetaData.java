@@ -34,7 +34,7 @@ public class MResultSetMetaData implements ResultSetMetaData {
     /**
      * The parent MResultSet object.
      */
-    private MResultSet result_set;
+    private final MResultSet result_set;
 
     /**
      * Constructs the ResultSetMetaData over the given result set.

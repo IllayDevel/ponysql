@@ -32,17 +32,17 @@ public final class StreamableObject {
     /**
      * The type of the object.
      */
-    private byte type;
+    private final byte type;
 
     /**
      * The size of the object in bytes.
      */
-    private long size;
+    private final long size;
 
     /**
      * The identifier that identifies this object.
      */
-    private long id;
+    private final long id;
 
     /**
      * Constructs the StreamableObject.

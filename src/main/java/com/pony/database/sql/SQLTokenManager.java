@@ -42,13 +42,13 @@ public class SQLTokenManager implements SQLConstants {
         debugStream = ds;
     }
 
-    private final int jjStopAtPos(int pos, int kind) {
+    private int jjStopAtPos(int pos, int kind) {
         jjmatchedKind = kind;
         jjmatchedPos = pos;
         return pos + 1;
     }
 
-    private final int jjMoveStringLiteralDfa0_0() {
+    private int jjMoveStringLiteralDfa0_0() {
         switch (curChar) {
             case 9:
                 jjmatchedKind = 2;
@@ -193,7 +193,7 @@ public class SQLTokenManager implements SQLConstants {
         }
     }
 
-    private final int jjMoveStringLiteralDfa1_0(long active0, long active1, long active2, long active3) {
+    private int jjMoveStringLiteralDfa1_0(long active0, long active1, long active2, long active3) {
         try {
             curChar = input_stream.readChar();
         } catch (java.io.IOException e) {
@@ -358,7 +358,7 @@ public class SQLTokenManager implements SQLConstants {
         return jjMoveNfa_0(5, 1);
     }
 
-    private final int jjMoveStringLiteralDfa2_0(long old0, long active0, long old1, long active1, long old2, long active2, long old3, long active3) {
+    private int jjMoveStringLiteralDfa2_0(long old0, long active0, long old1, long active1, long old2, long active2, long old3, long active3) {
         if (((active0 &= old0) | (active1 &= old1) | (active2 &= old2) | (active3 &= old3)) == 0L)
             return jjMoveNfa_0(5, 1);
         try {
@@ -577,7 +577,7 @@ public class SQLTokenManager implements SQLConstants {
         return jjMoveNfa_0(5, 2);
     }
 
-    private final int jjMoveStringLiteralDfa3_0(long old0, long active0, long old1, long active1, long old2, long active2, long old3, long active3) {
+    private int jjMoveStringLiteralDfa3_0(long old0, long active0, long old1, long active1, long old2, long active2, long old3, long active3) {
         if (((active0 &= old0) | (active1 &= old1) | (active2 &= old2) | (active3 &= old3)) == 0L)
             return jjMoveNfa_0(5, 2);
         try {
@@ -884,7 +884,7 @@ public class SQLTokenManager implements SQLConstants {
         return jjMoveNfa_0(5, 3);
     }
 
-    private final int jjMoveStringLiteralDfa4_0(long old0, long active0, long old1, long active1, long old2, long active2) {
+    private int jjMoveStringLiteralDfa4_0(long old0, long active0, long old1, long active1, long old2, long active2) {
         if (((active0 &= old0) | (active1 &= old1) | (active2 &= old2)) == 0L)
             return jjMoveNfa_0(5, 3);
         try {
@@ -1129,7 +1129,7 @@ public class SQLTokenManager implements SQLConstants {
         return jjMoveNfa_0(5, 4);
     }
 
-    private final int jjMoveStringLiteralDfa5_0(long old0, long active0, long old1, long active1, long old2, long active2) {
+    private int jjMoveStringLiteralDfa5_0(long old0, long active0, long old1, long active1, long old2, long active2) {
         if (((active0 &= old0) | (active1 &= old1) | (active2 &= old2)) == 0L)
             return jjMoveNfa_0(5, 4);
         try {
@@ -1386,7 +1386,7 @@ public class SQLTokenManager implements SQLConstants {
         return jjMoveNfa_0(5, 5);
     }
 
-    private final int jjMoveStringLiteralDfa6_0(long old0, long active0, long old1, long active1, long old2, long active2) {
+    private int jjMoveStringLiteralDfa6_0(long old0, long active0, long old1, long active1, long old2, long active2) {
         if (((active0 &= old0) | (active1 &= old1) | (active2 &= old2)) == 0L)
             return jjMoveNfa_0(5, 5);
         try {
@@ -1613,7 +1613,7 @@ public class SQLTokenManager implements SQLConstants {
         return jjMoveNfa_0(5, 6);
     }
 
-    private final int jjMoveStringLiteralDfa7_0(long old0, long active0, long old1, long active1, long old2, long active2) {
+    private int jjMoveStringLiteralDfa7_0(long old0, long active0, long old1, long active1, long old2, long active2) {
         if (((active0 &= old0) | (active1 &= old1) | (active2 &= old2)) == 0L)
             return jjMoveNfa_0(5, 6);
         try {
@@ -1820,7 +1820,7 @@ public class SQLTokenManager implements SQLConstants {
         return jjMoveNfa_0(5, 7);
     }
 
-    private final int jjMoveStringLiteralDfa8_0(long old0, long active0, long old1, long active1, long old2, long active2) {
+    private int jjMoveStringLiteralDfa8_0(long old0, long active0, long old1, long active1, long old2, long active2) {
         if (((active0 &= old0) | (active1 &= old1) | (active2 &= old2)) == 0L)
             return jjMoveNfa_0(5, 7);
         try {
@@ -1969,7 +1969,7 @@ public class SQLTokenManager implements SQLConstants {
         return jjMoveNfa_0(5, 8);
     }
 
-    private final int jjMoveStringLiteralDfa9_0(long old1, long active1, long old2, long active2) {
+    private int jjMoveStringLiteralDfa9_0(long old1, long active1, long old2, long active2) {
         if (((active1 &= old1) | (active2 &= old2)) == 0L)
             return jjMoveNfa_0(5, 8);
         try {
@@ -2062,7 +2062,7 @@ public class SQLTokenManager implements SQLConstants {
         return jjMoveNfa_0(5, 9);
     }
 
-    private final int jjMoveStringLiteralDfa10_0(long old2, long active2) {
+    private int jjMoveStringLiteralDfa10_0(long old2, long active2) {
         if (((active2 &= old2)) == 0L)
             return jjMoveNfa_0(5, 9);
         try {
@@ -2143,7 +2143,7 @@ public class SQLTokenManager implements SQLConstants {
         return jjMoveNfa_0(5, 10);
     }
 
-    private final int jjMoveStringLiteralDfa11_0(long old2, long active2) {
+    private int jjMoveStringLiteralDfa11_0(long old2, long active2) {
         if (((active2 &= old2)) == 0L)
             return jjMoveNfa_0(5, 10);
         try {
@@ -2200,7 +2200,7 @@ public class SQLTokenManager implements SQLConstants {
         return jjMoveNfa_0(5, 11);
     }
 
-    private final int jjMoveStringLiteralDfa12_0(long old2, long active2) {
+    private int jjMoveStringLiteralDfa12_0(long old2, long active2) {
         if (((active2 &= old2)) == 0L)
             return jjMoveNfa_0(5, 11);
         try {
@@ -2255,7 +2255,7 @@ public class SQLTokenManager implements SQLConstants {
         return jjMoveNfa_0(5, 12);
     }
 
-    private final int jjMoveStringLiteralDfa13_0(long old2, long active2) {
+    private int jjMoveStringLiteralDfa13_0(long old2, long active2) {
         if (((active2 &= old2)) == 0L)
             return jjMoveNfa_0(5, 12);
         try {
@@ -2314,7 +2314,7 @@ public class SQLTokenManager implements SQLConstants {
         return jjMoveNfa_0(5, 13);
     }
 
-    private final int jjMoveStringLiteralDfa14_0(long old2, long active2) {
+    private int jjMoveStringLiteralDfa14_0(long old2, long active2) {
         if (((active2 &= old2)) == 0L)
             return jjMoveNfa_0(5, 13);
         try {
@@ -2369,7 +2369,7 @@ public class SQLTokenManager implements SQLConstants {
         return jjMoveNfa_0(5, 14);
     }
 
-    private final int jjMoveStringLiteralDfa15_0(long old2, long active2) {
+    private int jjMoveStringLiteralDfa15_0(long old2, long active2) {
         if (((active2 &= old2)) == 0L)
             return jjMoveNfa_0(5, 14);
         try {
@@ -2444,7 +2444,7 @@ public class SQLTokenManager implements SQLConstants {
         return jjMoveNfa_0(5, 15);
     }
 
-    private final int jjMoveStringLiteralDfa16_0(long old2, long active2) {
+    private int jjMoveStringLiteralDfa16_0(long old2, long active2) {
         if (((active2 &= old2)) == 0L)
             return jjMoveNfa_0(5, 15);
         try {
@@ -2495,7 +2495,7 @@ public class SQLTokenManager implements SQLConstants {
         return jjMoveNfa_0(5, 16);
     }
 
-    private final int jjMoveStringLiteralDfa17_0(long old2, long active2) {
+    private int jjMoveStringLiteralDfa17_0(long old2, long active2) {
         if (((active2 &= old2)) == 0L)
             return jjMoveNfa_0(5, 16);
         try {
@@ -2548,7 +2548,7 @@ public class SQLTokenManager implements SQLConstants {
         return jjMoveNfa_0(5, 17);
     }
 
-    private final int jjMoveStringLiteralDfa18_0(long old2, long active2) {
+    private int jjMoveStringLiteralDfa18_0(long old2, long active2) {
         if (((active2 &= old2)) == 0L)
             return jjMoveNfa_0(5, 17);
         try {
@@ -2567,7 +2567,7 @@ public class SQLTokenManager implements SQLConstants {
         return jjMoveNfa_0(5, 18);
     }
 
-    private final int jjMoveStringLiteralDfa19_0(long old2, long active2) {
+    private int jjMoveStringLiteralDfa19_0(long old2, long active2) {
         if (((active2 &= old2)) == 0L)
             return jjMoveNfa_0(5, 18);
         try {
@@ -2590,7 +2590,7 @@ public class SQLTokenManager implements SQLConstants {
         return jjMoveNfa_0(5, 19);
     }
 
-    private final int jjMoveStringLiteralDfa20_0(long old2, long active2) {
+    private int jjMoveStringLiteralDfa20_0(long old2, long active2) {
         if (((active2 &= old2)) == 0L)
             return jjMoveNfa_0(5, 19);
         try {
@@ -2613,7 +2613,7 @@ public class SQLTokenManager implements SQLConstants {
         return jjMoveNfa_0(5, 20);
     }
 
-    private final int jjMoveStringLiteralDfa21_0(long old2, long active2) {
+    private int jjMoveStringLiteralDfa21_0(long old2, long active2) {
         if (((active2 &= old2)) == 0L)
             return jjMoveNfa_0(5, 20);
         try {
@@ -2634,7 +2634,7 @@ public class SQLTokenManager implements SQLConstants {
         return jjMoveNfa_0(5, 21);
     }
 
-    private final int jjMoveStringLiteralDfa22_0(long old2, long active2) {
+    private int jjMoveStringLiteralDfa22_0(long old2, long active2) {
         if (((active2 &= old2)) == 0L)
             return jjMoveNfa_0(5, 21);
         try {
@@ -2665,7 +2665,7 @@ public class SQLTokenManager implements SQLConstants {
         return jjMoveNfa_0(5, 22);
     }
 
-    private final int jjMoveStringLiteralDfa23_0(long old2, long active2) {
+    private int jjMoveStringLiteralDfa23_0(long old2, long active2) {
         if (((active2 &= old2)) == 0L)
             return jjMoveNfa_0(5, 22);
         try {
@@ -2684,7 +2684,7 @@ public class SQLTokenManager implements SQLConstants {
         return jjMoveNfa_0(5, 23);
     }
 
-    private final int jjMoveStringLiteralDfa24_0(long old2, long active2) {
+    private int jjMoveStringLiteralDfa24_0(long old2, long active2) {
         if (((active2 &= old2)) == 0L)
             return jjMoveNfa_0(5, 23);
         try {
@@ -2703,7 +2703,7 @@ public class SQLTokenManager implements SQLConstants {
         return jjMoveNfa_0(5, 24);
     }
 
-    private final int jjMoveStringLiteralDfa25_0(long old2, long active2) {
+    private int jjMoveStringLiteralDfa25_0(long old2, long active2) {
         if (((active2 &= old2)) == 0L)
             return jjMoveNfa_0(5, 24);
         try {
@@ -2722,7 +2722,7 @@ public class SQLTokenManager implements SQLConstants {
         return jjMoveNfa_0(5, 25);
     }
 
-    private final int jjMoveStringLiteralDfa26_0(long old2, long active2) {
+    private int jjMoveStringLiteralDfa26_0(long old2, long active2) {
         if (((active2 &= old2)) == 0L)
             return jjMoveNfa_0(5, 25);
         try {
@@ -2749,31 +2749,31 @@ public class SQLTokenManager implements SQLConstants {
         return jjMoveNfa_0(5, 26);
     }
 
-    private final void jjCheckNAdd(int state) {
+    private void jjCheckNAdd(int state) {
         if (jjrounds[state] != jjround) {
             jjstateSet[jjnewStateCnt++] = state;
             jjrounds[state] = jjround;
         }
     }
 
-    private final void jjAddStates(int start, int end) {
+    private void jjAddStates(int start, int end) {
         do {
             jjstateSet[jjnewStateCnt++] = jjnextStates[start];
         } while (start++ != end);
     }
 
-    private final void jjCheckNAddTwoStates(int state1, int state2) {
+    private void jjCheckNAddTwoStates(int state1, int state2) {
         jjCheckNAdd(state1);
         jjCheckNAdd(state2);
     }
 
-    private final void jjCheckNAddStates(int start, int end) {
+    private void jjCheckNAddStates(int start, int end) {
         do {
             jjCheckNAdd(jjnextStates[start]);
         } while (start++ != end);
     }
 
-    private final void jjCheckNAddStates(int start) {
+    private void jjCheckNAddStates(int start) {
         jjCheckNAdd(jjnextStates[start]);
         jjCheckNAdd(jjnextStates[start + 1]);
     }
@@ -2785,7 +2785,7 @@ public class SQLTokenManager implements SQLConstants {
             0x0L, 0x0L, 0xffffffffffffffffL, 0xffffffffffffffffL
     };
 
-    private final int jjMoveNfa_0(int startState, int curPos) {
+    private int jjMoveNfa_0(int startState, int curPos) {
         int strKind = jjmatchedKind;
         int strPos = jjmatchedPos;
         int seenUpto;
@@ -3381,7 +3381,7 @@ public class SQLTokenManager implements SQLConstants {
             51, 52,
     };
 
-    private static final boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2) {
+    private static boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2) {
         switch (hiByte) {
             case 0:
                 return ((jjbitVec2[i2] & l2) != 0L);
@@ -3439,7 +3439,7 @@ public class SQLTokenManager implements SQLConstants {
         ReInitRounds();
     }
 
-    private final void ReInitRounds() {
+    private void ReInitRounds() {
         int i;
         jjround = 0x80000001;
         for (i = 84; i-- > 0; )
@@ -3458,7 +3458,7 @@ public class SQLTokenManager implements SQLConstants {
             curLexState = lexState;
     }
 
-    private final Token jjFillToken() {
+    private Token jjFillToken() {
         Token t = Token.newToken(jjmatchedKind);
         t.kind = jjmatchedKind;
         String im = jjstrLiteralImages[jjmatchedKind];
@@ -3471,7 +3471,7 @@ public class SQLTokenManager implements SQLConstants {
     }
 
     int curLexState = 0;
-    int defaultLexState = 0;
+    final int defaultLexState = 0;
     int jjnewStateCnt;
     int jjround;
     int jjmatchedPos;

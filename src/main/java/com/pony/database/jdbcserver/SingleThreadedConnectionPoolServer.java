@@ -63,19 +63,19 @@ final class SingleThreadedConnectionPoolServer
     /**
      * The Database context.
      */
-    private Database database;
+    private final Database database;
 
     /**
      * The list of ServerConnection objects that are pending to be added into the
      * current service provider list next time it is checked.
      */
-    private ArrayList pending_connections_list;
+    private final ArrayList pending_connections_list;
 
     /**
      * The ServerFarmer object that polls for information from the clients and
      * dispatches the request to the worker threads.
      */
-    private ServerFarmer farmer;
+    private final ServerFarmer farmer;
 
 
     /**
@@ -127,14 +127,12 @@ final class SingleThreadedConnectionPoolServer
          * The list of ServerConnection objects that are currently being serviced
          * by this server.
          */
-        private ArrayList server_connections_list;
+        private final ArrayList server_connections_list;
 
         /**
          * Staticial information collected.
          */
         private int stat_display = 0;
-        private int commands_run = 0;
-        private int commands_waited = 0;
 
         /**
          * If this is set to true, then the farmer run method should close off.
@@ -146,7 +144,7 @@ final class SingleThreadedConnectionPoolServer
          * method of the socket.  This value is determined by the configuration
          * file during initialization.
          */
-        private int poll_wait_time;
+        private final int poll_wait_time;
 
 
         /**
@@ -308,8 +306,10 @@ final class SingleThreadedConnectionPoolServer
                 if (stat_display == 0) {
                     stat_display = 500;
                     System.out.print("[TCPServer Stats] ");
+                    int commands_run = 0;
                     System.out.print(commands_run);
                     System.out.print(" run, ");
+                    int commands_waited = 0;
                     System.out.print(commands_waited);
                     System.out.print(" wait, ");
                     System.out.print(server_connections_list.size());
@@ -405,12 +405,12 @@ final class SingleThreadedConnectionPoolServer
      * This contains state information about a ServerConnection that is being
      * maintained by the server.
      */
-    private final class ServerConnectionState {
+    private static final class ServerConnectionState {
 
         /**
          * The local variables.
          */
-        private ServerConnection connection;
+        private final ServerConnection connection;
         //    private boolean is_establish;
         private boolean is_processing_request;
         private boolean is_pending_command;

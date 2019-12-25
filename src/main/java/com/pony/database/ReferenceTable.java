@@ -41,12 +41,12 @@ public final class ReferenceTable extends FilterTable implements RootTable {
     /**
      * This represents the new name of the table.
      */
-    private TableName table_name;
+    private final TableName table_name;
 
     /**
      * The modified DataTableDef object for this reference.
      */
-    private DataTableDef modified_table_def;
+    private final DataTableDef modified_table_def;
 
 
     /**

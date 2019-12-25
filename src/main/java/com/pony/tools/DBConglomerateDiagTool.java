@@ -122,7 +122,7 @@ class ConglomerateViewPane extends JRootPane {
     /**
      * The conglomerate.
      */
-    private TableDataConglomerate conglomerate;
+    private final TableDataConglomerate conglomerate;
 
     /**
      * The current selected table.
@@ -137,7 +137,7 @@ class ConglomerateViewPane extends JRootPane {
     /**
      * The view of the store.
      */
-    private StoreViewPane view_pane;
+    private final StoreViewPane view_pane;
 
     /**
      * Constructor.
@@ -148,6 +148,59 @@ class ConglomerateViewPane extends JRootPane {
         this.conglomerate = conglom;
 
         JMenu info = new JMenu("Info");
+        /**
+         * An action for calculating the average row size in the table.
+         */
+        Action average_row_count_action = new AbstractAction("Table Statistics") {
+
+            public void actionPerformed(ActionEvent evt) {
+                if (current_table == null || current_table.physicalRecordCount() < 10) {
+                    return;
+                }
+                int row_count = current_table.physicalRecordCount();
+                int[] store = new int[row_count];
+                long total_size = 0;
+
+                for (int i = 0; i < row_count; ++i) {
+                    int record_size = current_table.recordSize(i);
+                    store[i] = record_size;
+                    total_size += record_size;
+                }
+
+                int avg = (int) (total_size / row_count);
+                System.out.println("Average row size: " + avg);
+
+                double best_score = 100000000000.0;
+                int best_ss = 45;
+                int best_size = Integer.MAX_VALUE;
+
+                for (int ss = 19; ss < avg + 128; ++ss) {
+                    int total_sectors = 0;
+                    for (int n = 0; n < store.length; ++n) {
+                        int sz = store[n];
+                        total_sectors += (sz / (ss + 1)) + 1;
+                    }
+
+                    int file_size = ((ss + 5) * total_sectors);
+                    double average_sec = (double) total_sectors / row_count;
+                    double score = file_size * (((average_sec - 1.0) / 20.0) + 1.0);
+
+                    System.out.println(" (" + score + " : " + file_size +
+                            " : " + ss + " : " + average_sec + ") ");
+                    if (average_sec < 2.8 && score < best_score) {
+                        best_score = score;
+                        best_size = file_size;
+                        best_ss = ss;
+                    }
+                }
+
+                System.out.println("Best sector size: " + best_ss +
+                        " Best file size: " + best_size);
+
+
+            }
+
+        };
         info.add(average_row_count_action);
 
         JMenuBar menubar = new JMenuBar();
@@ -213,7 +266,7 @@ class ConglomerateViewPane extends JRootPane {
         /**
          * The JTable that contains the information.
          */
-        private JTable table;
+        private final JTable table;
 
 
         public StoreViewPane() {
@@ -235,9 +288,9 @@ class ConglomerateViewPane extends JRootPane {
     /**
      * A TableModel for displaying the contents of a RawDiagnosticTable.
      */
-    private class DTableModel extends AbstractTableModel {
+    private static class DTableModel extends AbstractTableModel {
 
-        private RawDiagnosticTable diag_table;
+        private final RawDiagnosticTable diag_table;
 
         public DTableModel(RawDiagnosticTable diag_table) {
             this.diag_table = diag_table;
@@ -287,61 +340,6 @@ class ConglomerateViewPane extends JRootPane {
             }
         }
     }
-
-    /**
-     * An action for calculating the average row size in the table.
-     */
-    private Action average_row_count_action =
-            new AbstractAction("Table Statistics") {
-
-                public void actionPerformed(ActionEvent evt) {
-                    if (current_table == null || current_table.physicalRecordCount() < 10) {
-                        return;
-                    }
-                    int row_count = current_table.physicalRecordCount();
-                    int[] store = new int[row_count];
-                    long total_size = 0;
-
-                    for (int i = 0; i < row_count; ++i) {
-                        int record_size = current_table.recordSize(i);
-                        store[i] = record_size;
-                        total_size += record_size;
-                    }
-
-                    int avg = (int) (total_size / row_count);
-                    System.out.println("Average row size: " + avg);
-
-                    double best_score = 100000000000.0;
-                    int best_ss = 45;
-                    int best_size = Integer.MAX_VALUE;
-
-                    for (int ss = 19; ss < avg + 128; ++ss) {
-                        int total_sectors = 0;
-                        for (int n = 0; n < store.length; ++n) {
-                            int sz = store[n];
-                            total_sectors += (sz / (ss + 1)) + 1;
-                        }
-
-                        int file_size = ((ss + 5) * total_sectors);
-                        double average_sec = (double) total_sectors / row_count;
-                        double score = file_size * (((average_sec - 1.0) / 20.0) + 1.0);
-
-                        System.out.println(" (" + score + " : " + file_size +
-                                " : " + ss + " : " + average_sec + ") ");
-                        if (average_sec < 2.8 && score < best_score) {
-                            best_score = score;
-                            best_size = file_size;
-                            best_ss = ss;
-                        }
-                    }
-
-                    System.out.println("Best sector size: " + best_ss +
-                            " Best file size: " + best_size);
-
-
-                }
-
-            };
 
 }
 

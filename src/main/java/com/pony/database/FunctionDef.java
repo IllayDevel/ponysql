@@ -35,7 +35,7 @@ public final class FunctionDef implements java.io.Serializable, Cloneable {
     /**
      * The name of the function.
      */
-    private String name;
+    private final String name;
 
     /**
      * The list of parameters for the function.

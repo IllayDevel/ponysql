@@ -38,14 +38,14 @@ final class SequenceManager {
     /**
      * The TableDataConglomerate object.
      */
-    private TableDataConglomerate conglomerate;
+    private final TableDataConglomerate conglomerate;
 
     /**
      * A hashmap that maps from the TableName of the sequence key
      * to the object that manages this sequence (SequenceGenerator).
      * (TableName) -> (SequenceGenerator)
      */
-    private HashMap sequence_key_map;
+    private final HashMap sequence_key_map;
 
     /**
      * A static TObject that represents numeric 1.
@@ -515,17 +515,17 @@ final class SequenceManager {
         /**
          * The id value of this sequence key.
          */
-        long id;
+        final long id;
 
         /**
          * The name of this sequence key.
          */
-        TableName name;
+        final TableName name;
 
         /**
          * The type of this sequence key.
          */
-        int type;
+        final int type;
 
         // The following values are only set if 'type' is not a native table
         // sequence.
@@ -624,7 +624,7 @@ final class SequenceManager {
      */
     private static class SequenceInternalTableInfo implements InternalTableInfo {
 
-        Transaction transaction;
+        final Transaction transaction;
 
         SequenceInternalTableInfo(Transaction transaction) {
             this.transaction = transaction;

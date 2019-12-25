@@ -38,19 +38,19 @@ public class ColumnDescription {
     /**
      * The name of the field.
      */
-    private String name;
+    private final String name;
 
     /**
      * The type of the field, from the Types object.
      */
-    private int type;
+    private final int type;
 
     /**
      * The size of the type.  The meaning of this field changes depending on the
      * type.  For example, the size of an SQL NUMERIC represents the number of
      * digits in the value (precision).
      */
-    private int size;
+    private final int size;
 
     /**
      * The scale of a numerical value.  This represents the number of digits to
@@ -71,7 +71,7 @@ public class ColumnDescription {
      * no information.  This is enforced at the parse stage when adding or
      * altering a table.
      */
-    private boolean not_null;
+    private final boolean not_null;
 
     /**
      * If true, the field may only contain unique values.  This is enforced at

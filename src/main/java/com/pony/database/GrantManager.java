@@ -87,18 +87,18 @@ public class GrantManager {
     /**
      * The DatabaseConnection instance.
      */
-    private DatabaseConnection connection;
+    private final DatabaseConnection connection;
 
     /**
      * The QueryContext instance.
      */
-    private QueryContext context;
+    private final QueryContext context;
 
     /**
      * A cache of privileges for the various tables in the database.  This cache
      * is populated as the user 'visits' a table.
      */
-    private Cache priv_cache;
+    private final Cache priv_cache;
 
     /**
      * Set to true if the grant table is modified in this manager.
@@ -153,9 +153,9 @@ public class GrantManager {
      * This object is designed to be an immutable key in a cache.
      */
     private static class GrantQuery {
-        private int object;
-        private String param;
-        private String username;
+        private final int object;
+        private final String param;
+        private final String username;
         private int flags;
 
         GrantQuery(int object, String param, String username,

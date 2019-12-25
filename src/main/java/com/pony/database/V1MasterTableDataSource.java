@@ -65,7 +65,7 @@ public final class V1MasterTableDataSource extends MasterTableDataSource {
     /**
      * The persistent object we use to read information from a row stream.
      */
-    private CellInputStream cell_in;
+    private final CellInputStream cell_in;
 
 
     /**

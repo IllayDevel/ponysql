@@ -33,7 +33,7 @@ public final class AsciiReader extends Reader {
     /**
      * The 8-bit per character Ascii input straem.
      */
-    private InputStream input;
+    private final InputStream input;
 
     /**
      * Constructs the reader.

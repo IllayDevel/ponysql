@@ -32,12 +32,12 @@ class TCPStreamDatabaseInterface extends StreamDatabaseInterface {
     /**
      * The name of the host we are connected to.
      */
-    private String host;
+    private final String host;
 
     /**
      * The port we are connected to.
      */
-    private int port;
+    private final int port;
 
     /**
      * The Socket connection.

@@ -37,9 +37,9 @@ import com.pony.debug.*;
 
 class DatabaseDispatcher extends Thread {
 
-    private ArrayList event_queue = new ArrayList();
+    private final ArrayList event_queue = new ArrayList();
 
-    private TransactionSystem system;
+    private final TransactionSystem system;
 
     private boolean finished;
 
@@ -138,9 +138,9 @@ class DatabaseDispatcher extends Thread {
 
     // ---------- Inner classes ----------
 
-    class DatabaseEvent implements Comparable {
+    static class DatabaseEvent implements Comparable {
         private long time_to_run_event;
-        private Runnable runnable;
+        private final Runnable runnable;
 
         DatabaseEvent(Runnable runnable) {
             this.runnable = runnable;

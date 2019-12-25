@@ -39,11 +39,6 @@ import java.util.Vector;
 
 public class InsertDeleteTest {
 
-    /**
-     * The global connection instance.
-     */
-    private static Connection connection;
-
     private static int thread_count = 1;
 
 
@@ -92,6 +87,10 @@ public class InsertDeleteTest {
 
         // Make a connection with the database.  This will create the database
         // and log into the newly created database.
+        /**
+         * The global connection instance.
+         */
+        Connection connection;
         try {
             connection = DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
@@ -137,7 +136,7 @@ public class InsertDeleteTest {
 
                 private boolean finished = false;
 
-                private int unique_num;
+                private final int unique_num;
 
                 public TestThread() {
                     unique_num = thread_count * 10000;

@@ -45,14 +45,14 @@ class TableExpressionFromSet {
      * The list of table resources in this set.
      * (FromTableInterface).
      */
-    private ArrayList table_resources;
+    private final ArrayList table_resources;
 
     /**
      * The list of function expression resources.  For example, one table
      * expression may expose a function as 'SELECT (a + b) AS c, ....' in which
      * case we have a virtual assignment of c = (a + b) in this set.
      */
-    private ArrayList function_resources;
+    private final ArrayList function_resources;
 
     /**
      * The list of Variable references in this set that are exposed to the
@@ -60,7 +60,7 @@ class TableExpressionFromSet {
      *   SELECT a, b, c, (a + 1) d FROM ABCTable
      * Would be exposing variables 'a', 'b', 'c' and 'd'.
      */
-    private ArrayList exposed_variables;
+    private final ArrayList exposed_variables;
 
     /**
      * Set to true if this should do case insensitive resolutions.

@@ -29,17 +29,17 @@ final class SystemQueryContext extends AbstractQueryContext {
     /**
      * The wrapped TransactionSystem object.
      */
-    private TransactionSystem system;
+    private final TransactionSystem system;
 
     /**
      * The Transaction this is a part of.
      */
-    private SimpleTransaction transaction;
+    private final SimpleTransaction transaction;
 
     /**
      * The context schema of this context.
      */
-    private String current_schema;
+    private final String current_schema;
 
 
     /**

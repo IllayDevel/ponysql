@@ -76,13 +76,6 @@ public class Insert extends Statement {
      */
     private Select prepared_select;
 
-    /**
-     * Tables that are relationally linked to the table being inserted into, set
-     * after 'prepare'.  This is used to determine the tables we need to read
-     * lock because we need to validate relational constraints on the tables.
-     */
-    private ArrayList relationally_linked_tables;
-
 
     // ---------- Implemented from Statement ----------
 
@@ -222,7 +215,12 @@ public class Insert extends Statement {
         // Resolve all tables linked to this
         TableName[] linked_tables =
                 database.queryTablesRelationallyLinkedTo(tname);
-        relationally_linked_tables = new ArrayList(linked_tables.length);
+        /**
+         * Tables that are relationally linked to the table being inserted into, set
+         * after 'prepare'.  This is used to determine the tables we need to read
+         * lock because we need to validate relational constraints on the tables.
+         */
+        ArrayList relationally_linked_tables = new ArrayList(linked_tables.length);
         for (int i = 0; i < linked_tables.length; ++i) {
             relationally_linked_tables.add(database.getTable(linked_tables[i]));
         }

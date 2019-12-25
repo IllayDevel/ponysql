@@ -67,12 +67,12 @@ public class QueryAgent {
     /**
      * The utility for blocking the swing event dispatch thread.
      */
-    private SwingBlockUtil block_util;
+    private final SwingBlockUtil block_util;
 
     /**
      * The thread we use to send commands to the JDBC connection.
      */
-    private QueryThread query_thread;
+    private final QueryThread query_thread;
 
     /**
      * This represents the state of the result of the query.  Either 'n' (none),
@@ -241,7 +241,7 @@ public class QueryAgent {
     private class QueryThread extends Thread {
 
         // The list of statements pending to be executed,
-        private ArrayList statements = new ArrayList();
+        private final ArrayList statements = new ArrayList();
 
         private QueryThread() {
             super();

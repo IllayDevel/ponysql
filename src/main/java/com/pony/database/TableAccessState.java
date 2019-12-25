@@ -34,7 +34,7 @@ public final class TableAccessState {
     /**
      * The underlying Table object.
      */
-    private Table table;
+    private final Table table;
 
     /**
      * Set to true when the table is first locked.

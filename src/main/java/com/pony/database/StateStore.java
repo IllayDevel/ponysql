@@ -39,12 +39,12 @@ class StateStore {
     /**
      * The MAGIC value used for state header areas.
      */
-    private int MAGIC = 0x0BAC8001;
+    private final int MAGIC = 0x0BAC8001;
 
     /**
      * The Store object this state store wraps around.
      */
-    private Store store;
+    private final Store store;
 
     /**
      * The current table identifier.
@@ -473,13 +473,13 @@ class StateStore {
         /**
          * The unique identifier for the resource.
          */
-        long table_id;
+        final long table_id;
 
         /**
          * The unique name given to the resource to distinguish it from all other
          * resources.
          */
-        String name;
+        final String name;
 
         public StateResource(long table_id, String name) {
             this.table_id = table_id;

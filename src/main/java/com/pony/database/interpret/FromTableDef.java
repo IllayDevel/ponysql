@@ -39,7 +39,7 @@ public final class FromTableDef implements java.io.Serializable, Cloneable {
      * <p>
      * eg. FROM ( SELECT id, number FROM Part ) AS part_info, ....
      */
-    private boolean subquery_table;
+    private final boolean subquery_table;
 
     /**
      * The unique key name given to this table definition.
@@ -49,12 +49,12 @@ public final class FromTableDef implements java.io.Serializable, Cloneable {
     /**
      * The name of the table this definition references.
      */
-    private String table_name;
+    private final String table_name;
 
     /**
      * The alias of the table or null if no alias was defined.
      */
-    private String table_alias;
+    private final String table_alias;
 
     /**
      * The TableSelectExpression if this is a subquery table.

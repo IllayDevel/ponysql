@@ -44,17 +44,17 @@ class V1FileStoreSystem implements StoreSystem {
      * The TransactionSystem that contains the various configuration options for
      * the database.
      */
-    private TransactionSystem system;
+    private final TransactionSystem system;
 
     /**
      * The path in the filesystem where the data files are located.
      */
-    private File path;
+    private final File path;
 
     /**
      * True if the stores are read-only.
      */
-    private boolean read_only;
+    private final boolean read_only;
 
     /**
      * The lock file.

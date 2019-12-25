@@ -60,7 +60,7 @@ class JournalledSystem {
     /**
      * The map of all resources that are available.  (resource_name -> Resource)
      */
-    private HashMap all_resources;
+    private final HashMap all_resources;
 
     /**
      * The unique sequence id counter for this session.
@@ -295,7 +295,7 @@ class JournalledSystem {
 
     }
 
-    private Comparator journal_list_comparator = new Comparator() {
+    private final Comparator journal_list_comparator = new Comparator() {
 
         public int compare(Object ob1, Object ob2) {
             JournalSummary js1 = (JournalSummary) ob1;
@@ -440,12 +440,12 @@ class JournalledSystem {
         /**
          * The File object of this journal in the file system.
          */
-        private File file;
+        private final File file;
 
         /**
          * True if the journal file is read only.
          */
-        private boolean read_only;
+        private final boolean read_only;
 
         /**
          * The StreamFile object for reading and writing entries to/from the
@@ -461,12 +461,12 @@ class JournalledSystem {
         /**
          * Small buffer.
          */
-        private byte[] buffer;
+        private final byte[] buffer;
 
         /**
          * A map between a resource name and an id for this journal file.
          */
-        private HashMap resource_id_map;
+        private final HashMap resource_id_map;
 
         /**
          * The sequence id for resources modified in this log.
@@ -1016,11 +1016,6 @@ class JournalledSystem {
     private static final class JournalEntry {
 
         /**
-         * The resource that this page is on.
-         */
-        private final String resource_name;
-
-        /**
          * The journal file.
          */
         private final JournalFile journal;
@@ -1047,7 +1042,9 @@ class JournalledSystem {
          */
         public JournalEntry(String resource_name, JournalFile journal,
                             long position, long page_number) {
-            this.resource_name = resource_name;
+            /**
+             * The resource that this page is on.
+             */
             this.journal = journal;
             this.position = position;
             this.page_number = page_number;
@@ -1683,7 +1680,7 @@ class JournalledSystem {
         /**
          * The JournalFile object that is a summary of.
          */
-        JournalFile journal_file;
+        final JournalFile journal_file;
 
         /**
          * True if the journal is recoverable (has one or more complete check
@@ -1699,7 +1696,7 @@ class JournalledSystem {
         /**
          * The list of all resource names that this journal 'touches'.
          */
-        ArrayList resource_list = new ArrayList();
+        final ArrayList resource_list = new ArrayList();
 
         /**
          * Constructor.

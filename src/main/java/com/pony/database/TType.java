@@ -41,7 +41,7 @@ public abstract class TType implements java.io.Serializable {
     /**
      * The type as an SQL identifier from com.pony.database.global.SQLTypes.
      */
-    private int sql_type;
+    private final int sql_type;
 
     /**
      * Constructs the type object.

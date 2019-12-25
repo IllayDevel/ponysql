@@ -46,13 +46,13 @@ final class MultiThreadedConnectionPoolServer implements ConnectionPoolServer {
     /**
      * The Database parent.
      */
-    private Database database;
+    private final Database database;
 
     /**
      * The list of all threads that were created to deal with incoming
      * commands.
      */
-    private ArrayList client_threads;
+    private final ArrayList client_threads;
 
 
     /**
@@ -107,7 +107,7 @@ final class MultiThreadedConnectionPoolServer implements ConnectionPoolServer {
         /**
          * The ServerConnection object being serviced by this thread.
          */
-        private ServerConnection server_connection;
+        private final ServerConnection server_connection;
 
         /**
          * If this is set to true, the thread run method should close off.

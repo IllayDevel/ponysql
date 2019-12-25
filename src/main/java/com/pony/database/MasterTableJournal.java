@@ -68,7 +68,7 @@ final class MasterTableJournal {
      * For example, a 'TABLE_ADD' journal log will have as parameters the
      * row_index that was added to this table.
      */
-    private IntegerVector command_parameters;
+    private final IntegerVector command_parameters;
 
     /**
      * Constructs the master table journal.

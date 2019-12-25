@@ -64,12 +64,12 @@ abstract class JDBCProcessor implements ProtocolConstants {
     /**
      * The interface to the database.
      */
-    private DatabaseInterface db_interface;
+    private final DatabaseInterface db_interface;
 
     /**
      * An object the debug information can be logged to.
      */
-    private DebugLogger debug;
+    private final DebugLogger debug;
 
     /**
      * Sets up the processor.
@@ -85,7 +85,7 @@ abstract class JDBCProcessor implements ProtocolConstants {
      * The database call back method that sends database events back to the
      * client.
      */
-    private DatabaseCallBack db_call_back = new DatabaseCallBack() {
+    private final DatabaseCallBack db_call_back = new DatabaseCallBack() {
         public void databaseEvent(int event_type, String event_message) {
             try {
                 // Format the call back and send the event.

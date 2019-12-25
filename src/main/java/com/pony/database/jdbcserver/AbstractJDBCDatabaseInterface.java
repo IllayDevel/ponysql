@@ -65,7 +65,7 @@ public abstract class AbstractJDBCDatabaseInterface
      * The Databas object that represents the context of this
      * database interface.
      */
-    private Database database;
+    private final Database database;
 
     /**
      * The mapping that maps from result id number to Table object that this
@@ -73,7 +73,7 @@ public abstract class AbstractJDBCDatabaseInterface
      * <p>
      * NOTE: All Table objects are now valid over a database shutdown + init.
      */
-    private HashMap result_set_map;
+    private final HashMap result_set_map;
 
     /**
      * This is incremented every time a result set is added to the map.  This
@@ -105,7 +105,7 @@ public abstract class AbstractJDBCDatabaseInterface
      * is currently being uploaded to the server.  This maps streamable_object_id
      * to blob id reference.
      */
-    private HashMap blob_id_map;
+    private final HashMap blob_id_map;
 
     /**
      * Set to true when this database interface is disposed.
@@ -624,10 +624,10 @@ public abstract class AbstractJDBCDatabaseInterface
      */
     private final static class JDIQueryResponse implements QueryResponse {
 
-        int result_id;
-        ResultSetInfo result_set_info;
-        int query_time;
-        String warnings;
+        final int result_id;
+        final ResultSetInfo result_set_info;
+        final int query_time;
+        final String warnings;
 
         JDIQueryResponse(int result_id, ResultSetInfo result_set_info,
                          int query_time, String warnings) {
@@ -677,7 +677,7 @@ public abstract class AbstractJDBCDatabaseInterface
         /**
          * The SQLQuery that was executed to produce this result.
          */
-        private SQLQuery query;
+        private final SQLQuery query;
 
         /**
          * The table that is the result.
@@ -700,12 +700,12 @@ public abstract class AbstractJDBCDatabaseInterface
          * Set to true if the result table has a SimpleRowEnumeration, therefore
          * guarenteeing we do not need to store a row lookup list.
          */
-        private boolean result_is_simple_enum;
+        private final boolean result_is_simple_enum;
 
         /**
          * The number of rows in the result.
          */
-        private int result_row_count;
+        private final int result_row_count;
 
         /**
          * Incremented when we lock roots.
@@ -716,7 +716,7 @@ public abstract class AbstractJDBCDatabaseInterface
          * A HashMap of blob_reference_id values to Ref objects used to handle
          * and streamable objects in this result.
          */
-        private HashMap streamable_blob_map;
+        private final HashMap streamable_blob_map;
 
 
         /**

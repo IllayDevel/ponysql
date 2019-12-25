@@ -176,7 +176,7 @@ final class CellBufferInputStream extends InputStream implements CellInput {
         return (char) ((ch1 << 8) + (ch2 << 0));
     }
 
-    private char[] char_buffer = new char[8192];
+    private final char[] char_buffer = new char[8192];
 
     public String readChars(int length) throws IOException {
         if (length <= char_buffer.length) {

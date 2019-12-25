@@ -462,8 +462,8 @@ abstract class RemoteDatabaseInterface
         /**
          * The command to write out to the server.
          */
-        private MByteArrayOutputStream com_bytes;
-        private DataOutputStream com_data;
+        private final MByteArrayOutputStream com_bytes;
+        private final DataOutputStream com_data;
 
         /**
          * Running dispatch id values which we use as a unique key.
@@ -473,7 +473,7 @@ abstract class RemoteDatabaseInterface
         /**
          * Set to true when the thread is closed.
          */
-        private boolean thread_closed;
+        private final boolean thread_closed;
 
         /**
          * The list of commands received from the server that are pending to be
@@ -806,8 +806,8 @@ abstract class RemoteDatabaseInterface
      */
     static class ServerCommand {
 
-        private int dispatch_id;
-        private byte[] buf;
+        private final int dispatch_id;
+        private final byte[] buf;
 
         ServerCommand(int dispatch_id, byte[] buf) {
             this.dispatch_id = dispatch_id;

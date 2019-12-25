@@ -30,7 +30,7 @@ public class MDatabaseMetaData implements DatabaseMetaData {
     /**
      * The Connection object associated with this meta data.
      */
-    private MConnection connection;
+    private final MConnection connection;
 
     /**
      * The name and version of the database we are connected to.

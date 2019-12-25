@@ -34,7 +34,7 @@ class OuterTable extends VirtualTable implements RootTable {
     /**
      * The merged rows.
      */
-    public IntegerVector[] outer_rows;
+    public final IntegerVector[] outer_rows;
 
     /**
      * The row count of the outer rows.

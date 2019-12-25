@@ -37,12 +37,12 @@ public class ViewDef {
     /**
      * The DataTableDef object that describes the view column def.
      */
-    private DataTableDef view_def;
+    private final DataTableDef view_def;
 
     /**
      * The QueryPlanNode that is used to evaluate the view.
      */
-    private QueryPlanNode view_query_node;
+    private final QueryPlanNode view_query_node;
 
     /**
      * Constructs the ViewDef object.
@@ -100,7 +100,7 @@ public class ViewDef {
      * Creates an instance of ViewDef from the serialized information stored in
      * the blob.
      */
-    static final ViewDef deserializeFromBlob(BlobAccessor blob) {
+    static ViewDef deserializeFromBlob(BlobAccessor blob) {
         InputStream blob_in = blob.getInputStream();
         try {
             ObjectInputStream in = new ObjectInputStream(blob_in);

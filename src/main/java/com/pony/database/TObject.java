@@ -43,7 +43,7 @@ public final class TObject implements java.io.Serializable {
     /**
      * The type of this object.
      */
-    private TType type;
+    private final TType type;
 
     /**
      * The Java representation of the object.

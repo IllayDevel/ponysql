@@ -35,12 +35,12 @@ public class ViewManager {
     /**
      * The DatabaseConnection.
      */
-    private DatabaseConnection connection;
+    private final DatabaseConnection connection;
 
     /**
      * The context.
      */
-    private DatabaseQueryContext context;
+    private final DatabaseQueryContext context;
 
     /**
      * Set to true when the connection makes changes to the view table through
@@ -53,7 +53,7 @@ public class ViewManager {
      * table.  This cache is invalidated when changes are committed to the system
      * view table.
      */
-    private HashMap local_cache;
+    private final HashMap local_cache;
 
     /**
      * Constructs the ViewManager for a DatabaseConnection.
@@ -326,8 +326,8 @@ public class ViewManager {
     private static class ViewInternalTableInfo
             extends AbstractInternalTableInfo2 {
 
-        ViewManager view_manager;
-        HashMap view_cache;
+        final ViewManager view_manager;
+        final HashMap view_cache;
 
         ViewInternalTableInfo(ViewManager manager, Transaction transaction) {
             super(transaction, Database.SYS_VIEW);

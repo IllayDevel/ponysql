@@ -191,7 +191,7 @@ public final class JoiningSet implements java.io.Serializable, Cloneable {
          * The type of join.  Either LEFT_OUTER_JOIN,
          * RIGHT_OUTER_JOIN, FULL_OUTER_JOIN, INNER_JOIN.
          */
-        int type;
+        final int type;
 
         /**
          * The expression that we are joining on (eg. ON clause in SQL).  If there

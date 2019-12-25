@@ -71,17 +71,17 @@ public class VariableSizeDataStore {
     /**
      * The index data allocation file.
      */
-    private FixedSizeDataStore allocation_store;
+    private final FixedSizeDataStore allocation_store;
 
     /**
      * The actual data file.
      */
-    private FixedSizeDataStore data_store;
+    private final FixedSizeDataStore data_store;
 
     /**
      * A buffer to store the index key.
      */
-    private byte[] index_key;
+    private final byte[] index_key;
 
     /**
      * A Deflater and Inflater used to compress and uncompress the size of data

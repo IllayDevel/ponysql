@@ -33,7 +33,7 @@ public class DataTableFilter extends AbstractDataTable {
     /**
      * The parent DataTable object.
      */
-    protected AbstractDataTable parent;
+    protected final AbstractDataTable parent;
 
     /**
      * The Constructor.  A filter can only sit on top of a DataTable or

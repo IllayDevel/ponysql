@@ -32,7 +32,7 @@ public final class LockHandle {
     /**
      * The array of Lock objects that are being used in this locking process.
      */
-    private Lock[] lock_list;
+    private final Lock[] lock_list;
 
     /**
      * A temporary index used during initialisation of object to add locks.

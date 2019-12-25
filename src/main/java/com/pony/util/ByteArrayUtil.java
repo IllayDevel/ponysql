@@ -28,7 +28,7 @@ public class ByteArrayUtil {
     /**
      * Returns the chart at the given offset of the byte array.
      */
-    public static final char getChar(byte[] arr, int offset) {
+    public static char getChar(byte[] arr, int offset) {
         int c1 = (((int) arr[offset + 0]) & 0x0FF);
         int c2 = (((int) arr[offset + 1]) & 0x0FF);
         return (char) ((c1 << 8) + (c2));
@@ -37,7 +37,7 @@ public class ByteArrayUtil {
     /**
      * Sets the short at the given offset of the byte array.
      */
-    public static final void setChar(char value, byte[] arr, int offset) {
+    public static void setChar(char value, byte[] arr, int offset) {
         arr[offset + 0] = (byte) ((value >>> 8) & 0x0FF);
         arr[offset + 1] = (byte) ((value >>> 0) & 0x0FF);
     }
@@ -45,7 +45,7 @@ public class ByteArrayUtil {
     /**
      * Returns the short at the given offset of the byte array.
      */
-    public static final short getShort(byte[] arr, int offset) {
+    public static short getShort(byte[] arr, int offset) {
         int c1 = (((int) arr[offset + 0]) & 0x0FF);
         int c2 = (((int) arr[offset + 1]) & 0x0FF);
         return (short) ((c1 << 8) + (c2));
@@ -54,7 +54,7 @@ public class ByteArrayUtil {
     /**
      * Sets the short at the given offset of the byte array.
      */
-    public static final void setShort(short value, byte[] arr, int offset) {
+    public static void setShort(short value, byte[] arr, int offset) {
         arr[offset + 0] = (byte) ((value >>> 8) & 0x0FF);
         arr[offset + 1] = (byte) ((value >>> 0) & 0x0FF);
     }
@@ -62,7 +62,7 @@ public class ByteArrayUtil {
     /**
      * Returns the int at the given offset of the byte array.
      */
-    public static final int getInt(byte[] arr, int offset) {
+    public static int getInt(byte[] arr, int offset) {
         int c1 = (((int) arr[offset + 0]) & 0x0FF);
         int c2 = (((int) arr[offset + 1]) & 0x0FF);
         int c3 = (((int) arr[offset + 2]) & 0x0FF);
@@ -73,7 +73,7 @@ public class ByteArrayUtil {
     /**
      * Sets the int at the given offset of the byte array.
      */
-    public static final void setInt(int value, byte[] arr, int offset) {
+    public static void setInt(int value, byte[] arr, int offset) {
         arr[offset + 0] = (byte) ((value >>> 24) & 0xFF);
         arr[offset + 1] = (byte) ((value >>> 16) & 0xFF);
         arr[offset + 2] = (byte) ((value >>> 8) & 0xFF);
@@ -83,7 +83,7 @@ public class ByteArrayUtil {
     /**
      * Returns the long at the given offset of the byte array.
      */
-    public static final long getLong(byte[] arr, int offset) {
+    public static long getLong(byte[] arr, int offset) {
         long c1 = (((int) arr[offset + 0]) & 0x0FF);
         long c2 = (((int) arr[offset + 1]) & 0x0FF);
         long c3 = (((int) arr[offset + 2]) & 0x0FF);
@@ -100,7 +100,7 @@ public class ByteArrayUtil {
     /**
      * Sets the long at the given offset of the byte array.
      */
-    public static final void setLong(long value, byte[] arr, int offset) {
+    public static void setLong(long value, byte[] arr, int offset) {
         arr[offset + 0] = (byte) ((value >>> 56) & 0xFF);
         arr[offset + 1] = (byte) ((value >>> 48) & 0xFF);
         arr[offset + 2] = (byte) ((value >>> 40) & 0xFF);

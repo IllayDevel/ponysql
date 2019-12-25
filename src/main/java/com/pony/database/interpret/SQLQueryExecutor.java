@@ -40,7 +40,7 @@ public class SQLQueryExecutor {
     /**
      * The SQL parser state.
      */
-    private static SQL sql_parser;
+    private static final SQL sql_parser;
 
     static {
         // Set up the sql parser.

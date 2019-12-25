@@ -92,8 +92,8 @@ public final class Debug {
      * Internal method that writes out the given information on the output
      * stream provided.
      */
-    private static final void internalWrite(PrintWriter out,
-                                            int level, String class_string, String message) {
+    private static void internalWrite(PrintWriter out,
+                                      int level, String class_string, String message) {
         if (level < MESSAGE) {
             out.print("> ");
             out.print(class_string);
@@ -111,7 +111,7 @@ public final class Debug {
      * Sets up the OutputStream to which the debug information is to be output
      * to.
      */
-    public static final void setOutput(Writer out) {
+    public static void setOutput(Writer out) {
         Debug.out = new PrintWriter(out, false);
     }
 
@@ -119,7 +119,7 @@ public final class Debug {
      * Sets the debug level that's to be output to the stream.  Set to 255 to
      * stop all output to the stream.
      */
-    public static final void setDebugLevel(int level) {
+    public static void setDebugLevel(int level) {
         debug_level = level;
     }
 
@@ -127,7 +127,7 @@ public final class Debug {
      * Sets up the system so that the debug messenger will intercept event
      * dispatch errors and output the event to the debug stream.
      */
-    public static final void listenToEventDispatcher() {
+    public static void listenToEventDispatcher() {
         // This is only possible in versions of Java post 1.1
 //#IFDEF(NO_1.1)
         // According to the EventDispatchThread documentation, this is just a
@@ -144,7 +144,7 @@ public final class Debug {
      * speed up certain complex debug displaying operations where the debug
      * listener isn't interested in the information be presented.
      */
-    public static final boolean isInterestedIn(int level) {
+    public static boolean isInterestedIn(int level) {
         return (level >= debug_level);
     }
 
@@ -154,15 +154,15 @@ public final class Debug {
      * the object that made the call.  'level' must be between 0 and 255.  A
      * message of 'level' 255 will always print.
      */
-    public final static void write(int level, Object ob, String message) {
+    public static void write(int level, Object ob, String message) {
         write(level, ob.getClass().getName(), message);
     }
 
-    public final static void write(int level, Class cla, String message) {
+    public static void write(int level, Class cla, String message) {
         write(level, cla.getName(), message);
     }
 
-    public final static void write(int level, String class_string, String message) {
+    public static void write(int level, String class_string, String message) {
         if (isInterestedIn(level)) {
 
             synchronized (debug_lock) {
@@ -183,14 +183,14 @@ public final class Debug {
     /**
      * @deprecated this is a legacy debug method.
      */
-    public final static void write(Object ob, String message) {
+    public static void write(Object ob, String message) {
         write(5, ob, message);
     }
 
     /**
      * Writes out the time to the debug stream.
      */
-    private static final void writeTime() {
+    private static void writeTime() {
         out.print("[ TIME: ");
         out.print(new java.util.Date(System.currentTimeMillis()));
         out.println(" ]");
@@ -201,7 +201,7 @@ public final class Debug {
      * This writes the given Exception.  Exceptions are always output to the log
      * stream.
      */
-    public final static void writeException(Throwable e) {
+    public static void writeException(Throwable e) {
         writeException(ERROR, e);
     }
 
@@ -209,7 +209,7 @@ public final class Debug {
      * This writes the given Exception but gives it a 'debug_level'.  This is
      * so we can write out a warning exception.
      */
-    public final static void writeException(int level, Throwable e) {
+    public static void writeException(int level, Throwable e) {
 
 //    new Error().printStackTrace();
 

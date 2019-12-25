@@ -1724,7 +1724,7 @@ public class DatabaseConnection implements TriggerListener {
      */
     private static class TriggeredOldNewDataSource extends GTDataSource {
 
-        private DataTableDef table_def;
+        private final DataTableDef table_def;
 
         private RowData content;
 

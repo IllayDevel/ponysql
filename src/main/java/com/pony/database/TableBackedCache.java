@@ -53,19 +53,19 @@ abstract class TableBackedCache {
     /**
      * The table that this cache is backed by.
      */
-    private TableName backed_by_table;
+    private final TableName backed_by_table;
 
     /**
      * The list of added rows to the table above when a change is
      * committed.
      */
-    private IntegerVector added_list;
+    private final IntegerVector added_list;
 
     /**
      * The list of removed rows from the table above when a change is
      * committed.
      */
-    private IntegerVector removed_list;
+    private final IntegerVector removed_list;
 
     /**
      * Set to true when the backing DatabaseConnection has a transaction open.

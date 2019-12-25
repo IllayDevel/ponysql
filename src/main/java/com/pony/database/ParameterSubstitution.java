@@ -34,7 +34,7 @@ public class ParameterSubstitution implements java.io.Serializable {
      * The numerical number of this parameter substitution.  The first
      * substitution is '0', the second is '1', etc.
      */
-    private int parameter_id;
+    private final int parameter_id;
 
     /**
      * Creates the substitution.

@@ -59,12 +59,12 @@ public final class IndexStore {
     /**
      * A DebugLogger object used to log debug messages to.
      */
-    private DebugLogger debug;
+    private final DebugLogger debug;
 
     /**
      * The name of the index store file.
      */
-    private File file;
+    private final File file;
 
     /**
      * The size of a 'block' element of index information in a list.  This has
@@ -478,7 +478,7 @@ public final class IndexStore {
         index_store.deleteAcross(old_sector);
     }
 
-    private byte[] flush_buffer = new byte[32];
+    private final byte[] flush_buffer = new byte[32];
 
     /**
      * Performs a hard synchronization of this index store.  This will force the
@@ -696,7 +696,7 @@ public final class IndexStore {
     /**
      * A convenience static empty integer list array.
      */
-    private static IndexIntegerList[] EMPTY_INTEGER_LISTS =
+    private static final IndexIntegerList[] EMPTY_INTEGER_LISTS =
             new IndexIntegerList[0];
 
 
@@ -709,17 +709,12 @@ public final class IndexStore {
         /**
          * A unique id given to this index set.
          */
-        private long set_id;
+        private final long set_id;
 
         /**
          * A snapshot of the allocation table.
          */
         private ByteBuffer buf;
-
-        /**
-         * The length of the allocation table.
-         */
-        private int buf_length;
 
         /**
          * The list of IndexIntegerList objects that have been returned via the
@@ -746,7 +741,9 @@ public final class IndexStore {
             // array itself.  We must be careful that the underlying byte[] array
             // is protected from modifications (it's immutable).
             this.buf = new ByteBuffer(in_buf);
-            this.buf_length = length;
+            /**
+             * The length of the allocation table.
+             */
 
         }
 
@@ -1224,7 +1221,7 @@ public final class IndexStore {
         /**
          * The number of the index in the store that this list represents.
          */
-        private int index_num;
+        private final int index_num;
 
         /**
          * Set to true when disposed.
@@ -1234,7 +1231,7 @@ public final class IndexStore {
         /**
          * The mapped elements that were deleted.
          */
-        private ArrayList deleted_blocks = new ArrayList();
+        private final ArrayList deleted_blocks = new ArrayList();
 
 
         /**

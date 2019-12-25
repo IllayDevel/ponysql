@@ -34,7 +34,7 @@ public final class BinaryToUnicodeReader extends Reader {
     /**
      * The wrapped InputStream.
      */
-    private InputStream input;
+    private final InputStream input;
 
     /**
      * Constructor.  Note that we would typically assume that the given

@@ -30,8 +30,6 @@ import java.io.*;
 
 public class PerformTest1 {
 
-    private static Connection connection;
-
     private static void displayResult(ResultSet result_set) throws SQLException {
         PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
         com.pony.util.ResultOutputUtil.formatAsText(result_set, out);
@@ -78,6 +76,7 @@ public class PerformTest1 {
 
         // Make a connection with the database.  This will create the database
         // and log into the newly created database.
+        Connection connection;
         try {
             connection = DriverManager.getConnection(url, username, password);
 

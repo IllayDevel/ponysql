@@ -46,7 +46,7 @@ public class TCPJDBCServer {
     /**
      * The DBSystem object that we are serving.
      */
-    private DBSystem system;
+    private final DBSystem system;
 
     /**
      * An InetAddress representing the interface that server is bound to - useful

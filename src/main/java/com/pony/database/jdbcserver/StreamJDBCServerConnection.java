@@ -51,12 +51,12 @@ abstract class StreamJDBCServerConnection extends JDBCProcessor
      * The LengthMarkedBufferedInputStream we use to poll for commands from the
      * client.
      */
-    private LengthMarkedBufferedInputStream marked_input;
+    private final LengthMarkedBufferedInputStream marked_input;
 
     /**
      * The output stream to the client formatted as a DataOutputStream.
      */
-    private DataOutputStream out;
+    private final DataOutputStream out;
 
     /**
      * Sets up the protocol connection.

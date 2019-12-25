@@ -35,7 +35,7 @@ public final class UserManager {
      * The list of User objects that are currently connected to the database
      * engine.
      */
-    private ArrayList user_list;
+    private final ArrayList user_list;
 
     /**
      * Constructs the UserManager.

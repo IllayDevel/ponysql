@@ -32,18 +32,18 @@ abstract class AbstractInternalTableInfo implements InternalTableInfo {
     /**
      * The list of table names (as TableName) that this object maintains.
      */
-    private TableName[] table_list;
+    private final TableName[] table_list;
 
     /**
      * The list of DataTableDef objects that descibe each table in the above
      * list.
      */
-    private DataTableDef[] table_def_list;
+    private final DataTableDef[] table_def_list;
 
     /**
      * The table type of table objects returned by this method.
      */
-    private String table_type;
+    private final String table_type;
 
     /**
      * Constructs the container than manages the creation of the given table

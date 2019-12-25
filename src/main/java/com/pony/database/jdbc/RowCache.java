@@ -37,7 +37,7 @@ final class RowCache {
     /**
      * The actual cache that stores the rows.
      */
-    private Cache row_cache;
+    private final Cache row_cache;
 
     /**
      * Constructs the cache.
@@ -189,8 +189,8 @@ final class RowCache {
      * Used for the hash key in the cache.
      */
     private final static class RowRef {
-        int table_id;
-        int row;
+        final int table_id;
+        final int row;
 
         RowRef(int table_id, int row) {
             this.table_id = table_id;

@@ -31,7 +31,7 @@ public class AbstractDBConfig implements DBConfig {
     /**
      * The current base path of the database configuration.
      */
-    private File current_path;
+    private final File current_path;
 
     /**
      * The Hashtable mapping from configuration key to value for the key.

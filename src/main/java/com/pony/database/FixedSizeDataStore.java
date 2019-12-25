@@ -93,7 +93,7 @@ public final class FixedSizeDataStore {
     /**
      * A DebugLogger object we can use to write debug messages to.
      */
-    private DebugLogger debug;
+    private final DebugLogger debug;
 
     /**
      * The size of each 'sector'
@@ -103,7 +103,7 @@ public final class FixedSizeDataStore {
     /**
      * The File that keeps the data.
      */
-    private File data_file;
+    private final File data_file;
 
     /**
      * The RandomAccessFile object for the data file.
@@ -157,7 +157,7 @@ public final class FixedSizeDataStore {
     /**
      * A cache of sectors read from the store.
      */
-    private Cache sector_cache;
+    private final Cache sector_cache;
 
 
     /**
@@ -473,7 +473,7 @@ public final class FixedSizeDataStore {
 
     // Byte array used to synchronize data in store.
     // Enough room for two longs.
-    private byte[] sync_buffer = new byte[16];
+    private final byte[] sync_buffer = new byte[16];
 
     /**
      * Synchronizes the memory store with the file header.  This writes
@@ -1661,7 +1661,7 @@ public final class FixedSizeDataStore {
         /**
          * A reference to the sector buffer.
          */
-        private byte[] sector_buffer;
+        private final byte[] sector_buffer;
 
 
         /**

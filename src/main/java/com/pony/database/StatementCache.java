@@ -38,12 +38,12 @@ public final class StatementCache {
     /**
      * The DatabaseSystem of this cache.
      */
-    private DatabaseSystem system;
+    private final DatabaseSystem system;
 
     /**
      * The internal cache representation.
      */
-    private Cache cache;
+    private final Cache cache;
 
     /**
      * Constructs the cache.

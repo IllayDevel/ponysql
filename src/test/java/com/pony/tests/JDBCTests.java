@@ -527,7 +527,7 @@ public class JDBCTests {
      */
     private static class Worker extends Thread {
 
-        Runnable runner;
+        final Runnable runner;
         boolean finished = false;
 
         Worker(Runnable runner) {

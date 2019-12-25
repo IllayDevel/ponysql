@@ -123,7 +123,7 @@ public class MDriver implements Driver {
      * object that manages the connection.  This mapping is only used if the
      * driver makes local connections (eg. 'jdbc:pony:local://').
      */
-    private Map local_session_map;
+    private final Map local_session_map;
 
     /**
      * Constructor is public so that instances of the JDBC driver can be

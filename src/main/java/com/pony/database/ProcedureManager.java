@@ -40,12 +40,12 @@ public class ProcedureManager {
     /**
      * The DatabaseConnection.
      */
-    private DatabaseConnection connection;
+    private final DatabaseConnection connection;
 
     /**
      * The context.
      */
-    private DatabaseQueryContext context;
+    private final DatabaseQueryContext context;
 
     /**
      * Constructs the ProcedureManager for a DatabaseConnection.

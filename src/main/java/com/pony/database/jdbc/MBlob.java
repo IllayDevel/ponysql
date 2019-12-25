@@ -36,7 +36,7 @@ class MBlob implements Blob {
     /**
      * The ByteLongObject that is a container for the data in this blob.
      */
-    private ByteLongObject blob;
+    private final ByteLongObject blob;
 
     /**
      * Constructs the blob.

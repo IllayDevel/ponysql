@@ -236,14 +236,14 @@ public final class BlindSearch extends SelectableScheme {
          * The list of flags for each check in the range.
          * Either 0 for no check, 1 for < or >, 2 for <= or >=.
          */
-        private byte[] lower_flags;
-        private byte[] upper_flags;
+        private final byte[] lower_flags;
+        private final byte[] upper_flags;
 
         /**
          * The TObject objects to check against.
          */
-        private TObject[] lower_cells;
-        private TObject[] upper_cells;
+        private final TObject[] lower_cells;
+        private final TObject[] upper_cells;
 
         /**
          * Constructs the checker.

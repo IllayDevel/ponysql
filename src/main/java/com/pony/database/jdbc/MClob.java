@@ -33,7 +33,7 @@ class MClob implements Clob {
     /**
      * The string the Clob is based on.
      */
-    private String str;
+    private final String str;
 
     /**
      * Constructs the Clob implementation.

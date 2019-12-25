@@ -34,12 +34,12 @@ class IOStoreDataAccessor implements StoreDataAccessor {
     /**
      * A lock because access to the data is stateful.
      */
-    private Object lock = new Object();
+    private final Object lock = new Object();
 
     /**
      * The File object representing the file in the file system.
      */
-    private File file;
+    private final File file;
 
     /**
      * The underlying RandomAccessFile containing the data.

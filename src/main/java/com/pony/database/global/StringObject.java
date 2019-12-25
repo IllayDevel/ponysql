@@ -34,7 +34,7 @@ public class StringObject implements java.io.Serializable, StringAccessor {
     /**
      * The java.lang.String object.
      */
-    private String str;
+    private final String str;
 
     /**
      * Constructs the object.

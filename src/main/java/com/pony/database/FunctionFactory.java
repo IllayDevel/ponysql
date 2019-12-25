@@ -219,9 +219,9 @@ public abstract class FunctionFactory implements FunctionLookup {
      */
     protected class FF_FunctionInfo implements FunctionInfo {
 
-        private String name;
-        private int type;
-        private Constructor constructor;
+        private final String name;
+        private final int type;
+        private final Constructor constructor;
 
         public FF_FunctionInfo(String name, int type, Constructor constructor) {
             this.name = name;

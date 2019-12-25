@@ -29,7 +29,7 @@ public final class ByteBuffer {
     /**
      * The byte[] array itself.
      */
-    private byte[] buf;
+    private final byte[] buf;
 
     /**
      * The current position in the array.
@@ -39,7 +39,7 @@ public final class ByteBuffer {
     /**
      * The length of the buf array.
      */
-    private int lim;
+    private final int lim;
 
     /**
      * Constructs the buffer.

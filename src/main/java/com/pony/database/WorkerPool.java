@@ -33,7 +33,7 @@ final class WorkerPool {
     /**
      * The TransactionSystem that this pool is part of.
      */
-    private TransactionSystem system;
+    private final TransactionSystem system;
 
     /**
      * This is the maximum number of worker threads that will be created.
@@ -44,7 +44,7 @@ final class WorkerPool {
      * This is a queue of 'WorkerThread' objects that are currently available
      * to process commands from the service providers.
      */
-    private LinkedList available_worker_threads;
+    private final LinkedList available_worker_threads;
 
     /**
      * The number of worker threads that have been created in total.
@@ -55,7 +55,7 @@ final class WorkerPool {
      * A list of pending Runnable objects that are due to be executed.  This is
      * a queue of events to be run.
      */
-    private LinkedList run_queue;
+    private final LinkedList run_queue;
 
     /**
      * If this is set to false, then no commands will be executed by the
@@ -235,9 +235,9 @@ final class WorkerPool {
      * run and the User that's executing the command.
      */
     private static final class RunCommand {
-        User user;
-        DatabaseConnection database;
-        Runnable runnable;
+        final User user;
+        final DatabaseConnection database;
+        final Runnable runnable;
 
         public RunCommand(User user, DatabaseConnection database,
                           Runnable runnable) {

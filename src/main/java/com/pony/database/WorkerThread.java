@@ -52,7 +52,7 @@ final class WorkerThread extends Thread {
     /**
      * The WorkerPool object that this worker thread is for.
      */
-    private WorkerPool worker_pool;
+    private final WorkerPool worker_pool;
 
     /**
      * Constructs the thread.

@@ -37,15 +37,15 @@ public class CastHelper {
     /**
      * A couple of standard BigNumber statics.
      */
-    private static BigNumber BD_ZERO = BigNumber.fromLong(0);
-    private static BigNumber BD_ONE = BigNumber.fromLong(1);
+    private static final BigNumber BD_ZERO = BigNumber.fromLong(0);
+    private static final BigNumber BD_ONE = BigNumber.fromLong(1);
 
     /**
      * Date, Time and Timestamp parser/formatters
      */
-    private static DateFormat[] date_format_sql;
-    private static DateFormat[] time_format_sql;
-    private static DateFormat[] ts_format_sql;
+    private static final DateFormat[] date_format_sql;
+    private static final DateFormat[] time_format_sql;
+    private static final DateFormat[] ts_format_sql;
 
     static {
         // The SQL time/date formatters

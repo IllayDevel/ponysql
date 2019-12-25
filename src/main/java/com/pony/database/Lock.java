@@ -40,12 +40,12 @@ public final class Lock {
     /**
      * This stores the type of lock.  It is either set to 'READ' or 'WRITE'
      */
-    private int type;
+    private final int type;
 
     /**
      * The table queue this lock is 'inside'.
      */
-    private LockingQueue queue;
+    private final LockingQueue queue;
 
     /**
      * This is set to true when the 'checkAccess' method is called on this

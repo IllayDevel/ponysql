@@ -30,7 +30,7 @@ public class StreamableObjectPart {
     /**
      * The byte[] array that is the contents of the cell from the server.
      */
-    private byte[] part_contents;
+    private final byte[] part_contents;
 
     /**
      * Constructs the ResultCellPart.  Note that the 'contents' byte array must

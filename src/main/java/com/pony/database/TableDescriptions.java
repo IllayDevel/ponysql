@@ -38,18 +38,18 @@ public final class TableDescriptions {
     /**
      * The File that contains the table descriptions list.
      */
-    private File table_desc_file;
+    private final File table_desc_file;
 
     /**
      * The File we use to temporary store the table descriptions as we save
      * them.
      */
-    private File temp_desc_file;
+    private final File temp_desc_file;
 
     /**
      * The backup file for table descriptions.
      */
-    private File backup_file;
+    private final File backup_file;
 
     /**
      * A hash table that maps from table name to the DataTableDef object that

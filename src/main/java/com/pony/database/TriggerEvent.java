@@ -37,17 +37,17 @@ public class TriggerEvent {
     /**
      * The type of this event.
      */
-    private int type;
+    private final int type;
 
     /**
      * The source of the trigger (eg. the table name).
      */
-    private String source;
+    private final String source;
 
     /**
      * The number of times this event was fired.
      */
-    private int count;
+    private final int count;
 
     /**
      * Constructs the trigger event.

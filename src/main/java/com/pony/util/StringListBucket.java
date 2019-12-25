@@ -33,7 +33,7 @@ public class StringListBucket {
     /**
      * The String List.
      */
-    private Vector string_list;
+    private final Vector string_list;
 
     /**
      * Constructs the bucket.

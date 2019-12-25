@@ -47,7 +47,7 @@ public class DataTableDef {
      * The list of DataTableColumnDef objects that are the definitions of each
      * column in the table.
      */
-    private ArrayList column_list;
+    private final ArrayList column_list;
 
 
     /**
@@ -264,7 +264,7 @@ public class DataTableDef {
 
     // Stores col name -> col index lookups
     private transient HashMap col_name_lookup;
-    private transient Object COL_LOOKUP_LOCK = new Object();
+    private final transient Object COL_LOOKUP_LOCK = new Object();
 
     /**
      * A faster way to find a column index given a string column name.  This

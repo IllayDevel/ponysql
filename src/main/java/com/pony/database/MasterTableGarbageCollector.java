@@ -37,7 +37,7 @@ final class MasterTableGarbageCollector {
     /**
      * The MasterTableDataSource that this collector is managing.
      */
-    private MasterTableDataSource data_source;
+    private final MasterTableDataSource data_source;
 
     /**
      * If this is true, then a full sweep of the table is due to reclaim all

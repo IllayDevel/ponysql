@@ -38,16 +38,16 @@ public class TimeFrame {
     /**
      * Formatting enum.
      */
-    public static int WEEKS = 1,
-            DAYS = 2,
-            HOURS = 3,
-            MINUTES = 4;
+    public static final int WEEKS = 1;
+    public static final int DAYS = 2;
+    public static final int HOURS = 3;
+    public static final int MINUTES = 4;
 
     /**
      * A BigDecimal that represents the number of milliseconds the time frame
      * represents.
      */
-    private BigDecimal period;
+    private final BigDecimal period;
 
     /**
      * Constructs the TimeFrame for the given time.

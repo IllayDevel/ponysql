@@ -198,18 +198,18 @@ public final class Database implements DatabaseConstants {
     /**
      * The DatabaseSystem that this database is part of.
      */
-    private DatabaseSystem system;
+    private final DatabaseSystem system;
 
     /**
      * The name of this database.
      */
-    private String name;
+    private final String name;
 
     /**
      * The TableDataConglomerate that contains the conglomerate of tables for
      * this database.
      */
-    private TableDataConglomerate conglomerate;
+    private final TableDataConglomerate conglomerate;
 
     /**
      * A flag which, when set to true, will cause the engine to delete the
@@ -222,13 +222,13 @@ public final class Database implements DatabaseConstants {
      * database.  This user is used to execute system level queries such as
      * creating and updating system tables.
      */
-    private User internal_system_user;
+    private final User internal_system_user;
 
     /**
      * The database wide TriggerManager object that dispatches trigger events
      * to the DatabaseConnection objects that are listening for the events.
      */
-    private TriggerManager trigger_manager;
+    private final TriggerManager trigger_manager;
 
 
     /**

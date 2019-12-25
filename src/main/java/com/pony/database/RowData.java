@@ -50,7 +50,7 @@ public class RowData implements Types {
     /**
      * The TransactionSystem this RowData is a context of.
      */
-    private TransactionSystem system;
+    private final TransactionSystem system;
 
     /**
      * The TableDataSource object that this RowData is in, or is destined to be
@@ -66,12 +66,12 @@ public class RowData implements Types {
     /**
      * A list of TObject objects in the table.
      */
-    private TObject[] data_cell_list;
+    private final TObject[] data_cell_list;
 
     /**
      * The number of columns in the row.
      */
-    private int col_count;
+    private final int col_count;
 
 
     /**

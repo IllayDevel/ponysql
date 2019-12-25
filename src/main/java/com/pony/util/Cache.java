@@ -384,7 +384,7 @@ public class Cache {
      * 'recycled_nodes' then it obtains one from there, else it creates a new
      * blank one.
      */
-    private final ListNode createListNode() {
+    private ListNode createListNode() {
         return new ListNode();
     }
 
@@ -436,7 +436,7 @@ public class Cache {
      * Brings 'node' to the start of the list.  Only nodes at the end of the
      * list are cleaned.
      */
-    private final void bringToHead(ListNode node) {
+    private void bringToHead(ListNode node) {
         if (list_start != node) {
 
             ListNode next_node = node.next;

@@ -28,12 +28,12 @@ public final class SchemaDef {
     /**
      * The name of the schema (eg. APP).
      */
-    private String name;
+    private final String name;
 
     /**
      * The type of this schema (eg. SYSTEM, USER, etc)
      */
-    private String type;
+    private final String type;
 
     /**
      * Constructs the SchemaDef.

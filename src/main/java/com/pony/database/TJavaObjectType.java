@@ -34,7 +34,7 @@ public class TJavaObjectType extends TType {
      * The type of class this is contrained to or null if it is not constrained
      * to a java class.
      */
-    private String class_type;
+    private final String class_type;
 
     /**
      * Constructs the type.

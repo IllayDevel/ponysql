@@ -46,11 +46,6 @@ public class ViewManager extends Statement {
     private TableName vname;
 
     /**
-     * If this is a create command, the TableSelectExpression that forms the view.
-     */
-    private TableSelectExpression select_expression;
-
-    /**
      * If this is a create command, the QueryPlanNode that represents the view
      * plan.
      */
@@ -69,8 +64,10 @@ public class ViewManager extends Statement {
 
         if (type.equals("create")) {
             // Get the select expression
-            select_expression =
-                    (TableSelectExpression) cmd.getObject("select_expression");
+            /**
+             * If this is a create command, the TableSelectExpression that forms the view.
+             */
+            TableSelectExpression select_expression = (TableSelectExpression) cmd.getObject("select_expression");
             // Get the column name list
             ArrayList col_list = (ArrayList) cmd.getObject("column_list");
 

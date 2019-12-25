@@ -35,7 +35,7 @@ import com.pony.util.BigNumber;
 
 public class Util {
 
-    private static TObject ZERO_NUMBER = TObject.intVal(0);
+    private static final TObject ZERO_NUMBER = TObject.intVal(0);
 
     /**
      * Returns the Token as a non quoted reference.  For example, a

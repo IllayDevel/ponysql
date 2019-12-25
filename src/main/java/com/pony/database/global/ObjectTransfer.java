@@ -196,7 +196,7 @@ public class ObjectTransfer {
                 return new Date(time);
 
             case (12):
-                return new Boolean(in.readBoolean());
+                return in.readBoolean();
 
             case (15): {
                 long size = in.readLong();

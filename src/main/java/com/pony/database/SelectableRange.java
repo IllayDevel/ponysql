@@ -81,24 +81,24 @@ public final class SelectableRange {
     /**
      * The start of the range to select from the set.
      */
-    private TObject start;
+    private final TObject start;
 
     /**
      * The end of the range to select from the set.
      */
-    private TObject end;
+    private final TObject end;
 
     /**
      * Denotes the place for the range to start with respect to the start value.
      * Either FIRST_VALUE or AFTER_LAST_VALUE.
      */
-    private byte set_start_flag;
+    private final byte set_start_flag;
 
     /**
      * Denotes the place for the range to end with respect to the end value.
      * Either BEFORE_FIRST_VALUE or LAST_VALUE.
      */
-    private byte set_end_flag;
+    private final byte set_end_flag;
 
     /**
      * Constructs the range.

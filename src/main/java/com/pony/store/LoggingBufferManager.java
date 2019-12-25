@@ -39,7 +39,7 @@ public class LoggingBufferManager {
     /**
      * Set to true for extra assertions.
      */
-    private static boolean PARANOID_CHECKS = false;
+    private static final boolean PARANOID_CHECKS = false;
 
     /**
      * A timer that represents the T value in buffer pages.
@@ -54,7 +54,7 @@ public class LoggingBufferManager {
     /**
      * The list of all pages.
      */
-    private ArrayList page_list;
+    private final ArrayList page_list;
 
     /**
      * A lock used when accessing the current_T, page_list and current_page_count
@@ -70,14 +70,9 @@ public class LoggingBufferManager {
     private final BMPage[] page_map;
 
     /**
-     * A unique id key counter for all stores using this buffer manager.
-     */
-    private int unique_id_seq;
-
-    /**
      * The JournalledSystem object that handles journalling of all data.
      */
-    private JournalledSystem journalled_system;
+    private final JournalledSystem journalled_system;
 
     /**
      * The maximum number of pages that should be kept in memory before pages
@@ -137,7 +132,10 @@ public class LoggingBufferManager {
         current_T = 0;
         page_list = new ArrayList();
         page_map = new BMPage[257];
-        unique_id_seq = 0;
+        /**
+         * A unique id key counter for all stores using this buffer manager.
+         */
+        int unique_id_seq = 0;
 
         journalled_system = new JournalledSystem(journal_path, read_only,
                 page_size, sda_factory, debug, enable_logging);
@@ -943,7 +941,7 @@ public class LoggingBufferManager {
          * heavier page is sorted lower and is therefore cleared from the cache
          * faster.
          */
-        private final float pageEnumValue(BMPage page) {
+        private float pageEnumValue(BMPage page) {
             // We fix the access counter so it can not exceed 10000 accesses.  I'm
             // a little unsure if we should put this constant in the equation but it
             // ensures that some old but highly accessed page will not stay in the

@@ -35,7 +35,7 @@ public class DataTableColumnDef {
      * information about whether the column is not null, unique, primary key,
      * etc.
      */
-    private byte[] constraints_format = new byte[16];
+    private final byte[] constraints_format = new byte[16];
 
     /**
      * The name of the column.

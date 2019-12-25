@@ -45,7 +45,7 @@ public abstract class DefaultDataTable extends AbstractDataTable {
     /**
      * The Database object that this table is a child of.
      */
-    private Database database;
+    private final Database database;
 
     /**
      * The number of rows in the table.

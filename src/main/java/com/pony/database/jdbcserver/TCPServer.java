@@ -41,7 +41,7 @@ public final class TCPServer {
      * The parent Database object that describes everything about the
      * database this TCP server is for.
      */
-    private Database database;
+    private final Database database;
 
     /**
      * The ConnectionPoolServer that polls the ServerConnection for new commands

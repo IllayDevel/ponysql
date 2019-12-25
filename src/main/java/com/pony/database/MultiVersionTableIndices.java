@@ -43,11 +43,6 @@ final class MultiVersionTableIndices {
     private final TableName table_name;
 
     /**
-     * The number of columns in the referenced table.
-     */
-    private final int column_count;
-
-    /**
      * The system object.
      */
     private final TransactionSystem system;
@@ -61,12 +56,12 @@ final class MultiVersionTableIndices {
      * This list can be used to build the indices and a table row enumerator for
      * snapshots of the table at various transaction check points.
      */
-    private ArrayList transaction_mod_list;
+    private final ArrayList transaction_mod_list;
 
 
     // ---------- Stat keys ----------
 
-    private String journal_count_stat_key;
+    private final String journal_count_stat_key;
 
     /**
      * Constructs this object with the given number of column.
@@ -75,7 +70,9 @@ final class MultiVersionTableIndices {
                              TableName table_name, int column_count) {
         this.system = system;
         this.table_name = table_name;
-        this.column_count = column_count;
+        /**
+         * The number of columns in the referenced table.
+         */
 
         transaction_mod_list = new ArrayList();
 

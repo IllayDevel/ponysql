@@ -43,7 +43,7 @@ public final class BigNumber extends Number {
      * The state of the number, either 0 for number is the BigDecimal, 1 for
      * negative infinity, 2 for positive infinity and 3 for NaN.
      */
-    private byte number_state;
+    private final byte number_state;
 
     /**
      * The BigDecimal representation.

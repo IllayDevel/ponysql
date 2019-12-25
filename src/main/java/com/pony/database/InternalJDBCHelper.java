@@ -88,7 +88,7 @@ class InternalJDBCHelper {
         /**
          * The DatabaseInterface for this connection.
          */
-        private InternalDatabaseInterface internal_db_interface;
+        private final InternalDatabaseInterface internal_db_interface;
 
         /**
          * Constructs the internal java.sql.Connection.
@@ -153,16 +153,13 @@ class InternalJDBCHelper {
             extends AbstractJDBCDatabaseInterface {
 
         /**
-         * The internal connection to the database.
-         */
-        private DatabaseConnection database;
-
-        /**
          * Constructor.
          */
         public InternalDatabaseInterface(User user, DatabaseConnection db) {
             super(db.getDatabase());
-            this.database = db;
+            /**
+             * The internal connection to the database.
+             */
             init(user, db);
         }
 

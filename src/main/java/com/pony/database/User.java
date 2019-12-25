@@ -37,23 +37,23 @@ public final class User {
     /**
      * The name of the user.
      */
-    private String user_name;
+    private final String user_name;
 
     /**
      * The database object that this user is currently logged into.
      */
-    private Database database;
+    private final Database database;
 
     /**
      * The connection string that identifies how this user is connected to the
      * database.
      */
-    private String connection_string;
+    private final String connection_string;
 
     /**
      * The time this user connected.
      */
-    private long time_connected;
+    private final long time_connected;
 
     /**
      * The last time this user executed a command on the connection.

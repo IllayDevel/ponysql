@@ -98,8 +98,8 @@ public class FixedRecordList {
     /**
      * Pointers to the blocks in the list block.
      */
-    private long[] list_block_element;
-    private MutableArea[] list_block_area;
+    private final long[] list_block_element;
+    private final MutableArea[] list_block_area;
 
 
     /**

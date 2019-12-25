@@ -32,12 +32,12 @@ public abstract class AbstractFunction implements Function {
     /**
      * The name of the function.
      */
-    private String name;
+    private final String name;
 
     /**
      * The list of expressions this function has as parameters.
      */
-    private Expression[] params;
+    private final Expression[] params;
 
     /**
      * Set to true if this is an aggregate function (requires a group).  It is

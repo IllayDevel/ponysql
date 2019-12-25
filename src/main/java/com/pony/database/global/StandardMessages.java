@@ -35,18 +35,18 @@ public final class StandardMessages {
     /**
      * The standard copyright message.
      */
-    public static String COPYRIGHT =
+    public static final String COPYRIGHT =
             "Copyright (C) 2000 - 2013 Diehl and Associates, Inc.  " +
                     "All rights reserved.";
 
     /**
      * The global version number of the database system.
      */
-    public static String VERSION = "1.0.6";
+    public static final String VERSION = "1.0.6";
 
     /**
      * The global name of the system.
      */
-    public static String NAME = "Pony SQL Database ( " + VERSION + " )";
+    public static final String NAME = "Pony SQL Database ( " + VERSION + " )";
 
 }

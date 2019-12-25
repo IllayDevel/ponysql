@@ -35,28 +35,28 @@ public class FromTableDirectSource implements FromTableInterface {
     /**
      * The TableQueryDef object that links to the underlying table.
      */
-    private TableQueryDef table_query;
+    private final TableQueryDef table_query;
 
     /**
      * The DataTableDef object that describes the table.
      */
-    private DataTableDef data_table_def;
+    private final DataTableDef data_table_def;
 
     /**
      * The unique name given to this source.
      */
-    private String unique_name;
+    private final String unique_name;
 
     /**
      * The given TableName of this table.
      */
-    private TableName table_name;
+    private final TableName table_name;
 
     /**
      * The root name of the table.  For example, if this table is 'Part P' the
      * root name is 'Part' and 'P' is the aliased name.
      */
-    private TableName root_name;
+    private final TableName root_name;
 
     /**
      * Set to true if this should do case insensitive resolutions.

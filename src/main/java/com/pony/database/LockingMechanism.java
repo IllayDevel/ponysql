@@ -79,7 +79,7 @@ public final class LockingMechanism {
      * This Hashtable is a mapping from a 'DataTable' to the 'LockingQueue'
      * object that is available for it.
      */
-    private HashMap queues_map = new HashMap();
+    private final HashMap queues_map = new HashMap();
 
     /**
      * This boolean is set as soon as a Thread requests to go into 'exclusive

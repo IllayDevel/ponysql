@@ -31,25 +31,25 @@ public class FromTableSubQuerySource implements FromTableInterface {
     /**
      * The wrapped object.
      */
-    private TableSelectExpression table_expression;
+    private final TableSelectExpression table_expression;
 
     /**
      * The fully prepared TableExpressionFromSet object that is used to
      * qualify variables in the table.
      */
-    private TableExpressionFromSet from_set;
+    private final TableExpressionFromSet from_set;
 
     /**
      * The TableName that this source is generated to (aliased name).  If null,
      * we inherit from the root set.
      */
-    private TableName end_table_name;
+    private final TableName end_table_name;
 
     /**
      * A unique name given to this source that is used to reference it in a
      * TableSet.
      */
-    private String unique_key;
+    private final String unique_key;
 
     /**
      * The list of all variable names in the resultant source.

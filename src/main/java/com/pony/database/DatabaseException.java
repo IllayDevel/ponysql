@@ -25,7 +25,7 @@ package com.pony.database;
 
 public class DatabaseException extends Exception {
 
-    private int error_code;
+    private final int error_code;
 
     // ---------- Members ----------
 

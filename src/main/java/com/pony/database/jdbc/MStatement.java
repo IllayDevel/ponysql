@@ -38,7 +38,7 @@ class MStatement implements Statement {
     /**
      * The MConnection object for this statement.
      */
-    private MConnection connection;
+    private final MConnection connection;
 
     /**
      * The list of all MResultSet objects that represents the results of a query.

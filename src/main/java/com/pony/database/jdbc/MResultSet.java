@@ -63,13 +63,8 @@ public final class MResultSet implements ResultSet {
     /**
      * BigNumber for 0.
      */
-    private static BigNumber BD_ZERO = BigNumber.fromInt(0);
+    private static final BigNumber BD_ZERO = BigNumber.fromInt(0);
 
-
-    /**
-     * A unique int that refers to this result set.
-     */
-    private int unique_id;
 
     /**
      * The MConnection that this result set is in.
@@ -169,7 +164,10 @@ public final class MResultSet implements ResultSet {
     MResultSet(MConnection connection, MStatement statement) {
         this.connection = connection;
         this.statement = statement;
-        unique_id = unique_id_key++;
+        /**
+         * A unique int that refers to this result set.
+         */
+        int unique_id = unique_id_key++;
         result_id = -1;
         result_block = new Vector();
     }
