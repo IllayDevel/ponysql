@@ -1,2 +1,2 @@
 # ponysql
-Litle RDBMS engine on java
+Little RDBMS engine on java
