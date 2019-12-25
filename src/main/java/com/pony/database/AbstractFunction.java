@@ -107,10 +107,10 @@ public abstract class AbstractFunction implements Function {
      * looks up each expression in the list of parameters.  This will cascade
      * if the expressions have a Function, etc.
      */
-    public List allVariables() {
-        ArrayList result_list = new ArrayList();
+    public List<Object> allVariables() {
+        ArrayList<Object> result_list = new ArrayList<>();
         for (Expression param : params) {
-            List l = param.allVariables();
+            List<Object> l = param.allVariables();
             result_list.addAll(l);
         }
         return result_list;
@@ -121,10 +121,10 @@ public abstract class AbstractFunction implements Function {
      * looks up each expression in the list of parameters.  This will cascade
      * if the expressions have a Function, etc.
      */
-    public List allElements() {
-        ArrayList result_list = new ArrayList();
+    public List<Object> allElements() {
+        ArrayList<Object> result_list = new ArrayList<>();
         for (Expression param : params) {
-            List l = param.allElements();
+            List<Object> l = param.allElements();
             result_list.addAll(l);
         }
         return result_list;

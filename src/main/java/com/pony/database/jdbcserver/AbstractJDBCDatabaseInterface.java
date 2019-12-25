@@ -71,7 +71,7 @@ public abstract class AbstractJDBCDatabaseInterface
      * <p>
      * NOTE: All Table objects are now valid over a database shutdown + init.
      */
-    private final HashMap result_set_map;
+    private final HashMap<Object,Object> result_set_map;
 
     /**
      * This is incremented every time a result set is added to the map.  This
@@ -103,7 +103,7 @@ public abstract class AbstractJDBCDatabaseInterface
      * is currently being uploaded to the server.  This maps streamable_object_id
      * to blob id reference.
      */
-    private final HashMap blob_id_map;
+    private final HashMap<Object,Object> blob_id_map;
 
     /**
      * Set to true when this database interface is disposed.
@@ -116,8 +116,8 @@ public abstract class AbstractJDBCDatabaseInterface
      */
     public AbstractJDBCDatabaseInterface(Database database) {
         this.database = database;
-        result_set_map = new HashMap();
-        blob_id_map = new HashMap();
+        result_set_map = new HashMap<>();
+        blob_id_map = new HashMap<>();
         unique_result_id = 1;
         disposed = false;
     }
@@ -220,12 +220,12 @@ public abstract class AbstractJDBCDatabaseInterface
      * ResultSetInfo maps.
      */
     protected final void clearResultSetMap() {
-        Iterator keys;
-        ArrayList list;
+        Iterator<Object> keys;
+        ArrayList<Object> list;
         synchronized (result_set_map) {
             keys = result_set_map.keySet().iterator();
 
-            list = new ArrayList();
+            list = new ArrayList<>();
             while (keys.hasNext()) {
                 list.add(keys.next());
             }
@@ -714,7 +714,7 @@ public abstract class AbstractJDBCDatabaseInterface
          * A HashMap of blob_reference_id values to Ref objects used to handle
          * and streamable objects in this result.
          */
-        private final HashMap streamable_blob_map;
+        private final HashMap<Object,Object> streamable_blob_map;
 
 
         /**
@@ -723,7 +723,7 @@ public abstract class AbstractJDBCDatabaseInterface
         ResultSetInfo(SQLQuery query, Table table) {
             this.query = query;
             this.result = table;
-            this.streamable_blob_map = new HashMap();
+            this.streamable_blob_map = new HashMap<>();
 
             result_row_count = table.getRowCount();
 

@@ -98,7 +98,7 @@ public class Planner {
      * function list.
      */
     private static Expression filterHavingClause(Expression having_expr,
-                                                 ArrayList aggregate_list,
+                                                 ArrayList<Object> aggregate_list,
                                                  QueryContext context) {
         if (having_expr.size() > 1) {
             Operator op = (Operator) having_expr.last();
@@ -197,7 +197,7 @@ public class Planner {
         // Set up functions, aliases and exposed variables for this from set,
 
         // The list of columns being selected (SelectColumn).
-        ArrayList columns = select_expression.columns;
+        ArrayList<Object> columns = select_expression.columns;
 
         // For each column being selected
         for (Object column : columns) {
@@ -261,7 +261,7 @@ public class Planner {
      */
     public static QueryPlanNode formQueryPlan(DatabaseConnection db,
                                               TableSelectExpression expression, TableExpressionFromSet from_set,
-                                              ArrayList order_by)
+                                              ArrayList<Object> order_by)
             throws DatabaseException {
 
         QueryContext context = new DatabaseQueryContext(db);
@@ -272,7 +272,7 @@ public class Planner {
         QuerySelectColumnSet column_set = new QuerySelectColumnSet(from_set);
 
         // The list of columns being selected (SelectColumn).
-        ArrayList columns = expression.columns;
+        ArrayList<Object> columns = expression.columns;
 
         // If there are 0 columns selected, then we assume the result should
         // show all of the columns in the result.
@@ -309,7 +309,7 @@ public class Planner {
         // '1' will be a reference to column 1.
 
         if (order_by != null) {
-            ArrayList prepared_col_set = column_set.s_col_list;
+            ArrayList<Object> prepared_col_set = column_set.s_col_list;
             for (Object o : order_by) {
                 ByColumn col = (ByColumn) o;
                 Expression exp = col.exp;
@@ -435,7 +435,7 @@ public class Planner {
         // Any extra AGGREGATE functions that are part of the HAVING clause that
         // we need to add.  This is a list of a name followed by the expression
         // that contains the aggregate function.
-        ArrayList extra_aggregate_functions = new ArrayList();
+        ArrayList<Object> extra_aggregate_functions = new ArrayList<>();
         Expression new_having_clause = null;
         if (having_clause.getFromExpression() != null) {
             new_having_clause =
@@ -445,10 +445,10 @@ public class Planner {
         }
 
         // Any GROUP BY functions,
-        ArrayList group_by_functions = new ArrayList();
+        ArrayList<Object> group_by_functions = new ArrayList<>();
 
         // Resolve the GROUP BY variable list references in this from set
-        ArrayList group_list_in = expression.group_by;
+        ArrayList<Object> group_list_in = expression.group_by;
         int gsz = group_list_in.size();
         Variable[] group_by_list = new Variable[gsz];
         for (int i = 0; i < gsz; ++i) {
@@ -506,7 +506,7 @@ public class Planner {
                         "Invalid use of aggregate function in select with no FROM clause");
             }
             // Make up the lists
-            ArrayList s_col_list = column_set.s_col_list;
+            ArrayList<Object> s_col_list = column_set.s_col_list;
             int sz = s_col_list.size();
             String[] col_names = new String[sz];
             Expression[] exp_list = new Expression[sz];
@@ -532,9 +532,9 @@ public class Planner {
                 table_planner.planSearchExpression(expression.where_clause);
 
         // Make up the functions list,
-        ArrayList functions_list = column_set.function_col_list;
+        ArrayList<Object> functions_list = column_set.function_col_list;
         int fsz = functions_list.size();
-        ArrayList complete_fun_list = new ArrayList();
+        ArrayList<Object> complete_fun_list = new ArrayList<>();
         for (Object o : functions_list) {
             SelectColumn scol = (SelectColumn) o;
             complete_fun_list.add(scol.expression);
@@ -593,7 +593,7 @@ public class Planner {
         }
 
         // The result column list
-        ArrayList s_col_list = column_set.s_col_list;
+        ArrayList<Object> s_col_list = column_set.s_col_list;
         int sz = s_col_list.size();
 
         // Evaluate the having clause if necessary
@@ -683,8 +683,8 @@ public class Planner {
      * NOTE: s_col_list is optional.
      */
     public static QueryPlanNode planForOrderBy(QueryPlanNode plan,
-                                               ArrayList order_by, TableExpressionFromSet from_set,
-                                               ArrayList s_col_list)
+                                               ArrayList<Object> order_by, TableExpressionFromSet from_set,
+                                               ArrayList<Object> s_col_list)
             throws DatabaseException {
 
         TableName FUNCTION_TABLE = new TableName("FUNCTIONTABLE");
@@ -695,7 +695,7 @@ public class Planner {
             Variable[] order_list = new Variable[sz];
             boolean[] ascending_list = new boolean[sz];
 
-            ArrayList function_orders = new ArrayList();
+            ArrayList<Object> function_orders = new ArrayList<>();
 
             for (int i = 0; i < sz; ++i) {
                 ByColumn column = (ByColumn) order_by.get(i);
@@ -784,8 +784,8 @@ public class Planner {
      * that represents the result of 3 + 4.
      */
     private static void substituteAliasedVariables(
-            Expression expression, ArrayList s_col_list) {
-        List all_vars = expression.allVariables();
+            Expression expression, ArrayList<Object> s_col_list) {
+        List<Object> all_vars = expression.allVariables();
         for (Object all_var : all_vars) {
             Variable v = (Variable) all_var;
             substituteAliasedVariable(v, s_col_list);
@@ -793,7 +793,7 @@ public class Planner {
     }
 
     private static void substituteAliasedVariable(Variable v,
-                                                  ArrayList s_col_list) {
+                                                  ArrayList<Object> s_col_list) {
         if (s_col_list != null) {
             int sz = s_col_list.size();
             for (Object o : s_col_list) {
@@ -828,12 +828,12 @@ public class Planner {
         /**
          * The list of SelectColumn.
          */
-        final ArrayList s_col_list;
+        final ArrayList<Object> s_col_list;
 
         /**
          * The list of functions in this column set.
          */
-        final ArrayList function_col_list;
+        final ArrayList<Object> function_col_list;
 
         /**
          * The current number of 'FUNCTIONTABLE.' columns in the table.  This is
@@ -853,8 +853,8 @@ public class Planner {
          */
         public QuerySelectColumnSet(TableExpressionFromSet from_set) {
             this.from_set = from_set;
-            s_col_list = new ArrayList();
-            function_col_list = new ArrayList();
+            s_col_list = new ArrayList<>();
+            function_col_list = new ArrayList<>();
         }
 
         /**
@@ -957,7 +957,7 @@ public class Planner {
             // Check to see if we have any Select statements in the
             //   Expression.  This is necessary, because we can't have a
             //   sub-select evaluated during list table downloading.
-            List exp_elements = col.expression.allElements();
+            List<Object> exp_elements = col.expression.allElements();
             for (Object exp_element : exp_elements) {
                 if (exp_element instanceof TableSelectExpression) {
                     throw new StatementException(
@@ -1039,7 +1039,7 @@ public class Planner {
         /**
          * The list of PlanTableSource objects for each source being planned.
          */
-        private ArrayList table_list;
+        private ArrayList<Object> table_list;
 
         /**
          * If a join has occurred since the planner was constructed or copied then
@@ -1052,7 +1052,7 @@ public class Planner {
          * Constructor.
          */
         public QueryTableSetPlanner() {
-            this.table_list = new ArrayList();
+            this.table_list = new ArrayList<>();
             has_join_occurred = false;
         }
 
@@ -1198,7 +1198,7 @@ public class Planner {
          * given.  If the list is 0 or there is no common source then null is
          * returned.
          */
-        public PlanTableSource findCommonTableSource(List var_list) {
+        public PlanTableSource findCommonTableSource(List<Object> var_list) {
             if (var_list.size() == 0) {
                 return null;
             }
@@ -1274,9 +1274,9 @@ public class Planner {
          * Note, this will change the 'table_list' variable in this class if tables
          * are joined.
          */
-        private PlanTableSource joinAllPlansWithVariables(List all_vars) {
+        private PlanTableSource joinAllPlansWithVariables(List<Object> all_vars) {
             // Collect all the plans that encapsulate these variables.
-            ArrayList touched_plans = new ArrayList();
+            ArrayList<Object> touched_plans = new ArrayList<>();
             int sz = all_vars.size();
             for (Object all_var : all_vars) {
                 Variable v = (Variable) all_var;
@@ -1336,7 +1336,7 @@ public class Planner {
          * <p>
          * Returns null if no plans are provided.
          */
-        private PlanTableSource joinAllPlansToSingleSource(List all_plans) {
+        private PlanTableSource joinAllPlansToSingleSource(List<Object> all_plans) {
             // If there are no plans then return null
             if (all_plans.size() == 0) {
                 return null;
@@ -1347,7 +1347,7 @@ public class Planner {
             }
 
             // Make a working copy of the plan list.
-            ArrayList working_plan_list = new ArrayList(all_plans.size());
+            ArrayList<Object> working_plan_list = new ArrayList<>(all_plans.size());
             for (Object all_plan : all_plans) {
                 working_plan_list.add(all_plan);
             }
@@ -1487,7 +1487,7 @@ public class Planner {
             }
 
             // Make a working copy of the plan list.
-            ArrayList working_plan_list = new ArrayList(sz);
+            ArrayList<Object> working_plan_list = new ArrayList<>(sz);
             for (Object o : table_list) {
                 working_plan_list.add(o);
             }
@@ -1540,7 +1540,7 @@ public class Planner {
         /**
          * Adds a single var plan to the given list.
          */
-        private void addSingleVarPlanTo(ArrayList list, PlanTableSource table,
+        private void addSingleVarPlanTo(ArrayList<Object> list, PlanTableSource table,
                                         Variable variable, Variable single_var,
                                         Expression[] exp_parts, Operator op) {
             Expression exp = new Expression(exp_parts[0], op, exp_parts[1]);
@@ -1669,7 +1669,7 @@ public class Planner {
 
             public void addToPlanTree() {
                 // Get all the variables of this expression.
-                List all_vars = expression.allVariables();
+                List<Object> all_vars = expression.allVariables();
                 // Find the table source for this set of variables.
                 PlanTableSource table_source = joinAllPlansWithVariables(all_vars);
                 // Perform the exhaustive select
@@ -1679,10 +1679,10 @@ public class Planner {
         }
 
         private class ExhaustiveSubQueryExpressionPlan extends ExpressionPlan {
-            private final List all_vars;
+            private final List<Object> all_vars;
             private final Expression expression;
 
-            public ExhaustiveSubQueryExpressionPlan(List vars, Expression e) {
+            public ExhaustiveSubQueryExpressionPlan(List<Object> vars, Expression e) {
                 this.all_vars = vars;
                 this.expression = e;
             }
@@ -1729,7 +1729,7 @@ public class Planner {
 
             public void addToPlanTree() {
                 // Get all the variables in the expression
-                List all_vars = expression.allVariables();
+                List<Object> all_vars = expression.allVariables();
                 // Merge it into one plan (possibly performing natural joins).
                 PlanTableSource all_plan = joinAllPlansWithVariables(all_vars);
                 // And perform the exhaustive select,
@@ -1753,8 +1753,8 @@ public class Planner {
                 // Get the list of variables in the left hand and right hand side
                 Variable lhs_v = exps[0].getVariable();
                 Variable rhs_v = exps[1].getVariable();
-                List lhs_vars = exps[0].allVariables();
-                List rhs_vars = exps[1].allVariables();
+                List<Object> lhs_vars = exps[0].allVariables();
+                List<Object> rhs_vars = exps[1].allVariables();
 
                 // Get the operator
                 Operator op = (Operator) expression.last();
@@ -1801,7 +1801,7 @@ public class Planner {
                 // exhaustive select.  These types of queries are poor performing.
 
                 // Get all the variables in the expression
-                List all_vars = expression.allVariables();
+                List<Object> all_vars = expression.allVariables();
                 // Merge it into one plan (possibly performing natural joins).
                 PlanTableSource all_plan = joinAllPlansWithVariables(all_vars);
                 // And perform the exhaustive select,
@@ -1827,7 +1827,7 @@ public class Planner {
          * Evaluates a list of constant conditional exressions of the form
          * '3 + 2 = 0', 'true = true', etc.
          */
-        void evaluateConstants(ArrayList constant_vars, ArrayList evaluate_order) {
+        void evaluateConstants(ArrayList<Object> constant_vars, ArrayList<Object> evaluate_order) {
             // For each constant variable
             for (Object constant_var : constant_vars) {
                 Expression expr = (Expression) constant_var;
@@ -1846,12 +1846,12 @@ public class Planner {
          * <p>
          * This method takes the list and modifies the plan as necessary.
          */
-        void evaluateSingles(ArrayList single_vars, ArrayList evaluate_order) {
+        void evaluateSingles(ArrayList<Object> single_vars, ArrayList<Object> evaluate_order) {
 
             // The list of simple expression plans (lhs = single)
-            ArrayList simple_plan_list = new ArrayList();
+            ArrayList<Object> simple_plan_list = new ArrayList<>();
             // The list of complex function expression plans (lhs = expression)
-            ArrayList complex_plan_list = new ArrayList();
+            ArrayList<Object> complex_plan_list = new ArrayList<>();
 
             // For each single variable expression
             for (Object singleVar : single_vars) {
@@ -1882,7 +1882,7 @@ public class Planner {
                     }
                 } else {
                     // Put the variable on the LHS, constant on the RHS
-                    List all_vars = exps[0].allVariables();
+                    List<Object> all_vars = exps[0].allVariables();
                     if (all_vars.size() == 0) {
                         // Reverse the expressions and the operator
                         Expression temp_exp = exps[0];
@@ -1935,7 +1935,7 @@ public class Planner {
          * expressions with variables, but we are guarenteed that there are
          * no sub-expressions in the expression.
          */
-        void evaluatePatterns(ArrayList pattern_exprs, ArrayList evaluate_order) {
+        void evaluatePatterns(ArrayList<Object> pattern_exprs, ArrayList<Object> evaluate_order) {
 
             // Split the patterns into simple and complex plans.  A complex plan
             // may require that a join occurs.
@@ -1977,7 +1977,7 @@ public class Planner {
          * queries, or expressions containing multiple sub-queries are put
          * through the ExhaustiveSelect plan.
          */
-        void evaluateSubQueries(ArrayList expressions, ArrayList evaluate_order) {
+        void evaluateSubQueries(ArrayList<Object> expressions, ArrayList<Object> evaluate_order) {
 
             // For each sub-query expression
             for (Object expression : expressions) {
@@ -1999,8 +1999,8 @@ public class Planner {
                         right_plan = exps[1].getQueryPlanNode();
                         if (right_plan != null) {
                             // Finally, check if the plan is correlated or not
-                            ArrayList cv =
-                                    right_plan.discoverCorrelatedVariables(1, new ArrayList());
+                            ArrayList<Object> cv =
+                                    right_plan.discoverCorrelatedVariables(1, new ArrayList<>());
 //              System.out.println("Right Plan: " + right_plan);
 //              System.out.println("Correlated variables: " + cv);
                             // No correlated variables so we are a standard, non-correlated
@@ -2021,11 +2021,11 @@ public class Planner {
                 if (is_exhaustive) {
                     // This expression could involve multiple variables, so we may need
                     // to join.
-                    List all_vars = andexp.allVariables();
+                    List<Object> all_vars = andexp.allVariables();
 
                     // Also find all correlated variables.
-                    List all_correlated =
-                            andexp.discoverCorrelatedVariables(0, new ArrayList());
+                    List<Object> all_correlated =
+                            andexp.discoverCorrelatedVariables(0, new ArrayList<>());
                     int sz = all_correlated.size();
 
                     // If there are no variables (and no correlated variables) then this
@@ -2072,7 +2072,7 @@ public class Planner {
          * made to the query plan tree.  If an expression represents a more
          * complex joining condition then an exhaustive search must be used.
          */
-        void evaluateMultiples(ArrayList multi_vars, ArrayList evaluate_order) {
+        void evaluateMultiples(ArrayList<Object> multi_vars, ArrayList<Object> evaluate_order) {
 
             // FUTURE OPTIMIZATION:
             //   This join order planner is a little primitive in design.  It orders
@@ -2125,14 +2125,14 @@ public class Planner {
          * Evaluates a list of expressions that are sub-expressions themselves.
          * This is typically called when we have OR queries in the expression.
          */
-        void evaluateSubLogic(ArrayList sublogic_exprs, ArrayList evaluate_order) {
+        void evaluateSubLogic(ArrayList<Object> sublogic_exprs, ArrayList<Object> evaluate_order) {
 
             each_logic_expr:
             for (Object sublogic_expr : sublogic_exprs) {
                 Expression expr = (Expression) sublogic_expr;
 
                 // Break the expression down to a list of OR expressions,
-                ArrayList or_exprs = expr.breakByOperator(new ArrayList(), "or");
+                ArrayList<Object> or_exprs = expr.breakByOperator(new ArrayList<>(), "or");
 
                 // An optimizations here;
 
@@ -2148,7 +2148,7 @@ public class Planner {
 
                 for (Object orExpr : or_exprs) {
                     Expression or_expr = (Expression) orExpr;
-                    List vars = or_expr.allVariables();
+                    List<Object> vars = or_expr.allVariables();
                     // If there are no variables then don't bother with this expression
                     if (vars.size() > 0) {
                         // Find the common table source (if any)
@@ -2192,20 +2192,20 @@ public class Planner {
          * Generates a plan to evaluate the given list of expressions
          * (logically separated with AND).
          */
-        void planForExpressionList(List and_list) {
+        void planForExpressionList(List<Object> and_list) {
 
-            ArrayList sub_logic_expressions = new ArrayList();
+            ArrayList<Object> sub_logic_expressions = new ArrayList<>();
             // The list of expressions that have a sub-select in them.
-            ArrayList sub_query_expressions = new ArrayList();
+            ArrayList<Object> sub_query_expressions = new ArrayList<>();
             // The list of all constant expressions ( true = true )
-            ArrayList constants = new ArrayList();
+            ArrayList<Object> constants = new ArrayList<>();
             // The list of pattern matching expressions (eg. 't LIKE 'a%')
-            ArrayList pattern_expressions = new ArrayList();
+            ArrayList<Object> pattern_expressions = new ArrayList<>();
             // The list of all expressions that are a single variable on one
             // side, a conditional operator, and a constant on the other side.
-            ArrayList single_vars = new ArrayList();
+            ArrayList<Object> single_vars = new ArrayList<>();
             // The list of multi variable expressions (possible joins)
-            ArrayList multi_vars = new ArrayList();
+            ArrayList<Object> multi_vars = new ArrayList<>();
 
             // Separate out each condition type.
             for (Object el : and_list) {

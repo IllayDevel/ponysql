@@ -157,7 +157,7 @@ public final class Debug {
         write(level, ob.getClass().getName(), message);
     }
 
-    public static void write(int level, Class cla, String message) {
+    public static void write(int level, Class<?> cla, String message) {
         write(level, cla.getName(), message);
     }
 

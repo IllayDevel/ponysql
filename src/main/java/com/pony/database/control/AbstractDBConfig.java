@@ -36,14 +36,14 @@ public class AbstractDBConfig implements DBConfig {
     /**
      * The Hashtable mapping from configuration key to value for the key.
      */
-    private Hashtable key_map;
+    private Hashtable<Object,Object> key_map;
 
     /**
      * Constructs the DBConfig.
      */
     public AbstractDBConfig(File current_path) {
         this.current_path = current_path;
-        this.key_map = new Hashtable();
+        this.key_map = new Hashtable<>();
     }
 
     /**
@@ -79,7 +79,7 @@ public class AbstractDBConfig implements DBConfig {
 
     public DBConfig immutableCopy() {
         AbstractDBConfig immutable_copy = new AbstractDBConfig(current_path);
-        immutable_copy.key_map = (Hashtable) key_map.clone();
+        immutable_copy.key_map = (Hashtable<Object,Object>) key_map.clone();
         return immutable_copy;
     }
 

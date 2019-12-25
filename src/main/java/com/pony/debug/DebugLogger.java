@@ -43,7 +43,7 @@ public interface DebugLogger extends Lvl {
      */
     void write(int level, Object ob, String message);
 
-    void write(int level, Class cla, String message);
+    void write(int level, Class<?> cla, String message);
 
     void write(int level, String class_string, String message);
 

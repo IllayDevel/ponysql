@@ -155,7 +155,7 @@ public final class Stats {
      * Comparator for sorting the list of keys (for 1.1 implementation without
      * Comparable String objects).
      */
-    final static Comparator STRING_COMPARATOR = (ob1, ob2) -> ((String) ob1).compareTo((String) ob2);
+    final static Comparator STRING_COMPARATOR = Comparator.comparing(ob -> ((String) ob));
 
 
     /**

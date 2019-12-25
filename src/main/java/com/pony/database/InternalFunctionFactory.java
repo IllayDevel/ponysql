@@ -1792,23 +1792,31 @@ final class InternalFunctionFactory extends FunctionFactory {
                                 // If the given argument is a number,
                                 if (args[n] instanceof Number) {
                                     Number num = (Number) args[n];
-                                    if (class_name.equals("byte")) {
-                                        casted_args[n] = new Byte(num.byteValue());
-                                    } else if (class_name.equals("char")) {
-                                        casted_args[n] = new Character((char) num.intValue());
-                                    } else if (class_name.equals("double")) {
-                                        casted_args[n] = new Double(num.doubleValue());
-                                    } else if (class_name.equals("float")) {
-                                        casted_args[n] = new Float(num.floatValue());
-                                    } else if (class_name.equals("int")) {
-                                        casted_args[n] = new Integer(num.intValue());
-                                    } else if (class_name.equals("long")) {
-                                        casted_args[n] = new Long(num.longValue());
-                                    } else if (class_name.equals("short")) {
-                                        casted_args[n] = new Short(num.shortValue());
-                                    } else {
-                                        // Can't cast the primitive type to a number so break,
-                                        break search_constructs;
+                                    switch (class_name) {
+                                        case "byte":
+                                            casted_args[n] = num.byteValue();
+                                            break;
+                                        case "char":
+                                            casted_args[n] = (char) num.intValue();
+                                            break;
+                                        case "double":
+                                            casted_args[n] = num.doubleValue();
+                                            break;
+                                        case "float":
+                                            casted_args[n] = num.floatValue();
+                                            break;
+                                        case "int":
+                                            casted_args[n] = num.intValue();
+                                            break;
+                                        case "long":
+                                            casted_args[n] = num.longValue();
+                                            break;
+                                        case "short":
+                                            casted_args[n] = num.shortValue();
+                                            break;
+                                        default:
+                                            // Can't cast the primitive type to a number so break,
+                                            break search_constructs;
                                     }
 
                                 }

@@ -393,7 +393,7 @@ final class RIDList {
             if (!request_processing) {
                 request_processing = true;
                 // Wait 10 seconds to build rid list.
-                system.postEvent(10000, system.createEvent(() -> createRIDCache()));
+                system.postEvent(10000, system.createEvent(this::createRIDCache));
             }
         }
     }

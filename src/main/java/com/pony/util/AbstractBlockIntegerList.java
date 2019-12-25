@@ -68,7 +68,7 @@ public abstract class AbstractBlockIntegerList
      * The list of blocks (objects in this list are of type
      * 'IntegerListBlockInterface'.
      */
-    protected ArrayList block_list = new ArrayList(10);
+    protected ArrayList<IntegerListBlockInterface> block_list = new ArrayList<>(10);
 
     /**
      * The total number of ints in the list.
@@ -135,7 +135,7 @@ public abstract class AbstractBlockIntegerList
 
 //      block_size = in_list.block_size;
 
-            ArrayList in_blocks = in_list.block_list;
+            ArrayList<IntegerListBlockInterface> in_blocks = in_list.block_list;
             int in_blocks_count = in_blocks.size();
             // For each block in 'in_list'
             for (int i = 0; i < in_blocks_count; ++i) {

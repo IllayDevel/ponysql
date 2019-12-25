@@ -72,7 +72,7 @@ public final class DBSystem {
         this.internal_counter = 0;
 
         // Register the shut down delegate,
-        database.registerShutDownDelegate(() -> internalDispose());
+        database.registerShutDownDelegate(this::internalDispose);
 
         // Enable commands to the database system...
         database.setIsExecutingCommands(true);

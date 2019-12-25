@@ -302,13 +302,7 @@ class JournalledSystem {
         long jn1 = js1.journal_file.getJournalNumber();
         long jn2 = js2.journal_file.getJournalNumber();
 
-        if (jn1 > jn2) {
-            return 1;
-        } else if (jn1 < jn2) {
-            return -1;
-        } else {
-            return 0;
-        }
+        return Long.compare(jn1, jn2);
     };
 
 
