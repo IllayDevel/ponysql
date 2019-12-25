@@ -292,7 +292,7 @@ public class ColumnDescription {
     /**
      * Returns the class of Java object for this field.
      */
-    public Class classType() {
+    public Class<?> classType() {
         return TypeUtil.toClass(type);
 //    if (type == Types.DB_STRING) {
 //      return String.class;

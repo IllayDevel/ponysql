@@ -92,7 +92,7 @@ public class CommandLine {
      * return matches for switches "-Dname=toby", "-Dog", "-Dvalue=over", etc.
      */
     public String[] allSwitchesStartingWith(String switch_str) {
-        Vector list = new Vector();
+        Vector<Object> list = new Vector<>();
         for (String arg : args) {
             if (arg.startsWith(switch_str)) {
                 list.addElement(arg);

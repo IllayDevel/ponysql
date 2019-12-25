@@ -43,7 +43,7 @@ public class AlterTable extends Statement {
     /**
      * The list of actions to perform in this alter statement.
      */
-    private ArrayList actions;
+    private ArrayList<Object> actions;
 
     /**
      * The TableName object.
@@ -61,7 +61,7 @@ public class AlterTable extends Statement {
      */
     public void addAction(AlterTableAction action) {
         if (actions == null) {
-            actions = new ArrayList();
+            actions = new ArrayList<>();
         }
         actions.add(action);
     }

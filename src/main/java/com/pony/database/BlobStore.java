@@ -188,7 +188,7 @@ final class BlobStore implements BlobStoreInterface {
 
             while (max_to_read > 0) {
                 // (CopyBlboInfo)
-                ArrayList src_copy_list = new ArrayList();
+                ArrayList<Object> src_copy_list = new ArrayList<>();
 
                 synchronized (src_fixed_list) {
                     for (int i = 0; i < max_to_read; ++i) {

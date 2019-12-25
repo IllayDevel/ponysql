@@ -115,13 +115,13 @@ public class Caster {
      * @return The constructor with the lowest cost, or null if there
      *         are no constructors that match the args.
      */
-    public static Constructor findBestConstructor(
-            Constructor[] constructs, TObject[] args) {
+    public static Constructor<Object> findBestConstructor(
+            Constructor<Object>[] constructs, TObject[] args) {
         int bestCost = 0;        // not used if bestConstructor is null
-        Constructor bestConstructor = null;
+        Constructor<Object> bestConstructor = null;
         int[] argSqlTypes = getSqlTypes(args);
-        for (Constructor construct : constructs) {
-            Class[] targets = construct.getParameterTypes();
+        for (Constructor<Object> construct : constructs) {
+            Class<?>[] targets = construct.getParameterTypes();
             int cost = getCastingCost(args, argSqlTypes, targets);
             if (cost < 0) {
                 continue;        // not a usable constructor
@@ -285,7 +285,7 @@ public class Caster {
      *         or -1 if the args can not be cast to the targets.
      */
     static int getCastingCost(TObject[] args, int[] argSqlTypes,
-                              Class[] targets) {
+                              Class<?>[] targets) {
         if (targets.length != argSqlTypes.length) {
             return -1;        // wrong number of args
         }
@@ -310,43 +310,43 @@ public class Caster {
 
     // These arrays are used in the getCastingCost method below.
     private static final String[] bitPrims = {"boolean"};
-    private static final Class[] bitClasses = {Boolean.class};
+    private static final Class<?>[] bitClasses = {Boolean.class};
 
     private static final String[] tinyPrims = {"byte", "short", "int", "long"};
-    private static final Class[] tinyClasses = {Byte.class, Short.class,
+    private static final Class<?>[] tinyClasses = {Byte.class, Short.class,
             Integer.class, Long.class, Number.class};
 
     private static final String[] smallPrims = {"short", "int", "long"};
-    private static final Class[] smallClasses = {Short.class, Integer.class,
+    private static final Class<?>[] smallClasses = {Short.class, Integer.class,
             Long.class, Number.class};
 
     private static final String[] intPrims = {"int", "long"};
-    private static final Class[] intClasses = {Integer.class, Long.class,
+    private static final Class<?>[] intClasses = {Integer.class, Long.class,
             Number.class};
 
     private static final String[] bigPrims = {"long"};
-    private static final Class[] bigClasses = {Long.class, Number.class};
+    private static final Class<?>[] bigClasses = {Long.class, Number.class};
 
     private static final String[] floatPrims = {"float", "double"};
-    private static final Class[] floatClasses = {Float.class, Double.class,
+    private static final Class<?>[] floatClasses = {Float.class, Double.class,
             Number.class};
 
     private static final String[] doublePrims = {"double"};
-    private static final Class[] doubleClasses = {Double.class, Number.class};
+    private static final Class<?>[] doubleClasses = {Double.class, Number.class};
 
     private static final String[] stringPrims = {};
-    private static final Class[] stringClasses = {String.class};
+    private static final Class<?>[] stringClasses = {String.class};
 
     private static final String[] datePrims = {};
-    private static final Class[] dateClasses = {java.sql.Date.class,
+    private static final Class<?>[] dateClasses = {java.sql.Date.class,
             java.util.Date.class};
 
     private static final String[] timePrims = {};
-    private static final Class[] timeClasses = {java.sql.Time.class,
+    private static final Class<?>[] timeClasses = {java.sql.Time.class,
             java.util.Date.class};
 
     private static final String[] timestampPrims = {};
-    private static final Class[] timestampClasses = {java.sql.Timestamp.class,
+    private static final Class<?>[] timestampClasses = {java.sql.Timestamp.class,
             java.util.Date.class};
 
     /**
@@ -361,7 +361,7 @@ public class Caster {
      * @param target The target to which to cast.
      * @return The cost to do the cast, or -1 if the cast can not be done.
      */
-    static int getCastingCost(TObject arg, int argSqlType, Class target) {
+    static int getCastingCost(TObject arg, int argSqlType, Class<?> target) {
 
         //If the user has a method that takes a TObject, assume he can handle
         //anything.
@@ -454,8 +454,8 @@ public class Caster {
      * @param target The target class to which we are casting.
      * @return The cost of the cast, or -1 if the cast is not allowed.
      */
-    static int getCastingCost(TObject arg, String[] prims, Class[] objects,
-                              Class target) {
+    static int getCastingCost(TObject arg, String[] prims, Class<?>[] objects,
+                              Class<?> target) {
         if (target.isPrimitive()) {
             Object argVal = arg.getObject();    // get the vaue of the arg
             if (argVal == null) {
@@ -489,8 +489,8 @@ public class Caster {
      * @return The cast arguments.
      */
     public static Object[] castArgsToConstructor(
-            TObject[] args, Constructor constructor) {
-        Class[] targets = constructor.getParameterTypes();
+            TObject[] args, Constructor<Object> constructor) {
+        Class<?>[] targets = constructor.getParameterTypes();
         return castArgs(args, targets);
     }
 
@@ -503,7 +503,7 @@ public class Caster {
      * @param targets The java classes to which to cast.
      * @return The cast arguments.
      */
-    static Object[] castArgs(TObject[] args, Class[] targets) {
+    static Object[] castArgs(TObject[] args, Class<?>[] targets) {
         if (targets.length != args.length) {
             // we shouldn't get this error
             throw new RuntimeException("array length mismatch: arg=" + args.length +
@@ -523,7 +523,7 @@ public class Caster {
      * @param target The java class to which to cast.
      * @return The cast object.
      */
-    static Object castArg(TObject arg, Class target) {
+    static Object castArg(TObject arg, Class<?> target) {
         // By the time we get here, we have already run through the cost function
         // and eliminated the casts that don't work, including not allowing a null
         // value to be cast to a primitive type.

@@ -252,7 +252,7 @@ public abstract class AbstractStore implements Store {
      * algorithm that looks for at most 'n' number of repairs before giving
      * up.  Returns false if a repair path could not be found.
      */
-    private boolean repairScan(final ArrayList areas_to_fix,
+    private boolean repairScan(final ArrayList<Object> areas_to_fix,
                                final long pointer, final long end_pointer,
                                final boolean scan_forward,
                                final int max_repairs) throws IOException {
@@ -475,7 +475,7 @@ public abstract class AbstractStore implements Store {
         }
 
         // Do a recursive scan over the store.
-        ArrayList repairs = new ArrayList();
+        ArrayList<Object> repairs = new ArrayList<>();
         boolean b = repairScan(repairs, DATA_AREA_OFFSET, endOfDataAreaPointer(),
                 true, 20);
 
@@ -536,7 +536,7 @@ public abstract class AbstractStore implements Store {
      * <p>
      * Assume the store is open.
      */
-    public synchronized void statsScan(HashMap properties) throws IOException {
+    public synchronized void statsScan(HashMap<Object,Object> properties) throws IOException {
 
         long free_areas = 0;
         long free_total = 0;
@@ -589,8 +589,8 @@ public abstract class AbstractStore implements Store {
      * in the store.  This is useful for checking if a given pointer is valid
      * or not.  The returned list is sorted from start area to end area.
      */
-    public List getAllAreas() throws IOException {
-        ArrayList list = new ArrayList();
+    public List<Object> getAllAreas() throws IOException {
+        ArrayList<Object> list = new ArrayList<>();
         final long end_of_data_area = endOfDataAreaPointer();
         long[] header = new long[2];
         // The first header

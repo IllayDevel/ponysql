@@ -35,7 +35,7 @@ public final class AlterTableAction
     /**
      * Element parameters to do with the action.
      */
-    private ArrayList elements;
+    private ArrayList<Object> elements;
 
     /**
      * The action to perform.
@@ -46,7 +46,7 @@ public final class AlterTableAction
      * Constructor.
      */
     public AlterTableAction() {
-        elements = new ArrayList();
+        elements = new ArrayList<>();
     }
 
     /**
@@ -73,7 +73,7 @@ public final class AlterTableAction
     /**
      * Returns the ArrayList that represents the parameters of this action.
      */
-    public ArrayList getElements() {
+    public ArrayList<Object> getElements() {
         return elements;
     }
 
@@ -105,7 +105,7 @@ public final class AlterTableAction
     public Object clone() throws CloneNotSupportedException {
         // Shallow clone
         AlterTableAction v = (AlterTableAction) super.clone();
-        ArrayList cloned_elements = new ArrayList();
+        ArrayList<Object> cloned_elements = new ArrayList<>();
         v.elements = cloned_elements;
 
         for (Object ob : elements) {

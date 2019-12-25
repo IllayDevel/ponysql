@@ -55,8 +55,8 @@ abstract class ColumnChecker {
     /**
      * Calls the 'stripTableName' method on all elements in the given list.
      */
-    static ArrayList stripColumnList(String table_domain,
-                                     ArrayList column_list) {
+    static ArrayList<Object> stripColumnList(String table_domain,
+                                     ArrayList<Object> column_list) {
         if (column_list != null) {
             int size = column_list.size();
             for (int i = 0; i < size; ++i) {
@@ -82,7 +82,7 @@ abstract class ColumnChecker {
     void checkExpression(Expression expression) throws DatabaseException {
 
         if (expression != null) {
-            List list = expression.allVariables();
+            List<Object> list = expression.allVariables();
             for (Object o : list) {
                 Variable v = (Variable) o;
                 String orig_col = v.getName();
@@ -113,7 +113,7 @@ abstract class ColumnChecker {
      * column names are not found in the columns in this create.  Additionally
      * sets the entry with the correct column resolved to.
      */
-    void checkColumnList(ArrayList list) throws DatabaseException {
+    void checkColumnList(ArrayList<Object> list) throws DatabaseException {
         if (list != null) {
             for (int i = 0; i < list.size(); ++i) {
                 String col = (String) list.get(i);

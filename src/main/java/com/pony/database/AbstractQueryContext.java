@@ -31,7 +31,7 @@ public abstract class AbstractQueryContext implements QueryContext {
      * Any marked tables that are made during the evaluation of a query plan.
      * (String) -> (Table)
      */
-    private HashMap marked_tables;
+    private HashMap<Object,Object> marked_tables;
 
 
     /**
@@ -39,7 +39,7 @@ public abstract class AbstractQueryContext implements QueryContext {
      */
     public void addMarkedTable(String mark_name, Table table) {
         if (marked_tables == null) {
-            marked_tables = new HashMap();
+            marked_tables = new HashMap<>();
         }
         marked_tables.put(mark_name, table);
     }
@@ -60,7 +60,7 @@ public abstract class AbstractQueryContext implements QueryContext {
      */
     public void putCachedNode(long id, Table table) {
         if (marked_tables == null) {
-            marked_tables = new HashMap();
+            marked_tables = new HashMap<>();
         }
         marked_tables.put(id, table);
     }

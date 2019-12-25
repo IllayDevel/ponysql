@@ -44,7 +44,7 @@ public final class ConnectionTriggerManager {
      * The list of triggers currently in view.
      * (TriggerInfo)
      */
-    private final ArrayList triggers_active;
+    private final ArrayList<Object> triggers_active;
 
     /**
      * If this is false then the list is not validated and must be refreshed
@@ -62,7 +62,7 @@ public final class ConnectionTriggerManager {
      */
     ConnectionTriggerManager(DatabaseConnection connection) {
         this.connection = connection;
-        this.triggers_active = new ArrayList();
+        this.triggers_active = new ArrayList<>();
         this.list_validated = false;
         this.trigger_modified = false;
         // Attach a commit trigger listener

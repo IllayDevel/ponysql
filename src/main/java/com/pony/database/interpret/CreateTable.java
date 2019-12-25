@@ -47,12 +47,12 @@ public class CreateTable extends Statement {
     /**
      * List of column declarations (ColumnDef)
      */
-    ArrayList columns;
+    ArrayList<Object> columns;
 
     /**
      * List of table constraints (ConstraintDef)
      */
-    ArrayList constraints;
+    ArrayList<Object> constraints;
 
 //  /**
 //   * The expression that must be evaluated to true for this row to be
@@ -194,12 +194,12 @@ public class CreateTable extends Statement {
         temporary = cmd.getBoolean("temporary");
         only_if_not_exists = cmd.getBoolean("only_if_not_exists");
         table_name = (String) cmd.getObject("table_name");
-        ArrayList column_list = (ArrayList) cmd.getObject("column_list");
-        constraints = (ArrayList) cmd.getObject("constraint_list");
+        ArrayList<Object> column_list = (ArrayList<Object>) cmd.getObject("column_list");
+        constraints = (ArrayList<Object>) cmd.getObject("constraint_list");
 
         // Convert column_list to list of com.pony.database.DataTableColumnDef
         int size = column_list.size();
-        columns = new ArrayList(size);
+        columns = new ArrayList<>(size);
         for (Object value : column_list) {
             ColumnDef cdef = (ColumnDef) value;
             columns.add(convertColumnDef(cdef));
@@ -245,8 +245,8 @@ public class CreateTable extends Statement {
 
         };
 
-        ArrayList unique_column_list = new ArrayList();
-        ArrayList primary_key_column_list = new ArrayList();
+        ArrayList<Object> unique_column_list = new ArrayList<>();
+        ArrayList<Object> primary_key_column_list = new ArrayList<>();
 
         // Check the expressions that represent the default values for the columns.
         // Also check each column name

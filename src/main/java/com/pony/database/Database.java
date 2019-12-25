@@ -1452,7 +1452,7 @@ public final class Database implements DatabaseConstants {
         ProcedureManager manager = connection.getProcedureManager();
 
         // Define the SYSTEM_MAKE_BACKUP procedure
-        Class c = com.pony.database.procedure.SystemBackup.class;
+        Class<?> c = com.pony.database.procedure.SystemBackup.class;
         manager.defineJavaProcedure(
                 new ProcedureName(SYSTEM_SCHEMA, "SYSTEM_MAKE_BACKUP"),
                 "com.pony.database.procedure.SystemBackup.invoke(ProcedureConnection, String)",
@@ -1787,7 +1787,7 @@ public final class Database implements DatabaseConstants {
             // What version is the data?
             DataTable database_vars =
                     connection.getTable(TableDataConglomerate.PERSISTENT_VAR_TABLE);
-            Map vars = database_vars.toMap();
+            Map<Object,Object> vars = database_vars.toMap();
             String db_version = vars.get("database.version").toString();
             // If the version doesn't equal the current version, throw an error.
             if (!db_version.equals("1.4")) {
@@ -2032,7 +2032,7 @@ public final class Database implements DatabaseConstants {
                     while (e.hasMoreRows()) {
 
                         int row_index = e.nextRowIndex();
-                        ArrayList changes = new ArrayList(4);
+                        ArrayList<Object> changes = new ArrayList<>(4);
 
                         for (int p = 0; p < column_count; ++p) {
                             DataTableColumnDef col_def = table_def.columnAt(p);
@@ -2171,7 +2171,7 @@ public final class Database implements DatabaseConstants {
             // What version is the data?
             DataTable database_vars =
                     connection.getTable(TableDataConglomerate.PERSISTENT_VAR_TABLE);
-            Map vars = database_vars.toMap();
+            Map<Object,Object> vars = database_vars.toMap();
             String db_version = vars.get("database.version").toString();
             if (db_version.equals("1.0")) {
                 // Convert from 1.0 to 1.4
@@ -2442,7 +2442,7 @@ public final class Database implements DatabaseConstants {
                 // Couldn't find the javascript script, so try and resolve as an
                 // actual Java class file.
                 // Find the procedure
-                Class proc = Class.forName("com.pony.procedure." + procedure_name);
+                Class<?> proc = Class.forName("com.pony.procedure." + procedure_name);
                 // Instantiate a new instance of the procedure
                 procedure_instance = (DatabaseProcedure) proc.newInstance();
 

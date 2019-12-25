@@ -42,7 +42,7 @@ class ConvertUtils {
      * Returns an list of MasterTableJournal that contains any journal entries
      * that are pending to be made to the table.
      */
-    static ArrayList convertIndexFiles1(File original_ijf,
+    static ArrayList<Object> convertIndexFiles1(File original_ijf,
                                         IndexStore new_store, DataTableDef table_def,
                                         DebugLogger logger) throws IOException {
 
@@ -120,7 +120,7 @@ class ConvertUtils {
             throw new Error("Unrecognised journals list version.");
         }
 
-        ArrayList transaction_mod_list = new ArrayList();
+        ArrayList<Object> transaction_mod_list = new ArrayList<>();
         int num_journals = din.readInt();
         for (int i = 0; i < num_journals; ++i) {
             MasterTableJournal journal = new MasterTableJournal();

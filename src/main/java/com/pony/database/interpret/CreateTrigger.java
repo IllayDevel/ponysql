@@ -39,7 +39,7 @@ public class CreateTrigger extends Statement {
         String trigger_name = (String) cmd.getObject("trigger_name");
         String type = (String) cmd.getObject("type");
         String table_name = (String) cmd.getObject("table_name");
-        List types = (List) cmd.getObject("trigger_types");
+        List<Object> types = (List<Object>) cmd.getObject("trigger_types");
 
         DatabaseQueryContext context = new DatabaseQueryContext(database);
 

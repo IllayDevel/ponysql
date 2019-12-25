@@ -76,10 +76,10 @@ public final class ConstraintDef
     Expression original_check_expression;
 
     // The first column list
-    ArrayList column_list;
+    ArrayList<Object> column_list;
 
     // The second column list
-    ArrayList column_list2;
+    ArrayList<Object> column_list2;
 
     // The name of the table if referenced.
     String reference_table_name;
@@ -107,7 +107,7 @@ public final class ConstraintDef
     /**
      * Sets object up for a primary key constraint.
      */
-    public void setPrimaryKey(ArrayList list) {
+    public void setPrimaryKey(ArrayList<Object> list) {
         type = PRIMARY_KEY;
         column_list = list;
     }
@@ -115,7 +115,7 @@ public final class ConstraintDef
     /**
      * Sets object up for a unique constraint.
      */
-    public void setUnique(ArrayList list) {
+    public void setUnique(ArrayList<Object> list) {
         type = UNIQUE;
         column_list = list;
     }
@@ -136,8 +136,8 @@ public final class ConstraintDef
     /**
      * Sets object up for foreign key reference.
      */
-    public void setForeignKey(String ref_table, ArrayList col_list,
-                              ArrayList ref_col_list,
+    public void setForeignKey(String ref_table, ArrayList<Object> col_list,
+                              ArrayList<Object> ref_col_list,
                               String delete_rule, String update_rule) {
         type = FOREIGN_KEY;
         reference_table_name = ref_table;
@@ -207,10 +207,10 @@ public final class ConstraintDef
             v.check_expression = (Expression) check_expression.clone();
         }
         if (column_list != null) {
-            v.column_list = (ArrayList) column_list.clone();
+            v.column_list = (ArrayList<Object>) column_list.clone();
         }
         if (column_list2 != null) {
-            v.column_list2 = (ArrayList) column_list2.clone();
+            v.column_list2 = (ArrayList<Object>) column_list2.clone();
         }
         return v;
     }
