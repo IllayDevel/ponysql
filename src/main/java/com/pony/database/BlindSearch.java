@@ -101,11 +101,6 @@ public final class BlindSearch extends SelectableScheme {
     }
 
     /**
-     * Selection methods for obtaining various sub-sets of information from the
-     * set.
-     */
-
-    /**
      * We implement an insert sort algorithm here.  Each new row is inserted
      * into our row vector at the sorted corrent position.
      * The algorithm assumes the given vector is already sorted.  We then just

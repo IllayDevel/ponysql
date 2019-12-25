@@ -432,9 +432,6 @@ public class TableDataConglomerate {
      * should only be called during an 'open' like method.  This method fills
      * the 'committed_dropped' and 'table_list' lists with the tables in this
      * conglomerate.
-     * <p>
-     * @param terminal the terminal to ask questions if problems are found.  If
-     *   null then an exception is thrown if there are problems.
      */
     private void readDroppedTables() throws IOException {
 

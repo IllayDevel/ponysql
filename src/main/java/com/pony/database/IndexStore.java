@@ -739,9 +739,6 @@ public final class IndexStore {
             // array itself.  We must be careful that the underlying byte[] array
             // is protected from modifications (it's immutable).
             this.buf = new ByteBuffer(in_buf);
-            /**
-             * The length of the allocation table.
-             */
 
         }
 

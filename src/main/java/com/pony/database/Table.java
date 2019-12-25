@@ -228,8 +228,6 @@ public abstract class Table implements TableDataSource {
     }
 
 
-    /** ======================= Table Operations ========================= */
-
     /**
      * Dumps the contents of the table in a human readable form to the given
      * output stream.

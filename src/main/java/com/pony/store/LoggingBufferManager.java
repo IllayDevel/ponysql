@@ -131,9 +131,6 @@ public class LoggingBufferManager {
         current_T = 0;
         page_list = new ArrayList();
         page_map = new BMPage[257];
-        /**
-         * A unique id key counter for all stores using this buffer manager.
-         */
         int unique_id_seq = 0;
 
         journalled_system = new JournalledSystem(journal_path, read_only,

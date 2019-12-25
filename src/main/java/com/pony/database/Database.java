@@ -231,9 +231,6 @@ public final class Database implements DatabaseConstants {
 
 
     /**
-     * The various log files.
-     */
-    /**
      * This log file records the DQL commands executed on the server.
      */
     private Log commands_log;

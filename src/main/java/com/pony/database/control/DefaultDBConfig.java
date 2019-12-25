@@ -166,9 +166,6 @@ public class DefaultDBConfig extends AbstractDBConfig {
         CONFIG_DEFAULTS.put(property.getKey(), property);
     }
 
-    /**
-     * Sets up the CONFIG_DEFAULTS map with default configuration values.
-     */
     static {
         addDefProperty(new ConfigProperty("database_path", "./data", "PATH"));
 

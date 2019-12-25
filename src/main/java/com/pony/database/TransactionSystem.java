@@ -153,10 +153,6 @@ public class TransactionSystem {
         stats.set(0, "Runtime.os.name: " + p.getProperty("os.name"));
         stats.set(0, "Runtime.os.arch: " + p.getProperty("os.arch"));
         stats.set(0, "Runtime.os.version: " + p.getProperty("os.version"));
-        /**
-         * A list of table names and listeners that are notified of add and remove
-         * events in a table.
-         */
         ArrayList table_listeners = new ArrayList();
     }
 
@@ -677,10 +673,6 @@ public class TransactionSystem {
      * Returns true if the database should perform checking of table locks.
      */
     public boolean tableLockingEnabled() {
-        /**
-         * Set to true if locking checks should be performed each time a table is
-         * accessed.
-         */
         boolean table_lock_check = false;
         return table_lock_check;
     }
@@ -698,11 +690,6 @@ public class TransactionSystem {
      * can be garbage collected.
      */
     public boolean softIndexStorage() {
-        /**
-         * Set to false if there is conservative index memory storage.  If true,
-         * all root selectable schemes are stored behind a soft reference that will
-         * be garbage collected.
-         */
         boolean soft_index_storage = false;
         return soft_index_storage;
     }
@@ -711,11 +698,6 @@ public class TransactionSystem {
      * Returns the status of the 'always_reindex_dirty_tables' property.
      */
     public boolean alwaysReindexDirtyTables() {
-        /**
-         * If this is set to true, during boot up the engine will reindex all the
-         * tables that weren't closed.  If false, the engine will only reindex the
-         * tables that have unchecked in modifications.
-         */
         boolean always_reindex_dirty_tables = false;
         return always_reindex_dirty_tables;
     }
@@ -725,11 +707,6 @@ public class TransactionSystem {
      * important indexing information is flushed to the disk.
      */
     public boolean dontSynchFileSystem() {
-        /**
-         * Set to true if the file handles should NOT be synchronized with the
-         * system file IO when the indices are written.  If this is true, then the
-         * database is not as fail safe, however File IO performance is improved.
-         */
         boolean dont_synch_filesystem = false;
         return dont_synch_filesystem;
     }

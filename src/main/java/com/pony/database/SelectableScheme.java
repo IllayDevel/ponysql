@@ -190,11 +190,6 @@ public abstract class SelectableScheme {
 
 
     /**
-     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-     * Abstract methods for selection of rows, and maintenance of rows
-     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-     */
-    /**
      * Inserts the given element into the set.  This is called just after a
      * row has been initially added to a table.
      */

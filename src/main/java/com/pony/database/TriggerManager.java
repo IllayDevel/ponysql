@@ -146,10 +146,6 @@ final class TriggerManager {
      * Notifies all the listeners on a trigger_source (ie. a table) that a
      * specific type of event has happened, as denoted by the type.
      *
-     * @param trigger_source the source of the trigger.
-     * @param trigger_type either INSERT, DELETE or UPDATE
-     * @param fire_count the number of times the trigger was fired for this
-     *                   event.
      */
     private void fireTrigger(final TriggerEvent evt) {
 

@@ -70,9 +70,6 @@ final class MultiVersionTableIndices {
                              TableName table_name, int column_count) {
         this.system = system;
         this.table_name = table_name;
-        /**
-         * The number of columns in the referenced table.
-         */
 
         transaction_mod_list = new ArrayList();
 

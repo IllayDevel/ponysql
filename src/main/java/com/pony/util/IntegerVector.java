@@ -372,11 +372,6 @@ public final class IntegerVector implements java.io.Serializable {
 
 
     /**
-     * These methods are algorithms that can be used on the array, such as
-     * sorting and searching.
-     */
-
-    /**
      * Performs a quick sort on the array between the min and max bounds.
      */
     public final void quickSort(int min, int max) {

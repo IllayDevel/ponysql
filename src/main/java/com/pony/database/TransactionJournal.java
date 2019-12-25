@@ -96,10 +96,6 @@ final class TransactionJournal {
         command_parameters = new IntegerVector(32);
         touched_tables = new IntegerVector(8);
 
-        /**
-         * Optimization, these flags are set to true when various types of journal
-         * entries are made to the transaction journal.
-         */
         boolean has_added_table_rows = false;
         boolean has_removed_table_rows = false;
         has_created_tables = false;

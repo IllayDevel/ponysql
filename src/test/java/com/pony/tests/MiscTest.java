@@ -74,9 +74,6 @@ public class MiscTest {
 
         // Make a connection with the database.  This will create the database
         // and log into the newly created database.
-        /**
-         * The global connection instance.
-         */
         Connection connection;
         try {
             connection = DriverManager.getConnection(url, username, password);

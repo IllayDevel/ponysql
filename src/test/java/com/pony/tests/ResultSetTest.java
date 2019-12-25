@@ -15,12 +15,6 @@
  * limitations under the License.
  */
 
-/**
- * com.pony.tests.ResultSetTest  25 Feb 2001
- * <p>
- * {{@INCLUDE LICENSE}}
- */
-
 package com.pony.tests;
 
 import com.pony.util.CommandLine;
@@ -80,9 +74,6 @@ public class ResultSetTest {
 
         // Make a connection with the database.  This will create the database
         // and log into the newly created database.
-        /**
-         * The global connection instance.
-         */
         Connection connection;
         try {
             connection = DriverManager.getConnection(url, username, password);

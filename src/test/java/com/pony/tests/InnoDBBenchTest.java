@@ -15,12 +15,6 @@
  * limitations under the License.
  */
 
-/**
- * com.pony.tests.InnoDBBenchTest  06 Nov 2001
- * <p>
- * {{@INCLUDE LICENSE}}
- */
-
 package com.pony.tests;
 
 import java.sql.*;

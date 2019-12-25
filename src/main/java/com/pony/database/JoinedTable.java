@@ -40,11 +40,6 @@ public abstract class JoinedTable extends Table {
     protected SelectableScheme[] column_scheme;
 
     /**
-     * These two arrays are lookup tables created in the constructor.  They allow
-     * for quick resolution of where a given column should be 'routed' to in
-     * the ancestors.
-     */
-    /**
      * Maps the column number in this table to the reference_list array to route
      * to.
      */

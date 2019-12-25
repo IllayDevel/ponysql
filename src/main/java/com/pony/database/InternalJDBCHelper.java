@@ -156,9 +156,6 @@ class InternalJDBCHelper {
          */
         public InternalDatabaseInterface(User user, DatabaseConnection db) {
             super(db.getDatabase());
-            /**
-             * The internal connection to the database.
-             */
             init(user, db);
         }
 

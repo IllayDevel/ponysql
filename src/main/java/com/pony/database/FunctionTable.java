@@ -222,10 +222,6 @@ public class FunctionTable extends DefaultDataTable {
         // Set up 'whole_table_group' to the list of all rows in the reference
         // table.
         RowEnumeration en = getReferenceTable().rowEnumeration();
-        /**
-         * If the whole table is a simple enumeration (row index is 0 to getRowCount)
-         * then this is true.
-         */
         boolean whole_table_is_simple_enum = en instanceof SimpleRowEnumeration;
         if (!whole_table_is_simple_enum) {
             whole_table_group = new IntegerVector(getReferenceTable().getRowCount());

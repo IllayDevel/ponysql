@@ -124,9 +124,6 @@ final class IndexSetStore {
      */
     public IndexSetStore(Store store, final TransactionSystem system) {
         this.store = store;
-        /**
-         * The TransactionSystem for this index set.
-         */
         this.debug = system.Debug();
     }
 

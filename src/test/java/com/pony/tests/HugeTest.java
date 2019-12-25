@@ -15,12 +15,6 @@
  * limitations under the License.
  */
 
-/**
- * com.pony.tests.HugeTest  14 Dec 2000
- * <p>
- * {{@INCLUDE LICENSE}}
- */
-
 package com.pony.tests;
 
 import java.sql.*;

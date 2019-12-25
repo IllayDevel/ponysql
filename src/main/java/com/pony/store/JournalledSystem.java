@@ -1042,9 +1042,6 @@ class JournalledSystem {
          */
         public JournalEntry(String resource_name, JournalFile journal,
                             long position, long page_number) {
-            /**
-             * The resource that this page is on.
-             */
             this.journal = journal;
             this.position = position;
             this.page_number = page_number;

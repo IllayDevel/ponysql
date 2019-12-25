@@ -28,10 +28,6 @@ package com.pony;
 
 public class JDBCDriver extends com.pony.database.jdbc.MDriver {
 
-    /**
-     * Just referencing this class will register the JDBC driver.  Any objections
-     * to this behaviour?
-     */
     static {
         com.pony.database.jdbc.MDriver.register();
     }

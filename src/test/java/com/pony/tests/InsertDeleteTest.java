@@ -15,12 +15,6 @@
  * limitations under the License.
  */
 
-/**
- * com.pony.tests.InsertDeleteTest  14 Dec 2000
- * <p>
- * {{@INCLUDE LICENSE}}
- */
-
 package com.pony.tests;
 
 import com.pony.util.CommandLine;
@@ -86,9 +80,6 @@ public class InsertDeleteTest {
 
         // Make a connection with the database.  This will create the database
         // and log into the newly created database.
-        /**
-         * The global connection instance.
-         */
         Connection connection;
         try {
             connection = DriverManager.getConnection(url, username, password);

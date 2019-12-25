@@ -148,9 +148,6 @@ class ConglomerateViewPane extends JRootPane {
         this.conglomerate = conglom;
 
         JMenu info = new JMenu("Info");
-        /**
-         * An action for calculating the average row size in the table.
-         */
         Action average_row_count_action = new AbstractAction("Table Statistics") {
 
             public void actionPerformed(ActionEvent evt) {

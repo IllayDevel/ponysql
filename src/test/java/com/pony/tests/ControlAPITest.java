@@ -15,12 +15,6 @@
  * limitations under the License.
  */
 
-/**
- * com.pony.tests.ControlAPITest  29 Mar 2002
- * <p>
- * {{@INCLUDE LICENSE}}
- */
-
 package com.pony.tests;
 
 import com.pony.database.control.*;

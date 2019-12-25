@@ -184,11 +184,6 @@ abstract class MasterTableDataSource {
 
         this.system = system;
         this.store_system = store_system;
-        /**
-         * The list of all open transactions managed by the parent conglomerate.
-         * This is a thread safe object, and is updated whenever new transactions
-         * are created, or transactions are closed.
-         */
         this.blob_store_interface = blob_store_interface;
         this.garbage_collector = new MasterTableGarbageCollector(this);
         this.cache = system.getDataCellCache();
@@ -1374,9 +1369,6 @@ abstract class MasterTableDataSource {
             this.index_set =
                     transaction.getIndexSetForTable(MasterTableDataSource.this);
             int col_count = getDataTableDef().columnCount();
-            /**
-             * The name of this table.
-             */
             TableName table_name = getDataTableDef().getTableName();
             this.tran_read_only = transaction.isReadOnly();
             row_list_rebuild = 0;

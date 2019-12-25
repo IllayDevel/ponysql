@@ -162,9 +162,6 @@ public final class MResultSet implements ResultSet {
     MResultSet(MConnection connection, MStatement statement) {
         this.connection = connection;
         this.statement = statement;
-        /**
-         * A unique int that refers to this result set.
-         */
         int unique_id = unique_id_key++;
         result_id = -1;
         result_block = new Vector();

@@ -15,12 +15,6 @@
  * limitations under the License.
  */
 
-/**
- * com.pony.runtime.JDBCTests  09 Nov 2000
- * <p>
- * {{@INCLUDE LICENSE}}
- */
-
 package com.pony.tests;
 
 import com.pony.util.CommandLine;
