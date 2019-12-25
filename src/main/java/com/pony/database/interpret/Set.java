@@ -65,32 +65,37 @@ public class Set extends Statement {
 
         String com = type.toLowerCase();
 
-        if (com.equals("varset")) {
-            database.setVar(var_name, exp);
-        } else if (com.equals("isolationset")) {
-            value = value.toLowerCase();
-            database.setTransactionIsolation(value);
-        } else if (com.equals("autocommit")) {
-            value = value.toLowerCase();
-            if (value.equals("on") ||
-                    value.equals("1")) {
-                database.setAutoCommit(true);
-            } else if (value.equals("off") ||
-                    value.equals("0")) {
-                database.setAutoCommit(false);
-            } else {
-                throw new DatabaseException("Unrecognised value for SET AUTO COMMIT");
-            }
-        } else if (com.equals("schema")) {
-            // It's particularly important that this is done during exclusive
-            // lock because SELECT requires the schema name doesn't change in
-            // mid-process.
+        switch (com) {
+            case "varset":
+                database.setVar(var_name, exp);
+                break;
+            case "isolationset":
+                value = value.toLowerCase();
+                database.setTransactionIsolation(value);
+                break;
+            case "autocommit":
+                value = value.toLowerCase();
+                if (value.equals("on") ||
+                        value.equals("1")) {
+                    database.setAutoCommit(true);
+                } else if (value.equals("off") ||
+                        value.equals("0")) {
+                    database.setAutoCommit(false);
+                } else {
+                    throw new DatabaseException("Unrecognised value for SET AUTO COMMIT");
+                }
+                break;
+            case "schema":
+                // It's particularly important that this is done during exclusive
+                // lock because SELECT requires the schema name doesn't change in
+                // mid-process.
 
-            // Change the connection to the schema
-            database.setDefaultSchema(value);
+                // Change the connection to the schema
+                database.setDefaultSchema(value);
 
-        } else {
-            throw new DatabaseException("Unrecognised set command.");
+                break;
+            default:
+                throw new DatabaseException("Unrecognised set command.");
         }
 
         return FunctionTable.resultTable(context, 0);

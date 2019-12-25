@@ -326,26 +326,27 @@ public abstract class Operator implements java.io.Serializable {
 
         // Operators that are words, convert to lower case...
         op = op.toLowerCase();
-        if (op.equals("is")) {
-            return is_op;
-        } else if (op.equals("is not")) {
-            return isn_op;
-        } else if (op.equals("like")) {
-            return like_op;
-        } else if (op.equals("not like")) {
-            return nlike_op;
-        } else if (op.equals("regex")) {
-            return regex_op;
-        } else if (op.equals("in")) {
-            return in_op;
-        } else if (op.equals("not in")) {
-            return nin_op;
-        } else if (op.equals("not")) {
-            return not_op;
-        } else if (op.equals("and")) {
-            return and_op;
-        } else if (op.equals("or")) {
-            return or_op;
+        switch (op) {
+            case "is":
+                return is_op;
+            case "is not":
+                return isn_op;
+            case "like":
+                return like_op;
+            case "not like":
+                return nlike_op;
+            case "regex":
+                return regex_op;
+            case "in":
+                return in_op;
+            case "not in":
+                return nin_op;
+            case "not":
+                return not_op;
+            case "and":
+                return and_op;
+            case "or":
+                return or_op;
         }
 
 
@@ -629,8 +630,8 @@ public abstract class Operator implements java.io.Serializable {
 
                 if (list.size() > 0) {
                     // Set the correlated variables from the VariableResolver
-                    for (int i = 0; i < list.size(); ++i) {
-                        ((CorrelatedVariable) list.get(i)).setFromResolver(resolver);
+                    for (Object o : list) {
+                        ((CorrelatedVariable) o).setFromResolver(resolver);
                     }
                     // Clear the cache in the context
                     context.clearCache();
@@ -651,8 +652,8 @@ public abstract class Operator implements java.io.Serializable {
                 Expression[] exp_list = (Expression[]) ob2.getObject();
                 // Assume there are no matches
                 TObject ret_val = TObject.BOOLEAN_FALSE;
-                for (int i = 0; i < exp_list.length; ++i) {
-                    TObject exp_item = exp_list[i].evaluate(group, resolver, context);
+                for (Expression expression : exp_list) {
+                    TObject exp_item = expression.evaluate(group, resolver, context);
                     // If null value, return null if there isn't otherwise a match found.
                     if (exp_item.isNull()) {
                         ret_val = TObject.BOOLEAN_NULL;
@@ -691,8 +692,8 @@ public abstract class Operator implements java.io.Serializable {
 
                 if (list.size() > 0) {
                     // Set the correlated variables from the VariableResolver
-                    for (int i = 0; i < list.size(); ++i) {
-                        ((CorrelatedVariable) list.get(i)).setFromResolver(resolver);
+                    for (Object o : list) {
+                        ((CorrelatedVariable) o).setFromResolver(resolver);
                     }
                     // Clear the cache in the context
                     context.clearCache();
@@ -712,8 +713,8 @@ public abstract class Operator implements java.io.Serializable {
                 Expression[] exp_list = (Expression[]) ob2.getObject();
                 // Assume true unless otherwise found to be false or NULL.
                 TObject ret_val = TObject.BOOLEAN_TRUE;
-                for (int i = 0; i < exp_list.length; ++i) {
-                    TObject exp_item = exp_list[i].evaluate(group, resolver, context);
+                for (Expression expression : exp_list) {
+                    TObject exp_item = expression.evaluate(group, resolver, context);
                     // If there is a null item, we return null if not otherwise found to
                     // be false.
                     if (exp_item.isNull()) {

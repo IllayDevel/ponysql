@@ -112,8 +112,8 @@ public class FromTableSubQuerySource implements FromTableInterface {
 //      System.out.println("0000");
             // Are the variables aliased to a table name?
             if (end_table_name != null) {
-                for (int i = 0; i < vars.length; ++i) {
-                    vars[i].setTableName(end_table_name);
+                for (Variable var : vars) {
+                    var.setTableName(end_table_name);
                 }
             }
         }
@@ -211,8 +211,7 @@ public class FromTableSubQuerySource implements FromTableInterface {
         }
 
         int matched_count = 0;
-        for (int i = 0; i < vars.length; ++i) {
-            Variable v = vars[i];
+        for (Variable v : vars) {
             if (matchesVar(v, catalog, schema, table, column)) {
                 ++matched_count;
             }
@@ -229,8 +228,7 @@ public class FromTableSubQuerySource implements FromTableInterface {
 //    System.out.println("resolveColumn: " + catalog + ", " + schema + ", " +
 //                       table + ", " + column);
 
-        for (int i = 0; i < vars.length; ++i) {
-            Variable v = vars[i];
+        for (Variable v : vars) {
             if (matchesVar(v, catalog, schema, table, column)) {
 //        System.out.println("Result: " + v);
                 return v;

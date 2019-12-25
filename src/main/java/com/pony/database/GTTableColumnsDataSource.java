@@ -84,8 +84,7 @@ final class GTTableColumnsDataSource extends GTDataSource {
 
         final int sz = visible_tables.length;
         int rs = 0;
-        for (int n = 0; n < sz; ++n) {
-            final DataTableDef def = visible_tables[n];
+        for (final DataTableDef def : visible_tables) {
             final int b = rs;
             rs += def.columnCount();
             if (row >= b && row < rs) {
@@ -109,7 +108,7 @@ final class GTTableColumnsDataSource extends GTDataSource {
                     case 6:  // scale
                         return columnValue(column, BigNumber.fromLong(col_def.getScale()));
                     case 7:  // not_null
-                        return columnValue(column, new Boolean(col_def.isNotNull()));
+                        return columnValue(column, col_def.isNotNull());
                     case 8:  // default
                         return columnValue(column,
                                 col_def.getDefaultExpressionString());

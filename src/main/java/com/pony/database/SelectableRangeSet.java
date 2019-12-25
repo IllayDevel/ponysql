@@ -294,9 +294,9 @@ public final class SelectableRangeSet {
         ArrayList input_set = union_to.range_set;
 
         int in_sz = input_set.size();
-        for (int n = 0; n < in_sz; ++n) {
+        for (Object o : input_set) {
             // The range to merge in.
-            SelectableRange in_range = (SelectableRange) input_set.get(n);
+            SelectableRange in_range = (SelectableRange) o;
 
             // For each range in this set
             int sz = range_set.size();
@@ -359,8 +359,8 @@ public final class SelectableRangeSet {
         if (range_set.size() == 0) {
             return "(NO RANGE)";
         }
-        for (int i = 0; i < range_set.size(); ++i) {
-            buf.append(range_set.get(i));
+        for (Object o : range_set) {
+            buf.append(o);
             buf.append(", ");
         }
         return new String(buf);

@@ -92,8 +92,8 @@ public class PrivManager extends Statement {
 
             // Is the user permitted to give out these privs?
             Privileges grant_privs = Privileges.EMPTY_PRIVS;
-            for (int i = 0; i < priv_list.size(); ++i) {
-                String priv = ((String) priv_list.get(i)).toUpperCase();
+            for (Object item : priv_list) {
+                String priv = ((String) item).toUpperCase();
                 int priv_bit;
                 if (priv.equals("ALL")) {
                     if (grant_object == GrantManager.TABLE) {
@@ -115,8 +115,8 @@ public class PrivManager extends Statement {
             }
 
             // Do the users exist?
-            for (int i = 0; i < grant_to.size(); ++i) {
-                String name = (String) grant_to.get(i);
+            for (Object value : grant_to) {
+                String name = (String) value;
                 if (!name.equalsIgnoreCase("public") &&
                         !database.getDatabase().userExists(context, name)) {
                     throw new DatabaseException("User '" + name + "' doesn't exist.");
@@ -124,8 +124,8 @@ public class PrivManager extends Statement {
             }
 
             // Everything checks out so add the grants to the users.
-            for (int i = 0; i < grant_to.size(); ++i) {
-                String name = (String) grant_to.get(i);
+            for (Object o : grant_to) {
+                String name = (String) o;
                 if (name.equalsIgnoreCase("public")) {
                     // Add a public grant,
                     manager.addGrant(grant_privs, grant_object, grant_param,
@@ -149,8 +149,8 @@ public class PrivManager extends Statement {
 
             // Is the user permitted to give out these privs?
             Privileges revoke_privs = Privileges.EMPTY_PRIVS;
-            for (int i = 0; i < priv_list.size(); ++i) {
-                String priv = ((String) priv_list.get(i)).toUpperCase();
+            for (Object value : priv_list) {
+                String priv = ((String) value).toUpperCase();
                 int priv_bit;
                 if (priv.equals("ALL")) {
                     if (grant_object == GrantManager.TABLE) {
@@ -167,8 +167,8 @@ public class PrivManager extends Statement {
             }
 
             // Revoke the grants for the given users
-            for (int i = 0; i < revoke_from.size(); ++i) {
-                String name = (String) revoke_from.get(i);
+            for (Object o : revoke_from) {
+                String name = (String) o;
                 if (name.equalsIgnoreCase("public")) {
                     // Revoke a public grant,
                     manager.removeGrant(revoke_privs, grant_object, grant_param,

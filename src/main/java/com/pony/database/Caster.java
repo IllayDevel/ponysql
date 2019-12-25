@@ -120,15 +120,15 @@ public class Caster {
         int bestCost = 0;        // not used if bestConstructor is null
         Constructor bestConstructor = null;
         int[] argSqlTypes = getSqlTypes(args);
-        for (int i = 0; i < constructs.length; ++i) {
-            Class[] targets = constructs[i].getParameterTypes();
+        for (Constructor construct : constructs) {
+            Class[] targets = construct.getParameterTypes();
             int cost = getCastingCost(args, argSqlTypes, targets);
             if (cost < 0) {
                 continue;        // not a usable constructor
             }
             if (bestConstructor == null || cost < bestCost) {
                 bestCost = cost;    // found a better one, remember it
-                bestConstructor = constructs[i];
+                bestConstructor = construct;
             }
         }
         return bestConstructor;    // null if we didn't find any
@@ -248,7 +248,7 @@ public class Caster {
      *         using comma as a separator.
      */
     public static String getArgTypesString(TObject[] args) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (int n = 0; n < args.length; n++) {
             if (n > 0) {
                 sb.append(",");
@@ -553,23 +553,23 @@ public class Caster {
             //REAL, FLOAT, DOUBLE, NUMERIC, DECIMAL
             Number num = (Number) argVal;
             if (targetName.equals("byte") || Byte.class.isAssignableFrom(target)) {
-                return new Byte(num.byteValue());
+                return num.byteValue();
             }
             if (targetName.equals("short") || Short.class.isAssignableFrom(target)) {
-                return new Short(num.shortValue());
+                return num.shortValue();
             }
             if (targetName.equals("int") || Integer.class.isAssignableFrom(target)) {
-                return new Integer(num.intValue());
+                return num.intValue();
             }
             if (targetName.equals("long") || Long.class.isAssignableFrom(target)) {
-                return new Long(num.longValue());
+                return num.longValue();
             }
             if (targetName.equals("float") || Float.class.isAssignableFrom(target)) {
-                return new Float(num.floatValue());
+                return num.floatValue();
             }
             if (targetName.equals("double") ||
                     Double.class.isAssignableFrom(target)) {
-                return new Float(num.doubleValue());
+                return (float) num.doubleValue();
             }
         } else if (argVal instanceof java.util.Date) {
             //DATE, TIME, TIMESTAMP

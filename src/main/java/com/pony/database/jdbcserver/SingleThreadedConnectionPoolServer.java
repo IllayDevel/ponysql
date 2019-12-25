@@ -203,22 +203,20 @@ final class SingleThreadedConnectionPoolServer
 //              final User conn_user = connection.getUser();
 //              DatabaseSystem.execute(conn_user, connection.getDatabase(),
 //                                     new Runnable() {
-                            database.execute(null, null, new Runnable() {
-                                public void run() {
+                            database.execute(null, null, () -> {
 
-                                    try {
-                                        // Process the next request that's pending.
-                                        current_state.getConnection().processRequest();
-                                    } catch (IOException e) {
-                                        Debug().writeException(Lvl.INFORMATION, e);
-                                    } finally {
-                                        // Then clear the state
-                                        // This makes sure that this provider may accept new
-                                        // commands again.
-                                        current_state.clearInternal();
-                                    }
-
+                                try {
+                                    // Process the next request that's pending.
+                                    current_state.getConnection().processRequest();
+                                } catch (IOException e) {
+                                    Debug().writeException(Lvl.INFORMATION, e);
+                                } finally {
+                                    // Then clear the state
+                                    // This makes sure that this provider may accept new
+                                    // commands again.
+                                    current_state.clearInternal();
                                 }
+
                             });
 
                         } // if (provider_state.hasPendingCommand() ....
@@ -271,23 +269,21 @@ final class SingleThreadedConnectionPoolServer
                 connection_state.setProcessingRequest();
 
                 // ISSUE: Pings are executed under 'null' user and database...
-                database.execute(null, null, new Runnable() {
-                    public void run() {
+                database.execute(null, null, () -> {
+                    try {
+                        // Ping the client? - This closes the provider if the
+                        // ping fails.
+                        connection_state.getConnection().ping();
+                    } catch (IOException e) {
+                        // Close connection
                         try {
-                            // Ping the client? - This closes the provider if the
-                            // ping fails.
-                            connection_state.getConnection().ping();
-                        } catch (IOException e) {
-                            // Close connection
-                            try {
-                                connection_state.getConnection().close();
-                            } catch (IOException e2) { /* ignore */ }
-                            Debug().write(Lvl.ALERT, ServerFarmer.this,
-                                    "Closed because ping failed.");
-                            Debug().writeException(Lvl.ALERT, e);
-                        } finally {
-                            connection_state.clearProcessingRequest();
-                        }
+                            connection_state.getConnection().close();
+                        } catch (IOException e2) { /* ignore */ }
+                        Debug().write(Lvl.ALERT, ServerFarmer.this,
+                                "Closed because ping failed.");
+                        Debug().writeException(Lvl.ALERT, e);
+                    } finally {
+                        connection_state.clearProcessingRequest();
                     }
                 });
 

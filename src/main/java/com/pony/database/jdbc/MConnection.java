@@ -346,13 +346,13 @@ public class MConnection implements Connection, DatabaseCallBack {
         // server.
         Object[] vars = sql.getVars();
         try {
-            for (int i = 0; i < vars.length; ++i) {
+            for (Object var : vars) {
                 // For each streamable object.
-                if (vars[i] != null && vars[i] instanceof StreamableObject) {
+                if (var != null && var instanceof StreamableObject) {
                     // Buffer size is fixed to 64 KB
                     final int BUF_SIZE = 64 * 1024;
 
-                    StreamableObject s_object = (StreamableObject) vars[i];
+                    StreamableObject s_object = (StreamableObject) var;
                     long offset = 0;
                     final byte type = s_object.getType();
                     final long total_len = s_object.getSize();
@@ -360,7 +360,7 @@ public class MConnection implements Connection, DatabaseCallBack {
                     final byte[] buf = new byte[BUF_SIZE];
 
                     // Get the InputStream from the StreamableObject hold
-                    Object sob_id = new Long(id);
+                    Object sob_id = id;
                     InputStream i_stream = (InputStream) s_object_hold.get(sob_id);
                     if (i_stream == null) {
                         throw new RuntimeException(
@@ -526,7 +526,7 @@ public class MConnection implements Connection, DatabaseCallBack {
             ob_id = s_object_id;
             ++s_object_id;
             // Add the stream to the hold and get the unique id
-            s_object_hold.put(new Long(ob_id), x);
+            s_object_hold.put(ob_id, x);
         }
         // Create and return the StreamableObject
         return new StreamableObject(type, length, ob_id);
@@ -537,7 +537,7 @@ public class MConnection implements Connection, DatabaseCallBack {
      * be called when the MPreparedStatement closes.
      */
     void removeStreamableObject(StreamableObject s_object) {
-        s_object_hold.remove(new Long(s_object.getIdentifier()));
+        s_object_hold.remove(s_object.getIdentifier());
     }
 
 
@@ -1002,9 +1002,9 @@ public class MConnection implements Connection, DatabaseCallBack {
                     }
 
                     // Fire them triggers.
-                    for (int i = 0; i < fired_triggers.size(); ++i) {
+                    for (Object fired_trigger : fired_triggers) {
                         TriggerListener listener =
-                                (TriggerListener) fired_triggers.get(i);
+                                (TriggerListener) fired_trigger;
                         listener.triggerFired(trigger_name);
                     }
 

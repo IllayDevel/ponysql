@@ -725,12 +725,12 @@ public final class V2MasterTableDataSource extends MasterTableDataSource {
             ArrayList used_areas = new ArrayList();
 
             // Add the header_p pointer
-            used_areas.add(new Long(header_area.getID()));
+            used_areas.add(header_area.getID());
 
             header_area.position(16);
             // Add the DataTableDef and DataIndexSetDef objects
-            used_areas.add(new Long(header_area.getLong()));
-            used_areas.add(new Long(header_area.getLong()));
+            used_areas.add(header_area.getLong());
+            used_areas.add(header_area.getLong());
 
             // Add all the used areas in the list_structure itself.
             list_structure.addAllAreasUsed(used_areas);
@@ -747,7 +747,7 @@ public final class V2MasterTableDataSource extends MasterTableDataSource {
                     long pointer = a.getLong();
 //          System.out.println("Not deleted = " + pointer);
                     // Record is not deleted,
-                    used_areas.add(new Long(pointer));
+                    used_areas.add(pointer);
                 }
             }
 
@@ -760,9 +760,9 @@ public final class V2MasterTableDataSource extends MasterTableDataSource {
                 } else {
                     Debug().write(Lvl.INFORMATION, this, "There were " +
                             leaked_areas.size() + " leaked areas found.");
-                    for (int n = 0; n < leaked_areas.size(); ++n) {
-                        Long area_pointer = (Long) leaked_areas.get(n);
-                        store.deleteArea(area_pointer.longValue());
+                    for (Object leaked_area : leaked_areas) {
+                        Long area_pointer = (Long) leaked_area;
+                        store.deleteArea(area_pointer);
                     }
                     Debug().write(Lvl.INFORMATION, this,
                             "Leaked areas successfully freed.");
@@ -826,7 +826,7 @@ public final class V2MasterTableDataSource extends MasterTableDataSource {
         for (int i = sz - 1; i >= 0; --i) {
             boolean record_valid = checkAndRepairRecord(i, all_areas, terminal);
             if (record_valid) {
-                all_records.add(new Long(i));
+                all_records.add((long) i);
                 ++record_count;
             } else {
                 ++free_count;
@@ -871,7 +871,7 @@ public final class V2MasterTableDataSource extends MasterTableDataSource {
                 long record_p = block_area.getLong();
 //        System.out.println("row_index = " + row_index + " record_p = " + record_p);
                 // Is this pointer valid?
-                int i = Collections.binarySearch(all_areas, new Long(record_p));
+                int i = Collections.binarySearch(all_areas, record_p);
                 if (i >= 0) {
                     // Pointer is valid in the store,
                     // Try reading from column 0

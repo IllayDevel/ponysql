@@ -109,8 +109,8 @@ public abstract class AbstractFunction implements Function {
      */
     public List allVariables() {
         ArrayList result_list = new ArrayList();
-        for (int i = 0; i < params.length; ++i) {
-            List l = params[i].allVariables();
+        for (Expression param : params) {
+            List l = param.allVariables();
             result_list.addAll(l);
         }
         return result_list;
@@ -123,8 +123,8 @@ public abstract class AbstractFunction implements Function {
      */
     public List allElements() {
         ArrayList result_list = new ArrayList();
-        for (int i = 0; i < params.length; ++i) {
-            List l = params[i].allElements();
+        for (Expression param : params) {
+            List l = param.allElements();
             result_list.addAll(l);
         }
         return result_list;
@@ -138,8 +138,7 @@ public abstract class AbstractFunction implements Function {
             return true;
         } else {
             // Check if arguments are aggregates
-            for (int i = 0; i < params.length; ++i) {
-                Expression exp = params[i];
+            for (Expression exp : params) {
                 if (exp.hasAggregateFunction(context)) {
                     return true;
                 }
@@ -153,8 +152,8 @@ public abstract class AbstractFunction implements Function {
      */
     public void prepareParameters(ExpressionPreparer preparer)
             throws DatabaseException {
-        for (int i = 0; i < params.length; ++i) {
-            params[i].prepare(preparer);
+        for (Expression param : params) {
+            param.prepare(preparer);
         }
     }
 

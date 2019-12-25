@@ -388,8 +388,7 @@ public class GrantManager {
                                             String granter) throws DatabaseException {
         // The list of all tables
         TableName[] list = connection.getTableList();
-        for (int i = 0; i < list.length; ++i) {
-            TableName tname = list[i];
+        for (TableName tname : list) {
             // If the table is in the given schema,
             if (tname.getSchema().equals(schema)) {
                 addGrant(privs, TABLE, tname.toString(), grantee,

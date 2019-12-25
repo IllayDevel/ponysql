@@ -139,8 +139,8 @@ final class IndexSetStore {
                 store.lockForWrite();
 
                 int sz = list.size();
-                for (int i = 0; i < sz; ++i) {
-                    long id = ((Long) list.get(i)).longValue();
+                for (Object o : list) {
+                    long id = (Long) o;
                     store.deleteArea(id);
                 }
 
@@ -264,8 +264,8 @@ final class IndexSetStore {
      */
     public synchronized void close() {
         if (store != null) {
-            for (int i = 0; i < index_blocks.length; ++i) {
-                index_blocks[i].removeReference();
+            for (IndexBlock index_block : index_blocks) {
+                index_block.removeReference();
             }
             store = null;
             index_blocks = null;
@@ -351,14 +351,13 @@ final class IndexSetStore {
      * this structure (as Long).
      */
     public void addAllAreasUsed(ArrayList list) throws IOException {
-        list.add(new Long(start_area.getID()));
-        list.add(new Long(index_header_p));
-        for (int i = 0; i < index_blocks.length; ++i) {
-            IndexBlock block = index_blocks[i];
-            list.add(new Long(block.getPointer()));
+        list.add(start_area.getID());
+        list.add(index_header_p);
+        for (IndexBlock block : index_blocks) {
+            list.add(block.getPointer());
             long[] block_pointers = block.getAllBlockPointers();
-            for (int n = 0; n < block_pointers.length; ++n) {
-                list.add(new Long(block_pointers[n]));
+            for (long block_pointer : block_pointers) {
+                list.add(block_pointer);
             }
         }
     }
@@ -461,8 +460,8 @@ final class IndexSetStore {
         IndexBlock[] snapshot_index_blocks = (IndexBlock[]) index_blocks.clone();
 
         // Add this as the reference
-        for (int i = 0; i < snapshot_index_blocks.length; ++i) {
-            snapshot_index_blocks[i].addReference();
+        for (IndexBlock snapshot_index_block : snapshot_index_blocks) {
+            snapshot_index_block.addReference();
         }
 
         return new SnapshotIndexSet(snapshot_index_blocks);
@@ -481,8 +480,7 @@ final class IndexSetStore {
         a.putInt(0);                      // reserved
         a.putLong(index_blocks.length);   // count
 
-        for (int i = 0; i < index_blocks.length; ++i) {
-            IndexBlock ind_block = index_blocks[i];
+        for (IndexBlock ind_block : index_blocks) {
             a.putInt(1);
             a.putInt(ind_block.getBlockSize());
             a.putLong(ind_block.getPointer());
@@ -537,9 +535,9 @@ final class IndexSetStore {
                     store.lockForWrite();
 
                     // For each IndexIntegerList in the index set,
-                    for (int n = 0; n < lists.length; ++n) {
+                    for (IndexIntegerList indexIntegerList : lists) {
                         // Get the list
-                        IndexIntegerList list = (IndexIntegerList) lists[n];
+                        IndexIntegerList list = (IndexIntegerList) indexIntegerList;
                         int index_num = list.getIndexNumber();
                         // The IndexBlock we are changing
                         IndexBlock cur_index_block = index_blocks[index_num];
@@ -552,9 +550,7 @@ final class IndexSetStore {
                         a.putInt(1);               // version
                         a.putInt(0);               // reserved
                         a.putLong(blocks.length);  // block count
-                        for (int i = 0; i < blocks.length; ++i) {
-                            MappedListBlock b = blocks[i];
-
+                        for (MappedListBlock b : blocks) {
                             long bottom_int = 0;
                             long top_int = 0;
                             int block_size = b.size();
@@ -586,8 +582,8 @@ final class IndexSetStore {
 
                         // Add the deleted blocks
                         MappedListBlock[] deleted_blocks = list.getDeletedBlocks();
-                        for (int i = 0; i < deleted_blocks.length; ++i) {
-                            long del_block_p = deleted_blocks[i].getBlockPointer();
+                        for (MappedListBlock deleted_block : deleted_blocks) {
+                            long del_block_p = deleted_block.getBlockPointer();
                             if (del_block_p != -1) {
                                 cur_index_block.addDeletedArea(del_block_p);
                             }
@@ -629,8 +625,8 @@ final class IndexSetStore {
 
         // Remove all the references for the changed blocks,
         int sz = removed_blocks.size();
-        for (int i = 0; i < sz; ++i) {
-            IndexBlock block = (IndexBlock) removed_blocks.get(i);
+        for (Object removed_block : removed_blocks) {
+            IndexBlock block = (IndexBlock) removed_block;
             block.removeReference();
         }
 
@@ -652,8 +648,8 @@ final class IndexSetStore {
 
             // Add all the elements to the deleted areas in the block
             long[] all_block_pointers = cur_index_block.getAllBlockPointers();
-            for (int i = 0; i < all_block_pointers.length; ++i) {
-                cur_index_block.addDeletedArea(all_block_pointers[i]);
+            for (long all_block_pointer : all_block_pointers) {
+                cur_index_block.addDeletedArea(all_block_pointer);
             }
 
             // Mark the current block as deleted
@@ -749,8 +745,8 @@ final class IndexSetStore {
                 integer_lists = new ArrayList();
             } else {
                 // If this list has already been created, return it
-                for (int o = 0; o < integer_lists.size(); ++o) {
-                    IndexIntegerList i_list = (IndexIntegerList) integer_lists.get(o);
+                for (Object integer_list : integer_lists) {
+                    IndexIntegerList i_list = (IndexIntegerList) integer_list;
                     if (i_list.getIndexNumber() == n) {
                         return i_list;
 //            throw new Error(
@@ -777,16 +773,15 @@ final class IndexSetStore {
             if (!disposed) {
 
                 if (integer_lists != null) {
-                    for (int i = 0; i < integer_lists.size(); ++i) {
-                        IndexIntegerList ilist = (IndexIntegerList) integer_lists.get(i);
+                    for (Object integer_list : integer_lists) {
+                        IndexIntegerList ilist = (IndexIntegerList) integer_list;
                         ilist.dispose();
                     }
                     integer_lists = null;
                 }
 
                 // Release reference to the index_blocks;
-                for (int i = 0; i < snapshot_index_blocks.length; ++i) {
-                    IndexBlock iblock = snapshot_index_blocks[i];
+                for (IndexBlock iblock : snapshot_index_blocks) {
                     iblock.removeReference();
                 }
                 snapshot_index_blocks = null;
@@ -1338,8 +1333,7 @@ final class IndexSetStore {
                 a.putInt(1);               // version
                 a.putInt(0);               // reserved
                 a.putLong(blocks.length);  // block count
-                for (int i = 0; i < blocks.length; ++i) {
-                    MappedListBlock entry = blocks[i];
+                for (MappedListBlock entry : blocks) {
                     long b_p = entry.copyTo(dest_store);
                     int block_size = entry.size();
                     a.putLong(entry.first_entry);
@@ -1467,7 +1461,7 @@ final class IndexSetStore {
                 deleted_areas = new ArrayList();
             }
 
-            deleted_areas.add(new Long(pointer));
+            deleted_areas.add(pointer);
 
         }
 

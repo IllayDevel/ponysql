@@ -290,8 +290,8 @@ public abstract class AbstractStore implements Store {
                 // First and ends are invalid, so lets first assume we make the end
                 // valid and recurse,
                 long area_p = scan_forward ? pointer_to_head : pointer_to_tail;
-                areas_to_fix.add(new Long(area_p));
-                areas_to_fix.add(new Long(first_header));
+                areas_to_fix.add(area_p);
+                areas_to_fix.add(first_header);
 
                 boolean b = repairScan(areas_to_fix, scan_area_p1, scan_area_p2,
                         true, max_repairs - 1);
@@ -387,8 +387,8 @@ public abstract class AbstractStore implements Store {
             long v = readLongAt(pointer + i) & 0x07FFFFFFFFFFFFFFFL;
             if (v == i + 8) {
                 // This looks like a boundary, so try this...
-                areas_to_fix.add(new Long(pointer));
-                areas_to_fix.add(new Long(i + 8));
+                areas_to_fix.add(pointer);
+                areas_to_fix.add(i + 8);
                 boolean b = repairScan(areas_to_fix, pointer + i + 8, end_pointer,
                         true, max_repairs - 1);
                 if (b) {
@@ -406,8 +406,8 @@ public abstract class AbstractStore implements Store {
             long v = readLongAt(pointer + i) & 0x07FFFFFFFFFFFFFFFL;
             if (v == (max_size - i)) {
                 // This looks like a boundary, so try this...
-                areas_to_fix.add(new Long(pointer + i));
-                areas_to_fix.add(new Long((max_size - i)));
+                areas_to_fix.add(pointer + i);
+                areas_to_fix.add((max_size - i));
                 boolean b = repairScan(areas_to_fix, pointer, pointer + i,
                         true, max_repairs - 1);
                 if (b) {
@@ -422,8 +422,8 @@ public abstract class AbstractStore implements Store {
         // No luck, so simply set this as a final big area and return true.
         // NOTE: There are other tests possible here but I think what we have will
         //   find fixes for 99% of corruption cases.
-        areas_to_fix.add(new Long(pointer));
-        areas_to_fix.add(new Long(end_pointer - pointer));
+        areas_to_fix.add(pointer);
+        areas_to_fix.add(end_pointer - pointer);
 
         return true;
 
@@ -487,8 +487,8 @@ public abstract class AbstractStore implements Store {
                 for (int i = 0; i < repairs.size(); i += 2) {
                     terminal.println("  Area pointer: " + repairs.get(i));
                     terminal.println("  Area size: " + repairs.get(i + 1));
-                    long pointer = ((Long) repairs.get(i)).longValue();
-                    long size = ((Long) repairs.get(i + 1)).longValue();
+                    long pointer = (Long) repairs.get(i);
+                    long size = (Long) repairs.get(i + 1);
                     coalescArea(pointer, size);
                 }
             }
@@ -567,19 +567,19 @@ public abstract class AbstractStore implements Store {
             getAreaHeader(wilderness_pointer, header);
             long wilderness_size = (header[0] & 0x07FFFFFFFFFFFFFFFL);
             properties.put("AbstractStore.wilderness_size",
-                    new Long(wilderness_size));
+                    wilderness_size);
         }
 
         properties.put("AbstractStore.end_of_data_area",
-                new Long(end_of_data_area));
+                end_of_data_area);
         properties.put("AbstractStore.free_areas",
-                new Long(free_areas));
+                free_areas);
         properties.put("AbstractStore.free_total",
-                new Long(free_total));
+                free_total);
         properties.put("AbstractStore.allocated_areas",
-                new Long(allocated_areas));
+                allocated_areas);
         properties.put("AbstractStore.allocated_total",
-                new Long(allocated_total));
+                allocated_total);
 
 
     }
@@ -599,7 +599,7 @@ public abstract class AbstractStore implements Store {
             getAreaHeader(pointer, header);
             long area_size = (header[0] & 0x07FFFFFFFFFFFFFFFL);
             if ((header[0] & 0x08000000000000000L) == 0) {
-                list.add(new Long(pointer));
+                list.add(pointer);
             }
             pointer += area_size;
         }
@@ -624,7 +624,7 @@ public abstract class AbstractStore implements Store {
         // What area are we looking for?
         long looking_for = Long.MAX_VALUE;
         if (list_index < list.size()) {
-            looking_for = ((Long) list.get(list_index)).longValue();
+            looking_for = (Long) list.get(list_index);
             ++list_index;
         }
 
@@ -644,7 +644,7 @@ public abstract class AbstractStore implements Store {
                 }
                 // Update the 'looking_for' pointer
                 if (list_index < list.size()) {
-                    looking_for = ((Long) list.get(list_index)).longValue();
+                    looking_for = (Long) list.get(list_index);
                     ++list_index;
                 } else {
                     looking_for = Long.MAX_VALUE;
@@ -657,7 +657,7 @@ public abstract class AbstractStore implements Store {
                 if (!area_free) {
                     // This is a leaked area.
                     // It isn't free and it isn't in the list
-                    leaked_areas.add(new Long(pointer));
+                    leaked_areas.add(pointer);
                 }
             }
 

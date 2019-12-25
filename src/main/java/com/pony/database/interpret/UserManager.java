@@ -43,8 +43,8 @@ public class UserManager extends Statement {
         if (groups_list != null) {
             // Delete all the groups the user currently belongs to
             db.deleteAllUserGroups(context, username);
-            for (int i = 0; i < groups_list.length; ++i) {
-                TObject group_tob = groups_list[i].evaluate(null, null, context);
+            for (Expression expression : groups_list) {
+                TObject group_tob = expression.evaluate(null, null, context);
                 String group_str = group_tob.getObject().toString();
                 db.addUserToGroup(context, username, group_str);
             }

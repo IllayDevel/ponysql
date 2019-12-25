@@ -103,8 +103,8 @@ abstract class JDBCProcessor implements ProtocolConstants {
 
     protected static void printByteArray(byte[] array) {
         System.out.println("Length: " + array.length);
-        for (int i = 0; i < array.length; ++i) {
-            System.out.print(array[i]);
+        for (byte b : array) {
+            System.out.print(b);
             System.out.print(", ");
         }
     }

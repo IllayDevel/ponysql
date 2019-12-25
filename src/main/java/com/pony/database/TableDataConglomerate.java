@@ -328,9 +328,7 @@ public class TableDataConglomerate {
         // The list of all visible tables from the state file
         StateResource[] tables = state_store.getVisibleList();
         // For each visible table
-        for (int i = 0; i < tables.length; ++i) {
-            StateResource resource = tables[i];
-
+        for (StateResource resource : tables) {
             int master_table_id = (int) resource.table_id;
             String file_name = resource.name;
 
@@ -383,9 +381,7 @@ public class TableDataConglomerate {
         // The list of all visible tables from the state file
         StateResource[] tables = state_store.getVisibleList();
         // For each visible table
-        for (int i = 0; i < tables.length; ++i) {
-            StateResource resource = tables[i];
-
+        for (StateResource resource : tables) {
             int master_table_id = (int) resource.table_id;
             String file_name = resource.name;
 
@@ -438,9 +434,7 @@ public class TableDataConglomerate {
         // The list of all dropped tables from the state file
         StateResource[] tables = state_store.getDeleteList();
         // For each visible table
-        for (int i = 0; i < tables.length; ++i) {
-            StateResource resource = tables[i];
-
+        for (StateResource resource : tables) {
             int master_table_id = (int) resource.table_id;
             String file_name = resource.name;
 
@@ -1063,9 +1057,9 @@ public class TableDataConglomerate {
 
             // Go through and close all the committed tables.
             int size = table_list.size();
-            for (int i = 0; i < size; ++i) {
+            for (Object o : table_list) {
                 MasterTableDataSource master =
-                        (MasterTableDataSource) table_list.get(i);
+                        (MasterTableDataSource) o;
                 master.dispose(false);
             }
 
@@ -1122,9 +1116,9 @@ public class TableDataConglomerate {
 
             // Go through and delete and close all the committed tables.
             int size = table_list.size();
-            for (int i = 0; i < size; ++i) {
+            for (Object o : table_list) {
                 MasterTableDataSource master =
-                        (MasterTableDataSource) table_list.get(i);
+                        (MasterTableDataSource) o;
                 master.drop();
             }
 
@@ -1217,9 +1211,9 @@ public class TableDataConglomerate {
      */
     public RawDiagnosticTable getDiagnosticTable(String table_file_name) {
         synchronized (commit_lock) {
-            for (int i = 0; i < table_list.size(); ++i) {
+            for (Object o : table_list) {
                 MasterTableDataSource master =
-                        (MasterTableDataSource) table_list.get(i);
+                        (MasterTableDataSource) o;
                 if (master.getSourceIdent().equals(table_file_name)) {
                     return master.getRawDiagnosticTable();
                 }
@@ -1329,17 +1323,17 @@ public class TableDataConglomerate {
 
             this_commit_id = commit_id;
             StateResource[] committed_table_list = state_store.getVisibleList();
-            for (int i = 0; i < committed_table_list.length; ++i) {
+            for (StateResource stateResource : committed_table_list) {
                 this_committed_tables.add(
-                        getMasterTable((int) committed_table_list[i].table_id));
+                        getMasterTable((int) stateResource.table_id));
             }
 
             // Create a set of IndexSet for all the tables in this transaction.
             int sz = this_committed_tables.size();
             ArrayList index_info = new ArrayList(sz);
-            for (int i = 0; i < sz; ++i) {
+            for (Object this_committed_table : this_committed_tables) {
                 MasterTableDataSource mtable =
-                        (MasterTableDataSource) this_committed_tables.get(i);
+                        (MasterTableDataSource) this_committed_table;
                 index_info.add(mtable.createIndexSet());
             }
 
@@ -1428,8 +1422,8 @@ public class TableDataConglomerate {
     private void closeTable(String table_file_name, boolean pending_drop)
             throws IOException {
         // Find the table with this file name.
-        for (int i = 0; i < table_list.size(); ++i) {
-            MasterTableDataSource t = (MasterTableDataSource) table_list.get(i);
+        for (Object o : table_list) {
+            MasterTableDataSource t = (MasterTableDataSource) o;
             String enc_fn = table_file_name.substring(2);
             if (t.getSourceIdent().equals(enc_fn)) {
                 // Close and remove from the list.
@@ -1608,17 +1602,15 @@ public class TableDataConglomerate {
 
         // If the value being tested for uniqueness contains NULL, we return true
         // if nulls are allowed.
-        for (int i = 0; i < col_indexes.length; ++i) {
-            TObject cell = table.getCellContents(col_indexes[i], rindex);
+        for (int colIndex : col_indexes) {
+            TObject cell = table.getCellContents(colIndex, rindex);
             if (cell.isNull()) {
                 return nulls_are_allowed;
             }
         }
 
 
-        for (int i = 0; i < col_indexes.length; ++i) {
-
-            int col_index = col_indexes[i];
+        for (int col_index : col_indexes) {
 
             // Get the column definition and the cell being inserted,
 //      DataTableColumnDef column_def = table_def.columnAt(col_index);
@@ -1814,8 +1806,8 @@ public class TableDataConglomerate {
             // Get the column definition and the cell being inserted,
             DataTableColumnDef column_def = table_def.columnAt(i);
             // For each row added to this column
-            for (int rn = 0; rn < row_indices.length; ++rn) {
-                TObject cell = table.getCellContents(i, row_indices[rn]);
+            for (int row_index : row_indices) {
+                TObject cell = table.getCellContents(i, row_index);
 
                 // Check: Column defined as not null and cell being inserted is
                 // not null.
@@ -1899,8 +1891,8 @@ public class TableDataConglomerate {
                         primary_key.deferred == Transaction.INITIALLY_IMMEDIATE)) {
 
             // For each row added to this column
-            for (int rn = 0; rn < row_indices.length; ++rn) {
-                if (!isUniqueColumns(table, row_indices[rn],
+            for (int row_index : row_indices) {
+                if (!isUniqueColumns(table, row_index,
                         primary_key.columns, false)) {
                     throw new DatabaseConstraintViolationException(
                             DatabaseConstraintViolationException.PRIMARY_KEY_VIOLATION,
@@ -1916,14 +1908,13 @@ public class TableDataConglomerate {
         // Check any unique constraints.
         Transaction.ColumnGroup[] unique_constraints =
                 Transaction.queryTableUniqueGroups(transaction, table_name);
-        for (int i = 0; i < unique_constraints.length; ++i) {
-            Transaction.ColumnGroup unique = unique_constraints[i];
+        for (Transaction.ColumnGroup unique : unique_constraints) {
             if (deferred == Transaction.INITIALLY_DEFERRED ||
                     unique.deferred == Transaction.INITIALLY_IMMEDIATE) {
 
                 // For each row added to this column
-                for (int rn = 0; rn < row_indices.length; ++rn) {
-                    if (!isUniqueColumns(table, row_indices[rn], unique.columns, true)) {
+                for (int row_index : row_indices) {
+                    if (!isUniqueColumns(table, row_index, unique.columns, true)) {
                         throw new DatabaseConstraintViolationException(
                                 DatabaseConstraintViolationException.UNIQUE_VIOLATION,
                                 deferredString(deferred) + " unique constraint violation (" +
@@ -1941,19 +1932,18 @@ public class TableDataConglomerate {
         // to valid records.
         Transaction.ColumnGroupReference[] foreign_constraints =
                 Transaction.queryTableForeignKeyReferences(transaction, table_name);
-        for (int i = 0; i < foreign_constraints.length; ++i) {
-            Transaction.ColumnGroupReference ref = foreign_constraints[i];
+        for (Transaction.ColumnGroupReference ref : foreign_constraints) {
             if (deferred == Transaction.INITIALLY_DEFERRED ||
                     ref.deferred == Transaction.INITIALLY_IMMEDIATE) {
                 // For each row added to this column
-                for (int rn = 0; rn < row_indices.length; ++rn) {
+                for (int row_index : row_indices) {
                     // Make sure the referenced record exists
 
                     // Return the count of records where the given row of
                     //   table_name(columns, ...) IN
                     //                    ref_table_name(ref_columns, ...)
                     int row_count = rowCountOfReferenceTable(transaction,
-                            row_indices[rn],
+                            row_index,
                             ref.key_table_name, ref.key_columns,
                             ref.ref_table_name, ref.ref_columns,
                             false);
@@ -1982,8 +1972,8 @@ public class TableDataConglomerate {
         TransactionSystem system = transaction.getSystem();
 
         // For each check constraint, check that it evaluates to true.
-        for (int i = 0; i < check_constraints.length; ++i) {
-            Transaction.CheckExpression check = check_constraints[i];
+        for (Transaction.CheckExpression check_constraint : check_constraints) {
+            Transaction.CheckExpression check = check_constraint;
             if (deferred == Transaction.INITIALLY_DEFERRED ||
                     check.deferred == Transaction.INITIALLY_IMMEDIATE) {
 
@@ -1991,9 +1981,9 @@ public class TableDataConglomerate {
                 Expression exp = check.expression;
 
                 // For each row being added to this column
-                for (int rn = 0; rn < row_indices.length; ++rn) {
+                for (int row_index : row_indices) {
                     TableRowVariableResolver resolver =
-                            new TableRowVariableResolver(table, row_indices[rn]);
+                            new TableRowVariableResolver(table, row_index);
                     TObject ob = exp.evaluate(null, resolver, context);
                     Boolean b = ob.toBoolean();
 
@@ -2077,19 +2067,18 @@ public class TableDataConglomerate {
         Transaction.ColumnGroupReference[] foreign_constraints =
                 Transaction.queryTableImportedForeignKeyReferences(
                         transaction, table_name);
-        for (int i = 0; i < foreign_constraints.length; ++i) {
-            Transaction.ColumnGroupReference ref = foreign_constraints[i];
+        for (Transaction.ColumnGroupReference ref : foreign_constraints) {
             if (deferred == Transaction.INITIALLY_DEFERRED ||
                     ref.deferred == Transaction.INITIALLY_IMMEDIATE) {
                 // For each row removed from this column
-                for (int rn = 0; rn < row_indices.length; ++rn) {
+                for (int row_index : row_indices) {
                     // Make sure the referenced record exists
 
                     // Return the count of records where the given row of
                     //   ref_table_name(columns, ...) IN
                     //                    table_name(ref_columns, ...)
                     int row_count = rowCountOfReferenceTable(transaction,
-                            row_indices[rn],
+                            row_index,
                             ref.ref_table_name, ref.ref_columns,
                             ref.key_table_name, ref.key_columns,
                             true);
@@ -2263,17 +2252,17 @@ public class TableDataConglomerate {
                 resetAllSystemTableID();
 
                 // Some diagnostic information
-                StringBuffer buf = new StringBuffer();
+                StringBuilder buf = new StringBuilder();
                 MasterTableDataSource t;
                 StateResource[] committed_tables = state_store.getVisibleList();
                 StateResource[] committed_dropped = state_store.getDeleteList();
-                for (int i = 0; i < committed_tables.length; ++i) {
+                for (StateResource committed_table : committed_tables) {
                     terminal.println("+ COMMITTED TABLE: " +
-                            committed_tables[i].name);
+                            committed_table.name);
                 }
-                for (int i = 0; i < committed_dropped.length; ++i) {
+                for (StateResource stateResource : committed_dropped) {
                     terminal.println("+ COMMIT DROPPED TABLE: " +
-                            committed_dropped[i].name);
+                            stateResource.name);
                 }
 
                 return;
@@ -2325,8 +2314,8 @@ public class TableDataConglomerate {
     private static boolean commitTableListContains(List list,
                                                    MasterTableDataSource master) {
         int sz = list.size();
-        for (int i = 0; i < sz; ++i) {
-            CommitTableInfo info = (CommitTableInfo) list.get(i);
+        for (Object o : list) {
+            CommitTableInfo info = (CommitTableInfo) o;
             if (info.master.equals(master)) {
                 return true;
             }
@@ -2382,9 +2371,9 @@ public class TableDataConglomerate {
         // transaction.
         // The list MasterTableJournal
         ArrayList journal_list = new ArrayList();
-        for (int i = 0; i < touched_tables.size(); ++i) {
+        for (Object touched_table : touched_tables) {
             MasterTableJournal table_journal =
-                    ((MutableTableDataSource) touched_tables.get(i)).getJournal();
+                    ((MutableTableDataSource) touched_table).getJournal();
             if (table_journal.entries() > 0) {  // Check the journal has entries.
                 journal_list.add(table_journal);
             }
@@ -2443,9 +2432,9 @@ public class TableDataConglomerate {
 
                     // For each table that this transaction selected from, if there are
                     // any committed changes then generate a transaction error.
-                    for (int i = 0; i < selected_from_tables.size(); ++i) {
+                    for (Object selected_from_table : selected_from_tables) {
                         MasterTableDataSource selected_table =
-                                (MasterTableDataSource) selected_from_tables.get(i);
+                                (MasterTableDataSource) selected_from_table;
                         // Find all committed journals equal to or greater than this
                         // transaction's commit_id.
                         MasterTableJournal[] journals_since =
@@ -2468,9 +2457,9 @@ public class TableDataConglomerate {
                 ArrayList all_dropped_obs = new ArrayList();
                 ArrayList all_created_obs = new ArrayList();
                 int nsj_sz = namespace_journal_list.size();
-                for (int i = 0; i < nsj_sz; ++i) {
+                for (Object o : namespace_journal_list) {
                     NameSpaceJournal ns_journal =
-                            (NameSpaceJournal) namespace_journal_list.get(i);
+                            (NameSpaceJournal) o;
                     if (ns_journal.commit_id >= tran_commit_id) {
                         all_dropped_obs.addAll(ns_journal.dropped_names);
                         all_created_obs.addAll(ns_journal.created_names);
@@ -2483,20 +2472,20 @@ public class TableDataConglomerate {
                 boolean conflict5 = false;
                 Object conflict_name = null;
                 String conflict_desc = "";
-                for (int n = 0; n < ado_sz; ++n) {
-                    if (database_objects_dropped.contains(all_dropped_obs.get(n))) {
+                for (Object all_dropped_ob : all_dropped_obs) {
+                    if (database_objects_dropped.contains(all_dropped_ob)) {
                         conflict5 = true;
-                        conflict_name = all_dropped_obs.get(n);
+                        conflict_name = all_dropped_ob;
                         conflict_desc = "Drop Clash";
                     }
                 }
                 // The list of all created objects since this transaction
                 // began.
                 int aco_sz = all_created_obs.size();
-                for (int n = 0; n < aco_sz; ++n) {
-                    if (database_objects_created.contains(all_created_obs.get(n))) {
+                for (Object all_created_ob : all_created_obs) {
+                    if (database_objects_created.contains(all_created_ob)) {
                         conflict5 = true;
-                        conflict_name = all_created_obs.get(n);
+                        conflict_name = all_created_ob;
                         conflict_desc = "Create Clash";
                     }
                 }
@@ -2510,8 +2499,7 @@ public class TableDataConglomerate {
                 }
 
                 // For each journal,
-                for (int i = 0; i < changed_tables.length; ++i) {
-                    MasterTableJournal change_journal = changed_tables[i];
+                for (MasterTableJournal change_journal : changed_tables) {
                     // The table the change was made to.
                     int table_id = change_journal.getTableID();
                     // Get the master table with this table id.
@@ -2539,10 +2527,10 @@ public class TableDataConglomerate {
                             master.findAllJournalsSince(tran_commit_id);
 
                     // For each journal, determine if there's any clashes.
-                    for (int n = 0; n < journals_since.length; ++n) {
+                    for (MasterTableJournal masterTableJournal : journals_since) {
                         // This will thrown an exception if a commit classes.
                         change_journal.testCommitClash(master.getDataTableDef(),
-                                journals_since[n]);
+                                masterTableJournal);
                     }
 
                 }
@@ -2577,8 +2565,7 @@ public class TableDataConglomerate {
                 final int changed_tables_count = changed_tables.length;
                 final ArrayList normalized_changed_tables = new ArrayList(8);
                 // Add all tables that were changed and not dropped in this transaction.
-                for (int i = 0; i < changed_tables_count; ++i) {
-                    MasterTableJournal table_journal = changed_tables[i];
+                for (MasterTableJournal table_journal : changed_tables) {
                     // The table the changes were made to.
                     int table_id = table_journal.getTableID();
                     // If this table is not dropped in this transaction and is not
@@ -2669,10 +2656,10 @@ public class TableDataConglomerate {
 
                 // (Note that order here is important).  First drop any tables from
                 // this view.
-                for (int i = 0; i < normalized_dropped_tables.size(); ++i) {
+                for (Object normalized_dropped_table : normalized_dropped_tables) {
                     // Get the table
                     MasterTableDataSource master_table =
-                            (MasterTableDataSource) normalized_dropped_tables.get(i);
+                            (MasterTableDataSource) normalized_dropped_table;
                     // Drop this table in the current view
                     check_transaction.removeVisibleTable(master_table);
                 }
@@ -2806,9 +2793,9 @@ public class TableDataConglomerate {
                 // Deferred trigger events.
                 // For each changed table.
                 n_loop:
-                for (int i = 0; i < norm_changed_tables_count; ++i) {
+                for (Object normalized_changed_table : normalized_changed_tables) {
                     CommitTableInfo table_info =
-                            (CommitTableInfo) normalized_changed_tables.get(i);
+                            (CommitTableInfo) normalized_changed_table;
                     // Get the journal that details the change to the table.
                     MasterTableJournal change_journal = table_info.journal;
                     if (change_journal != null) {
@@ -2836,8 +2823,8 @@ public class TableDataConglomerate {
                                         table_info.norm_added_rows,
                                         table_info.norm_removed_rows);
                         // Fire this event on the listeners
-                        for (int n = 0; n < listeners.length; ++n) {
-                            listeners[n].tableCommitChange(event);
+                        for (TransactionModificationListener listener : listeners) {
+                            listener.tableCommitChange(event);
                         }
 
                     }  // if (change_journal != null)
@@ -2862,9 +2849,9 @@ public class TableDataConglomerate {
                 entries_committed = true;
 
                 // For each change to each table,
-                for (int i = 0; i < norm_changed_tables_count; ++i) {
+                for (Object normalized_changed_table : normalized_changed_tables) {
                     CommitTableInfo table_info =
-                            (CommitTableInfo) normalized_changed_tables.get(i);
+                            (CommitTableInfo) normalized_changed_table;
                     // Get the journal that details the change to the table.
                     MasterTableJournal change_journal = table_info.journal;
                     if (change_journal != null) {
@@ -2906,9 +2893,8 @@ public class TableDataConglomerate {
                     // changes in this transaction if they haven't been committed yet.
                     if (entries_committed == false) {
                         // For each change to each table,
-                        for (int i = 0; i < changed_tables.length; ++i) {
+                        for (MasterTableJournal change_journal : changed_tables) {
                             // Get the journal that details the change to the table.
-                            MasterTableJournal change_journal = changed_tables[i];
                             // The table the changes were made to.
                             int table_id = change_journal.getTableID();
                             // Get the master table with this table id.
@@ -2943,9 +2929,9 @@ public class TableDataConglomerate {
             // that this transaction changed.
             long min_commit_id = open_transactions.minimumCommitID(null);
             int chsz = changed_tables_list.size();
-            for (int i = 0; i < chsz; ++i) {
+            for (Object o : changed_tables_list) {
                 MasterTableDataSource master =
-                        (MasterTableDataSource) changed_tables_list.get(i);
+                        (MasterTableDataSource) o;
                 master.mergeJournalChanges(min_commit_id);
             }
             int nsjsz = namespace_journal_list.size();
@@ -2983,9 +2969,9 @@ public class TableDataConglomerate {
         // transaction.
         // The list MasterTableJournal
         ArrayList journal_list = new ArrayList();
-        for (int i = 0; i < touched_tables.size(); ++i) {
+        for (Object touched_table : touched_tables) {
             MasterTableJournal table_journal =
-                    ((MutableTableDataSource) touched_tables.get(i)).getJournal();
+                    ((MutableTableDataSource) touched_table).getJournal();
             if (table_journal.entries() > 0) {  // Check the journal has entries.
                 journal_list.add(table_journal);
             }
@@ -3002,9 +2988,8 @@ public class TableDataConglomerate {
             try {
 
                 // For each change to each table,
-                for (int i = 0; i < changed_tables.length; ++i) {
+                for (MasterTableJournal change_journal : changed_tables) {
                     // Get the journal that details the change to the table.
-                    MasterTableJournal change_journal = changed_tables[i];
                     // The table the changes were made to.
                     int table_id = change_journal.getTableID();
                     // Get the master table with this table id.
@@ -3069,8 +3054,8 @@ public class TableDataConglomerate {
     MasterTableDataSource getMasterTable(int table_id) {
         synchronized (commit_lock) {
             // Find the table with this table id.
-            for (int i = 0; i < table_list.size(); ++i) {
-                MasterTableDataSource t = (MasterTableDataSource) table_list.get(i);
+            for (Object o : table_list) {
+                MasterTableDataSource t = (MasterTableDataSource) o;
                 if (t.getTableID() == table_id) {
                     return t;
                 }

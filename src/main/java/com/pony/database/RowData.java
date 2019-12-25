@@ -256,8 +256,8 @@ public class RowData implements Types {
      */
     public void setupEntire(Assignment[] assignments, QueryContext context)
             throws DatabaseException {
-        for (int i = 0; i < assignments.length; ++i) {
-            evaluate(assignments[i], context);
+        for (Assignment assignment : assignments) {
+            evaluate(assignment, context);
         }
         // Any that are left as 'null', set to default value.
         setDefaultForRest(context);

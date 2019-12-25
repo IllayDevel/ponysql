@@ -87,8 +87,8 @@ public class Schema extends Statement {
                 // Check if the schema is empty.
                 TableName[] all_tables = database.getTableList();
                 String resolved_schema_name = schema.getName();
-                for (int i = 0; i < all_tables.length; ++i) {
-                    if (all_tables[i].getSchema().equals(resolved_schema_name)) {
+                for (TableName all_table : all_tables) {
+                    if (all_table.getSchema().equals(resolved_schema_name)) {
                         throw new DatabaseException(
                                 "Schema '" + schema_name + "' is not empty.");
                     }

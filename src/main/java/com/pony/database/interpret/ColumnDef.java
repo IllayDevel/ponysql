@@ -92,18 +92,23 @@ public final class ColumnDef
      * Adds a constraint to this column.
      */
     public void addConstraint(String constraint) {
-        if (constraint.equals("NOT NULL")) {
-            not_null = true;
+        switch (constraint) {
+            case "NOT NULL":
+                not_null = true;
 //      col.setNotNull(true);
-        } else if (constraint.equals("NULL")) {
-            not_null = false;
+                break;
+            case "NULL":
+                not_null = false;
 //      col.setNotNull(false);
-        } else if (constraint.equals("PRIMARY")) {
-            primary_key = true;
-        } else if (constraint.equals("UNIQUE")) {
-            unique = true;
-        } else {
-            throw new RuntimeException("Unknown constraint: " + constraint);
+                break;
+            case "PRIMARY":
+                primary_key = true;
+                break;
+            case "UNIQUE":
+                unique = true;
+                break;
+            default:
+                throw new RuntimeException("Unknown constraint: " + constraint);
         }
     }
 

@@ -81,8 +81,8 @@ public class AlterTable extends Statement {
 
     private void checkColumnConstraint(String col_name, String[] cols,
                                        TableName table, String constraint_name) {
-        for (int i = 0; i < cols.length; ++i) {
-            if (col_name.equals(cols[i])) {
+        for (String col : cols) {
+            if (col_name.equals(col)) {
                 throw new DatabaseConstraintViolationException(
                         DatabaseConstraintViolationException.DROP_COLUMN_VIOLATION,
                         "Constraint violation (" + constraint_name +
@@ -179,8 +179,8 @@ public class AlterTable extends Statement {
                 String col_name = column.getName();
                 // Apply any actions to this column
                 boolean mark_dropped = false;
-                for (int i = 0; i < actions.size(); ++i) {
-                    AlterTableAction action = (AlterTableAction) actions.get(i);
+                for (Object o : actions) {
+                    AlterTableAction action = (AlterTableAction) o;
                     if (action.getAction().equals("ALTERSET") &&
                             checkColumnNamesMatch(database,
                                     (String) action.getElement(0),
@@ -202,15 +202,15 @@ public class AlterTable extends Statement {
                         // Check there are no referential links to this column
                         Transaction.ColumnGroupReference[] refs =
                                 database.queryTableImportedForeignKeyReferences(tname);
-                        for (int p = 0; p < refs.length; ++p) {
-                            checkColumnConstraint(col_name, refs[p].ref_columns,
-                                    refs[p].ref_table_name, refs[p].name);
+                        for (Transaction.ColumnGroupReference columnGroupReference : refs) {
+                            checkColumnConstraint(col_name, columnGroupReference.ref_columns,
+                                    columnGroupReference.ref_table_name, columnGroupReference.name);
                         }
                         // Or from it
                         refs = database.queryTableForeignKeyReferences(tname);
-                        for (int p = 0; p < refs.length; ++p) {
-                            checkColumnConstraint(col_name, refs[p].key_columns,
-                                    refs[p].key_table_name, refs[p].name);
+                        for (Transaction.ColumnGroupReference ref : refs) {
+                            checkColumnConstraint(col_name, ref.key_columns,
+                                    ref.key_table_name, ref.name);
                         }
                         // Or that it's part of a primary key
                         Transaction.ColumnGroup primary_key =
@@ -222,9 +222,9 @@ public class AlterTable extends Statement {
                         // Or that it's part of a unique set
                         Transaction.ColumnGroup[] uniques =
                                 database.queryTableUniqueGroups(tname);
-                        for (int p = 0; p < uniques.length; ++p) {
-                            checkColumnConstraint(col_name, uniques[p].columns,
-                                    tname, uniques[p].name);
+                        for (Transaction.ColumnGroup unique : uniques) {
+                            checkColumnConstraint(col_name, unique.columns,
+                                    tname, unique.name);
                         }
 
                         mark_dropped = true;
@@ -238,8 +238,8 @@ public class AlterTable extends Statement {
             }
 
             // Add any new columns,
-            for (int i = 0; i < actions.size(); ++i) {
-                AlterTableAction action = (AlterTableAction) actions.get(i);
+            for (Object item : actions) {
+                AlterTableAction action = (AlterTableAction) item;
                 if (action.getAction().equals("ADD")) {
                     ColumnDef cdef = (ColumnDef) action.getElement(0);
                     if (cdef.isUnique() || cdef.isPrimaryKey()) {
@@ -261,8 +261,8 @@ public class AlterTable extends Statement {
             }
 
             // Any constraints to drop...
-            for (int i = 0; i < actions.size(); ++i) {
-                AlterTableAction action = (AlterTableAction) actions.get(i);
+            for (Object value : actions) {
+                AlterTableAction action = (AlterTableAction) value;
                 if (action.getAction().equals("DROP_CONSTRAINT")) {
                     String constraint_name = (String) action.getElement(0);
                     int drop_count = database.dropNamedConstraint(tname, constraint_name);
@@ -282,8 +282,8 @@ public class AlterTable extends Statement {
             }
 
             // Any constraints to add...
-            for (int i = 0; i < actions.size(); ++i) {
-                AlterTableAction action = (AlterTableAction) actions.get(i);
+            for (Object o : actions) {
+                AlterTableAction action = (AlterTableAction) o;
                 if (action.getAction().equals("ADD_CONSTRAINT")) {
                     ConstraintDef constraint = (ConstraintDef) action.getElement(0);
                     boolean foreign_constraint =

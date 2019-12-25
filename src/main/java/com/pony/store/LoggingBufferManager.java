@@ -146,12 +146,8 @@ public class LoggingBufferManager {
                                 final int page_size, final String file_ext, final long max_slice_size,
                                 DebugLogger debug, boolean enable_logging) {
         this(journal_path, read_only, max_pages, page_size,
-                new StoreDataAccessorFactory() {
-                    public StoreDataAccessor createStoreDataAccessor(String resource_name) {
-                        return new ScatteringStoreDataAccessor(resource_path, resource_name,
-                                file_ext, max_slice_size);
-                    }
-                }, debug, enable_logging);
+                resource_name -> new ScatteringStoreDataAccessor(resource_path, resource_name,
+                        file_ext, max_slice_size), debug, enable_logging);
     }
 
     /**

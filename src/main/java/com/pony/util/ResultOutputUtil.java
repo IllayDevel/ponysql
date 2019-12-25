@@ -37,8 +37,8 @@ public class ResultOutputUtil {
      */
     private static void writeBreak(int[] widths, PrintWriter out) {
         out.print('+');
-        for (int i = 0; i < widths.length; ++i) {
-            int wid = widths[i] + 2;
+        for (int width : widths) {
+            int wid = width + 2;
             for (int n = 0; n < wid; ++n) {
                 out.print('-');
             }

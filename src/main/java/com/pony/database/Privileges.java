@@ -201,30 +201,31 @@ public class Privileges {
      * Given a string, returns the priv bit for it.
      */
     public static int parseString(String priv) {
-        if (priv.equals("SELECT")) {
-            return SELECT;
-        } else if (priv.equals("DELETE")) {
-            return DELETE;
-        } else if (priv.equals("UPDATE")) {
-            return UPDATE;
-        } else if (priv.equals("INSERT")) {
-            return INSERT;
-        } else if (priv.equals("REFERENCES")) {
-            return REFERENCES;
-        } else if (priv.equals("USAGE")) {
-            return USAGE;
-        } else if (priv.equals("COMPACT")) {
-            return COMPACT;
-        } else if (priv.equals("CREATE")) {
-            return CREATE;
-        } else if (priv.equals("ALTER")) {
-            return ALTER;
-        } else if (priv.equals("DROP")) {
-            return DROP;
-        } else if (priv.equals("LIST")) {
-            return LIST;
-        } else {
-            throw new Error("Priv not recognised.");
+        switch (priv) {
+            case "SELECT":
+                return SELECT;
+            case "DELETE":
+                return DELETE;
+            case "UPDATE":
+                return UPDATE;
+            case "INSERT":
+                return INSERT;
+            case "REFERENCES":
+                return REFERENCES;
+            case "USAGE":
+                return USAGE;
+            case "COMPACT":
+                return COMPACT;
+            case "CREATE":
+                return CREATE;
+            case "ALTER":
+                return ALTER;
+            case "DROP":
+                return DROP;
+            case "LIST":
+                return LIST;
+            default:
+                throw new Error("Priv not recognised.");
         }
     }
 

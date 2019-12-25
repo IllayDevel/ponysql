@@ -164,9 +164,9 @@ public abstract class SimpleTransaction {
                                                      boolean ignore_case) {
 
         int size = visible_tables.size();
-        for (int i = 0; i < size; ++i) {
+        for (Object visible_table : visible_tables) {
             MasterTableDataSource master =
-                    (MasterTableDataSource) visible_tables.get(i);
+                    (MasterTableDataSource) visible_table;
             DataTableDef table_def = master.getDataTableDef();
             if (ignore_case) {
                 if (table_def.getTableName().equalsIgnoreCase(table_name)) {
@@ -361,8 +361,8 @@ public abstract class SimpleTransaction {
     protected void disposeAllIndices() {
         // Dispose all the IndexSet for each table
         try {
-            for (int i = 0; i < table_indices.size(); ++i) {
-                ((IndexSet) table_indices.get(i)).dispose();
+            for (Object table_index : table_indices) {
+                ((IndexSet) table_index).dispose();
             }
         } catch (Throwable e) {
             Debug().writeException(e);
@@ -450,9 +450,9 @@ public abstract class SimpleTransaction {
         } else {
             // Otherwise return from the pool of visible tables
             int sz = visible_tables.size();
-            for (int i = 0; i < sz; ++i) {
+            for (Object visible_table : visible_tables) {
                 MasterTableDataSource master =
-                        (MasterTableDataSource) visible_tables.get(i);
+                        (MasterTableDataSource) visible_table;
                 DataTableDef table_def = master.getDataTableDef();
                 if (table_def.getTableName().equals(table_name)) {
                     return table_def;
@@ -533,8 +533,7 @@ public abstract class SimpleTransaction {
         String tschema = table_name.getSchema();
         String tname = table_name.getName();
         TableName[] list = getDynamicTableList();
-        for (int i = 0; i < list.length; ++i) {
-            TableName ctable = list[i];
+        for (TableName ctable : list) {
             if (ctable.getSchema().equalsIgnoreCase(tschema) &&
                     ctable.getName().equalsIgnoreCase(tname)) {
                 return ctable;
@@ -572,18 +571,18 @@ public abstract class SimpleTransaction {
         TableName[] tables = getTableList();
         TableName found = null;
 
-        for (int i = 0; i < tables.length; ++i) {
+        for (TableName table : tables) {
             boolean match;
             if (case_insensitive) {
-                match = tables[i].equalsIgnoreCase(table_name);
+                match = table.equalsIgnoreCase(table_name);
             } else {
-                match = tables[i].equals(table_name);
+                match = table.equals(table_name);
             }
             if (match) {
                 if (found != null) {
                     throw new StatementException("Ambiguous reference: " + name);
                 } else {
-                    found = tables[i];
+                    found = table;
                 }
             }
         }
@@ -625,7 +624,7 @@ public abstract class SimpleTransaction {
         long val = seq.nextValue(this, name);
         // No synchronized because a DatabaseConnection should be single threaded
         // only.
-        sequence_value_cache.put(name, new Long(val));
+        sequence_value_cache.put(name, val);
         return val;
     }
 
@@ -643,7 +642,7 @@ public abstract class SimpleTransaction {
         // only.
         Long v = (Long) sequence_value_cache.get(name);
         if (v != null) {
-            return v.longValue();
+            return v;
         } else {
             throw new StatementException(
                     "Current value for sequence generator " + name + " is not available.");
@@ -671,7 +670,7 @@ public abstract class SimpleTransaction {
         SequenceManager seq = sequence_manager;
         seq.setValue(this, name, value);
 
-        sequence_value_cache.put(name, new Long(value));
+        sequence_value_cache.put(name, value);
     }
 
     /**

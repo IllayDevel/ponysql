@@ -48,9 +48,8 @@ public final class Stats {
         Set key_set = properties.keySet();
         String[] keys = new String[key_set.size()];
         int index = 0;
-        Iterator it = key_set.iterator();
-        while (it.hasNext()) {
-            keys[index] = (String) it.next();
+        for (Object o : key_set) {
+            keys[index] = (String) o;
             ++index;
         }
         return keys;
@@ -64,9 +63,9 @@ public final class Stats {
     public synchronized void resetSession() {
         String[] keys = keysComparator();
         // If key starts with a "{session}" then reset it to 0.
-        for (int i = 0; i < keys.length; ++i) {
-            if (keys[i].startsWith("{session}")) {
-                IntegerStat stat = (IntegerStat) properties.get(keys[i]);
+        for (String key : keys) {
+            if (key.startsWith("{session}")) {
+                IntegerStat stat = (IntegerStat) properties.get(key);
                 stat.value = 0;
             }
         }
@@ -122,7 +121,7 @@ public final class Stats {
     public synchronized Object get(String stat_name) {
         IntegerStat stat = (IntegerStat) properties.get(stat_name);
         if (stat != null) {
-            return new Long(stat.value);
+            return stat.value;
         }
         return null;
     }
@@ -156,11 +155,7 @@ public final class Stats {
      * Comparator for sorting the list of keys (for 1.1 implementation without
      * Comparable String objects).
      */
-    final static Comparator STRING_COMPARATOR = new Comparator() {
-        public int compare(Object ob1, Object ob2) {
-            return ((String) ob1).compareTo((String) ob2);
-        }
-    };
+    final static Comparator STRING_COMPARATOR = (ob1, ob2) -> ((String) ob1).compareTo((String) ob2);
 
 
     /**
@@ -179,9 +174,9 @@ public final class Stats {
         String[] keys = keyList();
 
         StringBuffer buf = new StringBuffer();
-        for (int i = 0; i < keys.length; ++i) {
-            IntegerStat stat = (IntegerStat) properties.get(keys[i]);
-            buf.append(keys[i]);
+        for (String key : keys) {
+            IntegerStat stat = (IntegerStat) properties.get(key);
+            buf.append(key);
             buf.append(": ");
             buf.append(stat.value);
             buf.append('\n');
@@ -197,9 +192,9 @@ public final class Stats {
 
         String[] keys = keyList();
 
-        for (int i = 0; i < keys.length; ++i) {
-            IntegerStat stat = (IntegerStat) properties.get(keys[i]);
-            out.print(keys[i]);
+        for (String key : keys) {
+            IntegerStat stat = (IntegerStat) properties.get(key);
+            out.print(key);
             out.print(": ");
             out.println(stat.value);
         }

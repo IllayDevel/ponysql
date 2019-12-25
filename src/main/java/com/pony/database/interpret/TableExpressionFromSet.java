@@ -149,8 +149,8 @@ class TableExpressionFromSet {
      */
     public void exposeAllColumnsFromSource(FromTableInterface table) {
         Variable[] v = table.allColumns();
-        for (int p = 0; p < v.length; ++p) {
-            exposeVariable(v[p]);
+        for (Variable variable : v) {
+            exposeVariable(variable);
         }
     }
 
@@ -309,8 +309,8 @@ class TableExpressionFromSet {
         // Find matches in our list of tables sources,
         Variable matched_var = null;
 
-        for (int i = 0; i < table_resources.size(); ++i) {
-            FromTableInterface table = (FromTableInterface) table_resources.get(i);
+        for (Object table_resource : table_resources) {
+            FromTableInterface table = (FromTableInterface) table_resource;
             int rcc = table.resolveColumnCount(null, sch_name, tab_name, col_name);
             if (rcc == 0) {
                 // do nothing if no matches

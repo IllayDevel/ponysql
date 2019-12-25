@@ -86,8 +86,8 @@ final class MultiThreadedConnectionPoolServer implements ConnectionPoolServer {
     public void close() {
         synchronized (client_threads) {
             int size = client_threads.size();
-            for (int i = 0; i < size; ++i) {
-                ((ClientThread) client_threads.get(i)).close();
+            for (Object client_thread : client_threads) {
+                ((ClientThread) client_thread).close();
             }
         }
     }
@@ -153,23 +153,21 @@ final class MultiThreadedConnectionPoolServer implements ConnectionPoolServer {
 
                 processing_command = true;
 
-                database.execute(null, null, new Runnable() {
-                    public void run() {
+                database.execute(null, null, () -> {
 
-                        try {
-                            // Process the next request that's pending.
-                            server_connection.processRequest();
-                        } catch (IOException e) {
-                            Debug().writeException(Lvl.INFORMATION, e);
-                        } finally {
-                            // Not processing a command anymore so notify the ClientThread
-                            processing_command = false;
-                            synchronized (ClientThread.this) {
-                                ClientThread.this.notifyAll();
-                            }
+                    try {
+                        // Process the next request that's pending.
+                        server_connection.processRequest();
+                    } catch (IOException e) {
+                        Debug().writeException(Lvl.INFORMATION, e);
+                    } finally {
+                        // Not processing a command anymore so notify the ClientThread
+                        processing_command = false;
+                        synchronized (ClientThread.this) {
+                            ClientThread.this.notifyAll();
                         }
-
                     }
+
                 });
 
             } catch (IOException e) {

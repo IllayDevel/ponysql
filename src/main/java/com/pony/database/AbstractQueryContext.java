@@ -62,7 +62,7 @@ public abstract class AbstractQueryContext implements QueryContext {
         if (marked_tables == null) {
             marked_tables = new HashMap();
         }
-        marked_tables.put(new Long(id), table);
+        marked_tables.put(id, table);
     }
 
     /**
@@ -72,7 +72,7 @@ public abstract class AbstractQueryContext implements QueryContext {
         if (marked_tables == null) {
             return null;
         }
-        return (Table) marked_tables.get(new Long(id));
+        return (Table) marked_tables.get(id);
     }
 
     /**

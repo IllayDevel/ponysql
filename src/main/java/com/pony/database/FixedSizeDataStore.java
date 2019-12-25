@@ -231,7 +231,7 @@ public final class FixedSizeDataStore {
 
             if (sector_cache != null) {
                 // If this sector is in the cache then use the cached entry instead.
-                Integer cacheKey = new Integer(sector);
+                Integer cacheKey = sector;
                 byte[] sbuf = (byte[]) sector_cache.get(cacheKey);
                 if (sbuf == null) {
                     // If not in the cache then read from the file.
@@ -287,7 +287,7 @@ public final class FixedSizeDataStore {
                 // Copy this into the cache.
                 byte[] sbuf = new byte[sector_size];
                 System.arraycopy(sector_buffer, 0, sbuf, 0, length);
-                sector_cache.put(new Integer(sector), sbuf);
+                sector_cache.put(sector, sbuf);
             }
         } else {
             throw new IOException("length > sector_size");
@@ -1029,7 +1029,7 @@ public final class FixedSizeDataStore {
             data_store.write(sector_buffer, 0, 5);
             if (sector_cache != null) {
                 // Remove this from the cache.
-                sector_cache.remove(new Integer(walk));
+                sector_cache.remove(walk);
             }
             // Delete 1 from the used sector count.
             --used_sector_count;
@@ -1482,7 +1482,7 @@ public final class FixedSizeDataStore {
                 data_store.write(mark_buffer, 0, 5);
                 if (sector_cache != null) {
                     // Remove from cache
-                    sector_cache.remove(new Integer(i));
+                    sector_cache.remove(i);
                 }
                 delete_head = i;
 

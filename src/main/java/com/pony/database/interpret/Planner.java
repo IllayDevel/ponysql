@@ -145,9 +145,8 @@ public class Planner {
         TableExpressionFromSet from_set = new TableExpressionFromSet(db);
 
         // Add all tables from the 'from_clause'
-        Iterator tables = from_clause.allTables().iterator();
-        while (tables.hasNext()) {
-            FromTableDef ftdef = (FromTableDef) tables.next();
+        for (Object o : from_clause.allTables()) {
+            FromTableDef ftdef = (FromTableDef) o;
             String unique_key = ftdef.getUniqueKey();
             String alias = ftdef.getAlias();
 
@@ -201,8 +200,8 @@ public class Planner {
         ArrayList columns = select_expression.columns;
 
         // For each column being selected
-        for (int i = 0; i < columns.size(); ++i) {
-            SelectColumn col = (SelectColumn) columns.get(i);
+        for (Object column : columns) {
+            SelectColumn col = (SelectColumn) column;
             // Is this a glob?  (eg. Part.* )
             if (col.glob_name != null) {
                 // Find the columns globbed and add to the 's_col_list' result.
@@ -280,8 +279,8 @@ public class Planner {
         boolean do_subset_column = (columns.size() != 0);
 
         // For each column being selected
-        for (int i = 0; i < columns.size(); ++i) {
-            SelectColumn col = (SelectColumn) columns.get(i);
+        for (Object column : columns) {
+            SelectColumn col = (SelectColumn) column;
             // Is this a glob?  (eg. Part.* )
             if (col.glob_name != null) {
                 // Find the columns globbed and add to the 's_col_list' result.
@@ -311,8 +310,8 @@ public class Planner {
 
         if (order_by != null) {
             ArrayList prepared_col_set = column_set.s_col_list;
-            for (int i = 0; i < order_by.size(); ++i) {
-                ByColumn col = (ByColumn) order_by.get(i);
+            for (Object o : order_by) {
+                ByColumn col = (ByColumn) o;
                 Expression exp = col.exp;
                 if (exp.size() == 1) {
                     Object last_elem = exp.last();
@@ -536,8 +535,8 @@ public class Planner {
         ArrayList functions_list = column_set.function_col_list;
         int fsz = functions_list.size();
         ArrayList complete_fun_list = new ArrayList();
-        for (int i = 0; i < fsz; ++i) {
-            SelectColumn scol = (SelectColumn) functions_list.get(i);
+        for (Object o : functions_list) {
+            SelectColumn scol = (SelectColumn) o;
             complete_fun_list.add(scol.expression);
             complete_fun_list.add(scol.internal_name.getName());
         }
@@ -787,8 +786,8 @@ public class Planner {
     private static void substituteAliasedVariables(
             Expression expression, ArrayList s_col_list) {
         List all_vars = expression.allVariables();
-        for (int i = 0; i < all_vars.size(); ++i) {
-            Variable v = (Variable) all_vars.get(i);
+        for (Object all_var : all_vars) {
+            Variable v = (Variable) all_var;
             substituteAliasedVariable(v, s_col_list);
         }
     }
@@ -797,8 +796,8 @@ public class Planner {
                                                   ArrayList s_col_list) {
         if (s_col_list != null) {
             int sz = s_col_list.size();
-            for (int n = 0; n < sz; ++n) {
-                SelectColumn scol = (SelectColumn) s_col_list.get(n);
+            for (Object o : s_col_list) {
+                SelectColumn scol = (SelectColumn) o;
                 if (v.equals(scol.resolved_name)) {
                     v.set(scol.internal_name);
                 }
@@ -876,10 +875,8 @@ public class Planner {
             // Select all the tables
             Variable[] vars = table.allColumns();
             int s_col_list_max = s_col_list.size();
-            for (int i = 0; i < vars.length; ++i) {
+            for (Variable v : vars) {
                 // The Variable
-                Variable v = vars[i];
-
                 // Make up the SelectColumn
                 SelectColumn ncol = new SelectColumn();
                 Expression e = new Expression(v);
@@ -961,8 +958,8 @@ public class Planner {
             //   Expression.  This is necessary, because we can't have a
             //   sub-select evaluated during list table downloading.
             List exp_elements = col.expression.allElements();
-            for (int n = 0; n < exp_elements.size(); ++n) {
-                if (exp_elements.get(n) instanceof TableSelectExpression) {
+            for (Object exp_element : exp_elements) {
+                if (exp_element instanceof TableSelectExpression) {
                     throw new StatementException(
                             "Sub-query not allowed in column list.");
                 }
@@ -1023,8 +1020,8 @@ public class Planner {
             // NOTE: A side-effect of this is that it qualifies all the Expressions
             //   that are functions in TableExpressionFromSet.  After this section,
             //   we can dereference variables for their function Expression.
-            for (int i = 0; i < s_col_list.size(); ++i) {
-                SelectColumn column = (SelectColumn) s_col_list.get(i);
+            for (Object o : s_col_list) {
+                SelectColumn column = (SelectColumn) o;
                 prepareSelectColumn(column, context);
             }
         }
@@ -1186,8 +1183,8 @@ public class Planner {
                 return (PlanTableSource) table_list.get(0);
             }
 
-            for (int i = 0; i < sz; ++i) {
-                PlanTableSource source = (PlanTableSource) table_list.get(i);
+            for (Object o : table_list) {
+                PlanTableSource source = (PlanTableSource) o;
                 if (source.containsVariable(ref)) {
                     return source;
                 }
@@ -1226,8 +1223,8 @@ public class Planner {
          */
         public PlanTableSource findTableSourceWithUniqueKey(String key) {
             int sz = table_list.size();
-            for (int i = 0; i < sz; ++i) {
-                PlanTableSource source = (PlanTableSource) table_list.get(i);
+            for (Object o : table_list) {
+                PlanTableSource source = (PlanTableSource) o;
                 if (source.containsUniqueKey(key)) {
                     return source;
                 }
@@ -1254,8 +1251,8 @@ public class Planner {
          */
         private void setCachePoints() {
             int sz = table_list.size();
-            for (int i = 0; i < sz; ++i) {
-                PlanTableSource plan = (PlanTableSource) table_list.get(i);
+            for (Object o : table_list) {
+                PlanTableSource plan = (PlanTableSource) o;
                 if (!(plan.getPlan() instanceof QueryPlan.CachePointNode)) {
                     plan.plan = new QueryPlan.CachePointNode(plan.getPlan());
                 }
@@ -1281,8 +1278,8 @@ public class Planner {
             // Collect all the plans that encapsulate these variables.
             ArrayList touched_plans = new ArrayList();
             int sz = all_vars.size();
-            for (int i = 0; i < sz; ++i) {
-                Variable v = (Variable) all_vars.get(i);
+            for (Object all_var : all_vars) {
+                Variable v = (Variable) all_var;
                 PlanTableSource plan = findTableSource(v);
                 if (!touched_plans.contains(plan)) {
                     touched_plans.add(plan);
@@ -1351,8 +1348,8 @@ public class Planner {
 
             // Make a working copy of the plan list.
             ArrayList working_plan_list = new ArrayList(all_plans.size());
-            for (int i = 0; i < all_plans.size(); ++i) {
-                working_plan_list.add(all_plans.get(i));
+            for (Object all_plan : all_plans) {
+                working_plan_list.add(all_plan);
             }
 
             // We go through each plan in turn.
@@ -1491,8 +1488,8 @@ public class Planner {
 
             // Make a working copy of the plan list.
             ArrayList working_plan_list = new ArrayList(sz);
-            for (int i = 0; i < sz; ++i) {
-                working_plan_list.add(table_list.get(i));
+            for (Object o : table_list) {
+                working_plan_list.add(o);
             }
 
 //      System.out.println("----");
@@ -1549,8 +1546,8 @@ public class Planner {
             Expression exp = new Expression(exp_parts[0], op, exp_parts[1]);
             // Is this source in the list already?
             int sz = list.size();
-            for (int i = 0; i < sz; ++i) {
-                SingleVarPlan plan = (SingleVarPlan) list.get(i);
+            for (Object o : list) {
+                SingleVarPlan plan = (SingleVarPlan) o;
                 if (plan.table_source == table &&
                         (variable == null || plan.variable.equals(variable))) {
                     // Append to end of current expression
@@ -1584,8 +1581,8 @@ public class Planner {
             public void addToPlanTree() {
                 // Each currently open branch must have this constant expression added
                 // to it.
-                for (int n = 0; n < table_list.size(); ++n) {
-                    PlanTableSource plan = (PlanTableSource) table_list.get(n);
+                for (Object o : table_list) {
+                    PlanTableSource plan = (PlanTableSource) o;
                     plan.updatePlan(new QueryPlan.ConstantSelectNode(
                             plan.getPlan(), expression));
                 }
@@ -1832,8 +1829,8 @@ public class Planner {
          */
         void evaluateConstants(ArrayList constant_vars, ArrayList evaluate_order) {
             // For each constant variable
-            for (int i = 0; i < constant_vars.size(); ++i) {
-                Expression expr = (Expression) constant_vars.get(i);
+            for (Object constant_var : constant_vars) {
+                Expression expr = (Expression) constant_var;
                 // Add the exression plan
                 ExpressionPlan exp_plan = new ConstantExpressionPlan(expr);
                 exp_plan.setOptimizableValue(0f);
@@ -1857,8 +1854,8 @@ public class Planner {
             ArrayList complex_plan_list = new ArrayList();
 
             // For each single variable expression
-            for (int i = 0; i < single_vars.size(); ++i) {
-                Expression andexp = (Expression) single_vars.get(i);
+            for (Object singleVar : single_vars) {
+                Expression andexp = (Expression) singleVar;
                 // The operator
                 Operator op = (Operator) andexp.last();
 
@@ -1943,8 +1940,8 @@ public class Planner {
             // Split the patterns into simple and complex plans.  A complex plan
             // may require that a join occurs.
 
-            for (int i = 0; i < pattern_exprs.size(); ++i) {
-                Expression expr = (Expression) pattern_exprs.get(i);
+            for (Object pattern_expr : pattern_exprs) {
+                Expression expr = (Expression) pattern_expr;
 
                 Expression[] exps = expr.split();
                 // If the LHS is a single variable and the RHS is a constant then
@@ -1983,8 +1980,8 @@ public class Planner {
         void evaluateSubQueries(ArrayList expressions, ArrayList evaluate_order) {
 
             // For each sub-query expression
-            for (int i = 0; i < expressions.size(); ++i) {
-                Expression andexp = (Expression) expressions.get(i);
+            for (Object expression : expressions) {
+                Expression andexp = (Expression) expression;
 
                 boolean is_exhaustive;
                 Variable left_var = null;
@@ -2039,9 +2036,9 @@ public class Planner {
                         evaluate_order.add(expr_plan);
                     } else {
 
-                        for (int n = 0; n < sz; ++n) {
+                        for (Object o : all_correlated) {
                             CorrelatedVariable cv =
-                                    (CorrelatedVariable) all_correlated.get(n);
+                                    (CorrelatedVariable) o;
                             all_vars.add(cv.getVariable());
                         }
 
@@ -2084,10 +2081,10 @@ public class Planner {
             //   joins in the future.
 
             // For each single variable expression
-            for (int i = 0; i < multi_vars.size(); ++i) {
+            for (Object multi_var : multi_vars) {
 
                 // Get the expression with the multiple variables
-                Expression expr = (Expression) multi_vars.get(i);
+                Expression expr = (Expression) multi_var;
                 Expression[] exps = expr.split();
 
                 // Get the list of variables in the left hand and right hand side
@@ -2131,8 +2128,8 @@ public class Planner {
         void evaluateSubLogic(ArrayList sublogic_exprs, ArrayList evaluate_order) {
 
             each_logic_expr:
-            for (int i = 0; i < sublogic_exprs.size(); ++i) {
-                Expression expr = (Expression) sublogic_exprs.get(i);
+            for (Object sublogic_expr : sublogic_exprs) {
+                Expression expr = (Expression) sublogic_expr;
 
                 // Break the expression down to a list of OR expressions,
                 ArrayList or_exprs = expr.breakByOperator(new ArrayList(), "or");
@@ -2149,8 +2146,8 @@ public class Planner {
 
                 PlanTableSource common = null;
 
-                for (int n = 0; n < or_exprs.size(); ++n) {
-                    Expression or_expr = (Expression) or_exprs.get(n);
+                for (Object orExpr : or_exprs) {
+                    Expression or_expr = (Expression) orExpr;
                     List vars = or_expr.allVariables();
                     // If there are no variables then don't bother with this expression
                     if (vars.size() > 0) {
@@ -2211,8 +2208,7 @@ public class Planner {
             ArrayList multi_vars = new ArrayList();
 
             // Separate out each condition type.
-            for (int i = 0; i < and_list.size(); ++i) {
-                Object el = and_list.get(i);
+            for (Object el : and_list) {
                 Expression andexp = (Expression) el;
                 // If we end with a logical operator then we must recurse them
                 // through this method.
@@ -2293,8 +2289,8 @@ public class Planner {
             // Sort the evaluation list by how optimizable the expressions are,
             Collections.sort(evaluate_order);
             // And add each expression to the plan
-            for (int i = 0; i < evaluate_order.size(); ++i) {
-                ExpressionPlan plan = (ExpressionPlan) evaluate_order.get(i);
+            for (Object o : evaluate_order) {
+                ExpressionPlan plan = (ExpressionPlan) o;
                 plan.addToPlanTree();
             }
 
@@ -2643,9 +2639,9 @@ public class Planner {
          */
         public boolean containsVariable(Variable v) {
 //      System.out.println("Looking for: " + v);
-            for (int i = 0; i < var_list.length; ++i) {
+            for (Variable variable : var_list) {
 //        System.out.println(var_list[i]);
-                if (var_list[i].equals(v)) {
+                if (variable.equals(v)) {
                     return true;
                 }
             }
@@ -2657,8 +2653,8 @@ public class Planner {
          * reference.
          */
         public boolean containsUniqueKey(String name) {
-            for (int i = 0; i < unique_names.length; ++i) {
-                if (unique_names[i].equals(name)) {
+            for (String unique_name : unique_names) {
+                if (unique_name.equals(name)) {
                     return true;
                 }
             }
@@ -2741,13 +2737,7 @@ public class Planner {
         public int compareTo(Object ob) {
             ExpressionPlan dest_plan = (ExpressionPlan) ob;
             float dest_val = dest_plan.optimizable_value;
-            if (optimizable_value > dest_val) {
-                return 1;
-            } else if (optimizable_value < dest_val) {
-                return -1;
-            } else {
-                return 0;
-            }
+            return Float.compare(optimizable_value, dest_val);
         }
 
     }

@@ -167,8 +167,8 @@ public abstract class JoinedTable extends Table {
      */
     public int getColumnCount() {
         int column_count_sum = 0;
-        for (int i = 0; i < reference_list.length; ++i) {
-            column_count_sum += reference_list[i].getColumnCount();
+        for (Table table : reference_list) {
+            column_count_sum += table.getColumnCount();
         }
         return column_count_sum;
     }
@@ -180,12 +180,12 @@ public abstract class JoinedTable extends Table {
      */
     public int findFieldName(Variable v) {
         int col_index = 0;
-        for (int i = 0; i < reference_list.length; ++i) {
-            int col = reference_list[i].findFieldName(v);
+        for (Table table : reference_list) {
+            int col = table.findFieldName(v);
             if (col != -1) {
                 return col + col_index;
             }
-            col_index += reference_list[i].getColumnCount();
+            col_index += table.getColumnCount();
         }
         return -1;
     }
@@ -382,8 +382,8 @@ public abstract class JoinedTable extends Table {
      * for triggers or for caching of common queries.
      */
     void addDataTableListener(DataTableListener listener) {
-        for (int i = 0; i < reference_list.length; ++i) {
-            reference_list[i].addDataTableListener(listener);
+        for (Table table : reference_list) {
+            table.addDataTableListener(listener);
         }
     }
 
@@ -394,8 +394,8 @@ public abstract class JoinedTable extends Table {
      * DataTable objects at the root.
      */
     void removeDataTableListener(DataTableListener listener) {
-        for (int i = 0; i < reference_list.length; ++i) {
-            reference_list[i].removeDataTableListener(listener);
+        for (Table table : reference_list) {
+            table.removeDataTableListener(listener);
         }
     }
 
@@ -411,8 +411,8 @@ public abstract class JoinedTable extends Table {
     public void lockRoot(int lock_key) {
         // For each table, recurse.
         roots_locked++;
-        for (int i = 0; i < reference_list.length; ++i) {
-            reference_list[i].lockRoot(lock_key);
+        for (Table table : reference_list) {
+            table.lockRoot(lock_key);
         }
     }
 
@@ -424,8 +424,8 @@ public abstract class JoinedTable extends Table {
     public void unlockRoot(int lock_key) {
         // For each table, recurse.
         roots_locked--;
-        for (int i = 0; i < reference_list.length; ++i) {
-            reference_list[i].unlockRoot(lock_key);
+        for (Table table : reference_list) {
+            table.unlockRoot(lock_key);
         }
     }
 
@@ -447,8 +447,8 @@ public abstract class JoinedTable extends Table {
         }
         out.println("JT[" + getClass());
 
-        for (int i = 0; i < reference_list.length; ++i) {
-            reference_list[i].printGraph(out, indent + 2);
+        for (Table table : reference_list) {
+            table.printGraph(out, indent + 2);
         }
 
         for (int i = 0; i < indent; ++i) {

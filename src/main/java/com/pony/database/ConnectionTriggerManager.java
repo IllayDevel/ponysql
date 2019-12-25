@@ -271,8 +271,8 @@ public final class ConnectionTriggerManager {
 
             // Search the triggers list for an event that matches this event
             int sz = triggers_active.size();
-            for (int i = 0; i < sz; ++i) {
-                TriggerInfo t_info = (TriggerInfo) triggers_active.get(i);
+            for (Object o : triggers_active) {
+                TriggerInfo t_info = (TriggerInfo) o;
                 if (t_info.on_object.equals(on_ob_test)) {
                     // Table name matches
                     // Do the types match?  eg. before/after match, and

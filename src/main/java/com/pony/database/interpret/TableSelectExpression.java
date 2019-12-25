@@ -112,15 +112,19 @@ public final class TableSelectExpression
                                String composite, boolean is_all) {
         this.next_composite = expression;
         composite = composite.toLowerCase();
-        if (composite.equals("union")) {
-            composite_function = CompositeTable.UNION;
-        } else if (composite.equals("intersect")) {
-            composite_function = CompositeTable.INTERSECT;
-        } else if (composite.equals("except")) {
-            composite_function = CompositeTable.EXCEPT;
-        } else {
-            throw new Error("Don't understand composite function '" +
-                    composite + "'");
+        switch (composite) {
+            case "union":
+                composite_function = CompositeTable.UNION;
+                break;
+            case "intersect":
+                composite_function = CompositeTable.INTERSECT;
+                break;
+            case "except":
+                composite_function = CompositeTable.EXCEPT;
+                break;
+            default:
+                throw new Error("Don't understand composite function '" +
+                        composite + "'");
         }
         is_composite_all = is_all;
     }
@@ -133,8 +137,8 @@ public final class TableSelectExpression
      */
     private static void prepareAllInList(
             List list, ExpressionPreparer preparer) throws DatabaseException {
-        for (int n = 0; n < list.size(); ++n) {
-            StatementTreeObject ob = (StatementTreeObject) list.get(n);
+        for (Object o : list) {
+            StatementTreeObject ob = (StatementTreeObject) o;
             ob.prepareExpressions(preparer);
         }
     }

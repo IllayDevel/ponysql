@@ -1618,8 +1618,7 @@ public final class Database implements DatabaseConstants {
 
         // Setup grants for any user schema that have been created.
         SchemaDef[] all_schema = connection.getSchemaList();
-        for (int i = 0; i < all_schema.length; ++i) {
-            SchemaDef schema = all_schema[i];
+        for (SchemaDef schema : all_schema) {
             // The admin user is given full privs to all tables in USER or DEFAULT
             // schema.
             if (schema.getType().equals("USER") ||
@@ -1967,8 +1966,7 @@ public final class Database implements DatabaseConstants {
         out.println("Converting user table format to latest version.");
         // Convert all user tables in the database
         TableName[] all_tables = connection.getTableList();
-        for (int i = 0; i < all_tables.length; ++i) {
-            TableName table_name = all_tables[i];
+        for (TableName table_name : all_tables) {
             String schema_name = table_name.getSchema();
             if (!schema_name.equals("SYS_INFO") &&
                     connection.getTableType(table_name).equals("TABLE")) {
@@ -2008,8 +2006,7 @@ public final class Database implements DatabaseConstants {
 
         // Scan all user tables in the database
         TableName[] all_tables = connection.getTableList();
-        for (int i = 0; i < all_tables.length; ++i) {
-            TableName table_name = all_tables[i];
+        for (TableName table_name : all_tables) {
             String schema_name = table_name.getSchema();
             boolean table_changed = false;
 

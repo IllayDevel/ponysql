@@ -467,8 +467,8 @@ public class QueryPlan {
                 if (op.is("and")) {
                     ArrayList and_list = createAndList(new ArrayList(), exp);
                     int sz = and_list.size();
-                    for (int i = 0; i < sz; ++i) {
-                        updateRange(context, range, field, (Expression) and_list.get(i));
+                    for (Object o : and_list) {
+                        updateRange(context, range, field, (Expression) o);
                     }
                 } else if (op.is("or")) {
                     // Split left and right of logical operator.
@@ -502,8 +502,8 @@ public class QueryPlan {
             List all_vars = exp.allVariables();
             Variable v = null;
             int sz = all_vars.size();
-            for (int i = 0; i < sz; ++i) {
-                Variable cv = (Variable) all_vars.get(i);
+            for (Object all_var : all_vars) {
+                Variable cv = (Variable) all_var;
                 if (v != null) {
                     if (!cv.equals(v)) {
                         throw new Error("Assertion failed: " +
@@ -963,8 +963,8 @@ public class QueryPlan {
 //      given_name = name;
             if (name != null) {
                 int sz = new_column_names.length;
-                for (int i = 0; i < sz; ++i) {
-                    new_column_names[i].setTableName(name);
+                for (Variable new_column_name : new_column_names) {
+                    new_column_name.setTableName(name);
                 }
             }
         }
@@ -1045,8 +1045,8 @@ public class QueryPlan {
         public String titleString() {
             StringBuffer buf = new StringBuffer();
             buf.append("DISTINCT: (");
-            for (int i = 0; i < columns.length; ++i) {
-                buf.append(columns[i]);
+            for (Variable column : columns) {
+                buf.append(column);
                 buf.append(", ");
             }
             buf.append(")");
@@ -1208,16 +1208,16 @@ public class QueryPlan {
 
         public ArrayList discoverTableNames(ArrayList list) {
             list = super.discoverTableNames(list);
-            for (int i = 0; i < function_list.length; ++i) {
-                list = function_list[i].discoverTableNames(list);
+            for (Expression expression : function_list) {
+                list = expression.discoverTableNames(list);
             }
             return list;
         }
 
         public ArrayList discoverCorrelatedVariables(int level, ArrayList list) {
             list = super.discoverCorrelatedVariables(level, list);
-            for (int i = 0; i < function_list.length; ++i) {
-                list = function_list[i].discoverCorrelatedVariables(level, list);
+            for (Expression expression : function_list) {
+                list = expression.discoverCorrelatedVariables(level, list);
             }
             return list;
         }
@@ -1240,16 +1240,16 @@ public class QueryPlan {
             if (columns == null) {
                 buf.append("WHOLE TABLE");
             } else {
-                for (int i = 0; i < columns.length; ++i) {
-                    buf.append(columns[i]);
+                for (Variable column : columns) {
+                    buf.append(column);
                     buf.append(", ");
                 }
             }
             buf.append(")");
             if (function_list != null) {
                 buf.append(" FUNS: [");
-                for (int i = 0; i < function_list.length; ++i) {
-                    buf.append(function_list[i]);
+                for (Expression expression : function_list) {
+                    buf.append(expression);
                     buf.append(", ");
                 }
                 buf.append("]");
@@ -1299,16 +1299,16 @@ public class QueryPlan {
 
         public ArrayList discoverTableNames(ArrayList list) {
             list = super.discoverTableNames(list);
-            for (int i = 0; i < function_list.length; ++i) {
-                list = function_list[i].discoverTableNames(list);
+            for (Expression expression : function_list) {
+                list = expression.discoverTableNames(list);
             }
             return list;
         }
 
         public ArrayList discoverCorrelatedVariables(int level, ArrayList list) {
             list = super.discoverCorrelatedVariables(level, list);
-            for (int i = 0; i < function_list.length; ++i) {
-                list = function_list[i].discoverCorrelatedVariables(level, list);
+            for (Expression expression : function_list) {
+                list = expression.discoverCorrelatedVariables(level, list);
             }
             return list;
         }
@@ -1322,8 +1322,8 @@ public class QueryPlan {
         public String titleString() {
             StringBuffer buf = new StringBuffer();
             buf.append("FUNCTIONS: (");
-            for (int i = 0; i < function_list.length; ++i) {
-                buf.append(function_list[i]);
+            for (Expression expression : function_list) {
+                buf.append(expression);
                 buf.append(", ");
             }
             buf.append(")");
@@ -1801,8 +1801,8 @@ public class QueryPlan {
         public String titleString() {
             StringBuffer buf = new StringBuffer();
             buf.append("NON_CORRELATED: (");
-            for (int i = 0; i < left_columns.length; ++i) {
-                buf.append(left_columns[i].toString());
+            for (Variable left_column : left_columns) {
+                buf.append(left_column.toString());
             }
             buf.append(") ");
             buf.append(sub_query_operator.toString());

@@ -235,7 +235,7 @@ public class ViewManager {
             if (view_name.getSchema().equals(c_schema) &&
                     view_name.getName().equals(c_name)) {
 
-                Object cache_key = new Long(row);
+                Object cache_key = (long) row;
                 ViewDef view_def = (ViewDef) cache.get(cache_key);
 
                 if (view_def == null) {
@@ -273,7 +273,7 @@ public class ViewManager {
             int row = e.nextRowIndex();
 
             if (i == index) {
-                Object cache_key = new Long(row);
+                Object cache_key = (long) row;
                 ViewDef view_def = (ViewDef) cache.get(cache_key);
 
                 if (view_def == null) {

@@ -169,20 +169,19 @@ public class JDBCTests {
 
                 // Lets run some concurrent inserts,
 
-                Runnable runner = new Runnable() {
-                    public void run() {
-                        try {
+                Runnable runner = () -> {
+                    try {
 
 //            try {
 //              Thread.sleep(3000);
 //            }
 //            catch (InterruptedException e) { }
 
-                            Statement my_statement = connection.createStatement();
+                        Statement my_statement = connection.createStatement();
 
-                            // Create a Statement object to execute the queries on,
-                            PreparedStatement s = connection.prepareStatement(
-                                    "INSERT INTO Test1 ( id, rand_val, string_col ) VALUES ( ?, ?, ? )");
+                        // Create a Statement object to execute the queries on,
+                        PreparedStatement s = connection.prepareStatement(
+                                "INSERT INTO Test1 ( id, rand_val, string_col ) VALUES ( ?, ?, ? )");
 
 //            for (int n = 0; n < 15; ++n) {
 //              for (int i = 0; i < 50; ++i) {
@@ -202,91 +201,87 @@ public class JDBCTests {
 ////              System.out.print("UQ");
 //            }
 
-                            for (int n = 0; n < 250; ++n) {
-                                my_statement.executeQuery(" SELECT COUNT(*) FROM Test1 WHERE string_col != 'A' AND rand_val > -999 ");
-                                System.out.print("1CQ");
-                                connection.commit();
-                            }
-
-
-                            s.close();
-
+                        for (int n = 0; n < 250; ++n) {
+                            my_statement.executeQuery(" SELECT COUNT(*) FROM Test1 WHERE string_col != 'A' AND rand_val > -999 ");
+                            System.out.print("1CQ");
                             connection.commit();
-                            System.out.print("1*  Reading from Table1 *");
-                            // Reading from table 1,
-                            s = connection.prepareStatement(
-                                    "  SELECT * FROM Test1 " +
-                                            "   WHERE id != 'A' AND string_col != 'B' " +
-                                            "ORDER BY id");
-                            ResultSet r = s.executeQuery();
-                            int count = 0;
-                            while (r.next()) {
-                                ++count;
-                            }
-                            System.out.print("1*  Read " + count +
-                                    " from Table 1 complete *");
-                            r.close();
-                            connection.commit();
-
-                            s = connection.prepareStatement(
-                                    "INSERT INTO Test1 ( id, rand_val, string_col ) VALUES ( ?, ?, ? )");
-
-                            for (int n = 0; n < 19; ++n) {
-                                for (int i = 0; i < 80; ++i) {
-                                    s.setString(1, "[Thread1] (2)" + n + ":" + i);
-                                    s.setInt(2, (int) (Math.random() * 5000));
-                                    s.setString(3, "A test string!");
-                                    s.execute();
-                                    System.out.print("1");
-                                }
-                                System.out.print("1C");
-                                connection.commit();
-                            }
-
-                            s.close();
-
-                            System.out.print("1E");
-                        } catch (SQLException e) {
-                            System.out.println("END Runner 1");
-                            e.printStackTrace();
                         }
-                    }
-                };
 
-                Runnable runner2 = new Runnable() {
-                    public void run() {
-                        try {
-                            // Create a Statement object to execute the queries on,
-                            PreparedStatement s = connection1.prepareStatement(
-                                    "INSERT INTO Test2 ( id, rand_val, string_col ) VALUES ( ?, ?, ? )");
-                            for (int i = 0; i < 2500; ++i) {
-                                s.setString(1, "[Thread2] " + i);
-                                s.setInt(2, (int) (Math.random() * 4000));
+
+                        s.close();
+
+                        connection.commit();
+                        System.out.print("1*  Reading from Table1 *");
+                        // Reading from table 1,
+                        s = connection.prepareStatement(
+                                "  SELECT * FROM Test1 " +
+                                        "   WHERE id != 'A' AND string_col != 'B' " +
+                                        "ORDER BY id");
+                        ResultSet r = s.executeQuery();
+                        int count = 0;
+                        while (r.next()) {
+                            ++count;
+                        }
+                        System.out.print("1*  Read " + count +
+                                " from Table 1 complete *");
+                        r.close();
+                        connection.commit();
+
+                        s = connection.prepareStatement(
+                                "INSERT INTO Test1 ( id, rand_val, string_col ) VALUES ( ?, ?, ? )");
+
+                        for (int n = 0; n < 19; ++n) {
+                            for (int i = 0; i < 80; ++i) {
+                                s.setString(1, "[Thread1] (2)" + n + ":" + i);
+                                s.setInt(2, (int) (Math.random() * 5000));
                                 s.setString(3, "A test string!");
                                 s.execute();
-                                System.out.print("2");
-                                if ((i % 100) == 0) {
-                                    connection1.commit();
-                                    System.out.print("2C");
-                                }
+                                System.out.print("1");
                             }
-                            connection1.commit();
-
-                            s.close();
-
-                            System.out.print("2C");
-                        } catch (SQLException e) {
-                            e.printStackTrace();
+                            System.out.print("1C");
+                            connection.commit();
                         }
+
+                        s.close();
+
+                        System.out.print("1E");
+                    } catch (SQLException e) {
+                        System.out.println("END Runner 1");
+                        e.printStackTrace();
                     }
                 };
 
-                Runnable runner3 = new Runnable() {
-                    public void run() {
-                        try {
-                            // Create a Statement object to execute the queries on,
-                            PreparedStatement s = connection2.prepareStatement(
-                                    "INSERT INTO Test1 ( id, rand_val, string_col ) VALUES ( ?, ?, ? )");
+                Runnable runner2 = () -> {
+                    try {
+                        // Create a Statement object to execute the queries on,
+                        PreparedStatement s = connection1.prepareStatement(
+                                "INSERT INTO Test2 ( id, rand_val, string_col ) VALUES ( ?, ?, ? )");
+                        for (int i = 0; i < 2500; ++i) {
+                            s.setString(1, "[Thread2] " + i);
+                            s.setInt(2, (int) (Math.random() * 4000));
+                            s.setString(3, "A test string!");
+                            s.execute();
+                            System.out.print("2");
+                            if ((i % 100) == 0) {
+                                connection1.commit();
+                                System.out.print("2C");
+                            }
+                        }
+                        connection1.commit();
+
+                        s.close();
+
+                        System.out.print("2C");
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                };
+
+                Runnable runner3 = () -> {
+                    try {
+                        // Create a Statement object to execute the queries on,
+                        PreparedStatement s = connection2.prepareStatement(
+                                "INSERT INTO Test1 ( id, rand_val, string_col ) VALUES ( ?, ?, ? )");
 //            for (int i = 0; i < 2500; ++i) {
 //              s.setString(1, "[Thread3] " + i);
 //              s.setInt(2, (int) (Math.random() * 4000));
@@ -296,121 +291,114 @@ public class JDBCTests {
 //            }
 //            connection2.commit();
 
-                            for (int n = 0; n < 250; ++n) {
-                                s.executeQuery(" SELECT COUNT(*) FROM Test1 WHERE string_col != 'A' AND rand_val > -999 ");
-                                System.out.print("3CQ");
-                                connection2.commit();
-                            }
-
-                            s.close();
-
-                            System.out.print("3C");
-                        } catch (SQLException e) {
-                            System.out.println("END Runner 3");
-                            e.printStackTrace();
+                        for (int n = 0; n < 250; ++n) {
+                            s.executeQuery(" SELECT COUNT(*) FROM Test1 WHERE string_col != 'A' AND rand_val > -999 ");
+                            System.out.print("3CQ");
+                            connection2.commit();
                         }
+
+                        s.close();
+
+                        System.out.print("3C");
+                    } catch (SQLException e) {
+                        System.out.println("END Runner 3");
+                        e.printStackTrace();
                     }
                 };
 
-                Runnable runner4 = new Runnable() {
-                    public void run() {
-                        try {
-                            // Create a Statement object to execute the queries on,
-                            PreparedStatement s = connection3.prepareStatement(
-                                    "INSERT INTO Test1 ( id, rand_val, string_col ) VALUES ( ?, ?, ? )");
-                            for (int i = 0; i < 2000; ++i) {
-                                s.setString(1, "[Thread4] " + i);
-                                s.setInt(2, (int) (Math.random() * 2000));
-                                s.setString(3, "A test string!");
-                                s.execute();
-                                System.out.print("4");
-                                if ((i % 123) == 0) {
-                                    connection3.commit();
-                                    System.out.print("4C");
-                                }
-                            }
-
-                            connection3.commit();
-                            System.out.print("4U");
-                            // When this has finished, update everything in Test2...
-                            s = connection3.prepareStatement(
-                                    "UPDATE Test1 " +
-                                            " SET string_col = CONCAT(string_col, '--An post thing') " +
-                                            " WHERE string_col = 'A test string!' ");
+                Runnable runner4 = () -> {
+                    try {
+                        // Create a Statement object to execute the queries on,
+                        PreparedStatement s = connection3.prepareStatement(
+                                "INSERT INTO Test1 ( id, rand_val, string_col ) VALUES ( ?, ?, ? )");
+                        for (int i = 0; i < 2000; ++i) {
+                            s.setString(1, "[Thread4] " + i);
+                            s.setInt(2, (int) (Math.random() * 2000));
+                            s.setString(3, "A test string!");
                             s.execute();
-                            System.out.print("4UE");
-                            connection3.commit();
-
-                            s.close();
-
-                        } catch (SQLException e) {
-                            e.printStackTrace();
+                            System.out.print("4");
+                            if ((i % 123) == 0) {
+                                connection3.commit();
+                                System.out.print("4C");
+                            }
                         }
+
+                        connection3.commit();
+                        System.out.print("4U");
+                        // When this has finished, update everything in Test2...
+                        s = connection3.prepareStatement(
+                                "UPDATE Test1 " +
+                                        " SET string_col = CONCAT(string_col, '--An post thing') " +
+                                        " WHERE string_col = 'A test string!' ");
+                        s.execute();
+                        System.out.print("4UE");
+                        connection3.commit();
+
+                        s.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
                     }
                 };
 
-                Runnable runner5 = new Runnable() {
-                    public void run() {
-                        try {
-                            // Create a Statement object to execute the queries on,
-                            PreparedStatement s = connection3.prepareStatement(
-                                    "INSERT INTO Test1 ( id, rand_val, string_col ) VALUES ( ?, ?, ? )");
-                            for (int i = 0; i < 2500; ++i) {
-                                s.setString(1, "[Thread5] " + i);
-                                s.setInt(2, (int) (Math.random() * 1000));
-                                s.setString(3, "A test string!");
-                                s.execute();
-                                System.out.print("5");
-                                if ((i % 243) == 0) {
-                                    connection3.commit();
-                                    System.out.print("5C");
-                                }
-                            }
-                            connection3.commit();
-                            System.out.print("5E");
-
-                            s.close();
-
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                };
-
-                Runnable runner6 = new Runnable() {
-                    public void run() {
-                        try {
-                            // Create a Statement object to execute the queries on,
-                            PreparedStatement s = connection1.prepareStatement(
-                                    "INSERT INTO Test2 ( id, rand_val, string_col ) VALUES ( ?, ?, ? )");
-                            for (int i = 0; i < 1000; ++i) {
-                                s.setString(1, "[Thread6] " + i);
-                                s.setInt(2, (int) (Math.random() * 2000));
-                                s.setString(3, "A test string!");
-                                s.execute();
-                                System.out.print("6");
-                                if ((i % 298) == 0) {
-                                    connection1.commit();
-                                    System.out.print("6C");
-                                }
-                            }
-
-                            System.out.print("6U");
-                            connection1.commit();
-                            // When this has finished, update everything in Test2...
-                            s = connection1.prepareStatement(
-                                    "UPDATE Test2 " +
-                                            " SET string_col = CONCAT(string_col, '--An post thing') " +
-                                            " WHERE string_col = 'A test string!' ");
+                Runnable runner5 = () -> {
+                    try {
+                        // Create a Statement object to execute the queries on,
+                        PreparedStatement s = connection3.prepareStatement(
+                                "INSERT INTO Test1 ( id, rand_val, string_col ) VALUES ( ?, ?, ? )");
+                        for (int i = 0; i < 2500; ++i) {
+                            s.setString(1, "[Thread5] " + i);
+                            s.setInt(2, (int) (Math.random() * 1000));
+                            s.setString(3, "A test string!");
                             s.execute();
-                            connection1.commit();
-                            System.out.print("6UE");
-
-                            s.close();
-
-                        } catch (SQLException e) {
-                            e.printStackTrace();
+                            System.out.print("5");
+                            if ((i % 243) == 0) {
+                                connection3.commit();
+                                System.out.print("5C");
+                            }
                         }
+                        connection3.commit();
+                        System.out.print("5E");
+
+                        s.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                };
+
+                Runnable runner6 = () -> {
+                    try {
+                        // Create a Statement object to execute the queries on,
+                        PreparedStatement s = connection1.prepareStatement(
+                                "INSERT INTO Test2 ( id, rand_val, string_col ) VALUES ( ?, ?, ? )");
+                        for (int i = 0; i < 1000; ++i) {
+                            s.setString(1, "[Thread6] " + i);
+                            s.setInt(2, (int) (Math.random() * 2000));
+                            s.setString(3, "A test string!");
+                            s.execute();
+                            System.out.print("6");
+                            if ((i % 298) == 0) {
+                                connection1.commit();
+                                System.out.print("6C");
+                            }
+                        }
+
+                        System.out.print("6U");
+                        connection1.commit();
+                        // When this has finished, update everything in Test2...
+                        s = connection1.prepareStatement(
+                                "UPDATE Test2 " +
+                                        " SET string_col = CONCAT(string_col, '--An post thing') " +
+                                        " WHERE string_col = 'A test string!' ");
+                        s.execute();
+                        connection1.commit();
+                        System.out.print("6UE");
+
+                        s.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
                     }
                 };
 

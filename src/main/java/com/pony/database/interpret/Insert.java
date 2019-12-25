@@ -96,8 +96,8 @@ public class Insert extends Statement {
 
         // Check 'values_list' contains all same size size insert element arrays.
         int first_len = -1;
-        for (int n = 0; n < values_list.size(); ++n) {
-            List exp_list = (List) values_list.get(n);
+        for (Object value : values_list) {
+            List exp_list = (List) value;
             if (first_len == -1 || first_len == exp_list.size()) {
                 first_len = exp_list.size();
             } else {
@@ -157,17 +157,15 @@ public class Insert extends Statement {
 
             // Resolve all expressions in the added list.
             // For each value
-            for (int i = 0; i < values_list.size(); ++i) {
+            for (Object o : values_list) {
                 // Each value is a list of either expressions or "DEFAULT"
-                List insert_elements = (List) values_list.get(i);
+                List insert_elements = (List) o;
                 int sz = insert_elements.size();
-                for (int n = 0; n < sz; ++n) {
-                    Object elem = insert_elements.get(n);
+                for (Object elem : insert_elements) {
                     if (elem instanceof Expression) {
                         Expression exp = (Expression) elem;
                         List elem_list = exp.allElements();
-                        for (int p = 0; p < elem_list.size(); ++p) {
-                            Object ob = elem_list.get(p);
+                        for (Object ob : elem_list) {
                             if (ob instanceof Select) {
                                 throw new DatabaseException(
                                         "Illegal to have sub-select in expression.");
@@ -191,12 +189,11 @@ public class Insert extends Statement {
 
             // If there's a sub select in an expression in the 'SET' clause then
             // throw an error.
-            for (int i = 0; i < column_sets.size(); ++i) {
-                Assignment assignment = (Assignment) column_sets.get(i);
+            for (Object column_set : column_sets) {
+                Assignment assignment = (Assignment) column_set;
                 Expression exp = assignment.getExpression();
                 List elem_list = exp.allElements();
-                for (int n = 0; n < elem_list.size(); ++n) {
-                    Object ob = elem_list.get(n);
+                for (Object ob : elem_list) {
                     if (ob instanceof Select) {
                         throw new DatabaseException(
                                 "Illegal to have sub-select in SET clause.");
@@ -216,8 +213,8 @@ public class Insert extends Statement {
         TableName[] linked_tables =
                 database.queryTablesRelationallyLinkedTo(tname);
         ArrayList relationally_linked_tables = new ArrayList(linked_tables.length);
-        for (int i = 0; i < linked_tables.length; ++i) {
-            relationally_linked_tables.add(database.getTable(linked_tables[i]));
+        for (TableName linked_table : linked_tables) {
+            relationally_linked_tables.add(database.getTable(linked_table));
         }
 
     }
@@ -239,8 +236,8 @@ public class Insert extends Statement {
 
         if (from_values) {
             // Set each row from the VALUES table,
-            for (int i = 0; i < values_list.size(); ++i) {
-                List insert_elements = (List) values_list.get(i);
+            for (Object o : values_list) {
+                List insert_elements = (List) o;
                 RowData row_data = insert_table.createRowDataObject(context);
                 row_data.setupEntire(col_index_list, insert_elements, context);
                 insert_table.add(row_data);

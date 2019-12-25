@@ -181,8 +181,7 @@ public final class DataTable extends DefaultDataTable {
     public final void add(RowData[] row_data_arr) throws DatabaseException {
         checkReadWriteLock();  // write op
 
-        for (int i = 0; i < row_data_arr.length; ++i) {
-            RowData row_data = row_data_arr[i];
+        for (RowData row_data : row_data_arr) {
             if (!row_data.isSameTable(this)) {
                 throw new DatabaseException(
                         "Internal Error: Using RowData from different table");
@@ -425,8 +424,7 @@ public final class DataTable extends DefaultDataTable {
             row_data.setFromRow(to_update);
 
             // Run each assignment on the RowData.
-            for (int n = 0; n < assign_list.length; ++n) {
-                Assignment assignment = assign_list[n];
+            for (Assignment assignment : assign_list) {
                 row_data.evaluate(assignment, context);
             }
 

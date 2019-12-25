@@ -802,8 +802,8 @@ public final class IndexStore {
 
             // Make all the lists immutable.
             int sz = lists.length;
-            for (int i = 0; i < sz; ++i) {
-                lists[i].setImmutable();
+            for (IndexIntegerList indexIntegerList : lists) {
+                indexIntegerList.setImmutable();
             }
 
             // The new buffer we are making
@@ -845,9 +845,9 @@ public final class IndexStore {
 
                             // The blocks that were deleted (if any).
                             MappedListBlock[] deleted_blocks = list.getDeletedBlocks();
-                            for (int n = 0; n < deleted_blocks.length; ++n) {
+                            for (MappedListBlock deleted_block : deleted_blocks) {
                                 // Put all deleted blocks on the list to GC
-                                MappedListBlock block = (MappedListBlock) deleted_blocks[n];
+                                MappedListBlock block = (MappedListBlock) deleted_block;
                                 // Make sure the block is mapped to a sector
                                 int sector = block.getIndexSector();
                                 if (sector != -1) {
@@ -937,8 +937,8 @@ public final class IndexStore {
                     integer_lists = new ArrayList();
                 } else {
                     // Assertion: If the list already contains this value throw an error.
-                    for (int o = 0; o < integer_lists.size(); ++o) {
-                        if (((IndexIntegerList) integer_lists.get(o)).getIndexNumber() ==
+                    for (Object integer_list : integer_lists) {
+                        if (((IndexIntegerList) integer_list).getIndexNumber() ==
                                 original_n) {
                             throw new Error(
                                     "IntegerListInterface already created for this n.");
@@ -987,8 +987,8 @@ public final class IndexStore {
             // Dispose all the integer lists created by this object.
             synchronized (buf) {
                 if (integer_lists != null) {
-                    for (int i = 0; i < integer_lists.size(); ++i) {
-                        IndexIntegerList ilist = (IndexIntegerList) integer_lists.get(i);
+                    for (Object integer_list : integer_lists) {
+                        IndexIntegerList ilist = (IndexIntegerList) integer_list;
                         ilist.dispose();
                     }
                     integer_lists = null;
@@ -1091,7 +1091,7 @@ public final class IndexStore {
 
             // Write this sector to the cache
             synchronized (sector_cache) {
-                sector_cache.put(new Integer(index_sector), array);
+                sector_cache.put(index_sector, array);
             }
 
             // Once written, the block is invalidated
@@ -1119,7 +1119,7 @@ public final class IndexStore {
                 // Pull this from a cache
                 Object elem;
                 synchronized (sector_cache) {
-                    elem = sector_cache.get(new Integer(index_sector));
+                    elem = sector_cache.get(index_sector);
                 }
                 if (elem != null) {
                     array = (int[]) elem;
@@ -1141,7 +1141,7 @@ public final class IndexStore {
                 }
                 // Put in the cache
                 synchronized (sector_cache) {
-                    sector_cache.put(new Integer(index_sector), (int[]) array);
+                    sector_cache.put(index_sector, (int[]) array);
                 }
                 mutable_block = false;
                 prepareMutate(immutable);

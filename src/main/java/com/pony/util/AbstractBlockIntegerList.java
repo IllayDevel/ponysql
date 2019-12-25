@@ -104,9 +104,9 @@ public abstract class AbstractBlockIntegerList
      */
     public AbstractBlockIntegerList(IntegerListBlockInterface[] blocks) {
         this();
-        for (int i = 0; i < blocks.length; ++i) {
-            block_list.add(blocks[i]);
-            count += blocks[i].size();
+        for (IntegerListBlockInterface block : blocks) {
+            block_list.add(block);
+            count += block.size();
         }
     }
 
@@ -188,9 +188,9 @@ public abstract class AbstractBlockIntegerList
      */
     final void copyToArray(int[] array, int offset, int length) {
         if (array.length >= length && (offset + length) <= size()) {
-            for (int i = 0; i < block_list.size(); ++i) {
+            for (Object o : block_list) {
                 IntegerListBlockInterface block =
-                        (IntegerListBlockInterface) block_list.get(i);
+                        (IntegerListBlockInterface) o;
                 offset += block.copyTo(array, offset);
             }
             return;
@@ -617,9 +617,9 @@ public abstract class AbstractBlockIntegerList
     public final int get(int pos) {
         int size = block_list.size();
         int start = 0;
-        for (int i = 0; i < size; ++i) {
+        for (Object o : block_list) {
             IntegerListBlockInterface block =
-                    (IntegerListBlockInterface) block_list.get(i);
+                    (IntegerListBlockInterface) o;
             int bsize = block.size();
             if (pos >= start && pos < start + bsize) {
                 return block.intAt(pos - start);

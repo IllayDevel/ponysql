@@ -281,21 +281,20 @@ public final class Expression implements java.io.Serializable, Cloneable {
      */
     public List allVariables() {
         ArrayList vars = new ArrayList();
-        for (int i = 0; i < elements.size(); ++i) {
-            Object ob = elements.get(i);
+        for (Object ob : elements) {
             if (ob instanceof Variable) {
                 vars.add(ob);
             } else if (ob instanceof FunctionDef) {
                 Expression[] params = ((FunctionDef) ob).getParameters();
-                for (int n = 0; n < params.length; ++n) {
-                    vars.addAll(params[n].allVariables());
+                for (Expression param : params) {
+                    vars.addAll(param.allVariables());
                 }
             } else if (ob instanceof TObject) {
                 TObject tob = (TObject) ob;
                 if (tob.getTType() instanceof TArrayType) {
                     Expression[] exp_list = (Expression[]) tob.getObject();
-                    for (int n = 0; n < exp_list.length; ++n) {
-                        vars.addAll(exp_list[n].allVariables());
+                    for (Expression expression : exp_list) {
+                        vars.addAll(expression.allVariables());
                     }
                 }
             }
@@ -309,20 +308,19 @@ public final class Expression implements java.io.Serializable, Cloneable {
      */
     public List allElements() {
         ArrayList elems = new ArrayList();
-        for (int i = 0; i < elements.size(); ++i) {
-            Object ob = elements.get(i);
+        for (Object ob : elements) {
             if (ob instanceof Operator) {
             } else if (ob instanceof FunctionDef) {
                 Expression[] params = ((FunctionDef) ob).getParameters();
-                for (int n = 0; n < params.length; ++n) {
-                    elems.addAll(params[n].allElements());
+                for (Expression param : params) {
+                    elems.addAll(param.allElements());
                 }
             } else if (ob instanceof TObject) {
                 TObject tob = (TObject) ob;
                 if (tob.getTType() instanceof TArrayType) {
                     Expression[] exp_list = (Expression[]) tob.getObject();
-                    for (int n = 0; n < exp_list.length; ++n) {
-                        elems.addAll(exp_list[n].allElements());
+                    for (Expression expression : exp_list) {
+                        elems.addAll(expression.allElements());
                     }
                 } else {
                     elems.add(ob);
@@ -367,8 +365,8 @@ public final class Expression implements java.io.Serializable, Cloneable {
             }
 
             if (exp_list != null) {
-                for (int p = 0; p < exp_list.length; ++p) {
-                    exp_list[p].prepare(preparer);
+                for (Expression expression : exp_list) {
+                    expression.prepare(preparer);
                 }
             }
 
@@ -382,8 +380,7 @@ public final class Expression implements java.io.Serializable, Cloneable {
      * considered a constant.
      */
     public boolean isConstant() {
-        for (int n = 0; n < elements.size(); ++n) {
-            Object ob = elements.get(n);
+        for (Object ob : elements) {
             if (ob instanceof TObject) {
                 TObject tob = (TObject) ob;
                 TType ttype = tob.getTType();
@@ -394,8 +391,8 @@ public final class Expression implements java.io.Serializable, Cloneable {
                 // If this is an array, check the array for constants
                 else if (ttype instanceof TArrayType) {
                     Expression[] exp_list = (Expression[]) tob.getObject();
-                    for (int p = 0; p < exp_list.length; ++p) {
-                        if (!exp_list[p].isConstant()) {
+                    for (Expression expression : exp_list) {
+                        if (!expression.isConstant()) {
                             return false;
                         }
                     }
@@ -404,8 +401,8 @@ public final class Expression implements java.io.Serializable, Cloneable {
                 return false;
             } else if (ob instanceof FunctionDef) {
                 Expression[] params = ((FunctionDef) ob).getParameters();
-                for (int p = 0; p < params.length; ++p) {
-                    if (!params[p].isConstant()) {
+                for (Expression param : params) {
+                    if (!param.isConstant()) {
                         return false;
                     }
                 }
@@ -421,8 +418,7 @@ public final class Expression implements java.io.Serializable, Cloneable {
     public boolean hasSubQuery() {
         List list = allElements();
         int len = list.size();
-        for (int n = 0; n < len; ++n) {
-            Object ob = list.get(n);
+        for (Object ob : list) {
             if (ob instanceof TObject) {
                 TObject tob = (TObject) ob;
                 if (tob.getTType() instanceof TQueryPlanType) {
@@ -437,8 +433,7 @@ public final class Expression implements java.io.Serializable, Cloneable {
      * Returns true if the expression contains a NOT operator somewhere in it.
      */
     public boolean containsNotOperator() {
-        for (int n = 0; n < elements.size(); ++n) {
-            Object ob = elements.get(n);
+        for (Object ob : elements) {
             if (ob instanceof Operator) {
                 if (((Operator) ob).isNot()) {
                     return true;
@@ -458,8 +453,7 @@ public final class Expression implements java.io.Serializable, Cloneable {
         List elems = allElements();
         int sz = elems.size();
         // For each element
-        for (int i = 0; i < sz; ++i) {
-            Object ob = elems.get(i);
+        for (Object ob : elems) {
             if (ob instanceof CorrelatedVariable) {
                 CorrelatedVariable v = (CorrelatedVariable) ob;
                 if (v.getQueryLevelOffset() == level) {
@@ -484,8 +478,7 @@ public final class Expression implements java.io.Serializable, Cloneable {
         List elems = allElements();
         int sz = elems.size();
         // For each element
-        for (int i = 0; i < sz; ++i) {
-            Object ob = elems.get(i);
+        for (Object ob : elems) {
             if (ob instanceof TObject) {
                 TObject tob = (TObject) ob;
                 if (tob.getTType() instanceof TQueryPlanType) {
@@ -727,8 +720,7 @@ public final class Expression implements java.io.Serializable, Cloneable {
      * returns true, otherwise returns false.
      */
     public boolean hasAggregateFunction(QueryContext context) {
-        for (int n = 0; n < elements.size(); ++n) {
-            Object ob = elements.get(n);
+        for (Object ob : elements) {
             if (ob instanceof FunctionDef) {
                 if (((FunctionDef) ob).isAggregate(context)) {
                     return true;
@@ -737,8 +729,8 @@ public final class Expression implements java.io.Serializable, Cloneable {
                 TObject tob = (TObject) ob;
                 if (tob.getTType() instanceof TArrayType) {
                     Expression[] list = (Expression[]) tob.getObject();
-                    for (int i = 0; i < list.length; ++i) {
-                        if (list[i].hasAggregateFunction(context)) {
+                    for (Expression expression : list) {
+                        if (expression.hasAggregateFunction(context)) {
                             return true;
                         }
                     }
@@ -790,9 +782,7 @@ public final class Expression implements java.io.Serializable, Cloneable {
         v.elements = cloned_elements;
 
         // Clone items in the elements list
-        for (int i = 0; i < size; ++i) {
-            Object element = elements.get(i);
-
+        for (Object element : elements) {
             if (element instanceof TObject) {
                 // TObject is immutable except for TArrayType and TQueryPlanType
                 TObject tob = (TObject) element;
@@ -889,7 +879,7 @@ public final class Expression implements java.io.Serializable, Cloneable {
             } else if (ob instanceof java.util.Date) {
                 conv_object = TObject.dateVal((java.util.Date) ob);
             } else if (ob instanceof Boolean) {
-                conv_object = TObject.booleanVal(((Boolean) ob).booleanValue());
+                conv_object = TObject.booleanVal((Boolean) ob);
             }
             if (conv_object != null) {
                 elements.set(i, conv_object);

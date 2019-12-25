@@ -96,11 +96,9 @@ public class SwingBlockUtil {
      */
     public void unblock() {
         // Execute the runnable on the event dispatcher,
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                if (block_state == 1) {
-                    block_state = 2;
-                }
+        SwingUtilities.invokeLater(() -> {
+            if (block_state == 1) {
+                block_state = 2;
             }
         });
     }

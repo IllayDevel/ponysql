@@ -181,8 +181,8 @@ class JournalledSystem {
                 synchronized (top_journal_lock) {
                     // Close all the journals
                     int sz = journal_archives.size();
-                    for (int i = 0; i < sz; ++i) {
-                        JournalFile jf = (JournalFile) journal_archives.get(i);
+                    for (Object journal_archive : journal_archives) {
+                        JournalFile jf = (JournalFile) journal_archive;
                         jf.close();
                     }
                     // Close the top journal
@@ -247,18 +247,18 @@ class JournalledSystem {
 
         // Sort the journal file list from oldest to newest.  The oldest journals
         // are recovered first.
-        Collections.sort(journal_files_list, journal_list_comparator);
+        journal_files_list.sort(journal_list_comparator);
 
         long last_journal_number = -1;
 
         // Persist the journals
-        for (int i = 0; i < journal_files_list.size(); ++i) {
-            JournalSummary summary = (JournalSummary) journal_files_list.get(i);
+        for (Object item : journal_files_list) {
+            JournalSummary summary = (JournalSummary) item;
 
             // Check the resources for this summary
             ArrayList res_list = summary.resource_list;
-            for (int n = 0; n < res_list.size(); ++n) {
-                String resource_name = (String) res_list.get(n);
+            for (Object value : res_list) {
+                String resource_name = (String) value;
                 // This puts the resource into the hash map.
                 JournalledResource resource = createResource(resource_name);
             }
@@ -280,8 +280,8 @@ class JournalledSystem {
             jf.closeAndDelete();
 
             // Check the resources for this summary and close them
-            for (int n = 0; n < res_list.size(); ++n) {
-                String resource_name = (String) res_list.get(n);
+            for (Object o : res_list) {
+                String resource_name = (String) o;
                 AbstractResource resource =
                         (AbstractResource) createResource(resource_name);
                 // When we finished, make sure the resource is closed again
@@ -295,24 +295,20 @@ class JournalledSystem {
 
     }
 
-    private final Comparator journal_list_comparator = new Comparator() {
+    private final Comparator journal_list_comparator = (ob1, ob2) -> {
+        JournalSummary js1 = (JournalSummary) ob1;
+        JournalSummary js2 = (JournalSummary) ob2;
 
-        public int compare(Object ob1, Object ob2) {
-            JournalSummary js1 = (JournalSummary) ob1;
-            JournalSummary js2 = (JournalSummary) ob2;
+        long jn1 = js1.journal_file.getJournalNumber();
+        long jn2 = js2.journal_file.getJournalNumber();
 
-            long jn1 = js1.journal_file.getJournalNumber();
-            long jn2 = js2.journal_file.getJournalNumber();
-
-            if (jn1 > jn2) {
-                return 1;
-            } else if (jn1 < jn2) {
-                return -1;
-            } else {
-                return 0;
-            }
+        if (jn1 > jn2) {
+            return 1;
+        } else if (jn1 < jn2) {
+            return -1;
+        } else {
+            return 0;
         }
-
     };
 
 
@@ -568,10 +564,9 @@ class JournalledSystem {
             }
 
             // The input stream.
-            final DataInputStream din = new DataInputStream(
-                    new BufferedInputStream(data.getInputStream()));
 
-            try {
+            try (DataInputStream din = new DataInputStream(
+                    new BufferedInputStream(data.getInputStream()))) {
                 // Set the journal number for this
                 this.journal_number = din.readLong();
                 long position = 8;
@@ -638,8 +633,6 @@ class JournalledSystem {
 
                 }
 
-            } finally {
-                din.close();
             }
 
         }
@@ -753,7 +746,7 @@ class JournalledSystem {
                     String resource_name = new String(buf);
 
                     // Put this in the map
-                    id_name_map.put(new Long(id), resource_name);
+                    id_name_map.put(id, resource_name);
 
                     if (debug.isInterestedIn(Lvl.INFORMATION)) {
                         debug.write(Lvl.INFORMATION, this, "Journal Command: Tag: " + id +
@@ -765,7 +758,7 @@ class JournalledSystem {
 
                 } else if (type == 6) {  // Resource delete
                     long id = din.readLong();
-                    String resource_name = (String) id_name_map.get(new Long(id));
+                    String resource_name = (String) id_name_map.get(id);
                     AbstractResource resource = getResource(resource_name);
 
                     if (debug.isInterestedIn(Lvl.INFORMATION)) {
@@ -778,7 +771,7 @@ class JournalledSystem {
                 } else if (type == 3) {  // Resource size change
                     long id = din.readLong();
                     long new_size = din.readLong();
-                    String resource_name = (String) id_name_map.get(new Long(id));
+                    String resource_name = (String) id_name_map.get(id);
                     AbstractResource resource = getResource(resource_name);
 
                     if (debug.isInterestedIn(Lvl.INFORMATION)) {
@@ -794,7 +787,7 @@ class JournalledSystem {
                     int off = din.readInt();
                     int len = din.readInt();
 
-                    String resource_name = (String) id_name_map.get(new Long(id));
+                    String resource_name = (String) id_name_map.get(id);
                     AbstractResource resource = getResource(resource_name);
 
                     if (debug.isInterestedIn(Lvl.INFORMATION)) {
@@ -823,8 +816,8 @@ class JournalledSystem {
 
             // Synch all the resources that we have updated.
             int sz = resources_updated.size();
-            for (int i = 0; i < sz; ++i) {
-                AbstractResource r = (AbstractResource) resources_updated.get(i);
+            for (Object o : resources_updated) {
+                AbstractResource r = (AbstractResource) o;
                 if (debug.isInterestedIn(Lvl.INFORMATION)) {
                     debug.write(Lvl.INFORMATION, this, "Synch: " + r);
                 }
@@ -857,7 +850,7 @@ class JournalledSystem {
                     out.writeChars(resource_name);
 
                     // Put this id in the cache
-                    v = new Long(cur_seq_id);
+                    v = cur_seq_id;
                     resource_id_map.put(resource_name, v);
                 }
             }
@@ -875,7 +868,7 @@ class JournalledSystem {
                 Long v = writeResourceName(resource_name, data_out);
 
                 // Write the header
-                long resource_id = v.longValue();
+                long resource_id = v;
                 data_out.writeLong(6);
                 data_out.writeInt(8);
                 data_out.writeLong(resource_id);
@@ -894,7 +887,7 @@ class JournalledSystem {
                 Long v = writeResourceName(resource_name, data_out);
 
                 // Write the header
-                long resource_id = v.longValue();
+                long resource_id = v;
                 data_out.writeLong(3);
                 data_out.writeInt(8 + 8);
                 data_out.writeLong(resource_id);
@@ -934,7 +927,7 @@ class JournalledSystem {
                 final long absolute_position = page_number * page_size;
 
                 // Write the header
-                long resource_id = v.longValue();
+                long resource_id = v;
                 data_out.writeLong(1);
                 data_out.writeInt(8 + 8 + 4 + 4 + len);
                 data_out.writeLong(resource_id);
@@ -1502,8 +1495,8 @@ class JournalledSystem {
 
                 // Rebuild from the journal file(s)
                 final int sz = all_journal_entries.size();
-                for (int i = 0; i < sz; ++i) {
-                    JournalEntry entry = (JournalEntry) all_journal_entries.get(i);
+                for (Object all_journal_entry : all_journal_entries) {
+                    JournalEntry entry = (JournalEntry) all_journal_entry;
                     JournalFile file = entry.getJournalFile();
                     final long position = entry.getPosition();
                     synchronized (file) {
@@ -1515,8 +1508,8 @@ class JournalledSystem {
 
                 // Make sure we remove the reference for all the journal files.
                 final int sz = all_journal_entries.size();
-                for (int i = 0; i < sz; ++i) {
-                    JournalEntry entry = (JournalEntry) all_journal_entries.get(i);
+                for (Object all_journal_entry : all_journal_entries) {
+                    JournalEntry entry = (JournalEntry) all_journal_entry;
                     JournalFile file = entry.getJournalFile();
                     file.removeReference();
                 }
@@ -1750,9 +1743,9 @@ class JournalledSystem {
                     // Something to process, so go ahead and process the journals,
                     int sz = to_process.size();
                     // For all journals
-                    for (int i = 0; i < sz; ++i) {
+                    for (Object toProcess : to_process) {
                         // Pick the lowest journal to persist
-                        JournalFile jf = (JournalFile) to_process.get(i);
+                        JournalFile jf = (JournalFile) toProcess;
                         try {
                             // Persist the journal
                             jf.persist(8, jf.size());

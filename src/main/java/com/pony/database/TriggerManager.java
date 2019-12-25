@@ -78,8 +78,8 @@ final class TriggerManager {
      * has successfully committed and closed.
      */
     void flushTriggerEvents(final ArrayList event_list) {
-        for (int i = 0; i < event_list.size(); ++i) {
-            TriggerEvent evt = (TriggerEvent) event_list.get(i);
+        for (Object o : event_list) {
+            TriggerEvent evt = (TriggerEvent) o;
             fireTrigger(evt);
         }
     }
@@ -99,8 +99,8 @@ final class TriggerManager {
 
         // Has this trigger name already been defined for this user?
         List list = listener_map.get(database);
-        for (int i = 0; i < list.size(); ++i) {
-            TriggerAction action = (TriggerAction) list.get(i);
+        for (Object o : list) {
+            TriggerAction action = (TriggerAction) o;
             if (action.getName().equals(trigger_name)) {
                 throw new Error("Duplicate trigger name '" + trigger_name + "'");
             }
@@ -119,8 +119,8 @@ final class TriggerManager {
     synchronized void removeTriggerListener(DatabaseConnection database,
                                             String trigger_name) {
         List list = listener_map.get(database);
-        for (int i = 0; i < list.size(); ++i) {
-            TriggerAction action = (TriggerAction) list.get(i);
+        for (Object o : list) {
+            TriggerAction action = (TriggerAction) o;
             if (action.getName().equals(trigger_name)) {
                 listener_map.remove(database, action);
                 table_map.remove(action.trigger_source, action);
@@ -136,8 +136,8 @@ final class TriggerManager {
     synchronized void clearAllDatabaseConnectionTriggers(
             DatabaseConnection database) {
         List list = listener_map.clear(database);
-        for (int i = 0; i < list.size(); ++i) {
-            TriggerAction action = (TriggerAction) list.get(i);
+        for (Object o : list) {
+            TriggerAction action = (TriggerAction) o;
             table_map.remove(action.trigger_source, action);
         }
     }
@@ -162,14 +162,12 @@ final class TriggerManager {
         }
 
         // Post an event that fires the triggers for each listener.
-        Runnable runner = new Runnable() {
-            public void run() {
-                for (int i = 0; i < trig_list.size(); ++i) {
-                    TriggerAction action = (TriggerAction) trig_list.get(i);
-                    if (evt.getType() == action.trigger_event) {
-                        action.listener.fireTrigger(action.database, action.trigger_name,
-                                evt);
-                    }
+        Runnable runner = () -> {
+            for (Object o : trig_list) {
+                TriggerAction action = (TriggerAction) o;
+                if (evt.getType() == action.trigger_event) {
+                    action.listener.fireTrigger(action.database, action.trigger_name,
+                            evt);
                 }
             }
         };

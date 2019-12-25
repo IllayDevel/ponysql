@@ -65,8 +65,8 @@ public class Select extends Statement {
         ArrayList touched_tables = plan.discoverTableNames(new ArrayList());
         Database dbase = context.getDatabase();
         // Check that the user is allowed to select from these tables.
-        for (int i = 0; i < touched_tables.size(); ++i) {
-            TableName t = (TableName) touched_tables.get(i);
+        for (Object touched_table : touched_tables) {
+            TableName t = (TableName) touched_table;
             if (!dbase.canUserSelectFromTableObject(context, user, t, null)) {
                 throw new UserAccessException(
                         "User not permitted to select from table: " + t);

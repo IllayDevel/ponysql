@@ -229,7 +229,7 @@ public final class TObject implements java.io.Serializable {
         } else if (ob instanceof StringObject) {
             return stringVal((StringObject) ob);
         } else if (ob instanceof Boolean) {
-            return booleanVal(((Boolean) ob).booleanValue());
+            return booleanVal((Boolean) ob);
         } else if (ob instanceof java.util.Date) {
             return dateVal((java.util.Date) ob);
         } else if (ob instanceof ByteLongObject) {
@@ -584,7 +584,7 @@ public final class TObject implements java.io.Serializable {
         }
         Boolean b = toBoolean();
         if (b != null) {
-            return booleanVal(!b.booleanValue());
+            return booleanVal(!b);
         }
         return BOOLEAN_NULL;
     }

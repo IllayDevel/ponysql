@@ -240,17 +240,16 @@ public final class MResultSet implements ResultSet {
      * ColumnDescription object to determine this.
      */
     boolean containsLargeObjects() {
-        for (int i = 0; i < col_list.length; ++i) {
-            ColumnDescription col = col_list[i];
+        for (ColumnDescription col : col_list) {
             int sql_type = col.getSQLType();
-            if (sql_type == com.pony.database.global.SQLTypes.BINARY ||
-                    sql_type == com.pony.database.global.SQLTypes.VARBINARY ||
-                    sql_type == com.pony.database.global.SQLTypes.LONGVARBINARY ||
-                    sql_type == com.pony.database.global.SQLTypes.BLOB ||
-                    sql_type == com.pony.database.global.SQLTypes.CHAR ||
-                    sql_type == com.pony.database.global.SQLTypes.VARCHAR ||
-                    sql_type == com.pony.database.global.SQLTypes.LONGVARCHAR ||
-                    sql_type == com.pony.database.global.SQLTypes.CLOB) {
+            if (sql_type == SQLTypes.BINARY ||
+                    sql_type == SQLTypes.VARBINARY ||
+                    sql_type == SQLTypes.LONGVARBINARY ||
+                    sql_type == SQLTypes.BLOB ||
+                    sql_type == SQLTypes.CHAR ||
+                    sql_type == SQLTypes.VARCHAR ||
+                    sql_type == SQLTypes.LONGVARCHAR ||
+                    sql_type == SQLTypes.CLOB) {
                 return true;
             }
         }
@@ -517,7 +516,7 @@ public final class MResultSet implements ResultSet {
             for (int i = 0; i < col_count; ++i) {
                 String col_name = cols[i];
                 if (col_name.equals(name)) {
-                    column_hash.put(name, new Integer(i + 1));
+                    column_hash.put(name, i + 1);
                     return i + 1;
                 }
             }
@@ -527,7 +526,7 @@ public final class MResultSet implements ResultSet {
             for (int i = 0; i < col_count; ++i) {
                 String col_name = cols[i];
                 if (col_name.endsWith(point_name)) {
-                    column_hash.put(name, new Integer(i + 1));
+                    column_hash.put(name, i + 1);
                     return i + 1;
                 }
             }
@@ -538,7 +537,7 @@ public final class MResultSet implements ResultSet {
 //      }
             throw new SQLException("Couldn't find column with name: " + name);
         } else {
-            return index.intValue();
+            return index;
         }
     }
 
@@ -667,19 +666,19 @@ public final class MResultSet implements ResultSet {
             case (SQLTypes.BIT):
                 return ob;
             case (SQLTypes.TINYINT):
-                return new Byte(((BigNumber) ob).byteValue());
+                return ((BigNumber) ob).byteValue();
             case (SQLTypes.SMALLINT):
-                return new Short(((BigNumber) ob).shortValue());
+                return ((BigNumber) ob).shortValue();
             case (SQLTypes.INTEGER):
-                return new Integer(((BigNumber) ob).intValue());
+                return ((BigNumber) ob).intValue();
             case (SQLTypes.BIGINT):
-                return new Long(((BigNumber) ob).longValue());
+                return ((BigNumber) ob).longValue();
             case (SQLTypes.FLOAT):
-                return new Double(((BigNumber) ob).doubleValue());
+                return ((BigNumber) ob).doubleValue();
             case (SQLTypes.REAL):
-                return new Float(((BigNumber) ob).floatValue());
+                return ((BigNumber) ob).floatValue();
             case (SQLTypes.DOUBLE):
-                return new Double(((BigNumber) ob).doubleValue());
+                return ((BigNumber) ob).doubleValue();
             case (SQLTypes.NUMERIC):
                 return ((BigNumber) ob).asBigDecimal();
             case (SQLTypes.DECIMAL):
@@ -811,7 +810,7 @@ public final class MResultSet implements ResultSet {
         if (ob == null) {
             return false;
         } else if (ob instanceof Boolean) {
-            return ((Boolean) ob).booleanValue();
+            return (Boolean) ob;
         } else if (ob instanceof BigNumber) {
             return ((BigNumber) ob).compareTo(BD_ZERO) != 0;
         } else if (canMakeString(ob)) {

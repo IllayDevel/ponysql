@@ -171,12 +171,10 @@ public class QueryAgent {
      * InterruptedException.
      */
     public void cancelQuery() {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                if (query_finished != 'f') {
-                    query_finished = 'c';
-                    block_util.unblock();
-                }
+        SwingUtilities.invokeLater(() -> {
+            if (query_finished != 'f') {
+                query_finished = 'c';
+                block_util.unblock();
             }
         });
     }
@@ -203,13 +201,11 @@ public class QueryAgent {
      */
     private void notifyException(
             final PreparedStatement statement, final SQLException e) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                if (query_finished != 'f') {
-                    sql_exception = e;
-                    query_finished = 'e';
-                    block_util.unblock();
-                }
+        SwingUtilities.invokeLater(() -> {
+            if (query_finished != 'f') {
+                sql_exception = e;
+                query_finished = 'e';
+                block_util.unblock();
             }
         });
     }
@@ -222,13 +218,11 @@ public class QueryAgent {
      */
     private void notifyComplete(
             final PreparedStatement statement, final ResultSet result_set) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                if (query_finished != 'f') {
-                    QueryAgent.this.result_set = result_set;
-                    query_finished = 'r';
-                    block_util.unblock();
-                }
+        SwingUtilities.invokeLater(() -> {
+            if (query_finished != 'f') {
+                QueryAgent.this.result_set = result_set;
+                query_finished = 'r';
+                block_util.unblock();
             }
         });
     }

@@ -99,8 +99,8 @@ public class ControlAPITest {
 
         File[] list = new File("./data").listFiles();
         System.out.println("Files in data directory before close:");
-        for (int i = 0; i < list.length; ++i) {
-            System.out.println(list[i].toString());
+        for (File value : list) {
+            System.out.println(value.toString());
         }
 
         // Close the database
@@ -108,8 +108,8 @@ public class ControlAPITest {
 
         list = new File("./data").listFiles();
         System.out.println("Files in data directory after close:");
-        for (int i = 0; i < list.length; ++i) {
-            System.out.println(list[i].toString());
+        for (File file : list) {
+            System.out.println(file.toString());
         }
 
         // Print the memory usage.

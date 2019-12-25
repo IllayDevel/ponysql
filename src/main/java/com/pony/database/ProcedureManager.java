@@ -335,7 +335,7 @@ public class ProcedureManager {
         int array_end = java_spec.length() - (dimensions * 2);
         String class_part = java_spec.substring(0, array_end);
         // Check there's no array parts in the class part
-        if (class_part.indexOf("[]") != -1) {
+        if (class_part.contains("[]")) {
             throw new RuntimeException(
                     "Java class specification incorrectly formatted: " + java_spec);
         }
@@ -344,7 +344,7 @@ public class ProcedureManager {
         // String is converted to java.lang.String.class, etc.
         Class cl;
         // Is there a '.' in the class specification?
-        if (class_part.indexOf(".") != -1) {
+        if (class_part.contains(".")) {
             // Must be a specification such as 'java.net.URL' or 'java.util.List'.
             try {
                 cl = Class.forName(class_part);
@@ -460,8 +460,7 @@ public class ProcedureManager {
         Method[] methods = procedure_class.getMethods();
         Method invoke_method = null;
         // Search for the invoke method
-        for (int i = 0; i < methods.length; ++i) {
-            Method method = methods[i];
+        for (Method method : methods) {
             int modifier = method.getModifiers();
 
             if (Modifier.isStatic(modifier) && Modifier.isPublic(modifier) &&
@@ -628,22 +627,22 @@ public class ProcedureManager {
                             cast_value = num;
                         } else if (java_type == java.lang.Byte.class ||
                                 java_type == byte.class) {
-                            cast_value = new Byte(num.byteValue());
+                            cast_value = num.byteValue();
                         } else if (java_type == java.lang.Short.class ||
                                 java_type == short.class) {
-                            cast_value = new Short(num.shortValue());
+                            cast_value = num.shortValue();
                         } else if (java_type == java.lang.Integer.class ||
                                 java_type == int.class) {
-                            cast_value = new Integer(num.intValue());
+                            cast_value = num.intValue();
                         } else if (java_type == java.lang.Long.class ||
                                 java_type == long.class) {
-                            cast_value = new Long(num.longValue());
+                            cast_value = num.longValue();
                         } else if (java_type == java.lang.Float.class ||
                                 java_type == float.class) {
-                            cast_value = new Float(num.floatValue());
+                            cast_value = num.floatValue();
                         } else if (java_type == java.lang.Double.class ||
                                 java_type == double.class) {
-                            cast_value = new Double(num.doubleValue());
+                            cast_value = num.doubleValue();
                         } else if (java_type == java.math.BigDecimal.class) {
                             cast_value = num.asBigDecimal();
                         } else {

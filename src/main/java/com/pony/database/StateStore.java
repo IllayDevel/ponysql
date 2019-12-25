@@ -139,8 +139,8 @@ class StateStore {
         d_out.writeInt(1);
         int sz = list.size();
         d_out.writeLong(sz);
-        for (int i = 0; i < sz; ++i) {
-            StateResource resource = (StateResource) list.get(i);
+        for (Object o : list) {
+            StateResource resource = (StateResource) o;
             d_out.writeLong(resource.table_id);
             d_out.writeUTF(resource.name);
         }
@@ -365,8 +365,8 @@ class StateStore {
      */
     public synchronized boolean containsVisibleResource(int table_id) {
         int sz = visible_list.size();
-        for (int i = 0; i < sz; ++i) {
-            if (((StateResource) visible_list.get(i)).table_id == table_id) {
+        for (Object o : visible_list) {
+            if (((StateResource) o).table_id == table_id) {
                 return true;
             }
         }

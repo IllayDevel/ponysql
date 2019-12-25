@@ -159,14 +159,14 @@ public class InsertDeleteTest {
                             Integer val;
                             double dval;
                             do {
-                                val = new Integer((int)
-                                        (Math.random() * 10000) + unique_num);
+                                val = (int)
+                                        (Math.random() * 10000) + unique_num;
                             } while (colc_list.contains(val));
                             colc_list.add(val);
                             dval = (int) (Math.random() * 15);
-                            cold_list.add(new Double(dval));
+                            cold_list.add(dval);
 
-                            ts1.setInt(3, val.intValue());
+                            ts1.setInt(3, val);
                             ts1.setDouble(4, dval);
                             ts1.setBoolean(5, (Math.random() * 1000) > 500);
                             r = ts1.executeQuery();
@@ -185,31 +185,31 @@ public class InsertDeleteTest {
 //                System.out.println("Random val: " + v);
 
                                 // Does it exist?
-                                ts3.setInt(1, v.intValue());
+                                ts3.setInt(1, v);
                                 ResultSet r3 = ts3.executeQuery();
                                 if (r3.next()) {
                                     double in_d = r3.getDouble(1);
-                                    if (d.doubleValue() != in_d) {
+                                    if (d != in_d) {
                                         throw new Error("Doubles not equal (" +
-                                                d.doubleValue() + " != " + in_d);
+                                                d + " != " + in_d);
                                     }
                                     if (r3.next()) {
                                         throw new Error("Indexing error - multiple entries for: " +
-                                                "colc = " + v.intValue());
+                                                "colc = " + v);
                                     }
                                 } else {
                                     throw new Error("No items exist for this value: colc = " +
-                                            v.intValue());
+                                            v);
                                 }
 
                                 // Delete
-                                ts2.setInt(1, v.intValue());
+                                ts2.setInt(1, v);
                                 ResultSet r2 = ts2.executeQuery();
                                 r2.next();
                                 int delete_count = r2.getInt(1);
                                 if (delete_count != 1) {
                                     throw new Error("Deleted count for: colc = " +
-                                            v.intValue() + " is " + delete_count);
+                                            v + " is " + delete_count);
                                 }
 
                                 // Remove from our internal list
@@ -309,7 +309,7 @@ public class InsertDeleteTest {
                     " select colc from Test1 order by colc ");
             int i = 0;
             while (sort_r1.next()) {
-                int c_val = ((Integer) global_colc_list.get(i)).intValue();
+                int c_val = (Integer) global_colc_list.get(i);
                 if (sort_r1.getInt(1) != c_val) {
                     System.out.println("i = " + i);
                     System.out.println("c_val = " + c_val);
@@ -326,7 +326,7 @@ public class InsertDeleteTest {
                     " select cold from Test1 order by cold ");
             i = 0;
             while (sort_r2.next()) {
-                double d_val = ((Double) global_cold_list.get(i)).doubleValue();
+                double d_val = (Double) global_cold_list.get(i);
                 if (sort_r2.getDouble(1) != d_val) {
                     System.out.println("i = " + i);
                     System.out.println("d_val = " + d_val);

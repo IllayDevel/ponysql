@@ -263,9 +263,9 @@ public class DatabaseConnection implements TriggerListener {
 
                 // Notify any table backed caches that this transaction has started.
                 int sz = table_backed_cache_list.size();
-                for (int i = 0; i < sz; ++i) {
+                for (Object o : table_backed_cache_list) {
                     TableBackedCache cache =
-                            (TableBackedCache) table_backed_cache_list.get(i);
+                            (TableBackedCache) o;
                     cache.transactionStarted();
                 }
 
@@ -463,7 +463,7 @@ public class DatabaseConnection implements TriggerListener {
             throw new StatementException(
                     "Expression does not evaluate to a boolean (true or false).");
         }
-        return b.booleanValue();
+        return b;
     }
 
     /**
@@ -1401,20 +1401,18 @@ public class DatabaseConnection implements TriggerListener {
         }
         if (sz > 0) {
             // Post an event that fires the triggers for each listener.
-            Runnable runner = new Runnable() {
-                public void run() {
-                    synchronized (trigger_event_buffer) {
-                        // Fire all pending trigger events in buffer
-                        for (int i = 0; i < trigger_event_buffer.size(); i += 2) {
-                            String trigger_name = (String) trigger_event_buffer.get(i);
-                            TriggerEvent evt =
-                                    (TriggerEvent) trigger_event_buffer.get(i + 1);
-                            call_back.triggerNotify(trigger_name, evt.getType(),
-                                    evt.getSource(), evt.getCount());
-                        }
-                        // Clear the buffer
-                        trigger_event_buffer.clear();
+            Runnable runner = () -> {
+                synchronized (trigger_event_buffer) {
+                    // Fire all pending trigger events in buffer
+                    for (int i = 0; i < trigger_event_buffer.size(); i += 2) {
+                        String trigger_name = (String) trigger_event_buffer.get(i);
+                        TriggerEvent evt =
+                                (TriggerEvent) trigger_event_buffer.get(i + 1);
+                        call_back.triggerNotify(trigger_name, evt.getType(),
+                                evt.getSource(), evt.getCount());
                     }
+                    // Clear the buffer
+                    trigger_event_buffer.clear();
                 }
             };
 
@@ -1437,9 +1435,9 @@ public class DatabaseConnection implements TriggerListener {
 
         // Notify any table backed caches that this transaction has finished.
         int sz = table_backed_cache_list.size();
-        for (int i = 0; i < sz; ++i) {
+        for (Object o : table_backed_cache_list) {
             TableBackedCache cache =
-                    (TableBackedCache) table_backed_cache_list.get(i);
+                    (TableBackedCache) o;
             cache.transactionFinished();
         }
     }
@@ -1544,9 +1542,9 @@ public class DatabaseConnection implements TriggerListener {
             if (table_backed_cache_list != null) {
                 try {
                     int sz = table_backed_cache_list.size();
-                    for (int i = 0; i < sz; ++i) {
+                    for (Object o : table_backed_cache_list) {
                         TableBackedCache cache =
-                                (TableBackedCache) table_backed_cache_list.get(i);
+                                (TableBackedCache) o;
                         cache.detatchFrom(conglomerate);
                     }
                     table_backed_cache_list = null;

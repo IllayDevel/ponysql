@@ -133,9 +133,9 @@ final class OpenTransactionList {
 
         if (TRACKING) {
             system.Debug().write(Lvl.MESSAGE, this, "Stacks:");
-            for (int n = 0; n < open_transaction_stacks.size(); ++n) {
+            for (Object open_transaction_stack : open_transaction_stacks) {
                 system.Debug().writeException(Lvl.MESSAGE,
-                        (Error) open_transaction_stacks.get(n));
+                        (Error) open_transaction_stack);
             }
         }
 
@@ -176,8 +176,8 @@ final class OpenTransactionList {
     public synchronized String toString() {
         StringBuffer buf = new StringBuffer();
         buf.append("[ OpenTransactionList: ");
-        for (int i = 0; i < open_transactions.size(); ++i) {
-            Transaction t = (Transaction) open_transactions.get(i);
+        for (Object open_transaction : open_transactions) {
+            Transaction t = (Transaction) open_transaction;
             buf.append(t.getCommitID());
             buf.append(", ");
         }

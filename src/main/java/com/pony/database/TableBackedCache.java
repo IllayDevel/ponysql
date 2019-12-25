@@ -91,8 +91,8 @@ abstract class TableBackedCache {
      */
     private void addRowsToList(int[] from, IntegerVector list) {
         if (from != null) {
-            for (int i = 0; i < from.length; ++i) {
-                list.addInt(from[i]);
+            for (int value : from) {
+                list.addInt(value);
             }
         }
     }

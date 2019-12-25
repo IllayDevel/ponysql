@@ -88,8 +88,7 @@ public final class AlterTableAction
     public void prepareExpressions(ExpressionPreparer preparer)
             throws DatabaseException {
         // This must search throw 'elements' for objects that we can prepare
-        for (int i = 0; i < elements.size(); ++i) {
-            Object ob = elements.get(i);
+        for (Object ob : elements) {
             if (ob instanceof String) {
                 // Do not need to prepare this
             } else if (ob instanceof Expression) {
@@ -109,8 +108,7 @@ public final class AlterTableAction
         ArrayList cloned_elements = new ArrayList();
         v.elements = cloned_elements;
 
-        for (int i = 0; i < elements.size(); ++i) {
-            Object ob = elements.get(i);
+        for (Object ob : elements) {
             if (ob instanceof String) {
                 // Do not need to clone this
             } else if (ob instanceof Expression) {

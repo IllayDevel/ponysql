@@ -151,7 +151,7 @@ public class ScatteringStoreDataAccessor implements StoreDataAccessor {
         if (i == 0) {
             return new File(path, file_name + "." + first_ext);
         }
-        StringBuffer fn = new StringBuffer();
+        StringBuilder fn = new StringBuilder();
         fn.append(file_name);
         fn.append(".");
         if (i < 10) {
@@ -271,8 +271,8 @@ public class ScatteringStoreDataAccessor implements StoreDataAccessor {
     public void close() throws IOException {
         synchronized (lock) {
             int sz = slice_list.size();
-            for (int i = 0; i < sz; ++i) {
-                FileSlice slice = (FileSlice) slice_list.get(i);
+            for (Object o : slice_list) {
+                FileSlice slice = (FileSlice) o;
                 slice.data.close();
             }
             slice_list = null;
@@ -401,8 +401,8 @@ public class ScatteringStoreDataAccessor implements StoreDataAccessor {
     public void synch() throws IOException {
         synchronized (lock) {
             int sz = slice_list.size();
-            for (int i = 0; i < sz; ++i) {
-                FileSlice slice = (FileSlice) slice_list.get(i);
+            for (Object o : slice_list) {
+                FileSlice slice = (FileSlice) o;
                 slice.data.synch();
             }
         }

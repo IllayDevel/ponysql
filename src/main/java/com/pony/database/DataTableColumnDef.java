@@ -277,25 +277,35 @@ public class DataTableColumnDef {
                         class_constraint.substring(0, class_constraint.length() - 2);
                 Class ac;
                 // Arrays of primitive types,
-                if (array_class.equals("boolean")) {
-                    ac = boolean.class;
-                } else if (array_class.equals("byte")) {
-                    ac = byte.class;
-                } else if (array_class.equals("char")) {
-                    ac = char.class;
-                } else if (array_class.equals("short")) {
-                    ac = short.class;
-                } else if (array_class.equals("int")) {
-                    ac = int.class;
-                } else if (array_class.equals("long")) {
-                    ac = long.class;
-                } else if (array_class.equals("float")) {
-                    ac = float.class;
-                } else if (array_class.equals("double")) {
-                    ac = double.class;
-                } else {
-                    // Otherwise a standard array.
-                    ac = Class.forName(array_class);
+                switch (array_class) {
+                    case "boolean":
+                        ac = boolean.class;
+                        break;
+                    case "byte":
+                        ac = byte.class;
+                        break;
+                    case "char":
+                        ac = char.class;
+                        break;
+                    case "short":
+                        ac = short.class;
+                        break;
+                    case "int":
+                        ac = int.class;
+                        break;
+                    case "long":
+                        ac = long.class;
+                        break;
+                    case "float":
+                        ac = float.class;
+                        break;
+                    case "double":
+                        ac = double.class;
+                        break;
+                    default:
+                        // Otherwise a standard array.
+                        ac = Class.forName(array_class);
+                        break;
                 }
                 // Make it into an array
                 constraining_class =

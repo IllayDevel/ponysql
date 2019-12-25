@@ -402,9 +402,9 @@ public abstract class Table implements TableDataSource {
                 table = new TemporaryTable(db_context.getDatabase(),
                         "single", new DataTableColumnDef[]{col});
 
-                for (int i = 0; i < list.length; ++i) {
+                for (Expression expression : list) {
                     table.newRow();
-                    table.setRowObject(list[i].evaluate(null, null, context), 0);
+                    table.setRowObject(expression.evaluate(null, null, context), 0);
                 }
                 table.setupAllSelectableSchemes();
 
@@ -1688,7 +1688,7 @@ public abstract class Table implements TableDataSource {
         TObject result = op.eval(ob1, ob2, null, null, null);
         // NOTE: This will be a NullPointerException if the result is not a
         //   boolean type.
-        return result.toBoolean().booleanValue();
+        return result.toBoolean();
     }
 
     /**
@@ -1729,10 +1729,10 @@ public abstract class Table implements TableDataSource {
             Object ob = col_name_lookup.get(col);
             if (ob == null) {
                 int ci = findFieldName(col);
-                col_name_lookup.put(col, new Integer(ci));
+                col_name_lookup.put(col, ci);
                 return ci;
             } else {
-                return ((Integer) ob).intValue();
+                return (Integer) ob;
             }
         }
     }

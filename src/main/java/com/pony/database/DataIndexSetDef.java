@@ -195,8 +195,8 @@ public class DataIndexSetDef {
         dout.writeUTF(table_name.getSchema());
         dout.writeUTF(table_name.getName());
         dout.writeInt(index_list.size());
-        for (int i = 0; i < index_list.size(); ++i) {
-            ((DataIndexDef) index_list.get(i)).write(dout);
+        for (Object o : index_list) {
+            ((DataIndexDef) o).write(dout);
         }
     }
 

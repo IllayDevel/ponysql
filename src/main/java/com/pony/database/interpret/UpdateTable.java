@@ -104,8 +104,8 @@ public class UpdateTable extends Statement {
         plan = Planner.formQueryPlan(database, select_expression, from_set, null);
 
         // Resolve the variables in the assignments.
-        for (int i = 0; i < column_sets.size(); ++i) {
-            Assignment assignment = (Assignment) column_sets.get(i);
+        for (Object column_set : column_sets) {
+            Assignment assignment = (Assignment) column_set;
             Variable orig_var = assignment.getVariable();
             Variable new_var = from_set.resolveReference(orig_var);
             if (new_var == null) {
@@ -119,8 +119,8 @@ public class UpdateTable extends Statement {
         TableName[] linked_tables =
                 database.queryTablesRelationallyLinkedTo(tname);
         ArrayList relationally_linked_tables = new ArrayList(linked_tables.length);
-        for (int i = 0; i < linked_tables.length; ++i) {
-            relationally_linked_tables.add(database.getTable(linked_tables[i]));
+        for (TableName linked_table : linked_tables) {
+            relationally_linked_tables.add(database.getTable(linked_table));
         }
 
     }

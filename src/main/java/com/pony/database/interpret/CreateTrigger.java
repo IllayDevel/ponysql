@@ -56,14 +56,18 @@ public class CreateTrigger extends Statement {
 
             String trig_type = ((String) types.get(0)).toUpperCase();
             int int_type;
-            if (trig_type.equals("INSERT")) {
-                int_type = TriggerEvent.INSERT;
-            } else if (trig_type.equals("DELETE")) {
-                int_type = TriggerEvent.DELETE;
-            } else if (trig_type.equals("UPDATE")) {
-                int_type = TriggerEvent.UPDATE;
-            } else {
-                throw new DatabaseException("Unknown trigger type: " + trig_type);
+            switch (trig_type) {
+                case "INSERT":
+                    int_type = TriggerEvent.INSERT;
+                    break;
+                case "DELETE":
+                    int_type = TriggerEvent.DELETE;
+                    break;
+                case "UPDATE":
+                    int_type = TriggerEvent.UPDATE;
+                    break;
+                default:
+                    throw new DatabaseException("Unknown trigger type: " + trig_type);
             }
 
             database.createTrigger(trigger_name, tname.toString(), int_type);
@@ -112,14 +116,18 @@ public class CreateTrigger extends Statement {
                 throw new RuntimeException("Unknown before/after type.");
             }
 
-            for (int i = 0; i < types.size(); ++i) {
-                String trig_type = (String) types.get(i);
-                if (trig_type.equals("insert")) {
-                    listen_type |= TableModificationEvent.INSERT;
-                } else if (trig_type.equals("delete")) {
-                    listen_type |= TableModificationEvent.DELETE;
-                } else if (trig_type.equals("update")) {
-                    listen_type |= TableModificationEvent.UPDATE;
+            for (Object o : types) {
+                String trig_type = (String) o;
+                switch (trig_type) {
+                    case "insert":
+                        listen_type |= TableModificationEvent.INSERT;
+                        break;
+                    case "delete":
+                        listen_type |= TableModificationEvent.DELETE;
+                        break;
+                    case "update":
+                        listen_type |= TableModificationEvent.UPDATE;
+                        break;
                 }
             }
 

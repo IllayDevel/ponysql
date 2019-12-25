@@ -113,9 +113,9 @@ public final class TableDescriptions {
         dout.writeInt(1);
         String[] table_list = getTableList();
         dout.writeInt(table_list.length);
-        for (int i = 0; i < table_list.length; ++i) {
+        for (String s : table_list) {
             // Write the DataTableDef for this table
-            ((DataTableDef) table_descriptions.get(table_list[i])).write(dout);
+            ((DataTableDef) table_descriptions.get(s)).write(dout);
         }
 
         dout.flush();

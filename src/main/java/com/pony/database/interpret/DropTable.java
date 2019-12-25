@@ -77,8 +77,8 @@ public class DropTable extends Statement {
         int list_size = drop_tables.size();
         ArrayList resolved_tables = new ArrayList(list_size);
         // Check the user has privs to delete these tables...
-        for (int i = 0; i < list_size; ++i) {
-            String table_name = drop_tables.get(i).toString();
+        for (Object drop_table : drop_tables) {
+            String table_name = drop_table.toString();
             TableName tname = resolveTableName(table_name, database);
             // Does the table exist?
             if (!only_if_exists && !database.tableExists(tname)) {
@@ -100,14 +100,14 @@ public class DropTable extends Statement {
             // Any tables that have a referential link to this table.
             Transaction.ColumnGroupReference[] refs =
                     database.queryTableImportedForeignKeyReferences(tname);
-            for (int n = 0; n < refs.length; ++n) {
+            for (Transaction.ColumnGroupReference ref : refs) {
                 // If the key table isn't being dropped then error
-                if (!resolved_tables.contains(refs[n].key_table_name)) {
+                if (!resolved_tables.contains(ref.key_table_name)) {
                     throw new DatabaseConstraintViolationException(
                             DatabaseConstraintViolationException.DROP_TABLE_VIOLATION,
-                            "Constraint violation (" + refs[n].name + ") dropping table " +
+                            "Constraint violation (" + ref.name + ") dropping table " +
                                     tname + " because of referential link from " +
-                                    refs[n].key_table_name);
+                                    ref.key_table_name);
                 }
             }
         }

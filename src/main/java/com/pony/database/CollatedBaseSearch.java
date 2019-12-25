@@ -291,8 +291,7 @@ public abstract class CollatedBaseSearch extends SelectableScheme {
         }
 
         IntegerVector ivec = null;
-        for (int i = 0; i < ranges.length; ++i) {
-            SelectableRange range = ranges[i];
+        for (SelectableRange range : ranges) {
             ivec = addRange(range, ivec);
         }
 

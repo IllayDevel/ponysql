@@ -104,8 +104,8 @@ public class CreateTable extends Statement {
 
         // Add the columns.
         // NOTE: Any duplicate column names will be found here...
-        for (int i = 0; i < columns.size(); ++i) {
-            DataTableColumnDef cd = (DataTableColumnDef) columns.get(i);
+        for (Object column : columns) {
+            DataTableColumnDef cd = (DataTableColumnDef) column;
             table_def.addColumn(cd);
         }
 
@@ -177,8 +177,8 @@ public class CreateTable extends Statement {
      * Sets up all constraints specified in this create statement.
      */
     void setupAllConstraints() throws DatabaseException {
-        for (int i = 0; i < constraints.size(); ++i) {
-            ConstraintDef constraint = (ConstraintDef) constraints.get(i);
+        for (Object o : constraints) {
+            ConstraintDef constraint = (ConstraintDef) o;
 
             // Add this to the schema manager tables
             addSchemaConstraint(database, tname, constraint);
@@ -200,8 +200,8 @@ public class CreateTable extends Statement {
         // Convert column_list to list of com.pony.database.DataTableColumnDef
         int size = column_list.size();
         columns = new ArrayList(size);
-        for (int i = 0; i < size; ++i) {
-            ColumnDef cdef = (ColumnDef) column_list.get(i);
+        for (Object value : column_list) {
+            ColumnDef cdef = (ColumnDef) value;
             columns.add(convertColumnDef(cdef));
         }
 
@@ -224,8 +224,8 @@ public class CreateTable extends Statement {
             String resolveColumnName(String col_name) throws DatabaseException {
                 // We need to do case sensitive and case insensitive resolution,
                 String found_col = null;
-                for (int n = 0; n < columns.size(); ++n) {
-                    DataTableColumnDef col = (DataTableColumnDef) columns.get(n);
+                for (Object column : columns) {
+                    DataTableColumnDef col = (DataTableColumnDef) column;
                     if (!ignores_case) {
                         if (col.getName().equals(col_name)) {
                             return col_name;
@@ -280,8 +280,8 @@ public class CreateTable extends Statement {
         }
 
         // Strip the column names and set the expression in all the constraints.
-        for (int i = 0; i < constraints.size(); ++i) {
-            ConstraintDef constraint = (ConstraintDef) constraints.get(i);
+        for (Object o : constraints) {
+            ConstraintDef constraint = (ConstraintDef) o;
             ColumnChecker.stripColumnList(name_strip, constraint.column_list);
             // Check the referencing table for foreign keys
             if (constraint.type == ConstraintDef.FOREIGN_KEY) {

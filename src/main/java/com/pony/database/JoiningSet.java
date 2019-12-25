@@ -165,8 +165,7 @@ public final class JoiningSet implements java.io.Serializable, Cloneable {
         ArrayList cloned_join_set = new ArrayList(size);
         v.join_set = cloned_join_set;
 
-        for (int i = 0; i < size; ++i) {
-            Object element = join_set.get(i);
+        for (Object element : join_set) {
             if (element instanceof TableName) {
                 // immutable so leave alone
             } else if (element instanceof JoinPart) {

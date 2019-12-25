@@ -393,11 +393,7 @@ final class RIDList {
             if (!request_processing) {
                 request_processing = true;
                 // Wait 10 seconds to build rid list.
-                system.postEvent(10000, system.createEvent(new Runnable() {
-                    public void run() {
-                        createRIDCache();
-                    }
-                }));
+                system.postEvent(10000, system.createEvent(() -> createRIDCache()));
             }
         }
     }
@@ -601,7 +597,7 @@ final class RIDList {
         IndexComparator comparator = new IndexComparator() {
             public int compare(int index, Object val) {
                 int rid_val = rid_list.intAt(row_set.intAt(index));
-                int rid_val2 = ((Integer) val).intValue();
+                int rid_val2 = (Integer) val;
                 return rid_val - rid_val2;
             }
 
@@ -620,7 +616,7 @@ final class RIDList {
             // Fill new_set with the set { 0, 1, 2, .... , row_set_length }
             for (int i = 0; i < row_set_length; ++i) {
                 Integer rid_val =
-                        new Integer(rid_list.intAt(row_set.intAt(i)));
+                        rid_list.intAt(row_set.intAt(i));
                 new_set.insertSort(rid_val, i, comparator);
             }
 

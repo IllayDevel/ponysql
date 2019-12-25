@@ -228,30 +228,28 @@ final class InternalFunctionFactory extends FunctionFactory {
             }
 
             // A comparator that sorts this set,
-            Comparator c = new Comparator() {
-                public int compare(Object ob1, Object ob2) {
-                    int r1 = ((Integer) ob1).intValue();
-                    int r2 = ((Integer) ob2).intValue();
+            Comparator c = (ob1, ob2) -> {
+                int r1 = (Integer) ob1;
+                int r2 = (Integer) ob2;
 
-                    // Compare row r1 with r2
-                    int index1 = r1 * cols;
-                    int index2 = r2 * cols;
-                    for (int n = 0; n < cols; ++n) {
-                        int v = group_r[index1 + n].compareTo(group_r[index2 + n]);
-                        if (v != 0) {
-                            return v;
-                        }
+                // Compare row r1 with r2
+                int index1 = r1 * cols;
+                int index2 = r2 * cols;
+                for (int n1 = 0; n1 < cols; ++n1) {
+                    int v = group_r[index1 + n1].compareTo(group_r[index2 + n1]);
+                    if (v != 0) {
+                        return v;
                     }
-
-                    // If we got here then rows must be equal.
-                    return 0;
                 }
+
+                // If we got here then rows must be equal.
+                return 0;
             };
 
             // The list of indexes,
             Object[] list = new Object[rows];
             for (int i = 0; i < rows; ++i) {
-                list[i] = new Integer(i);
+                list[i] = i;
             }
 
             // Sort the list,
@@ -278,7 +276,7 @@ final class InternalFunctionFactory extends FunctionFactory {
             // If the first entry in the list is NULL then subtract 1 from the
             // distinct count because we shouldn't be counting NULL entries.
             if (list.length > 0) {
-                int first_entry = ((Integer) list[0]).intValue();
+                int first_entry = (Integer) list[0];
                 // Assume first is null
                 boolean first_is_null = true;
                 for (int m = 0; m < cols && first_is_null == true; ++m) {
@@ -1291,7 +1289,7 @@ final class InternalFunctionFactory extends FunctionFactory {
             if (ob.isNull()) {
                 return ob;
             } else if (ob.getTType() instanceof TBinaryType) {
-                StringBuffer buf = new StringBuffer();
+                StringBuilder buf = new StringBuilder();
                 BlobAccessor blob = (BlobAccessor) ob.getObject();
                 InputStream bin = blob.getInputStream();
                 try {
@@ -1784,8 +1782,8 @@ final class InternalFunctionFactory extends FunctionFactory {
                 // Search for the first constructor that we can use with the given
                 // arguments.
                 search_constructs:
-                for (int i = 0; i < constructs.length; ++i) {
-                    Class[] construct_args = constructs[i].getParameterTypes();
+                for (Constructor construct : constructs) {
+                    Class[] construct_args = construct.getParameterTypes();
                     if (construct_args.length == arg_len) {
                         for (int n = 0; n < arg_len; ++n) {
                             // If we are dealing with a primitive,
@@ -1840,7 +1838,7 @@ final class InternalFunctionFactory extends FunctionFactory {
                             }
                         }  // for (int n = 0; n < arg_len; ++n)
                         // If we get here, we have a match...
-                        Object ob = constructs[i].newInstance(casted_args);
+                        Object ob = construct.newInstance(casted_args);
                         ByteLongObject serialized_ob = ObjectTranslator.serialize(ob);
                         return new TObject(new TJavaObjectType(clazz), serialized_ob);
                     }

@@ -173,8 +173,7 @@ class ConglomerateViewPane extends JRootPane {
 
                 for (int ss = 19; ss < avg + 128; ++ss) {
                     int total_sectors = 0;
-                    for (int n = 0; n < store.length; ++n) {
-                        int sz = store[n];
+                    for (int sz : store) {
                         total_sectors += (sz / (ss + 1)) + 1;
                     }
 
@@ -214,12 +213,10 @@ class ConglomerateViewPane extends JRootPane {
         // Add the table list view to the desktop.
         final String[] str_t_list = conglomerate.getAllTableFileNames();
         final JList table_list = new JList(str_t_list);
-        table_list.addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent evt) {
-                int index = table_list.getSelectedIndex();
-                current_table = conglomerate.getDiagnosticTable(str_t_list[index]);
-                view_pane.setDiagnosticModel(current_table);
-            }
+        table_list.addListSelectionListener(evt -> {
+            int index = table_list.getSelectedIndex();
+            current_table = conglomerate.getDiagnosticTable(str_t_list[index]);
+            view_pane.setDiagnosticModel(current_table);
         });
         JScrollPane scrolly_table_list = new JScrollPane(table_list);
 
@@ -315,7 +312,7 @@ class ConglomerateViewPane extends JRootPane {
             try {
 
                 if (col == 0) {
-                    return new Integer(row);
+                    return row;
                 } else if (col == 1) {
                     int type = diag_table.recordState(row);
                     if (type == diag_table.UNCOMMITTED) {

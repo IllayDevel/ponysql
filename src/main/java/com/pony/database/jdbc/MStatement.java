@@ -102,8 +102,8 @@ class MStatement implements Statement {
 
         if (result_set_list != null && result_set_list.length != count) {
             // Dispose all the ResultSet objects currently open.
-            for (int i = 0; i < result_set_list.length; ++i) {
-                result_set_list[i].dispose();
+            for (MResultSet mResultSet : result_set_list) {
+                mResultSet.dispose();
             }
             result_set_list = null;
         }
@@ -223,8 +223,8 @@ class MStatement implements Statement {
     public void close() throws SQLException {
         // Behaviour of calls to Statement undefined after this method finishes.
         if (result_set_list != null) {
-            for (int i = 0; i < result_set_list.length; ++i) {
-                result_set_list[i].dispose();
+            for (MResultSet mResultSet : result_set_list) {
+                mResultSet.dispose();
             }
             result_set_list = null;
         }
@@ -232,9 +232,9 @@ class MStatement implements Statement {
         // side.
         if (streamable_object_list != null) {
             int sz = streamable_object_list.size();
-            for (int i = 0; i < sz; ++i) {
+            for (Object o : streamable_object_list) {
                 StreamableObject s_object =
-                        (StreamableObject) streamable_object_list.get(i);
+                        (StreamableObject) o;
                 connection.removeStreamableObject(s_object);
             }
             streamable_object_list = null;
@@ -297,8 +297,8 @@ class MStatement implements Statement {
 
     public void cancel() throws SQLException {
         if (result_set_list != null) {
-            for (int i = 0; i < result_set_list.length; ++i) {
-                connection.disposeResult(result_set_list[i].getResultID());
+            for (MResultSet mResultSet : result_set_list) {
+                connection.disposeResult(mResultSet.getResultID());
             }
         }
     }

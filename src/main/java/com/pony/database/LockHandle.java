@@ -125,8 +125,8 @@ public final class LockHandle {
 
     public String toString() {
         StringBuffer str = new StringBuffer("LockHandle: ");
-        for (int i = 0; i < lock_list.length; ++i) {
-            str.append(lock_list[i].toString());
+        for (Lock lock : lock_list) {
+            str.append(lock.toString());
         }
         return new String(str);
     }

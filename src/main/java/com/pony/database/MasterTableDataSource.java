@@ -1426,25 +1426,29 @@ abstract class MasterTableDataSource {
                         int row_index = key_entries.intAt(i);
                         RowData row_data = new RowData(key_table);
                         row_data.setFromRow(row_index);
-                        if (update_rule.equals("CASCADE")) {
-                            // Update the keys
-                            for (int n = 0; n < key_cols.length; ++n) {
-                                row_data.setColumnData(key_cols[n], new_key[n]);
-                            }
-                            key_table.updateRow(row_index, row_data);
-                        } else if (update_rule.equals("SET NULL")) {
-                            for (int n = 0; n < key_cols.length; ++n) {
-                                row_data.setColumnToNull(key_cols[n]);
-                            }
-                            key_table.updateRow(row_index, row_data);
-                        } else if (update_rule.equals("SET DEFAULT")) {
-                            for (int n = 0; n < key_cols.length; ++n) {
-                                row_data.setColumnToDefault(key_cols[n], context);
-                            }
-                            key_table.updateRow(row_index, row_data);
-                        } else {
-                            throw new RuntimeException(
-                                    "Do not understand referential action: " + update_rule);
+                        switch (update_rule) {
+                            case "CASCADE":
+                                // Update the keys
+                                for (int n = 0; n < key_cols.length; ++n) {
+                                    row_data.setColumnData(key_cols[n], new_key[n]);
+                                }
+                                key_table.updateRow(row_index, row_data);
+                                break;
+                            case "SET NULL":
+                                for (int key_col : key_cols) {
+                                    row_data.setColumnToNull(key_col);
+                                }
+                                key_table.updateRow(row_index, row_data);
+                                break;
+                            case "SET DEFAULT":
+                                for (int key_col : key_cols) {
+                                    row_data.setColumnToDefault(key_col, context);
+                                }
+                                key_table.updateRow(row_index, row_data);
+                                break;
+                            default:
+                                throw new RuntimeException(
+                                        "Do not understand referential action: " + update_rule);
                         }
                     }
                     // Check referential integrity of modified table,
@@ -1500,22 +1504,26 @@ abstract class MasterTableDataSource {
                         int row_index = key_entries.intAt(i);
                         RowData row_data = new RowData(key_table);
                         row_data.setFromRow(row_index);
-                        if (delete_rule.equals("CASCADE")) {
-                            // Cascade the removal of the referenced rows
-                            key_table.removeRow(row_index);
-                        } else if (delete_rule.equals("SET NULL")) {
-                            for (int n = 0; n < key_cols.length; ++n) {
-                                row_data.setColumnToNull(key_cols[n]);
-                            }
-                            key_table.updateRow(row_index, row_data);
-                        } else if (delete_rule.equals("SET DEFAULT")) {
-                            for (int n = 0; n < key_cols.length; ++n) {
-                                row_data.setColumnToDefault(key_cols[n], context);
-                            }
-                            key_table.updateRow(row_index, row_data);
-                        } else {
-                            throw new RuntimeException(
-                                    "Do not understand referential action: " + delete_rule);
+                        switch (delete_rule) {
+                            case "CASCADE":
+                                // Cascade the removal of the referenced rows
+                                key_table.removeRow(row_index);
+                                break;
+                            case "SET NULL":
+                                for (int key_col : key_cols) {
+                                    row_data.setColumnToNull(key_col);
+                                }
+                                key_table.updateRow(row_index, row_data);
+                                break;
+                            case "SET DEFAULT":
+                                for (int key_col : key_cols) {
+                                    row_data.setColumnToDefault(key_col, context);
+                                }
+                                key_table.updateRow(row_index, row_data);
+                                break;
+                            default:
+                                throw new RuntimeException(
+                                        "Do not understand referential action: " + delete_rule);
                         }
                     }
                     // Check referential integrity of modified table,
@@ -1798,9 +1806,7 @@ abstract class MasterTableDataSource {
                                     table_name);
 
                     // For each foreign constraint
-                    for (int n = 0; n < foreign_constraints.length; ++n) {
-                        Transaction.ColumnGroupReference constraint =
-                                foreign_constraints[n];
+                    for (Transaction.ColumnGroupReference constraint : foreign_constraints) {
                         // For each deleted/updated record in the table,
                         for (int i = 0; i < rows_deleted.size(); ++i) {
                             int row_index = rows_deleted.intAt(i);

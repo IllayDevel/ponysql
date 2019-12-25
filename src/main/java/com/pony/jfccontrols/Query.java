@@ -127,7 +127,7 @@ public class Query implements Cloneable {
     }
 
     public void setBoolean(int para_index, boolean val) {
-        internalSet(para_index, new Boolean(val));
+        internalSet(para_index, val);
     }
 
     public void setBigDecimal(int para_index, BigDecimal val) {
@@ -164,11 +164,11 @@ public class Query implements Cloneable {
         } else if (val instanceof TimeFrame) {
             setTimeFrame(para_index, (TimeFrame) val);
         } else if (val instanceof Integer) {
-            internalSet(para_index, new BigDecimal(((Integer) val).intValue()));
+            internalSet(para_index, new BigDecimal((Integer) val));
         } else if (val instanceof Long) {
-            internalSet(para_index, new BigDecimal(((Long) val).longValue()));
+            internalSet(para_index, new BigDecimal((Long) val));
         } else if (val instanceof Double) {
-            internalSet(para_index, new BigDecimal(((Double) val).doubleValue()));
+            internalSet(para_index, new BigDecimal((Double) val));
         }
         // Default behaviour for unknown objects is to cast as a String
         // parameter.

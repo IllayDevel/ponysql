@@ -286,8 +286,8 @@ public final class DatabaseSystem extends TransactionSystem {
             if (sz == 0) {
                 Debug().write(Lvl.WARNING, this, "No shut down delegates registered!");
             } else {
-                for (int i = 0; i < sz; ++i) {
-                    Runnable shut_down_delegate = (Runnable) shut_down_delegates.get(i);
+                for (Object shutDownDelegate : shut_down_delegates) {
+                    Runnable shut_down_delegate = (Runnable) shutDownDelegate;
                     // Run the shut down delegates
                     shut_down_delegate.run();
                 }

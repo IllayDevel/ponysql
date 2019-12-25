@@ -173,8 +173,8 @@ final class LockingQueue {
 
     public synchronized String toString() {
         StringBuffer str = new StringBuffer("[LockingQueue]: (");
-        for (int i = 0; i < queue.size(); ++i) {
-            str.append(queue.get(i));
+        for (Object o : queue) {
+            str.append(o);
             str.append(", ");
         }
         str.append(")");

@@ -151,7 +151,7 @@ final class SequenceManager {
                     generator = new SequenceGenerator(id_val, name,
                             last_value.longValue(), increment.longValue(),
                             minvalue.longValue(), maxvalue.longValue(), start.longValue(),
-                            cache.longValue(), cycle.booleanValue());
+                            cache.longValue(), cycle);
 
                     // Put the generator in the cache
                     sequence_key_map.put(name, generator);
@@ -273,10 +273,10 @@ final class SequenceManager {
                 transaction.nextUniqueID(TableDataConglomerate.SYS_SEQUENCE_INFO);
 
         RowData row_data = new RowData(table);
-        row_data.setColumnDataFromObject(0, new Long(unique_id));
+        row_data.setColumnDataFromObject(0, unique_id);
         row_data.setColumnDataFromObject(1, table_name.getSchema());
         row_data.setColumnDataFromObject(2, table_name.getName());
-        row_data.setColumnDataFromObject(3, new Long(1));
+        row_data.setColumnDataFromObject(3, 1L);
         table.addRow(row_data);
 
     }
@@ -373,22 +373,22 @@ final class SequenceManager {
 
         // Insert the new row
         RowData row_data = new RowData(seqi);
-        row_data.setColumnDataFromObject(0, new Long(unique_id));
+        row_data.setColumnDataFromObject(0, unique_id);
         row_data.setColumnDataFromObject(1, table_name.getSchema());
         row_data.setColumnDataFromObject(2, table_name.getName());
-        row_data.setColumnDataFromObject(3, new Long(2));
+        row_data.setColumnDataFromObject(3, 2L);
         seqi.addRow(row_data);
 
         // Insert into the SEQUENCE table.
         row_data = new RowData(seq);
-        row_data.setColumnDataFromObject(0, new Long(unique_id));
-        row_data.setColumnDataFromObject(1, new Long(start_value));
-        row_data.setColumnDataFromObject(2, new Long(increment_by));
-        row_data.setColumnDataFromObject(3, new Long(min_value));
-        row_data.setColumnDataFromObject(4, new Long(max_value));
-        row_data.setColumnDataFromObject(5, new Long(start_value));
-        row_data.setColumnDataFromObject(6, new Long(cache));
-        row_data.setColumnDataFromObject(7, new Boolean(cycle));
+        row_data.setColumnDataFromObject(0, unique_id);
+        row_data.setColumnDataFromObject(1, start_value);
+        row_data.setColumnDataFromObject(2, increment_by);
+        row_data.setColumnDataFromObject(3, min_value);
+        row_data.setColumnDataFromObject(4, max_value);
+        row_data.setColumnDataFromObject(5, start_value);
+        row_data.setColumnDataFromObject(6, cache);
+        row_data.setColumnDataFromObject(7, cycle);
         seq.addRow(row_data);
 
     }

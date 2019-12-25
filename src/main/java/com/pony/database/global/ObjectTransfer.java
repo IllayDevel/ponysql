@@ -134,7 +134,7 @@ public class ObjectTransfer {
         } else if (ob instanceof Boolean) {
             Boolean b = (Boolean) ob;
             out.writeByte(12);
-            out.writeBoolean(b.booleanValue());
+            out.writeBoolean(b);
         } else if (ob instanceof ByteLongObject) {
             ByteLongObject barr = (ByteLongObject) ob;
             out.writeByte(15);

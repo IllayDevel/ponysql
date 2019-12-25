@@ -142,11 +142,9 @@ public class TCPJDBCServer {
      * shuts down.
      */
     private void registerShutdownDelegate() {
-        system.getDatabase().registerShutDownDelegate(new Runnable() {
-            public void run() {
-                if (server != null) {
-                    stop();
-                }
+        system.getDatabase().registerShutDownDelegate(() -> {
+            if (server != null) {
+                stop();
             }
         });
     }

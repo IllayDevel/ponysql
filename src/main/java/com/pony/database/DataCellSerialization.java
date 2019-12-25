@@ -323,7 +323,7 @@ final class DataCellSerialization extends ByteArrayOutputStream
             writeChars(str);
         } else if (ob instanceof Boolean) {
             Boolean bool = (Boolean) ob;
-            writeByte((byte) (bool.booleanValue() ? 1 : 0));
+            writeByte((byte) (bool ? 1 : 0));
         } else if (ob instanceof java.util.Date) {
             Date date = (Date) ob;
             writeLong(date.getTime());

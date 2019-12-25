@@ -196,8 +196,8 @@ public final class FromClause
             }
         }
         // Prepare the StatementTree sub-queries in the from tables
-        for (int i = 0; i < def_list.size(); ++i) {
-            FromTableDef table_def = (FromTableDef) def_list.get(i);
+        for (Object o : def_list) {
+            FromTableDef table_def = (FromTableDef) o;
             table_def.prepareExpressions(preparer);
         }
 
@@ -210,8 +210,8 @@ public final class FromClause
         v.def_list = cloned_def_list;
         v.all_table_names = (ArrayList) all_table_names.clone();
 
-        for (int i = 0; i < def_list.size(); ++i) {
-            FromTableDef table_def = (FromTableDef) def_list.get(i);
+        for (Object o : def_list) {
+            FromTableDef table_def = (FromTableDef) o;
             cloned_def_list.add(table_def.clone());
         }
 

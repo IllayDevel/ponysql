@@ -92,18 +92,15 @@ public class JDBCDatabaseInterface extends AbstractJDBCDatabaseInterface {
 
             // Create a UserCallBack class.
             DatabaseConnection.CallBack call_back =
-                    new DatabaseConnection.CallBack() {
-                        public void triggerNotify(String trigger_name, int trigger_event,
-                                                  String trigger_source, int fire_count) {
-                            StringBuffer message = new StringBuffer();
-                            message.append(trigger_name);
-                            message.append(' ');
-                            message.append(trigger_source);
-                            message.append(' ');
-                            message.append(fire_count);
+                    (trigger_name, trigger_event, trigger_source, fire_count) -> {
+                        StringBuffer message = new StringBuffer();
+                        message.append(trigger_name);
+                        message.append(' ');
+                        message.append(trigger_source);
+                        message.append(' ');
+                        message.append(fire_count);
 
-                            database_call_back.databaseEvent(99, new String(message));
-                        }
+                        database_call_back.databaseEvent(99, new String(message));
                     };
 
             // Try to create a User object.

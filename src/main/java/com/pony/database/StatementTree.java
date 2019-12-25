@@ -119,7 +119,7 @@ public final class StatementTree implements java.io.Serializable, Cloneable {
      * Puts an integer into the statement tree map.
      */
     public void putInt(String entry_name, int v) {
-        putObject(entry_name, new Integer(v));
+        putObject(entry_name, v);
     }
 
 
@@ -135,7 +135,7 @@ public final class StatementTree implements java.io.Serializable, Cloneable {
      */
     public boolean getBoolean(String entry_name) {
         Object ob = map.get(entry_name);
-        return ((Boolean) ob).booleanValue();
+        return (Boolean) ob;
     }
 
     /**
@@ -143,7 +143,7 @@ public final class StatementTree implements java.io.Serializable, Cloneable {
      */
     public int getInt(String entry_name) {
         Object ob = map.get(entry_name);
-        return ((Integer) ob).intValue();
+        return (Integer) ob;
     }
 
 
@@ -162,10 +162,8 @@ public final class StatementTree implements java.io.Serializable, Cloneable {
      */
     public void prepareAllExpressions(ExpressionPreparer preparer)
             throws DatabaseException {
-        Iterator i = map.values().iterator();
 
-        while (i.hasNext()) {
-            Object v = i.next();
+        for (Object v : map.values()) {
             if (v != null) {
                 prepareExpressionsInObject(v, preparer);
             }
@@ -182,8 +180,8 @@ public final class StatementTree implements java.io.Serializable, Cloneable {
         // If an array of expression
         else if (v instanceof Expression[]) {
             Expression[] exp_list = (Expression[]) v;
-            for (int n = 0; n < exp_list.length; ++n) {
-                exp_list[n].prepare(preparer);
+            for (Expression expression : exp_list) {
+                expression.prepare(preparer);
             }
         }
         // If a StatementTreeObject then can use the 'prepareExpressions' method.
@@ -199,8 +197,7 @@ public final class StatementTree implements java.io.Serializable, Cloneable {
         // If a list of objects,
         else if (v instanceof List) {
             List list = (List) v;
-            for (int n = 0; n < list.size(); ++n) {
-                Object ob = list.get(n);
+            for (Object ob : list) {
                 prepareExpressionsInObject(ob, preparer);
             }
         }
@@ -241,9 +238,8 @@ public final class StatementTree implements java.io.Serializable, Cloneable {
             // of each element into it.
             List list = (List) entry;
             ArrayList cloned_list = new ArrayList(list.size());
-            Iterator i = list.iterator();
-            while (i.hasNext()) {
-                cloned_list.add(cloneSingleObject(i.next()));
+            for (Object o : list) {
+                cloned_list.add(cloneSingleObject(o));
             }
             entry = cloned_list;
         } else {
@@ -265,9 +261,7 @@ public final class StatementTree implements java.io.Serializable, Cloneable {
         v.map = cloned_map;
 
         // For each key, clone the entry
-        Iterator i = map.keySet().iterator();
-        while (i.hasNext()) {
-            Object key = i.next();
+        for (Object key : map.keySet()) {
             Object entry = map.get(key);
 
             entry = cloneSingleObject(entry);

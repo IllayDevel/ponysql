@@ -289,13 +289,7 @@ public final class BigNumber extends Number {
             // If both values can be represented by a long value
             if (canBeRepresentedAsLong() && number.canBeRepresentedAsLong()) {
                 // Perform a long comparison check,
-                if (long_representation > number.long_representation) {
-                    return 1;
-                } else if (long_representation < number.long_representation) {
-                    return -1;
-                } else {
-                    return 0;
-                }
+                return Long.compare(long_representation, number.long_representation);
 
             }
 
@@ -508,14 +502,15 @@ public final class BigNumber extends Number {
      * Creates a BigNumber from a string.
      */
     public static BigNumber fromString(String str) {
-        if (str.equals("Infinity")) {
-            return POSITIVE_INFINITY;
-        } else if (str.equals("-Infinity")) {
-            return NEGATIVE_INFINITY;
-        } else if (str.equals("NaN")) {
-            return NaN;
-        } else {
-            return new BigNumber((byte) 0, new BigDecimal(str));
+        switch (str) {
+            case "Infinity":
+                return POSITIVE_INFINITY;
+            case "-Infinity":
+                return NEGATIVE_INFINITY;
+            case "NaN":
+                return NaN;
+            default:
+                return new BigNumber((byte) 0, new BigDecimal(str));
         }
     }
 

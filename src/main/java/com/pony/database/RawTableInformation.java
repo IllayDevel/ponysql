@@ -127,11 +127,11 @@ final class RawTableInformation {
 
         // Check each table in the merge1 set has identical length row_sets
 
-        for (int i = 0; i < merge1.length; ++i) {
+        for (RawTableElement rawTableElement : merge1) {
             if (size1 == -1) {
-                size1 = merge1[i].row_set.size();
+                size1 = rawTableElement.row_set.size();
             } else {
-                if (size1 != merge1[i].row_set.size()) {
+                if (size1 != rawTableElement.row_set.size()) {
                     throw new Error("Incorrect format in table union");
                 }
             }

@@ -308,14 +308,15 @@ public class TransactionSystem {
      * and Pony.  Returns null if the library name is invalid.
      */
     private static String regexStringToClass(String lib) {
-        if (lib.equals("java.util.regexp")) {
-            return "com.pony.database.regexbridge.JavaRegex";
-        } else if (lib.equals("org.apache.regexp")) {
-            return "com.pony.database.regexbridge.ApacheRegex";
-        } else if (lib.equals("gnu.regexp")) {
-            return "com.pony.database.regexbridge.GNURegex";
-        } else {
-            return null;
+        switch (lib) {
+            case "java.util.regexp":
+                return "com.pony.database.regexbridge.JavaRegex";
+            case "org.apache.regexp":
+                return "com.pony.database.regexbridge.ApacheRegex";
+            case "gnu.regexp":
+                return "com.pony.database.regexbridge.GNURegex";
+            default:
+                return null;
         }
     }
 
@@ -614,8 +615,8 @@ public class TransactionSystem {
                         getConfigString("function_factories", null);
                 if (function_factories != null) {
                     List factories = StringUtil.explode(function_factories, ";");
-                    for (int i = 0; i < factories.size(); ++i) {
-                        String factory_class = factories.get(i).toString();
+                    for (Object factory : factories) {
+                        String factory_class = factory.toString();
                         Class c = Class.forName(factory_class);
                         FunctionFactory fun_factory = (FunctionFactory) c.newInstance();
                         addFunctionFactory(fun_factory);
@@ -974,8 +975,8 @@ public class TransactionSystem {
         private FunctionFactory[] factories;
 
         public synchronized Function generateFunction(FunctionDef function_def) {
-            for (int i = 0; i < factories.length; ++i) {
-                Function f = factories[i].generateFunction(function_def);
+            for (FunctionFactory factory : factories) {
+                Function f = factory.generateFunction(function_def);
                 if (f != null) {
                     return f;
                 }
@@ -984,9 +985,9 @@ public class TransactionSystem {
         }
 
         public synchronized boolean isAggregate(FunctionDef function_def) {
-            for (int i = 0; i < factories.length; ++i) {
+            for (FunctionFactory factory : factories) {
                 FunctionInfo f_info =
-                        factories[i].getFunctionInfo(function_def.getName());
+                        factory.getFunctionInfo(function_def.getName());
                 if (f_info != null) {
                     return f_info.getType() == FunctionInfo.AGGREGATE;
                 }

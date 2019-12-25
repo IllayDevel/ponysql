@@ -145,9 +145,9 @@ public class CastHelper {
      */
     public static Date toDate(String str) {
         synchronized (date_format_sql) {
-            for (int i = 0; i < date_format_sql.length; ++i) {
+            for (DateFormat dateFormat : date_format_sql) {
                 try {
-                    return date_format_sql[i].parse(str);
+                    return dateFormat.parse(str);
                 } catch (ParseException e) {
                 }
             }
@@ -162,9 +162,9 @@ public class CastHelper {
      */
     public static Date toTime(String str) {
         synchronized (time_format_sql) {
-            for (int i = 0; i < time_format_sql.length; ++i) {
+            for (DateFormat dateFormat : time_format_sql) {
                 try {
-                    return time_format_sql[i].parse(str);
+                    return dateFormat.parse(str);
                 } catch (ParseException e) {
                 }
             }
@@ -179,9 +179,9 @@ public class CastHelper {
      */
     public static Date toTimeStamp(String str) {
         synchronized (ts_format_sql) {
-            for (int i = 0; i < ts_format_sql.length; ++i) {
+            for (DateFormat dateFormat : ts_format_sql) {
                 try {
-                    return ts_format_sql[i].parse(str);
+                    return dateFormat.parse(str);
                 } catch (ParseException e) {
                 }
             }

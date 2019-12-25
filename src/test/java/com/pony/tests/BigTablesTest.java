@@ -160,9 +160,7 @@ public class BigTablesTest {
 
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace(System.err);
-        } catch (IOException e) {
+        } catch (SQLException | IOException e) {
             e.printStackTrace(System.err);
         }
 

@@ -50,7 +50,7 @@ public class Call extends Statement {
 
         // If no schema def given in the procedure name, first check for the
         // function in the SYS_INFO schema.
-        if (proc_name.indexOf(".") == -1) {
+        if (!proc_name.contains(".")) {
             // Resolve the procedure name into a TableName object.
             String schema_name = database.getCurrentSchema();
             TableName tp_name = TableName.resolve(Database.SYSTEM_SCHEMA, proc_name);

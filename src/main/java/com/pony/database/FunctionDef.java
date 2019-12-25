@@ -86,8 +86,8 @@ public final class FunctionDef implements java.io.Serializable, Cloneable {
         }
         // Look at params
         Expression[] params = getParameters();
-        for (int i = 0; i < params.length; ++i) {
-            is_aggregate = params[i].hasAggregateFunction(context);
+        for (Expression param : params) {
+            is_aggregate = param.hasAggregateFunction(context);
             if (is_aggregate) {
                 return true;
             }

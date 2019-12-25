@@ -53,8 +53,8 @@ public final class TemporaryTable extends DefaultDataTable {
 
         table_def = new DataTableDef();
         table_def.setTableName(new TableName(null, name));
-        for (int i = 0; i < fields.length; ++i) {
-            table_def.addVirtualColumn(new DataTableColumnDef(fields[i]));
+        for (DataTableColumnDef field : fields) {
+            table_def.addVirtualColumn(new DataTableColumnDef(field));
         }
         table_def.setImmutable();
     }

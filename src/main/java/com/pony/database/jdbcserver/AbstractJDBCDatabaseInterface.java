@@ -182,7 +182,7 @@ public abstract class AbstractJDBCDatabaseInterface
         synchronized (result_set_map) {
             result_id = ++unique_result_id;
             // Add the result to the map.
-            result_set_map.put(new Integer(result_id), result);
+            result_set_map.put(result_id, result);
         }
 
         return result_id;
@@ -193,7 +193,7 @@ public abstract class AbstractJDBCDatabaseInterface
      */
     private ResultSetInfo getResultSet(int result_id) {
         synchronized (result_set_map) {
-            return (ResultSetInfo) result_set_map.get(new Integer(result_id));
+            return (ResultSetInfo) result_set_map.get(result_id);
         }
     }
 
@@ -205,7 +205,7 @@ public abstract class AbstractJDBCDatabaseInterface
         // Remove this entry.
         ResultSetInfo table;
         synchronized (result_set_map) {
-            table = (ResultSetInfo) result_set_map.remove(new Integer(result_id));
+            table = (ResultSetInfo) result_set_map.remove(result_id);
         }
         if (table != null) {
             table.dispose();
@@ -233,7 +233,7 @@ public abstract class AbstractJDBCDatabaseInterface
         keys = list.iterator();
 
         while (keys.hasNext()) {
-            int result_id = ((Integer) keys.next()).intValue();
+            int result_id = (Integer) keys.next();
             disposeResultSet(result_id);
         }
     }
@@ -288,7 +288,7 @@ public abstract class AbstractJDBCDatabaseInterface
     private Ref getLargeObjectRefFor(long streamable_object_id, byte type,
                                      long object_length) {
         // Does this mapping already exist?
-        Long s_ob_id = new Long(streamable_object_id);
+        Long s_ob_id = streamable_object_id;
         Object ob = blob_id_map.get(s_ob_id);
         if (ob == null) {
             // Doesn't exist so create a new blob handler.
@@ -312,7 +312,7 @@ public abstract class AbstractJDBCDatabaseInterface
      */
     private Ref getLargeObjectRefFor(long streamable_object_id)
             throws SQLException {
-        Long s_ob_id = new Long(streamable_object_id);
+        Long s_ob_id = streamable_object_id;
         Object ob = blob_id_map.get(s_ob_id);
         if (ob == null) {
             // This basically means the streamable object hasn't been pushed onto the
@@ -332,7 +332,7 @@ public abstract class AbstractJDBCDatabaseInterface
     private Ref flushLargeObjectRefFromCache(long streamable_object_id)
             throws SQLException {
         try {
-            Long s_ob_id = new Long(streamable_object_id);
+            Long s_ob_id = streamable_object_id;
             Object ob = blob_id_map.remove(s_ob_id);
             if (ob == null) {
                 // This basically means the streamable object hasn't been pushed onto the
@@ -787,7 +787,7 @@ public abstract class AbstractJDBCDatabaseInterface
          * identifier value.
          */
         Ref getRef(long id) {
-            return (Ref) streamable_blob_map.get(new Long(id));
+            return (Ref) streamable_blob_map.get(id);
         }
 
         /**
@@ -795,7 +795,7 @@ public abstract class AbstractJDBCDatabaseInterface
          * identifier value.
          */
         void removeRef(long id) {
-            streamable_blob_map.remove(new Long(id));
+            streamable_blob_map.remove(id);
         }
 
         /**
@@ -829,7 +829,7 @@ public abstract class AbstractJDBCDatabaseInterface
                 // object can reference it via this result.
                 if (tob.getObject() instanceof Ref) {
                     Ref ref = (Ref) tob.getObject();
-                    streamable_blob_map.put(new Long(ref.getID()), ref);
+                    streamable_blob_map.put(ref.getID(), ref);
                 }
 
                 return tob;

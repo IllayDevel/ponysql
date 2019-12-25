@@ -122,8 +122,8 @@ public class DataTableDef {
         // def.
         if (exp != null) {
             List list = exp.allVariables();
-            for (int i = 0; i < list.size(); ++i) {
-                Variable v = (Variable) list.get(i);
+            for (Object o : list) {
+                Variable v = (Variable) o;
                 String col_name = v.getName();
                 // Can we resolve this to a variable in the table?
                 if (ignore_case) {
@@ -206,8 +206,8 @@ public class DataTableDef {
     public void addColumn(DataTableColumnDef col_def) {
         checkMutable();
         // Is there already a column with this name in the table def?
-        for (int i = 0; i < column_list.size(); ++i) {
-            DataTableColumnDef cd = (DataTableColumnDef) column_list.get(i);
+        for (Object o : column_list) {
+            DataTableColumnDef cd = (DataTableColumnDef) o;
             if (cd.getName().equals(col_def.getName())) {
                 throw new Error("Duplicated columns found.");
             }
@@ -278,10 +278,10 @@ public class DataTableDef {
             Object ob = col_name_lookup.get(col);
             if (ob == null) {
                 int ci = findColumnName(col);
-                col_name_lookup.put(col, new Integer(ci));
+                col_name_lookup.put(col, ci);
                 return ci;
             } else {
-                return ((Integer) ob).intValue();
+                return (Integer) ob;
             }
         }
     }
@@ -314,8 +314,8 @@ public class DataTableDef {
         out.writeUTF(getSchema());            // Added in version 2
         out.writeUTF(table_type_class);
         out.writeInt(column_list.size());
-        for (int i = 0; i < column_list.size(); ++i) {
-            ((DataTableColumnDef) column_list.get(i)).write(out);
+        for (Object o : column_list) {
+            ((DataTableColumnDef) o).write(out);
         }
 
 //    // -- Added in version 2 --

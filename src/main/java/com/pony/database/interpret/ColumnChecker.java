@@ -83,8 +83,8 @@ abstract class ColumnChecker {
 
         if (expression != null) {
             List list = expression.allVariables();
-            for (int i = 0; i < list.size(); ++i) {
-                Variable v = (Variable) list.get(i);
+            for (Object o : list) {
+                Variable v = (Variable) o;
                 String orig_col = v.getName();
                 String resolved_column = resolveColumnName(orig_col);
                 if (resolved_column == null) {

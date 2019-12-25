@@ -141,8 +141,8 @@ public class CompositeTable extends Table implements RootTable {
 
     public int getRowCount() {
         int row_count = 0;
-        for (int i = 0; i < table_indexes.length; ++i) {
-            row_count += table_indexes[i].size();
+        for (IntegerVector table_index : table_indexes) {
+            row_count += table_index.size();
         }
         return row_count;
     }
@@ -215,30 +215,30 @@ public class CompositeTable extends Table implements RootTable {
     }
 
     void addDataTableListener(DataTableListener listener) {
-        for (int i = 0; i < composite_tables.length; ++i) {
-            composite_tables[i].addDataTableListener(listener);
+        for (Table composite_table : composite_tables) {
+            composite_table.addDataTableListener(listener);
         }
     }
 
     void removeDataTableListener(DataTableListener listener) {
-        for (int i = 0; i < composite_tables.length; ++i) {
-            composite_tables[i].removeDataTableListener(listener);
+        for (Table composite_table : composite_tables) {
+            composite_table.removeDataTableListener(listener);
         }
     }
 
     public void lockRoot(int lock_key) {
         // For each table, recurse.
         roots_locked++;
-        for (int i = 0; i < composite_tables.length; ++i) {
-            composite_tables[i].lockRoot(lock_key);
+        for (Table composite_table : composite_tables) {
+            composite_table.lockRoot(lock_key);
         }
     }
 
     public void unlockRoot(int lock_key) {
         // For each table, recurse.
         roots_locked--;
-        for (int i = 0; i < composite_tables.length; ++i) {
-            composite_tables[i].unlockRoot(lock_key);
+        for (Table composite_table : composite_tables) {
+            composite_table.unlockRoot(lock_key);
         }
     }
 

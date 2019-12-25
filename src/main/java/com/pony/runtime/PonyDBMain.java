@@ -247,9 +247,9 @@ public class PonyDBMain {
         }
         // Find all '-C*' style switches,
         String[] c_args = command_line.allSwitchesStartingWith("-C");
-        for (int i = 0; i < c_args.length; ++i) {
-            if (c_args[i].length() > 2) {
-                String c_arg = c_args[i].substring(2);
+        for (String cArg : c_args) {
+            if (cArg.length() > 2) {
+                String c_arg = cArg.substring(2);
                 int split_point = c_arg.indexOf("=");
                 if (split_point > 0) {
                     String key = c_arg.substring(0, split_point);

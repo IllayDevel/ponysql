@@ -154,9 +154,9 @@ public class FixedRecordList {
      * this structure (as Long).
      */
     public void addAllAreasUsed(ArrayList list) throws IOException {
-        list.add(new Long(list_header_p));
+        list.add(list_header_p);
         for (int i = 0; i < list_block_count; ++i) {
-            list.add(new Long(list_block_element[i]));
+            list.add(list_block_element[i]);
         }
     }
 

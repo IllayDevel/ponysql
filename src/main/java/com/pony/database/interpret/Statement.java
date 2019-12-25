@@ -174,8 +174,8 @@ public abstract class Statement {
      * reference match.
      */
     FromTableInterface findTableInQuery(String schema, String name) {
-        for (int p = 0; p < table_list.size(); ++p) {
-            FromTableInterface table = (FromTableInterface) table_list.get(p);
+        for (Object o : table_list) {
+            FromTableInterface table = (FromTableInterface) o;
             if (table.matchesReference(null, schema, name)) {
                 return table;
             }
@@ -247,8 +247,8 @@ public abstract class Statement {
     void resolveExpression(Expression exp) {
         // NOTE: This gets variables in all function parameters.
         List vars = exp.allVariables();
-        for (int i = 0; i < vars.size(); ++i) {
-            Variable v = (Variable) vars.get(i);
+        for (Object var : vars) {
+            Variable v = (Variable) var;
             Variable to_set = resolveVariableName(v);
             v.set(to_set);
         }

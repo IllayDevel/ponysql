@@ -213,9 +213,9 @@ final class DataCellCache {
      * or equal to the given value.
      */
     static int closestPrime(int value) {
-        for (int i = 0; i < PRIME_LIST.length; ++i) {
-            if (PRIME_LIST[i] >= value) {
-                return PRIME_LIST[i];
+        for (int item : PRIME_LIST) {
+            if (item >= value) {
+                return item;
             }
         }
         // Return the last prime

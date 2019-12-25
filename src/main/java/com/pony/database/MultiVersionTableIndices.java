@@ -162,9 +162,9 @@ final class MultiVersionTableIndices {
         ArrayList all_since = new ArrayList();
 
         int size = transaction_mod_list.size();
-        for (int i = 0; i < size; ++i) {
+        for (Object o : transaction_mod_list) {
             MasterTableJournal journal =
-                    (MasterTableJournal) transaction_mod_list.get(i);
+                    (MasterTableJournal) o;
             long journal_commit_id = journal.getCommitID();
             // All journals that are greater or equal to the given commit id
             if (journal_commit_id >= commit_id) {

@@ -49,8 +49,8 @@ public class CommandLine {
      * eg. command_line.containsSwitch("--help");
      */
     public boolean containsSwitch(String switch_str) {
-        for (int i = 0; i < args.length; ++i) {
-            if (args[i].equals(switch_str)) {
+        for (String arg : args) {
+            if (arg.equals(switch_str)) {
                 return true;
             }
         }
@@ -78,8 +78,8 @@ public class CommandLine {
      * "-hello", "-help", "-her", etc
      */
     public boolean containsSwitchStart(String switch_str) {
-        for (int i = 0; i < args.length; ++i) {
-            if (args[i].startsWith(switch_str)) {
+        for (String arg : args) {
+            if (arg.startsWith(switch_str)) {
                 return true;
             }
         }
@@ -93,9 +93,9 @@ public class CommandLine {
      */
     public String[] allSwitchesStartingWith(String switch_str) {
         Vector list = new Vector();
-        for (int i = 0; i < args.length; ++i) {
-            if (args[i].startsWith(switch_str)) {
-                list.addElement(args[i]);
+        for (String arg : args) {
+            if (arg.startsWith(switch_str)) {
+                list.addElement(arg);
             }
         }
         return (String[]) list.toArray(new String[list.size()]);

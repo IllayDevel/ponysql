@@ -324,8 +324,7 @@ public class Transaction extends SimpleTransaction {
      * system table.
      */
     protected boolean isDynamicTable(TableName table_name) {
-        for (int i = 0; i < internal_tables.length; ++i) {
-            InternalTableInfo info = internal_tables[i];
+        for (InternalTableInfo info : internal_tables) {
             if (info != null) {
                 if (info.containsTableName(table_name)) {
                     return true;
@@ -342,8 +341,7 @@ public class Transaction extends SimpleTransaction {
      */
     protected TableName[] getDynamicTableList() {
         int sz = 0;
-        for (int i = 0; i < internal_tables.length; ++i) {
-            InternalTableInfo info = internal_tables[i];
+        for (InternalTableInfo info : internal_tables) {
             if (info != null) {
                 sz += info.getTableCount();
             }
@@ -352,8 +350,7 @@ public class Transaction extends SimpleTransaction {
         TableName[] list = new TableName[sz];
         int index = 0;
 
-        for (int i = 0; i < internal_tables.length; ++i) {
-            InternalTableInfo info = internal_tables[i];
+        for (InternalTableInfo info : internal_tables) {
             if (info != null) {
                 sz = info.getTableCount();
                 for (int n = 0; n < sz; ++n) {
@@ -371,8 +368,7 @@ public class Transaction extends SimpleTransaction {
      */
     protected DataTableDef getDynamicDataTableDef(TableName table_name) {
 
-        for (int i = 0; i < internal_tables.length; ++i) {
-            InternalTableInfo info = internal_tables[i];
+        for (InternalTableInfo info : internal_tables) {
             if (info != null) {
                 int index = info.findTableName(table_name);
                 if (index != -1) {
@@ -390,8 +386,7 @@ public class Transaction extends SimpleTransaction {
      */
     protected MutableTableDataSource getDynamicTable(TableName table_name) {
 
-        for (int i = 0; i < internal_tables.length; ++i) {
-            InternalTableInfo info = internal_tables[i];
+        for (InternalTableInfo info : internal_tables) {
             if (info != null) {
                 int index = info.findTableName(table_name);
                 if (index != -1) {
@@ -408,8 +403,7 @@ public class Transaction extends SimpleTransaction {
      */
     public String getDynamicTableType(TableName table_name) {
         // Otherwise we need to look up the table in the internal table list,
-        for (int i = 0; i < internal_tables.length; ++i) {
-            InternalTableInfo info = internal_tables[i];
+        for (InternalTableInfo info : internal_tables) {
             if (info != null) {
                 int index = info.findTableName(table_name);
                 if (index != -1) {
@@ -1204,9 +1198,9 @@ public class Transaction extends SimpleTransaction {
             if (delete_rule.equals("SET NULL") ||
                     update_rule.equals("SET NULL")) {
                 DataTableDef table_def = getDataTableDef(table);
-                for (int i = 0; i < cols.length; ++i) {
+                for (String col : cols) {
                     DataTableColumnDef column_def =
-                            table_def.columnAt(table_def.findColumnName(cols[i]));
+                            table_def.columnAt(table_def.findColumnName(col));
                     if (column_def.isNotNull()) {
                         throw new StatementException("Foreign key reference '" + table +
                                 "' -> '" + ref_table + "' update or delete triggered " +
@@ -1387,14 +1381,14 @@ public class Transaction extends SimpleTransaction {
         if (primary != null) {
             dropPrimaryKeyConstraintForTable(table_name, primary.name);
         }
-        for (int i = 0; i < uniques.length; ++i) {
-            dropUniqueConstraintForTable(table_name, uniques[i].name);
+        for (ColumnGroup unique : uniques) {
+            dropUniqueConstraintForTable(table_name, unique.name);
         }
-        for (int i = 0; i < expressions.length; ++i) {
-            dropCheckConstraintForTable(table_name, expressions[i].name);
+        for (CheckExpression expression : expressions) {
+            dropCheckConstraintForTable(table_name, expression.name);
         }
-        for (int i = 0; i < refs.length; ++i) {
-            dropForeignKeyReferenceConstraintForTable(table_name, refs[i].name);
+        for (ColumnGroupReference ref : refs) {
+            dropForeignKeyReferenceConstraintForTable(table_name, ref.name);
         }
 
     }
@@ -1645,15 +1639,15 @@ public class Transaction extends SimpleTransaction {
         ArrayList list = new ArrayList();
         ColumnGroupReference[] refs =
                 queryTableForeignKeyReferences(transaction, table);
-        for (int i = 0; i < refs.length; ++i) {
-            TableName tname = refs[i].ref_table_name;
+        for (ColumnGroupReference columnGroupReference : refs) {
+            TableName tname = columnGroupReference.ref_table_name;
             if (!list.contains(tname)) {
                 list.add(tname);
             }
         }
         refs = queryTableImportedForeignKeyReferences(transaction, table);
-        for (int i = 0; i < refs.length; ++i) {
-            TableName tname = refs[i].key_table_name;
+        for (ColumnGroupReference ref : refs) {
+            TableName tname = ref.key_table_name;
             if (!list.contains(tname)) {
                 list.add(tname);
             }
@@ -2057,9 +2051,9 @@ public class Transaction extends SimpleTransaction {
 
         // Dispose all the table we touched
         try {
-            for (int i = 0; i < touched_tables.size(); ++i) {
+            for (Object touched_table : touched_tables) {
                 MutableTableDataSource source =
-                        (MutableTableDataSource) touched_tables.get(i);
+                        (MutableTableDataSource) touched_table;
                 source.dispose();
             }
         } catch (Throwable e) {

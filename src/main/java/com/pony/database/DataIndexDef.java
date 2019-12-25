@@ -119,8 +119,8 @@ public class DataIndexDef {
         dout.writeInt(1);
         dout.writeUTF(index_name);
         dout.writeInt(column_names.length);
-        for (int i = 0; i < column_names.length; ++i) {
-            dout.writeUTF(column_names[i]);
+        for (String column_name : column_names) {
+            dout.writeUTF(column_name);
         }
         dout.writeInt(index_pointer);
         dout.writeUTF(index_type);
