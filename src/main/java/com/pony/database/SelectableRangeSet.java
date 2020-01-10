@@ -217,7 +217,7 @@ public final class SelectableRangeSet {
 
         if (end_1 != SelectableRange.LAST_IN_SET) {
             if (end_2 != SelectableRange.LAST_IN_SET) {
-                TObject cell = (TObject) end_1;
+                TObject cell = end_1;
                 int c = cell.compareTo(end_2);
                 if (c < 0 ||
                         c == 0 && end_flag_1 == SelectableRange.BEFORE_FIRST_VALUE &&

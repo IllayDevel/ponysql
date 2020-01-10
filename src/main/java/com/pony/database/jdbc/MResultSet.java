@@ -664,6 +664,9 @@ public final class MResultSet implements ResultSet {
     private Object jdbcObjectCast(Object ob, int sql_type) throws SQLException {
         switch (sql_type) {
             case (SQLTypes.BIT):
+            case (SQLTypes.JAVA_OBJECT):
+            case (SQLTypes.OTHER):
+            case (SQLTypes.NULL):
                 return ob;
             case (SQLTypes.TINYINT):
                 return ((BigNumber) ob).byteValue();
@@ -674,20 +677,16 @@ public final class MResultSet implements ResultSet {
             case (SQLTypes.BIGINT):
                 return ((BigNumber) ob).longValue();
             case (SQLTypes.FLOAT):
+            case (SQLTypes.DOUBLE):
                 return ((BigNumber) ob).doubleValue();
             case (SQLTypes.REAL):
                 return ((BigNumber) ob).floatValue();
-            case (SQLTypes.DOUBLE):
-                return ((BigNumber) ob).doubleValue();
             case (SQLTypes.NUMERIC):
-                return ((BigNumber) ob).asBigDecimal();
             case (SQLTypes.DECIMAL):
                 return ((BigNumber) ob).asBigDecimal();
             case (SQLTypes.CHAR):
-                return makeString(ob);
-            case (SQLTypes.VARCHAR):
-                return makeString(ob);
             case (SQLTypes.LONGVARCHAR):
+            case (SQLTypes.VARCHAR):
                 return makeString(ob);
             case (SQLTypes.DATE):
                 return new java.sql.Date(((java.util.Date) ob).getTime());
@@ -702,19 +701,10 @@ public final class MResultSet implements ResultSet {
             case (SQLTypes.LONGVARBINARY):
                 Blob b = asBlob(ob);
                 return b.getBytes(1, (int) b.length());
-            case (SQLTypes.NULL):
-                return ob;
-            case (SQLTypes.OTHER):
-                return ob;
-            case (SQLTypes.JAVA_OBJECT):
-                return ob;
             case (SQLTypes.DISTINCT):
-                // (Not supported)
-                return ob;
-            case (SQLTypes.STRUCT):
-                // (Not supported)
-                return ob;
+            case (SQLTypes.REF):
             case (SQLTypes.ARRAY):
+            case (SQLTypes.STRUCT):
                 // (Not supported)
                 return ob;
 //#IFDEF(JDBC2.0)
@@ -722,9 +712,6 @@ public final class MResultSet implements ResultSet {
                 return asBlob(ob);
             case (SQLTypes.CLOB):
                 return asClob(ob);
-            case (SQLTypes.REF):
-                // (Not supported)
-                return ob;
 //#ENDIF
             default:
                 return ob;

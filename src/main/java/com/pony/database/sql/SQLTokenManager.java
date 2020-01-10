@@ -82,14 +82,19 @@ public class SQLTokenManager implements SQLConstants {
                 jjmatchedKind = 204;
                 return jjMoveNfa_0(5, 0);
             case 65:
+            case 97:
                 return jjMoveStringLiteralDfa1_0(0x4984001000000L, 0x40010000080L, 0x4008000000000000L, 0x0L);
             case 66:
+            case 98:
                 return jjMoveStringLiteralDfa1_0(0x80000000000000L, 0x200004000000L, 0x12411000000L, 0x0L);
             case 67:
+            case 99:
                 return jjMoveStringLiteralDfa1_0(0x400000c8000000L, 0x4010000141a08L, 0xf00000028410082L, 0x0L);
             case 68:
+            case 100:
                 return jjMoveStringLiteralDfa1_0(0x800000810400000L, 0x3000800000000000L, 0x8880000100L, 0x0L);
             case 69:
+            case 101:
                 return jjMoveStringLiteralDfa1_0(0x20000100000000L, 0x2001200000000L, 0x0L, 0x0L);
             case 70:
                 return jjMoveStringLiteralDfa1_0(0x208000000000000L, 0x20000000000000L, 0x200800800L, 0x0L);
@@ -125,16 +130,6 @@ public class SQLTokenManager implements SQLConstants {
                 return jjMoveStringLiteralDfa1_0(0x8000000000000000L, 0x1002000000000L, 0x280000000000L, 0x0L);
             case 87:
                 return jjMoveStringLiteralDfa1_0(0x0L, 0x402L, 0x0L, 0x0L);
-            case 97:
-                return jjMoveStringLiteralDfa1_0(0x4984001000000L, 0x40010000080L, 0x4008000000000000L, 0x0L);
-            case 98:
-                return jjMoveStringLiteralDfa1_0(0x80000000000000L, 0x200004000000L, 0x12411000000L, 0x0L);
-            case 99:
-                return jjMoveStringLiteralDfa1_0(0x400000c8000000L, 0x4010000141a08L, 0xf00000028410082L, 0x0L);
-            case 100:
-                return jjMoveStringLiteralDfa1_0(0x800000810400000L, 0x3000800000000000L, 0x8880000100L, 0x0L);
-            case 101:
-                return jjMoveStringLiteralDfa1_0(0x20000100000000L, 0x2001200000000L, 0x0L, 0x0L);
             case 102:
                 return jjMoveStringLiteralDfa1_0(0x208000000000000L, 0x20000000000000L, 0x200800800L, 0x0L);
             case 103:
@@ -196,96 +191,40 @@ public class SQLTokenManager implements SQLConstants {
                 }
                 break;
             case 65:
-                return jjMoveStringLiteralDfa2_0(active0, 0x60000000000000L, active1, 0x4115106000005068L, active2, 0x100a80080400000L, active3, 0L);
-            case 67:
-                return jjMoveStringLiteralDfa2_0(active0, 0L, active1, 0x40810000000L, active2, 0L, active3, 0L);
-            case 68:
-                return jjMoveStringLiteralDfa2_0(active0, 0x4000000000000L, active1, 0L, active2, 0x100000L, active3, 0L);
-            case 69:
-                return jjMoveStringLiteralDfa2_0(active0, 0xc02200812000000L, active1, 0x10c0aa0046000000L, active2, 0x20f00080440c1310L, active3, 0L);
-            case 70:
-                if ((active0 & 0x10000000000L) != 0L) {
-                    jjmatchedKind = 40;
-                    jjmatchedPos = 1;
-                }
-                return jjMoveStringLiteralDfa2_0(active0, 0L, active1, 0x80L, active2, 0L, active3, 0L);
-            case 71:
-                return jjMoveStringLiteralDfa2_0(active0, 0L, active1, 0x400000000L, active2, 0L, active3, 0L);
-            case 72:
-                return jjMoveStringLiteralDfa2_0(active0, 0x1000800000L, active1, 0x100400L, active2, 0x20000002L, active3, 0L);
-            case 73:
-                return jjMoveStringLiteralDfa2_0(active0, 0x8000000000000000L, active1, 0x200800000000a002L, active2, 0x1000422501000000L, active3, 0L);
-            case 76:
-                return jjMoveStringLiteralDfa2_0(active0, 0x1080001000000L, active1, 0L, active2, 0x218000000L, active3, 0L);
-            case 77:
-                return jjMoveStringLiteralDfa2_0(active0, 0L, active1, 0L, active2, 0x100000000004L, active3, 0L);
-            case 78:
-                if ((active0 & 0x8000000000L) != 0L) {
-                    jjmatchedKind = 39;
-                    jjmatchedPos = 1;
-                } else if ((active3 & 0x1L) != 0L) {
-                    jjmatchedKind = 192;
-                    jjmatchedPos = 1;
-                }
-                return jjMoveStringLiteralDfa2_0(active0, 0x1000100020000000L, active1, 0x8000008008430000L, active2, 0x4000040002006028L, active3, 0L);
-            case 79:
-                if ((active0 & 0x20000000000L) != 0L) {
-                    jjmatchedKind = 41;
-                    jjmatchedPos = 1;
-                } else if ((active0 & 0x40000000000L) != 0L) {
-                    jjmatchedKind = 42;
-                    jjmatchedPos = 1;
-                }
-                return jjMoveStringLiteralDfa2_0(active0, 0x21980002c0000000L, active1, 0x10000000211L, active2, 0x3010800210880L, active3, 0x2L);
-            case 80:
-                return jjMoveStringLiteralDfa2_0(active0, 0x404000000L, active1, 0x80000000L, active2, 0L, active3, 0L);
-            case 82:
-                if ((active2 & 0x8000000000000000L) != 0L) {
-                    jjmatchedKind = 191;
-                    jjmatchedPos = 1;
-                }
-                return jjMoveStringLiteralDfa2_0(active0, 0x4200000008400000L, active1, 0xe00400020840000L, active2, 0x4000000028441L, active3, 0L);
-            case 83:
-                if ((active0 & 0x2000000000L) != 0L) {
-                    jjmatchedKind = 37;
-                    jjmatchedPos = 1;
-                } else if ((active0 & 0x4000000000L) != 0L) {
-                    jjmatchedKind = 38;
-                    jjmatchedPos = 1;
-                }
-                return jjMoveStringLiteralDfa2_0(active0, 0xc00000000000L, active1, 0x1200004L, active2, 0L, active3, 0L);
-            case 84:
-                return jjMoveStringLiteralDfa2_0(active0, 0L, active1, 0x100L, active2, 0x1000000000L, active3, 0L);
-            case 85:
-                return jjMoveStringLiteralDfa2_0(active0, 0x100000L, active1, 0x20000100080000L, active2, 0xe08004000800000L, active3, 0L);
-            case 88:
-                return jjMoveStringLiteralDfa2_0(active0, 0x100000000L, active1, 0x2001200000000L, active2, 0L, active3, 0L);
-            case 89:
-                return jjMoveStringLiteralDfa2_0(active0, 0L, active1, 0x800L, active2, 0L, active3, 0L);
             case 97:
                 return jjMoveStringLiteralDfa2_0(active0, 0x60000000000000L, active1, 0x4115106000005068L, active2, 0x100a80080400000L, active3, 0L);
+            case 67:
             case 99:
                 return jjMoveStringLiteralDfa2_0(active0, 0L, active1, 0x40810000000L, active2, 0L, active3, 0L);
+            case 68:
             case 100:
                 return jjMoveStringLiteralDfa2_0(active0, 0x4000000000000L, active1, 0L, active2, 0x100000L, active3, 0L);
+            case 69:
             case 101:
                 return jjMoveStringLiteralDfa2_0(active0, 0xc02200812000000L, active1, 0x10c0aa0046000000L, active2, 0x20f00080440c1310L, active3, 0L);
+            case 70:
             case 102:
                 if ((active0 & 0x10000000000L) != 0L) {
                     jjmatchedKind = 40;
                     jjmatchedPos = 1;
                 }
                 return jjMoveStringLiteralDfa2_0(active0, 0L, active1, 0x80L, active2, 0L, active3, 0L);
+            case 71:
             case 103:
                 return jjMoveStringLiteralDfa2_0(active0, 0L, active1, 0x400000000L, active2, 0L, active3, 0L);
+            case 72:
             case 104:
                 return jjMoveStringLiteralDfa2_0(active0, 0x1000800000L, active1, 0x100400L, active2, 0x20000002L, active3, 0L);
+            case 73:
             case 105:
                 return jjMoveStringLiteralDfa2_0(active0, 0x8000000000000000L, active1, 0x200800000000a002L, active2, 0x1000422501000000L, active3, 0L);
+            case 76:
             case 108:
                 return jjMoveStringLiteralDfa2_0(active0, 0x1080001000000L, active1, 0L, active2, 0x218000000L, active3, 0L);
+            case 77:
             case 109:
                 return jjMoveStringLiteralDfa2_0(active0, 0L, active1, 0L, active2, 0x100000000004L, active3, 0L);
+            case 78:
             case 110:
                 if ((active0 & 0x8000000000L) != 0L) {
                     jjmatchedKind = 39;
@@ -295,6 +234,7 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 1;
                 }
                 return jjMoveStringLiteralDfa2_0(active0, 0x1000100020000000L, active1, 0x8000008008430000L, active2, 0x4000040002006028L, active3, 0L);
+            case 79:
             case 111:
                 if ((active0 & 0x20000000000L) != 0L) {
                     jjmatchedKind = 41;
@@ -304,14 +244,17 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 1;
                 }
                 return jjMoveStringLiteralDfa2_0(active0, 0x21980002c0000000L, active1, 0x10000000211L, active2, 0x3010800210880L, active3, 0x2L);
+            case 80:
             case 112:
                 return jjMoveStringLiteralDfa2_0(active0, 0x404000000L, active1, 0x80000000L, active2, 0L, active3, 0L);
+            case 82:
             case 114:
                 if ((active2 & 0x8000000000000000L) != 0L) {
                     jjmatchedKind = 191;
                     jjmatchedPos = 1;
                 }
                 return jjMoveStringLiteralDfa2_0(active0, 0x4200000008400000L, active1, 0xe00400020840000L, active2, 0x4000000028441L, active3, 0L);
+            case 83:
             case 115:
                 if ((active0 & 0x2000000000L) != 0L) {
                     jjmatchedKind = 37;
@@ -321,12 +264,16 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 1;
                 }
                 return jjMoveStringLiteralDfa2_0(active0, 0xc00000000000L, active1, 0x1200004L, active2, 0L, active3, 0L);
+            case 84:
             case 116:
                 return jjMoveStringLiteralDfa2_0(active0, 0L, active1, 0x100L, active2, 0x1000000000L, active3, 0L);
+            case 85:
             case 117:
                 return jjMoveStringLiteralDfa2_0(active0, 0x100000L, active1, 0x20000100080000L, active2, 0xe08004000800000L, active3, 0L);
+            case 88:
             case 120:
                 return jjMoveStringLiteralDfa2_0(active0, 0x100000000L, active1, 0x2001200000000L, active2, 0L, active3, 0L);
+            case 89:
             case 121:
                 return jjMoveStringLiteralDfa2_0(active0, 0L, active1, 0x800L, active2, 0L, active3, 0L);
             case 124:
@@ -351,16 +298,20 @@ public class SQLTokenManager implements SQLConstants {
         }
         switch (curChar) {
             case 65:
+            case 97:
                 return jjMoveStringLiteralDfa3_0(active0, 0L, active1, 0x200080001800100L, active2, 0x34100024000002L, active3, 0L);
             case 66:
+            case 98:
                 return jjMoveStringLiteralDfa3_0(active0, 0L, active1, 0x100004000L, active2, 0L, active3, 0L);
             case 67:
+            case 99:
                 if ((active0 & 0x800000000000L) != 0L) {
                     jjmatchedKind = 47;
                     jjmatchedPos = 2;
                 }
                 return jjMoveStringLiteralDfa3_0(active0, 0x20000000000000L, active1, 0x8000040200001801L, active2, 0x8000040000L, active3, 0L);
             case 68:
+            case 100:
                 if ((active0 & 0x1000000000000L) != 0L) {
                     jjmatchedKind = 48;
                     jjmatchedPos = 2;
@@ -373,28 +324,36 @@ public class SQLTokenManager implements SQLConstants {
                 }
                 return jjMoveStringLiteralDfa3_0(active0, 0x4000000L, active1, 0x800000000020000L, active2, 0x6000L, active3, 0L);
             case 69:
+            case 101:
                 if ((active0 & 0x400000000000L) != 0L) {
                     jjmatchedKind = 46;
                     jjmatchedPos = 2;
                 }
                 return jjMoveStringLiteralDfa3_0(active0, 0x8000000008000000L, active1, 0x2000000100404L, active2, 0x100000L, active3, 0L);
             case 70:
+            case 102:
                 return jjMoveStringLiteralDfa3_0(active0, 0x400000000000000L, active1, 0x1000800004000000L, active2, 0x300L, active3, 0L);
             case 71:
+            case 103:
                 return jjMoveStringLiteralDfa3_0(active0, 0L, active1, 0x2000L, active2, 0x2000000400000000L, active3, 0L);
             case 72:
+            case 104:
                 return jjMoveStringLiteralDfa3_0(active0, 0L, active1, 0x800000000L, active2, 0L, active3, 0L);
             case 73:
+            case 105:
                 return jjMoveStringLiteralDfa3_0(active0, 0x6000000000000000L, active1, 0x409000600000L, active2, 0x20448L, active3, 0L);
             case 75:
+            case 107:
                 return jjMoveStringLiteralDfa3_0(active0, 0L, active1, 0L, active2, 0x1000000000000000L, active3, 0L);
             case 76:
+            case 108:
                 if ((active0 & 0x80000000000L) != 0L) {
                     jjmatchedKind = 43;
                     jjmatchedPos = 2;
                 }
                 return jjMoveStringLiteralDfa3_0(active0, 0x40000212100000L, active1, 0x4012008000000L, active2, 0x810000L, active3, 0L);
             case 77:
+            case 109:
                 return jjMoveStringLiteralDfa3_0(active0, 0x1000000c0000000L, active1, 0x8020L, active2, 0x404100000014L, active3, 0L);
             case 78:
                 return jjMoveStringLiteralDfa3_0(active0, 0L, active1, 0x4028000400010010L, active2, 0x3022000400080L, active3, 0L);
@@ -405,6 +364,7 @@ public class SQLTokenManager implements SQLConstants {
             case 81:
                 return jjMoveStringLiteralDfa3_0(active0, 0L, active1, 0x40000000000000L, active2, 0L, active3, 0L);
             case 82:
+            case 114:
                 if ((active0 & 0x8000000000000L) != 0L) {
                     jjmatchedKind = 51;
                     jjmatchedPos = 2;
@@ -413,6 +373,7 @@ public class SQLTokenManager implements SQLConstants {
             case 83:
                 return jjMoveStringLiteralDfa3_0(active0, 0x800000820000000L, active1, 0x2180000000000008L, active2, 0x100000000000000L, active3, 0L);
             case 84:
+            case 116:
                 if ((active0 & 0x200000000000L) != 0L) {
                     jjmatchedKind = 45;
                     jjmatchedPos = 2;
@@ -432,6 +393,7 @@ public class SQLTokenManager implements SQLConstants {
             case 86:
                 return jjMoveStringLiteralDfa3_0(active0, 0L, active1, 0x4040000040L, active2, 0x800000000000L, active3, 0L);
             case 87:
+            case 119:
                 if ((active0 & 0x2000000000000L) != 0L) {
                     jjmatchedKind = 49;
                     jjmatchedPos = 2;
@@ -443,6 +405,7 @@ public class SQLTokenManager implements SQLConstants {
             case 88:
                 return jjMoveStringLiteralDfa3_0(active0, 0L, active1, 0x10000000000000L, active2, 0x40000000L, active3, 0L);
             case 89:
+            case 121:
                 if ((active0 & 0x100000000000L) != 0L) {
                     jjmatchedKind = 44;
                     jjmatchedPos = 2;
@@ -453,52 +416,6 @@ public class SQLTokenManager implements SQLConstants {
                 break;
             case 95:
                 return jjMoveStringLiteralDfa3_0(active0, 0L, active1, 0L, active2, 0x200000L, active3, 0L);
-            case 97:
-                return jjMoveStringLiteralDfa3_0(active0, 0L, active1, 0x200080001800100L, active2, 0x34100024000002L, active3, 0L);
-            case 98:
-                return jjMoveStringLiteralDfa3_0(active0, 0L, active1, 0x100004000L, active2, 0L, active3, 0L);
-            case 99:
-                if ((active0 & 0x800000000000L) != 0L) {
-                    jjmatchedKind = 47;
-                    jjmatchedPos = 2;
-                }
-                return jjMoveStringLiteralDfa3_0(active0, 0x20000000000000L, active1, 0x8000040200001801L, active2, 0x8000040000L, active3, 0L);
-            case 100:
-                if ((active0 & 0x1000000000000L) != 0L) {
-                    jjmatchedKind = 48;
-                    jjmatchedPos = 2;
-                } else if ((active0 & 0x4000000000000L) != 0L) {
-                    jjmatchedKind = 50;
-                    jjmatchedPos = 2;
-                } else if ((active2 & 0x4000000000000000L) != 0L) {
-                    jjmatchedKind = 190;
-                    jjmatchedPos = 2;
-                }
-                return jjMoveStringLiteralDfa3_0(active0, 0x4000000L, active1, 0x800000000020000L, active2, 0x6000L, active3, 0L);
-            case 101:
-                if ((active0 & 0x400000000000L) != 0L) {
-                    jjmatchedKind = 46;
-                    jjmatchedPos = 2;
-                }
-                return jjMoveStringLiteralDfa3_0(active0, 0x8000000008000000L, active1, 0x2000000100404L, active2, 0x100000L, active3, 0L);
-            case 102:
-                return jjMoveStringLiteralDfa3_0(active0, 0x400000000000000L, active1, 0x1000800004000000L, active2, 0x300L, active3, 0L);
-            case 103:
-                return jjMoveStringLiteralDfa3_0(active0, 0L, active1, 0x2000L, active2, 0x2000000400000000L, active3, 0L);
-            case 104:
-                return jjMoveStringLiteralDfa3_0(active0, 0L, active1, 0x800000000L, active2, 0L, active3, 0L);
-            case 105:
-                return jjMoveStringLiteralDfa3_0(active0, 0x6000000000000000L, active1, 0x409000600000L, active2, 0x20448L, active3, 0L);
-            case 107:
-                return jjMoveStringLiteralDfa3_0(active0, 0L, active1, 0L, active2, 0x1000000000000000L, active3, 0L);
-            case 108:
-                if ((active0 & 0x80000000000L) != 0L) {
-                    jjmatchedKind = 43;
-                    jjmatchedPos = 2;
-                }
-                return jjMoveStringLiteralDfa3_0(active0, 0x40000212100000L, active1, 0x4012008000000L, active2, 0x810000L, active3, 0L);
-            case 109:
-                return jjMoveStringLiteralDfa3_0(active0, 0x1000000c0000000L, active1, 0x8020L, active2, 0x404100000014L, active3, 0L);
             case 110:
                 return jjMoveStringLiteralDfa3_0(active0, 0L, active1, 0x4028000400010010L, active2, 0x3022000400080L, active3, 0L);
             case 111:
@@ -507,53 +424,14 @@ public class SQLTokenManager implements SQLConstants {
                 return jjMoveStringLiteralDfa3_0(active0, 0x100000000L, active1, 0L, active2, 0x40000000000000L, active3, 0L);
             case 113:
                 return jjMoveStringLiteralDfa3_0(active0, 0L, active1, 0x40000000000000L, active2, 0L, active3, 0L);
-            case 114:
-                if ((active0 & 0x8000000000000L) != 0L) {
-                    jjmatchedKind = 51;
-                    jjmatchedPos = 2;
-                }
-                return jjMoveStringLiteralDfa3_0(active0, 0L, active1, 0x1000000000000L, active2, 0xe80281000080800L, active3, 0L);
             case 115:
                 return jjMoveStringLiteralDfa3_0(active0, 0x800000820000000L, active1, 0x2180000000000008L, active2, 0x100000000000000L, active3, 0L);
-            case 116:
-                if ((active0 & 0x200000000000L) != 0L) {
-                    jjmatchedKind = 45;
-                    jjmatchedPos = 2;
-                } else if ((active2 & 0x1000000L) != 0L) {
-                    jjmatchedKind = 152;
-                    jjmatchedPos = 2;
-                } else if ((active2 & 0x2000000L) != 0L) {
-                    jjmatchedKind = 153;
-                    jjmatchedPos = 2;
-                } else if ((active3 & 0x2L) != 0L) {
-                    jjmatchedKind = 193;
-                    jjmatchedPos = 2;
-                }
-                return jjMoveStringLiteralDfa3_0(active0, 0x1080000401000000L, active1, 0x320092080082L, active2, 0x8040080000020L, active3, 0L);
             case 117:
                 return jjMoveStringLiteralDfa3_0(active0, 0x1000000000L, active1, 0x200L, active2, 0x800000000L, active3, 0L);
             case 118:
                 return jjMoveStringLiteralDfa3_0(active0, 0L, active1, 0x4040000040L, active2, 0x800000000000L, active3, 0L);
-            case 119:
-                if ((active0 & 0x2000000000000L) != 0L) {
-                    jjmatchedKind = 49;
-                    jjmatchedPos = 2;
-                } else if ((active0 & 0x10000000000000L) != 0L) {
-                    jjmatchedKind = 52;
-                    jjmatchedPos = 2;
-                }
-                break;
             case 120:
                 return jjMoveStringLiteralDfa3_0(active0, 0L, active1, 0x10000000000000L, active2, 0x40000000L, active3, 0L);
-            case 121:
-                if ((active0 & 0x100000000000L) != 0L) {
-                    jjmatchedKind = 44;
-                    jjmatchedPos = 2;
-                } else if ((active2 & 0x1000L) != 0L) {
-                    jjmatchedKind = 140;
-                    jjmatchedPos = 2;
-                }
-                break;
             default:
                 break;
         }
@@ -570,157 +448,13 @@ public class SQLTokenManager implements SQLConstants {
         }
         switch (curChar) {
             case 65:
-                if ((active1 & 0x40L) != 0L) {
-                    jjmatchedKind = 70;
-                    jjmatchedPos = 3;
-                }
-                return jjMoveStringLiteralDfa4_0(active0, 0xc000000L, active1, 0x800000000000L, active2, 0x802200000000L);
-            case 66:
-                if ((active2 & 0x8000000L) != 0L) {
-                    jjmatchedKind = 155;
-                    jjmatchedPos = 3;
-                } else if ((active2 & 0x10000000L) != 0L) {
-                    jjmatchedKind = 156;
-                    jjmatchedPos = 3;
-                }
-                return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0L, active2, 0x200800000000L);
-            case 67:
-                if ((active0 & 0x800000000000000L) != 0L) {
-                    jjmatchedKind = 59;
-                    jjmatchedPos = 3;
-                }
-                return jjMoveStringLiteralDfa4_0(active0, 0x800000000L, active1, 0x22000000100000L, active2, 0x100080000000001L);
-            case 68:
-                return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0x80000000000L, active2, 0x30000000200000L);
-            case 69:
-                if ((active0 & 0x100000000000000L) != 0L) {
-                    jjmatchedKind = 56;
-                    jjmatchedPos = 3;
-                } else if ((active1 & 0x20L) != 0L) {
-                    jjmatchedKind = 69;
-                    jjmatchedPos = 3;
-                } else if ((active2 & 0x80000000L) != 0L) {
-                    jjmatchedKind = 159;
-                    jjmatchedPos = 3;
-                } else if ((active2 & 0x100000000L) != 0L) {
-                    jjmatchedKind = 160;
-                    jjmatchedPos = 3;
-                } else if ((active2 & 0x1000000000000000L) != 0L) {
-                    jjmatchedKind = 188;
-                    jjmatchedPos = 3;
-                }
-                return jjMoveStringLiteralDfa4_0(active0, 0x33000000L, active1, 0x1800000a000b0080L, active2, 0x2040444000006b24L);
-            case 71:
-                if ((active1 & 0x10L) != 0L) {
-                    jjmatchedKind = 68;
-                    jjmatchedPos = 3;
-                }
-                return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0x4000400001000000L, active2, 0x3000000000000L);
-            case 72:
-                if ((active0 & 0x20000000000000L) != 0L) {
-                    jjmatchedKind = 53;
-                    jjmatchedPos = 3;
-                } else if ((active0 & 0x80000000000000L) != 0L) {
-                    jjmatchedKind = 55;
-                    jjmatchedPos = 3;
-                } else if ((active1 & 0x2L) != 0L) {
-                    jjmatchedKind = 65;
-                    jjmatchedPos = 3;
-                }
-                return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0x3000L, active2, 0L);
-            case 73:
-                return jjMoveStringLiteralDfa4_0(active0, 0x400000000L, active1, 0x200004090008000L, active2, 0x80009400000000L);
-            case 75:
-                if ((active1 & 0x1L) != 0L) {
-                    jjmatchedKind = 64;
-                    jjmatchedPos = 3;
-                }
-                break;
-            case 76:
-                if ((active0 & 0x100000L) != 0L) {
-                    jjmatchedKind = 20;
-                    jjmatchedPos = 3;
-                } else if ((active0 & 0x40000000000000L) != 0L) {
-                    jjmatchedKind = 54;
-                    jjmatchedPos = 3;
-                } else if ((active2 & 0x4000000L) != 0L) {
-                    jjmatchedKind = 154;
-                    jjmatchedPos = 3;
-                }
-                return jjMoveStringLiteralDfa4_0(active0, 0x300000000L, active1, 0x4000100004800L, active2, 0x110000810000L);
-            case 77:
-                if ((active0 & 0x200000000000000L) != 0L) {
-                    jjmatchedKind = 57;
-                    jjmatchedPos = 3;
-                } else if ((active0 & 0x4000000000000000L) != 0L) {
-                    jjmatchedKind = 62;
-                    jjmatchedPos = 3;
-                }
-                return jjMoveStringLiteralDfa4_0(active0, 0x40000000L, active1, 0L, active2, 0x20400L);
-            case 78:
-                if ((active0 & 0x2000000000000000L) != 0L) {
-                    jjmatchedKind = 61;
-                    jjmatchedPos = 3;
-                }
-                return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0xa00200L, active2, 0x4000000100000L);
-            case 79:
-                if ((active0 & 0x1000000000000000L) != 0L) {
-                    jjmatchedKind = 60;
-                    jjmatchedPos = 3;
-                }
-                return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0x4044c400000L, active2, 0x8000000440000L);
-            case 80:
-                if ((active0 & 0x400000L) != 0L) {
-                    jjmatchedKind = 22;
-                    jjmatchedPos = 3;
-                }
-                return jjMoveStringLiteralDfa4_0(active0, 0x80000000L, active1, 0L, active2, 0x10L);
-            case 81:
-                return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0x8000000000L, active2, 0L);
-            case 82:
-                if ((active1 & 0x4L) != 0L) {
-                    jjmatchedKind = 66;
-                    jjmatchedPos = 3;
-                } else if ((active2 & 0x20000000L) != 0L) {
-                    jjmatchedKind = 157;
-                    jjmatchedPos = 3;
-                }
-                return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0x8000000000000500L, active2, 0xe00000000000002L);
-            case 83:
-                return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0x100001000040000L, active2, 0x80L);
-            case 84:
-                if ((active0 & 0x400000000000000L) != 0L) {
-                    jjmatchedKind = 58;
-                    jjmatchedPos = 3;
-                } else if ((active1 & 0x8L) != 0L) {
-                    jjmatchedKind = 67;
-                    jjmatchedPos = 3;
-                } else if ((active2 & 0x40000000L) != 0L) {
-                    jjmatchedKind = 158;
-                    jjmatchedPos = 3;
-                }
-                return jjMoveStringLiteralDfa4_0(active0, 0x1000000000L, active1, 0x2080000000000000L, active2, 0x80008L);
-            case 85:
-                return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0x440132022000000L, active2, 0x8000L);
-            case 86:
-                return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0x18000000000000L, active2, 0x40L);
-            case 87:
-                if ((active0 & 0x800000L) != 0L) {
-                    jjmatchedKind = 23;
-                    jjmatchedPos = 3;
-                } else if ((active0 & 0x8000000000000000L) != 0L) {
-                    jjmatchedKind = 63;
-                    jjmatchedPos = 3;
-                }
-                return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0x200000000000L, active2, 0L);
-            case 89:
-                return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0x1000000000000L, active2, 0x20000000000L);
             case 97:
                 if ((active1 & 0x40L) != 0L) {
                     jjmatchedKind = 70;
                     jjmatchedPos = 3;
                 }
                 return jjMoveStringLiteralDfa4_0(active0, 0xc000000L, active1, 0x800000000000L, active2, 0x802200000000L);
+            case 66:
             case 98:
                 if ((active2 & 0x8000000L) != 0L) {
                     jjmatchedKind = 155;
@@ -730,14 +464,17 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 3;
                 }
                 return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0L, active2, 0x200800000000L);
+            case 67:
             case 99:
                 if ((active0 & 0x800000000000000L) != 0L) {
                     jjmatchedKind = 59;
                     jjmatchedPos = 3;
                 }
                 return jjMoveStringLiteralDfa4_0(active0, 0x800000000L, active1, 0x22000000100000L, active2, 0x100080000000001L);
+            case 68:
             case 100:
                 return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0x80000000000L, active2, 0x30000000200000L);
+            case 69:
             case 101:
                 if ((active0 & 0x100000000000000L) != 0L) {
                     jjmatchedKind = 56;
@@ -756,12 +493,14 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 3;
                 }
                 return jjMoveStringLiteralDfa4_0(active0, 0x33000000L, active1, 0x1800000a000b0080L, active2, 0x2040444000006b24L);
+            case 71:
             case 103:
                 if ((active1 & 0x10L) != 0L) {
                     jjmatchedKind = 68;
                     jjmatchedPos = 3;
                 }
                 return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0x4000400001000000L, active2, 0x3000000000000L);
+            case 72:
             case 104:
                 if ((active0 & 0x20000000000000L) != 0L) {
                     jjmatchedKind = 53;
@@ -774,14 +513,17 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 3;
                 }
                 return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0x3000L, active2, 0L);
+            case 73:
             case 105:
                 return jjMoveStringLiteralDfa4_0(active0, 0x400000000L, active1, 0x200004090008000L, active2, 0x80009400000000L);
+            case 75:
             case 107:
                 if ((active1 & 0x1L) != 0L) {
                     jjmatchedKind = 64;
                     jjmatchedPos = 3;
                 }
                 break;
+            case 76:
             case 108:
                 if ((active0 & 0x100000L) != 0L) {
                     jjmatchedKind = 20;
@@ -794,6 +536,7 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 3;
                 }
                 return jjMoveStringLiteralDfa4_0(active0, 0x300000000L, active1, 0x4000100004800L, active2, 0x110000810000L);
+            case 77:
             case 109:
                 if ((active0 & 0x200000000000000L) != 0L) {
                     jjmatchedKind = 57;
@@ -803,26 +546,31 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 3;
                 }
                 return jjMoveStringLiteralDfa4_0(active0, 0x40000000L, active1, 0L, active2, 0x20400L);
+            case 78:
             case 110:
                 if ((active0 & 0x2000000000000000L) != 0L) {
                     jjmatchedKind = 61;
                     jjmatchedPos = 3;
                 }
                 return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0xa00200L, active2, 0x4000000100000L);
+            case 79:
             case 111:
                 if ((active0 & 0x1000000000000000L) != 0L) {
                     jjmatchedKind = 60;
                     jjmatchedPos = 3;
                 }
                 return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0x4044c400000L, active2, 0x8000000440000L);
+            case 80:
             case 112:
                 if ((active0 & 0x400000L) != 0L) {
                     jjmatchedKind = 22;
                     jjmatchedPos = 3;
                 }
                 return jjMoveStringLiteralDfa4_0(active0, 0x80000000L, active1, 0L, active2, 0x10L);
+            case 81:
             case 113:
                 return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0x8000000000L, active2, 0L);
+            case 82:
             case 114:
                 if ((active1 & 0x4L) != 0L) {
                     jjmatchedKind = 66;
@@ -832,8 +580,10 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 3;
                 }
                 return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0x8000000000000500L, active2, 0xe00000000000002L);
+            case 83:
             case 115:
                 return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0x100001000040000L, active2, 0x80L);
+            case 84:
             case 116:
                 if ((active0 & 0x400000000000000L) != 0L) {
                     jjmatchedKind = 58;
@@ -846,10 +596,13 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 3;
                 }
                 return jjMoveStringLiteralDfa4_0(active0, 0x1000000000L, active1, 0x2080000000000000L, active2, 0x80008L);
+            case 85:
             case 117:
                 return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0x440132022000000L, active2, 0x8000L);
+            case 86:
             case 118:
                 return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0x18000000000000L, active2, 0x40L);
+            case 87:
             case 119:
                 if ((active0 & 0x800000L) != 0L) {
                     jjmatchedKind = 23;
@@ -859,6 +612,7 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 3;
                 }
                 return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0x200000000000L, active2, 0L);
+            case 89:
             case 121:
                 return jjMoveStringLiteralDfa4_0(active0, 0L, active1, 0x1000000000000L, active2, 0x20000000000L);
             default:
@@ -879,14 +633,19 @@ public class SQLTokenManager implements SQLConstants {
             case 32:
                 return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0L, active2, 0x38000000000000L);
             case 65:
+            case 97:
                 return jjMoveStringLiteralDfa5_0(active0, 0x180000000L, active1, 0x18000000000000L, active2, 0x1c0000000030402L);
             case 66:
+            case 98:
                 return jjMoveStringLiteralDfa5_0(active0, 0x200000000L, active1, 0x4000000000000L, active2, 0L);
             case 67:
+            case 99:
                 return jjMoveStringLiteralDfa5_0(active0, 0x2000000L, active1, 0x8000000L, active2, 0L);
             case 68:
+            case 100:
                 return jjMoveStringLiteralDfa5_0(active0, 0x1000000000L, active1, 0L, active2, 0x4L);
             case 69:
+            case 101:
                 if ((active1 & 0x400L) != 0L) {
                     jjmatchedKind = 74;
                     jjmatchedPos = 4;
@@ -905,36 +664,46 @@ public class SQLTokenManager implements SQLConstants {
                 }
                 return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0x8040202000000000L, active2, 0xe00010000200001L);
             case 71:
+            case 103:
                 if ((active1 & 0x200000L) != 0L) {
                     jjmatchedKind = 85;
                     jjmatchedPos = 4;
                 }
                 return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0x400000000000L, active2, 0x40000000000L);
             case 72:
+            case 104:
                 return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0L, active2, 0x80000000000L);
             case 73:
+            case 105:
                 return jjMoveStringLiteralDfa5_0(active0, 0x40000000L, active1, 0x2001080100000000L, active2, 0x220000080848L);
             case 75:
+            case 107:
                 if ((active1 & 0x100000L) != 0L) {
                     jjmatchedKind = 84;
                     jjmatchedPos = 4;
                 }
                 return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0x40000000L, active2, 0L);
             case 76:
+            case 108:
                 return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0x200000000000000L, active2, 0x100800000000L);
             case 77:
+            case 109:
                 return jjMoveStringLiteralDfa5_0(active0, 0x400000000L, active1, 0x10800000000L, active2, 0x8000000000L);
             case 78:
+            case 110:
                 if ((active1 & 0x400000L) != 0L) {
                     jjmatchedKind = 86;
                     jjmatchedPos = 4;
                 }
                 return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0x4000000000L, active2, 0x1400440000L);
             case 79:
+            case 111:
                 return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0x90000000L, active2, 0x10L);
             case 80:
+            case 112:
                 return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0x400000220000000L, active2, 0x8000L);
             case 82:
+            case 114:
                 if ((active0 & 0x1000000L) != 0L) {
                     jjmatchedKind = 24;
                     jjmatchedPos = 4;
@@ -950,12 +719,14 @@ public class SQLTokenManager implements SQLConstants {
                 }
                 return jjMoveStringLiteralDfa5_0(active0, 0x820000000L, active1, 0x1880120406000000L, active2, 0x6000000320L);
             case 83:
+            case 115:
                 if ((active1 & 0x40000L) != 0L) {
                     jjmatchedKind = 82;
                     jjmatchedPos = 4;
                 }
                 return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0L, active2, 0x4400000000000L);
             case 84:
+            case 116:
                 if ((active1 & 0x100L) != 0L) {
                     jjmatchedKind = 72;
                     jjmatchedPos = 4;
@@ -983,6 +754,7 @@ public class SQLTokenManager implements SQLConstants {
             case 87:
                 return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0x100000000000000L, active2, 0L);
             case 88:
+            case 120:
                 if ((active1 & 0x20000L) != 0L) {
                     jjmatchedKind = 81;
                     jjmatchedPos = 4;
@@ -993,119 +765,12 @@ public class SQLTokenManager implements SQLConstants {
                 return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0L, active2, 0x6000L);
             case 95:
                 return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0L, active2, 0x800000800000L);
-            case 97:
-                return jjMoveStringLiteralDfa5_0(active0, 0x180000000L, active1, 0x18000000000000L, active2, 0x1c0000000030402L);
-            case 98:
-                return jjMoveStringLiteralDfa5_0(active0, 0x200000000L, active1, 0x4000000000000L, active2, 0L);
-            case 99:
-                return jjMoveStringLiteralDfa5_0(active0, 0x2000000L, active1, 0x8000000L, active2, 0L);
-            case 100:
-                return jjMoveStringLiteralDfa5_0(active0, 0x1000000000L, active1, 0L, active2, 0x4L);
-            case 101:
-                if ((active1 & 0x400L) != 0L) {
-                    jjmatchedKind = 74;
-                    jjmatchedPos = 4;
-                } else if ((active1 & 0x800L) != 0L) {
-                    jjmatchedKind = 75;
-                    jjmatchedPos = 4;
-                } else if ((active1 & 0x1000L) != 0L) {
-                    jjmatchedKind = 76;
-                    jjmatchedPos = 4;
-                } else if ((active1 & 0x4000L) != 0L) {
-                    jjmatchedKind = 78;
-                    jjmatchedPos = 4;
-                } else if ((active1 & 0x1000000L) != 0L) {
-                    jjmatchedKind = 88;
-                    jjmatchedPos = 4;
-                }
-                return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0x8040202000000000L, active2, 0xe00010000200001L);
-            case 103:
-                if ((active1 & 0x200000L) != 0L) {
-                    jjmatchedKind = 85;
-                    jjmatchedPos = 4;
-                }
-                return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0x400000000000L, active2, 0x40000000000L);
-            case 104:
-                return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0L, active2, 0x80000000000L);
-            case 105:
-                return jjMoveStringLiteralDfa5_0(active0, 0x40000000L, active1, 0x2001080100000000L, active2, 0x220000080848L);
-            case 107:
-                if ((active1 & 0x100000L) != 0L) {
-                    jjmatchedKind = 84;
-                    jjmatchedPos = 4;
-                }
-                return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0x40000000L, active2, 0L);
-            case 108:
-                return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0x200000000000000L, active2, 0x100800000000L);
-            case 109:
-                return jjMoveStringLiteralDfa5_0(active0, 0x400000000L, active1, 0x10800000000L, active2, 0x8000000000L);
-            case 110:
-                if ((active1 & 0x400000L) != 0L) {
-                    jjmatchedKind = 86;
-                    jjmatchedPos = 4;
-                }
-                return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0x4000000000L, active2, 0x1400440000L);
-            case 111:
-                return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0x90000000L, active2, 0x10L);
-            case 112:
-                return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0x400000220000000L, active2, 0x8000L);
-            case 114:
-                if ((active0 & 0x1000000L) != 0L) {
-                    jjmatchedKind = 24;
-                    jjmatchedPos = 4;
-                } else if ((active1 & 0x80L) != 0L) {
-                    jjmatchedKind = 71;
-                    jjmatchedPos = 4;
-                } else if ((active1 & 0x10000L) != 0L) {
-                    jjmatchedKind = 80;
-                    jjmatchedPos = 4;
-                } else if ((active1 & 0x80000L) != 0L) {
-                    jjmatchedKind = 83;
-                    jjmatchedPos = 4;
-                }
-                return jjMoveStringLiteralDfa5_0(active0, 0x820000000L, active1, 0x1880120406000000L, active2, 0x6000000320L);
-            case 115:
-                if ((active1 & 0x40000L) != 0L) {
-                    jjmatchedKind = 82;
-                    jjmatchedPos = 4;
-                }
-                return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0L, active2, 0x4400000000000L);
-            case 116:
-                if ((active1 & 0x100L) != 0L) {
-                    jjmatchedKind = 72;
-                    jjmatchedPos = 4;
-                } else if ((active1 & 0x200L) != 0L) {
-                    jjmatchedKind = 73;
-                    jjmatchedPos = 4;
-                } else if ((active1 & 0x2000L) != 0L) {
-                    jjmatchedKind = 77;
-                    jjmatchedPos = 4;
-                } else if ((active1 & 0x8000L) != 0L) {
-                    jjmatchedKind = 79;
-                    jjmatchedPos = 4;
-                } else if ((active1 & 0x800000L) != 0L) {
-                    jjmatchedKind = 87;
-                    jjmatchedPos = 4;
-                } else if ((active2 & 0x200000000L) != 0L) {
-                    jjmatchedKind = 161;
-                    jjmatchedPos = 4;
-                }
-                return jjMoveStringLiteralDfa5_0(active0, 0x1c000000L, active1, 0x20001000000000L, active2, 0x100080L);
             case 117:
                 return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0x4002848000000000L, active2, 0L);
             case 118:
                 return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0L, active2, 0x3000000000000L);
             case 119:
                 return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0x100000000000000L, active2, 0L);
-            case 120:
-                if ((active1 & 0x20000L) != 0L) {
-                    jjmatchedKind = 81;
-                    jjmatchedPos = 4;
-                } else if ((active2 & 0x2000000000000000L) != 0L) {
-                    jjmatchedKind = 189;
-                    jjmatchedPos = 4;
-                }
-                return jjMoveStringLiteralDfa5_0(active0, 0L, active1, 0L, active2, 0x6000L);
             default:
                 break;
         }
@@ -1124,140 +789,23 @@ public class SQLTokenManager implements SQLConstants {
             case 32:
                 return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0xc00000000000000L, active2, 0x8000L);
             case 65:
-                if ((active1 & 0x800000000L) != 0L) {
-                    jjmatchedKind = 99;
-                    jjmatchedPos = 5;
-                }
-                return jjMoveStringLiteralDfa6_0(active0, 0x200000000L, active1, 0x4004100000000000L, active2, 0x7098000080008L);
-            case 67:
-                if ((active1 & 0x100000000L) != 0L) {
-                    jjmatchedKind = 96;
-                    jjmatchedPos = 5;
-                }
-                return jjMoveStringLiteralDfa6_0(active0, 0x80000000L, active1, 0L, active2, 0x18000000200002L);
-            case 68:
-                return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0L, active2, 0x100000000840001L);
-            case 69:
-                if ((active0 & 0x4000000L) != 0L) {
-                    jjmatchedKind = 26;
-                    jjmatchedPos = 5;
-                } else if ((active0 & 0x8000000L) != 0L) {
-                    jjmatchedKind = 27;
-                    jjmatchedPos = 5;
-                } else if ((active0 & 0x10000000L) != 0L) {
-                    jjmatchedKind = 28;
-                    jjmatchedPos = 5;
-                } else if ((active1 & 0x4000000L) != 0L) {
-                    jjmatchedKind = 90;
-                    jjmatchedPos = 5;
-                } else if ((active1 & 0x40000000L) != 0L) {
-                    jjmatchedKind = 94;
-                    jjmatchedPos = 5;
-                } else if ((active1 & 0x400000000L) != 0L) {
-                    jjmatchedKind = 98;
-                    jjmatchedPos = 5;
-                } else if ((active1 & 0x8000000000L) != 0L) {
-                    jjmatchedKind = 103;
-                    jjmatchedPos = 5;
-                } else if ((active2 & 0x800000000L) != 0L) {
-                    jjmatchedKind = 163;
-                    jjmatchedPos = 5;
-                }
-                return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0x600000000000L, active2, 0x40000000200L);
-            case 71:
-                if ((active1 & 0x4000000000L) != 0L) {
-                    jjmatchedKind = 102;
-                    jjmatchedPos = 5;
-                } else if ((active2 & 0x1000000000L) != 0L) {
-                    jjmatchedKind = 164;
-                    jjmatchedPos = 5;
-                }
-                return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0L, active2, 0x800L);
-            case 73:
-                return jjMoveStringLiteralDfa6_0(active0, 0xd00000000L, active1, 0x2a0000000000000L, active2, 0x104000500004L);
-            case 75:
-                if ((active1 & 0x8000000L) != 0L) {
-                    jjmatchedKind = 91;
-                    jjmatchedPos = 5;
-                }
-                break;
-            case 76:
-                return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0x18800000000000L, active2, 0x80000000000040L);
-            case 77:
-                return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0x8000000000000000L, active2, 0L);
-            case 78:
-                if ((active1 & 0x2000000L) != 0L) {
-                    jjmatchedKind = 89;
-                    jjmatchedPos = 5;
-                } else if ((active1 & 0x10000000L) != 0L) {
-                    jjmatchedKind = 92;
-                    jjmatchedPos = 5;
-                } else if ((active1 & 0x80000000L) != 0L) {
-                    jjmatchedKind = 95;
-                    jjmatchedPos = 5;
-                } else if ((active1 & 0x10000000000L) != 0L) {
-                    jjmatchedKind = 104;
-                    jjmatchedPos = 5;
-                }
-                return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0x20410e0000000000L, active2, 0xe00220000000000L);
-            case 79:
-                return jjMoveStringLiteralDfa6_0(active0, 0x1000000000L, active1, 0x100000000000000L, active2, 0x800000000000L);
-            case 82:
-                return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0x1000000000000000L, active2, 0x20590L);
-            case 83:
-                if ((active1 & 0x20000000L) != 0L) {
-                    jjmatchedKind = 93;
-                    jjmatchedPos = 5;
-                } else if ((active1 & 0x1000000000L) != 0L) {
-                    jjmatchedKind = 100;
-                    jjmatchedPos = 5;
-                } else if ((active1 & 0x2000000000L) != 0L) {
-                    jjmatchedKind = 101;
-                    jjmatchedPos = 5;
-                }
-                return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0L, active2, 0x20L);
-            case 84:
-                if ((active0 & 0x2000000L) != 0L) {
-                    jjmatchedKind = 25;
-                    jjmatchedPos = 5;
-                } else if ((active0 & 0x20000000L) != 0L) {
-                    jjmatchedKind = 29;
-                    jjmatchedPos = 5;
-                } else if ((active0 & 0x40000000L) != 0L) {
-                    jjmatchedKind = 30;
-                    jjmatchedPos = 5;
-                } else if ((active1 & 0x200000000L) != 0L) {
-                    jjmatchedKind = 97;
-                    jjmatchedPos = 5;
-                } else if ((active2 & 0x400000000L) != 0L) {
-                    jjmatchedKind = 162;
-                    jjmatchedPos = 5;
-                }
-                return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0x2000000000000L, active2, 0x40400000010000L);
-            case 85:
-                return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0L, active2, 0x20000000000000L);
-            case 89:
-                if ((active2 & 0x2000000000L) != 0L) {
-                    jjmatchedKind = 165;
-                    jjmatchedPos = 5;
-                }
-                break;
-            case 95:
-                return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0L, active2, 0x6000L);
             case 97:
                 if ((active1 & 0x800000000L) != 0L) {
                     jjmatchedKind = 99;
                     jjmatchedPos = 5;
                 }
                 return jjMoveStringLiteralDfa6_0(active0, 0x200000000L, active1, 0x4004100000000000L, active2, 0x7098000080008L);
+            case 67:
             case 99:
                 if ((active1 & 0x100000000L) != 0L) {
                     jjmatchedKind = 96;
                     jjmatchedPos = 5;
                 }
                 return jjMoveStringLiteralDfa6_0(active0, 0x80000000L, active1, 0L, active2, 0x18000000200002L);
+            case 68:
             case 100:
                 return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0L, active2, 0x100000000840001L);
+            case 69:
             case 101:
                 if ((active0 & 0x4000000L) != 0L) {
                     jjmatchedKind = 26;
@@ -1285,6 +833,7 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 5;
                 }
                 return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0x600000000000L, active2, 0x40000000200L);
+            case 71:
             case 103:
                 if ((active1 & 0x4000000000L) != 0L) {
                     jjmatchedKind = 102;
@@ -1294,18 +843,23 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 5;
                 }
                 return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0L, active2, 0x800L);
+            case 73:
             case 105:
                 return jjMoveStringLiteralDfa6_0(active0, 0xd00000000L, active1, 0x2a0000000000000L, active2, 0x104000500004L);
+            case 75:
             case 107:
                 if ((active1 & 0x8000000L) != 0L) {
                     jjmatchedKind = 91;
                     jjmatchedPos = 5;
                 }
                 break;
+            case 76:
             case 108:
                 return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0x18800000000000L, active2, 0x80000000000040L);
+            case 77:
             case 109:
                 return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0x8000000000000000L, active2, 0L);
+            case 78:
             case 110:
                 if ((active1 & 0x2000000L) != 0L) {
                     jjmatchedKind = 89;
@@ -1321,10 +875,13 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 5;
                 }
                 return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0x20410e0000000000L, active2, 0xe00220000000000L);
+            case 79:
             case 111:
                 return jjMoveStringLiteralDfa6_0(active0, 0x1000000000L, active1, 0x100000000000000L, active2, 0x800000000000L);
+            case 82:
             case 114:
                 return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0x1000000000000000L, active2, 0x20590L);
+            case 83:
             case 115:
                 if ((active1 & 0x20000000L) != 0L) {
                     jjmatchedKind = 93;
@@ -1337,6 +894,7 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 5;
                 }
                 return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0L, active2, 0x20L);
+            case 84:
             case 116:
                 if ((active0 & 0x2000000L) != 0L) {
                     jjmatchedKind = 25;
@@ -1355,14 +913,18 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 5;
                 }
                 return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0x2000000000000L, active2, 0x40400000010000L);
+            case 85:
             case 117:
                 return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0L, active2, 0x20000000000000L);
+            case 89:
             case 121:
                 if ((active2 & 0x2000000000L) != 0L) {
                     jjmatchedKind = 165;
                     jjmatchedPos = 5;
                 }
                 break;
+            case 95:
+                return jjMoveStringLiteralDfa6_0(active0, 0L, active1, 0L, active2, 0x6000L);
             default:
                 break;
         }
@@ -1379,121 +941,19 @@ public class SQLTokenManager implements SQLConstants {
         }
         switch (curChar) {
             case 65:
-                return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0L, active2, 0x40600000040194L);
-            case 66:
-                return jjMoveStringLiteralDfa7_0(active0, 0x800000000L, active1, 0xc00000000000000L, active2, 0x800000004000L);
-            case 67:
-                if ((active2 & 0x4000000000L) != 0L) {
-                    jjmatchedKind = 166;
-                    jjmatchedPos = 6;
-                }
-                return jjMoveStringLiteralDfa7_0(active0, 0x200000000L, active1, 0x20c4000000000000L, active2, 0x4000000500000L);
-            case 69:
-                if ((active1 & 0x2000000000000L) != 0L) {
-                    jjmatchedKind = 113;
-                    jjmatchedPos = 6;
-                } else if ((active2 & 0x10000L) != 0L) {
-                    jjmatchedKind = 144;
-                    jjmatchedPos = 6;
-                } else if ((active2 & 0x100000000000000L) != 0L) {
-                    jjmatchedKind = 184;
-                    jjmatchedPos = 6;
-                }
-                return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0x9000000000000000L, active2, 0x800060L);
-            case 71:
-                if ((active1 & 0x80000000000L) != 0L) {
-                    jjmatchedKind = 107;
-                    jjmatchedPos = 6;
-                } else if ((active1 & 0x1000000000000L) != 0L) {
-                    jjmatchedKind = 112;
-                    jjmatchedPos = 6;
-                }
-                return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0x4000000000000000L, active2, 0L);
-            case 73:
-                return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0L, active2, 0x80000000000000L);
-            case 76:
-                if ((active1 & 0x100000000000L) != 0L) {
-                    jjmatchedKind = 108;
-                    jjmatchedPos = 6;
-                } else if ((active2 & 0x8000000000L) != 0L) {
-                    jjmatchedKind = 167;
-                    jjmatchedPos = 6;
-                }
-                return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0L, active2, 0x8L);
-            case 77:
-                return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0L, active2, 0x8000L);
-            case 78:
-                if ((active0 & 0x100000000L) != 0L) {
-                    jjmatchedKind = 32;
-                    jjmatchedPos = 6;
-                } else if ((active1 & 0x200000000000L) != 0L) {
-                    jjmatchedKind = 109;
-                    jjmatchedPos = 6;
-                } else if ((active2 & 0x800L) != 0L) {
-                    jjmatchedKind = 139;
-                    jjmatchedPos = 6;
-                } else if ((active2 & 0x10000000000L) != 0L) {
-                    jjmatchedKind = 168;
-                    jjmatchedPos = 6;
-                }
-                return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0x200000000000000L, active2, 0x20100000002200L);
-            case 79:
-                return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0x20000000000000L, active2, 0x18000000200000L);
-            case 82:
-                if ((active1 & 0x400000000000L) != 0L) {
-                    jjmatchedKind = 110;
-                    jjmatchedPos = 6;
-                } else if ((active2 & 0x40000000000L) != 0L) {
-                    jjmatchedKind = 170;
-                    jjmatchedPos = 6;
-                } else if ((active2 & 0x80000000000L) != 0L) {
-                    jjmatchedKind = 171;
-                    jjmatchedPos = 6;
-                }
-                return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0x100000000000000L, active2, 0x3000000080000L);
-            case 83:
-                if ((active1 & 0x20000000000L) != 0L) {
-                    jjmatchedKind = 105;
-                    jjmatchedPos = 6;
-                }
-                break;
-            case 84:
-                if ((active0 & 0x80000000L) != 0L) {
-                    jjmatchedKind = 31;
-                    jjmatchedPos = 6;
-                } else if ((active1 & 0x40000000000L) != 0L) {
-                    jjmatchedKind = 106;
-                    jjmatchedPos = 6;
-                } else if ((active1 & 0x800000000000L) != 0L) {
-                    jjmatchedKind = 111;
-                    jjmatchedPos = 6;
-                } else if ((active2 & 0x20000000000L) != 0L) {
-                    jjmatchedKind = 169;
-                    jjmatchedPos = 6;
-                }
-                return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0L, active2, 0xe00000000000002L);
-            case 85:
-                return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0x18000000000000L, active2, 0x1L);
-            case 87:
-                return jjMoveStringLiteralDfa7_0(active0, 0x1000000000L, active1, 0L, active2, 0L);
-            case 89:
-                if ((active2 & 0x400L) != 0L) {
-                    jjmatchedKind = 138;
-                    jjmatchedPos = 6;
-                }
-                return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0L, active2, 0x20000L);
-            case 90:
-                return jjMoveStringLiteralDfa7_0(active0, 0x400000000L, active1, 0L, active2, 0L);
             case 97:
                 return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0L, active2, 0x40600000040194L);
+            case 66:
             case 98:
                 return jjMoveStringLiteralDfa7_0(active0, 0x800000000L, active1, 0xc00000000000000L, active2, 0x800000004000L);
+            case 67:
             case 99:
                 if ((active2 & 0x4000000000L) != 0L) {
                     jjmatchedKind = 166;
                     jjmatchedPos = 6;
                 }
                 return jjMoveStringLiteralDfa7_0(active0, 0x200000000L, active1, 0x20c4000000000000L, active2, 0x4000000500000L);
+            case 69:
             case 101:
                 if ((active1 & 0x2000000000000L) != 0L) {
                     jjmatchedKind = 113;
@@ -1506,6 +966,7 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 6;
                 }
                 return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0x9000000000000000L, active2, 0x800060L);
+            case 71:
             case 103:
                 if ((active1 & 0x80000000000L) != 0L) {
                     jjmatchedKind = 107;
@@ -1515,8 +976,10 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 6;
                 }
                 return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0x4000000000000000L, active2, 0L);
+            case 73:
             case 105:
                 return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0L, active2, 0x80000000000000L);
+            case 76:
             case 108:
                 if ((active1 & 0x100000000000L) != 0L) {
                     jjmatchedKind = 108;
@@ -1526,8 +989,10 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 6;
                 }
                 return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0L, active2, 0x8L);
+            case 77:
             case 109:
                 return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0L, active2, 0x8000L);
+            case 78:
             case 110:
                 if ((active0 & 0x100000000L) != 0L) {
                     jjmatchedKind = 32;
@@ -1543,8 +1008,10 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 6;
                 }
                 return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0x200000000000000L, active2, 0x20100000002200L);
+            case 79:
             case 111:
                 return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0x20000000000000L, active2, 0x18000000200000L);
+            case 82:
             case 114:
                 if ((active1 & 0x400000000000L) != 0L) {
                     jjmatchedKind = 110;
@@ -1557,12 +1024,14 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 6;
                 }
                 return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0x100000000000000L, active2, 0x3000000080000L);
+            case 83:
             case 115:
                 if ((active1 & 0x20000000000L) != 0L) {
                     jjmatchedKind = 105;
                     jjmatchedPos = 6;
                 }
                 break;
+            case 84:
             case 116:
                 if ((active0 & 0x80000000L) != 0L) {
                     jjmatchedKind = 31;
@@ -1578,16 +1047,20 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 6;
                 }
                 return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0L, active2, 0xe00000000000002L);
+            case 85:
             case 117:
                 return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0x18000000000000L, active2, 0x1L);
+            case 87:
             case 119:
                 return jjMoveStringLiteralDfa7_0(active0, 0x1000000000L, active1, 0L, active2, 0L);
+            case 89:
             case 121:
                 if ((active2 & 0x400L) != 0L) {
                     jjmatchedKind = 138;
                     jjmatchedPos = 6;
                 }
                 return jjMoveStringLiteralDfa7_0(active0, 0L, active1, 0L, active2, 0x20000L);
+            case 90:
             case 122:
                 return jjMoveStringLiteralDfa7_0(active0, 0x400000000L, active1, 0L, active2, 0L);
             default:
@@ -1606,12 +1079,16 @@ public class SQLTokenManager implements SQLConstants {
         }
         switch (curChar) {
             case 65:
+            case 97:
                 return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x508000L);
             case 66:
+            case 98:
                 return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x42000000000100L);
             case 67:
+            case 99:
                 return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x21000000800220L);
             case 68:
+            case 100:
                 if ((active1 & 0x100000000000000L) != 0L) {
                     jjmatchedKind = 120;
                     jjmatchedPos = 7;
@@ -1621,6 +1098,7 @@ public class SQLTokenManager implements SQLConstants {
                 }
                 break;
             case 69:
+            case 101:
                 if ((active0 & 0x400000000L) != 0L) {
                     jjmatchedKind = 34;
                     jjmatchedPos = 7;
@@ -1642,112 +1120,19 @@ public class SQLTokenManager implements SQLConstants {
                 }
                 return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x2L);
             case 71:
-                if ((active1 & 0x200000000000000L) != 0L) {
-                    jjmatchedKind = 121;
-                    jjmatchedPos = 7;
-                }
-                return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x40L);
-            case 73:
-                return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x80L);
-            case 74:
-                return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x800000000000L);
-            case 75:
-                if ((active0 & 0x200000000L) != 0L) {
-                    jjmatchedKind = 33;
-                    jjmatchedPos = 7;
-                } else if ((active1 & 0x4000000000000L) != 0L) {
-                    jjmatchedKind = 114;
-                    jjmatchedPos = 7;
-                }
-                break;
-            case 76:
-                return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x4008L);
-            case 77:
-                return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x18400000200000L);
-            case 78:
-                if ((active0 & 0x1000000000L) != 0L) {
-                    jjmatchedKind = 36;
-                    jjmatchedPos = 7;
-                } else if ((active1 & 0x20000000000000L) != 0L) {
-                    jjmatchedKind = 117;
-                    jjmatchedPos = 7;
-                }
-                return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0x8000000000000000L, active2, 0L);
-            case 79:
-                return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x2000L);
-            case 82:
-                return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x200000040011L);
-            case 84:
-                if ((active1 & 0x80000000000000L) != 0L) {
-                    jjmatchedKind = 119;
-                    jjmatchedPos = 7;
-                } else if ((active1 & 0x2000000000000000L) != 0L) {
-                    jjmatchedKind = 125;
-                    jjmatchedPos = 7;
-                } else if ((active2 & 0x100000000000L) != 0L) {
-                    jjmatchedKind = 172;
-                    jjmatchedPos = 7;
-                }
-                return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x4000000000004L);
-            case 89:
-                if ((active1 & 0x400000000000000L) != 0L) {
-                    jjmatchedKind = 122;
-                    jjmatchedPos = 7;
-                } else if ((active1 & 0x800000000000000L) != 0L) {
-                    jjmatchedKind = 123;
-                    jjmatchedPos = 7;
-                }
-                return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x80000L);
-            case 90:
-                return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x80000000000000L);
-            case 95:
-                return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0xe00000000020000L);
-            case 97:
-                return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x508000L);
-            case 98:
-                return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x42000000000100L);
-            case 99:
-                return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x21000000800220L);
-            case 100:
-                if ((active1 & 0x100000000000000L) != 0L) {
-                    jjmatchedKind = 120;
-                    jjmatchedPos = 7;
-                } else if ((active1 & 0x1000000000000000L) != 0L) {
-                    jjmatchedKind = 124;
-                    jjmatchedPos = 7;
-                }
-                break;
-            case 101:
-                if ((active0 & 0x400000000L) != 0L) {
-                    jjmatchedKind = 34;
-                    jjmatchedPos = 7;
-                } else if ((active0 & 0x800000000L) != 0L) {
-                    jjmatchedKind = 35;
-                    jjmatchedPos = 7;
-                } else if ((active1 & 0x8000000000000L) != 0L) {
-                    jjmatchedKind = 115;
-                    jjmatchedPos = 7;
-                } else if ((active1 & 0x10000000000000L) != 0L) {
-                    jjmatchedKind = 116;
-                    jjmatchedPos = 7;
-                } else if ((active1 & 0x40000000000000L) != 0L) {
-                    jjmatchedKind = 118;
-                    jjmatchedPos = 7;
-                } else if ((active1 & 0x4000000000000000L) != 0L) {
-                    jjmatchedKind = 126;
-                    jjmatchedPos = 7;
-                }
-                return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x2L);
             case 103:
                 if ((active1 & 0x200000000000000L) != 0L) {
                     jjmatchedKind = 121;
                     jjmatchedPos = 7;
                 }
                 return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x40L);
+            case 73:
             case 105:
                 return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x80L);
+            case 74:
             case 106:
                 return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x800000000000L);
+            case 75:
             case 107:
                 if ((active0 & 0x200000000L) != 0L) {
                     jjmatchedKind = 33;
@@ -1757,10 +1142,13 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 7;
                 }
                 break;
+            case 76:
             case 108:
                 return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x4008L);
+            case 77:
             case 109:
                 return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x18400000200000L);
+            case 78:
             case 110:
                 if ((active0 & 0x1000000000L) != 0L) {
                     jjmatchedKind = 36;
@@ -1770,10 +1158,13 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 7;
                 }
                 return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0x8000000000000000L, active2, 0L);
+            case 79:
             case 111:
                 return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x2000L);
+            case 82:
             case 114:
                 return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x200000040011L);
+            case 84:
             case 116:
                 if ((active1 & 0x80000000000000L) != 0L) {
                     jjmatchedKind = 119;
@@ -1786,6 +1177,7 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 7;
                 }
                 return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x4000000000004L);
+            case 89:
             case 121:
                 if ((active1 & 0x400000000000000L) != 0L) {
                     jjmatchedKind = 122;
@@ -1795,8 +1187,11 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 7;
                 }
                 return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x80000L);
+            case 90:
             case 122:
                 return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0x80000000000000L);
+            case 95:
+                return jjMoveStringLiteralDfa8_0(active0, 0L, active1, 0L, active2, 0xe00000000020000L);
             default:
                 break;
         }
@@ -1813,10 +1208,13 @@ public class SQLTokenManager implements SQLConstants {
         }
         switch (curChar) {
             case 65:
+            case 97:
                 return jjMoveStringLiteralDfa9_0(active1, 0L, active2, 0x80000000000000L);
             case 68:
+            case 100:
                 return jjMoveStringLiteralDfa9_0(active1, 0L, active2, 0x400000000000000L);
             case 69:
+            case 101:
                 if ((active2 & 0x1L) != 0L) {
                     jjmatchedKind = 128;
                     jjmatchedPos = 8;
@@ -1826,32 +1224,42 @@ public class SQLTokenManager implements SQLConstants {
                 }
                 return jjMoveStringLiteralDfa9_0(active1, 0L, active2, 0x800000000240L);
             case 72:
+            case 104:
                 return jjMoveStringLiteralDfa9_0(active1, 0L, active2, 0x1000000000000L);
             case 73:
+            case 105:
                 return jjMoveStringLiteralDfa9_0(active1, 0L, active2, 0x6000000004000L);
             case 76:
+            case 108:
                 return jjMoveStringLiteralDfa9_0(active1, 0L, active2, 0x40000000500100L);
             case 77:
+            case 109:
                 return jjMoveStringLiteralDfa9_0(active1, 0L, active2, 0x18000000000000L);
             case 78:
+            case 110:
                 return jjMoveStringLiteralDfa9_0(active1, 0L, active2, 0x2080L);
             case 79:
+            case 111:
                 return jjMoveStringLiteralDfa9_0(active1, 0L, active2, 0x20000000800000L);
             case 80:
+            case 112:
                 if ((active2 & 0x400000000000L) != 0L) {
                     jjmatchedKind = 174;
                     jjmatchedPos = 8;
                 }
                 return jjMoveStringLiteralDfa9_0(active1, 0L, active2, 0x200000L);
             case 82:
+            case 114:
                 if ((active2 & 0x2L) != 0L) {
                     jjmatchedKind = 129;
                     jjmatchedPos = 8;
                 }
                 break;
             case 83:
+            case 115:
                 return jjMoveStringLiteralDfa9_0(active1, 0L, active2, 0x20000L);
             case 84:
+            case 116:
                 if ((active1 & 0x8000000000000000L) != 0L) {
                     jjmatchedKind = 127;
                     jjmatchedPos = 8;
@@ -1861,12 +1269,14 @@ public class SQLTokenManager implements SQLConstants {
                 }
                 return jjMoveStringLiteralDfa9_0(active1, 0L, active2, 0xa00000000000000L);
             case 88:
+            case 120:
                 if ((active2 & 0x8000L) != 0L) {
                     jjmatchedKind = 143;
                     jjmatchedPos = 8;
                 }
                 break;
             case 89:
+            case 121:
                 if ((active2 & 0x8L) != 0L) {
                     jjmatchedKind = 131;
                     jjmatchedPos = 8;
@@ -1880,72 +1290,6 @@ public class SQLTokenManager implements SQLConstants {
                 return jjMoveStringLiteralDfa9_0(active1, 0L, active2, 0x40000L);
             case 95:
                 return jjMoveStringLiteralDfa9_0(active1, 0L, active2, 0x80000L);
-            case 97:
-                return jjMoveStringLiteralDfa9_0(active1, 0L, active2, 0x80000000000000L);
-            case 100:
-                return jjMoveStringLiteralDfa9_0(active1, 0L, active2, 0x400000000000000L);
-            case 101:
-                if ((active2 & 0x1L) != 0L) {
-                    jjmatchedKind = 128;
-                    jjmatchedPos = 8;
-                } else if ((active2 & 0x4L) != 0L) {
-                    jjmatchedKind = 130;
-                    jjmatchedPos = 8;
-                }
-                return jjMoveStringLiteralDfa9_0(active1, 0L, active2, 0x800000000240L);
-            case 104:
-                return jjMoveStringLiteralDfa9_0(active1, 0L, active2, 0x1000000000000L);
-            case 105:
-                return jjMoveStringLiteralDfa9_0(active1, 0L, active2, 0x6000000004000L);
-            case 108:
-                return jjMoveStringLiteralDfa9_0(active1, 0L, active2, 0x40000000500100L);
-            case 109:
-                return jjMoveStringLiteralDfa9_0(active1, 0L, active2, 0x18000000000000L);
-            case 110:
-                return jjMoveStringLiteralDfa9_0(active1, 0L, active2, 0x2080L);
-            case 111:
-                return jjMoveStringLiteralDfa9_0(active1, 0L, active2, 0x20000000800000L);
-            case 112:
-                if ((active2 & 0x400000000000L) != 0L) {
-                    jjmatchedKind = 174;
-                    jjmatchedPos = 8;
-                }
-                return jjMoveStringLiteralDfa9_0(active1, 0L, active2, 0x200000L);
-            case 114:
-                if ((active2 & 0x2L) != 0L) {
-                    jjmatchedKind = 129;
-                    jjmatchedPos = 8;
-                }
-                break;
-            case 115:
-                return jjMoveStringLiteralDfa9_0(active1, 0L, active2, 0x20000L);
-            case 116:
-                if ((active1 & 0x8000000000000000L) != 0L) {
-                    jjmatchedKind = 127;
-                    jjmatchedPos = 8;
-                } else if ((active2 & 0x20L) != 0L) {
-                    jjmatchedKind = 133;
-                    jjmatchedPos = 8;
-                }
-                return jjMoveStringLiteralDfa9_0(active1, 0L, active2, 0xa00000000000000L);
-            case 120:
-                if ((active2 & 0x8000L) != 0L) {
-                    jjmatchedKind = 143;
-                    jjmatchedPos = 8;
-                }
-                break;
-            case 121:
-                if ((active2 & 0x8L) != 0L) {
-                    jjmatchedKind = 131;
-                    jjmatchedPos = 8;
-                } else if ((active2 & 0x10L) != 0L) {
-                    jjmatchedKind = 132;
-                    jjmatchedPos = 8;
-                } else if ((active2 & 0x200000000000L) != 0L) {
-                    jjmatchedKind = 173;
-                    jjmatchedPos = 8;
-                }
-                return jjMoveStringLiteralDfa9_0(active1, 0L, active2, 0x40000L);
             default:
                 break;
         }
@@ -1962,51 +1306,15 @@ public class SQLTokenManager implements SQLConstants {
         }
         switch (curChar) {
             case 65:
-                return jjMoveStringLiteralDfa10_0(active2, 0x401000000000000L);
-            case 66:
-                return jjMoveStringLiteralDfa10_0(active2, 0x80000000000000L);
-            case 67:
-                return jjMoveStringLiteralDfa10_0(active2, 0x800000000000L);
-            case 69:
-                if ((active2 & 0x100L) != 0L) {
-                    jjmatchedKind = 136;
-                    jjmatchedPos = 9;
-                } else if ((active2 & 0x2000L) != 0L) {
-                    jjmatchedKind = 141;
-                    jjmatchedPos = 9;
-                }
-                return jjMoveStringLiteralDfa10_0(active2, 0x40000000000000L);
-            case 73:
-                return jjMoveStringLiteralDfa10_0(active2, 0xa18000000000000L);
-            case 77:
-                return jjMoveStringLiteralDfa10_0(active2, 0x20000000800000L);
-            case 78:
-                return jjMoveStringLiteralDfa10_0(active2, 0x2000000000000L);
-            case 79:
-                return jjMoveStringLiteralDfa10_0(active2, 0x4000000200000L);
-            case 83:
-                if ((active2 & 0x40L) != 0L) {
-                    jjmatchedKind = 134;
-                    jjmatchedPos = 9;
-                } else if ((active2 & 0x200L) != 0L) {
-                    jjmatchedKind = 137;
-                    jjmatchedPos = 9;
-                }
-                return jjMoveStringLiteralDfa10_0(active2, 0x84000L);
-            case 84:
-                if ((active2 & 0x80L) != 0L) {
-                    jjmatchedKind = 135;
-                    jjmatchedPos = 9;
-                }
-                return jjMoveStringLiteralDfa10_0(active2, 0x20000L);
-            case 95:
-                return jjMoveStringLiteralDfa10_0(active2, 0x540000L);
             case 97:
                 return jjMoveStringLiteralDfa10_0(active2, 0x401000000000000L);
+            case 66:
             case 98:
                 return jjMoveStringLiteralDfa10_0(active2, 0x80000000000000L);
+            case 67:
             case 99:
                 return jjMoveStringLiteralDfa10_0(active2, 0x800000000000L);
+            case 69:
             case 101:
                 if ((active2 & 0x100L) != 0L) {
                     jjmatchedKind = 136;
@@ -2016,14 +1324,19 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 9;
                 }
                 return jjMoveStringLiteralDfa10_0(active2, 0x40000000000000L);
+            case 73:
             case 105:
                 return jjMoveStringLiteralDfa10_0(active2, 0xa18000000000000L);
+            case 77:
             case 109:
                 return jjMoveStringLiteralDfa10_0(active2, 0x20000000800000L);
+            case 78:
             case 110:
                 return jjMoveStringLiteralDfa10_0(active2, 0x2000000000000L);
+            case 79:
             case 111:
                 return jjMoveStringLiteralDfa10_0(active2, 0x4000000200000L);
+            case 83:
             case 115:
                 if ((active2 & 0x40L) != 0L) {
                     jjmatchedKind = 134;
@@ -2033,12 +1346,15 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 9;
                 }
                 return jjMoveStringLiteralDfa10_0(active2, 0x84000L);
+            case 84:
             case 116:
                 if ((active2 & 0x80L) != 0L) {
                     jjmatchedKind = 135;
                     jjmatchedPos = 9;
                 }
                 return jjMoveStringLiteralDfa10_0(active2, 0x20000L);
+            case 95:
+                return jjMoveStringLiteralDfa10_0(active2, 0x540000L);
             default:
                 break;
         }
@@ -2057,57 +1373,34 @@ public class SQLTokenManager implements SQLConstants {
             case 32:
                 return jjMoveStringLiteralDfa11_0(active2, 0x40000000000000L);
             case 65:
-                return jjMoveStringLiteralDfa11_0(active2, 0x2000000000000L);
-            case 68:
-                return jjMoveStringLiteralDfa11_0(active2, 0x400000L);
-            case 76:
-                return jjMoveStringLiteralDfa11_0(active2, 0x80000000000000L);
-            case 77:
-                return jjMoveStringLiteralDfa11_0(active2, 0xa20000000000000L);
-            case 78:
-                return jjMoveStringLiteralDfa11_0(active2, 0x4000000000000L);
-            case 80:
-                return jjMoveStringLiteralDfa11_0(active2, 0x800000L);
-            case 82:
-                if ((active2 & 0x1000000000000L) != 0L) {
-                    jjmatchedKind = 176;
-                    jjmatchedPos = 10;
-                }
-                return jjMoveStringLiteralDfa11_0(active2, 0x20000L);
-            case 83:
-                return jjMoveStringLiteralDfa11_0(active2, 0x340000L);
-            case 84:
-                if ((active2 & 0x4000L) != 0L) {
-                    jjmatchedKind = 142;
-                    jjmatchedPos = 10;
-                } else if ((active2 & 0x800000000000L) != 0L) {
-                    jjmatchedKind = 175;
-                    jjmatchedPos = 10;
-                } else if ((active2 & 0x8000000000000L) != 0L) {
-                    jjmatchedKind = 179;
-                    jjmatchedPos = 10;
-                }
-                return jjMoveStringLiteralDfa11_0(active2, 0x410000000080000L);
             case 97:
                 return jjMoveStringLiteralDfa11_0(active2, 0x2000000000000L);
+            case 68:
             case 100:
                 return jjMoveStringLiteralDfa11_0(active2, 0x400000L);
+            case 76:
             case 108:
                 return jjMoveStringLiteralDfa11_0(active2, 0x80000000000000L);
+            case 77:
             case 109:
                 return jjMoveStringLiteralDfa11_0(active2, 0xa20000000000000L);
+            case 78:
             case 110:
                 return jjMoveStringLiteralDfa11_0(active2, 0x4000000000000L);
+            case 80:
             case 112:
                 return jjMoveStringLiteralDfa11_0(active2, 0x800000L);
+            case 82:
             case 114:
                 if ((active2 & 0x1000000000000L) != 0L) {
                     jjmatchedKind = 176;
                     jjmatchedPos = 10;
                 }
                 return jjMoveStringLiteralDfa11_0(active2, 0x20000L);
+            case 83:
             case 115:
                 return jjMoveStringLiteralDfa11_0(active2, 0x340000L);
+            case 84:
             case 116:
                 if ((active2 & 0x4000L) != 0L) {
                     jjmatchedKind = 142;
@@ -2138,25 +1431,6 @@ public class SQLTokenManager implements SQLConstants {
             case 32:
                 return jjMoveStringLiteralDfa12_0(active2, 0x4000000000000L);
             case 69:
-                if ((active2 & 0x80000000000000L) != 0L) {
-                    jjmatchedKind = 183;
-                    jjmatchedPos = 11;
-                } else if ((active2 & 0x200000000000000L) != 0L) {
-                    jjmatchedKind = 185;
-                    jjmatchedPos = 11;
-                } else if ((active2 & 0x400000000000000L) != 0L) {
-                    jjmatchedKind = 186;
-                    jjmatchedPos = 11;
-                }
-                return jjMoveStringLiteralDfa12_0(active2, 0x800000000420000L);
-            case 73:
-                return jjMoveStringLiteralDfa12_0(active2, 0x20000000200000L);
-            case 79:
-                return jjMoveStringLiteralDfa12_0(active2, 0x800000L);
-            case 82:
-                return jjMoveStringLiteralDfa12_0(active2, 0x42000000080000L);
-            case 84:
-                return jjMoveStringLiteralDfa12_0(active2, 0x10000000140000L);
             case 101:
                 if ((active2 & 0x80000000000000L) != 0L) {
                     jjmatchedKind = 183;
@@ -2169,12 +1443,16 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 11;
                 }
                 return jjMoveStringLiteralDfa12_0(active2, 0x800000000420000L);
+            case 73:
             case 105:
                 return jjMoveStringLiteralDfa12_0(active2, 0x20000000200000L);
+            case 79:
             case 111:
                 return jjMoveStringLiteralDfa12_0(active2, 0x800000L);
+            case 82:
             case 114:
                 return jjMoveStringLiteralDfa12_0(active2, 0x42000000080000L);
+            case 84:
             case 116:
                 return jjMoveStringLiteralDfa12_0(active2, 0x10000000140000L);
             default:
@@ -2193,39 +1471,27 @@ public class SQLTokenManager implements SQLConstants {
         }
         switch (curChar) {
             case 67:
-                return jjMoveStringLiteralDfa13_0(active2, 0x400000L);
-            case 69:
-                return jjMoveStringLiteralDfa13_0(active2, 0x50000000080000L);
-            case 73:
-                return jjMoveStringLiteralDfa13_0(active2, 0x4000000000000L);
-            case 78:
-                return jjMoveStringLiteralDfa13_0(active2, 0x20000L);
-            case 82:
-                return jjMoveStringLiteralDfa13_0(active2, 0x140000L);
-            case 83:
-                return jjMoveStringLiteralDfa13_0(active2, 0x800000000800000L);
-            case 84:
-                return jjMoveStringLiteralDfa13_0(active2, 0x20000000200000L);
-            case 89:
-                if ((active2 & 0x2000000000000L) != 0L) {
-                    jjmatchedKind = 177;
-                    jjmatchedPos = 12;
-                }
-                break;
             case 99:
                 return jjMoveStringLiteralDfa13_0(active2, 0x400000L);
+            case 69:
             case 101:
                 return jjMoveStringLiteralDfa13_0(active2, 0x50000000080000L);
+            case 73:
             case 105:
                 return jjMoveStringLiteralDfa13_0(active2, 0x4000000000000L);
+            case 78:
             case 110:
                 return jjMoveStringLiteralDfa13_0(active2, 0x20000L);
+            case 82:
             case 114:
                 return jjMoveStringLiteralDfa13_0(active2, 0x140000L);
+            case 83:
             case 115:
                 return jjMoveStringLiteralDfa13_0(active2, 0x800000000800000L);
+            case 84:
             case 116:
                 return jjMoveStringLiteralDfa13_0(active2, 0x20000000200000L);
+            case 89:
             case 121:
                 if ((active2 & 0x2000000000000L) != 0L) {
                     jjmatchedKind = 177;
@@ -2248,47 +1514,34 @@ public class SQLTokenManager implements SQLConstants {
         }
         switch (curChar) {
             case 65:
-                return jjMoveStringLiteralDfa14_0(active2, 0x40000000000000L);
-            case 68:
-                if ((active2 & 0x10000000000000L) != 0L) {
-                    jjmatchedKind = 180;
-                    jjmatchedPos = 13;
-                }
-                break;
-            case 69:
-                return jjMoveStringLiteralDfa14_0(active2, 0x140000L);
-            case 71:
-                return jjMoveStringLiteralDfa14_0(active2, 0x20000L);
-            case 73:
-                return jjMoveStringLiteralDfa14_0(active2, 0xa00000L);
-            case 78:
-                return jjMoveStringLiteralDfa14_0(active2, 0x80000L);
-            case 79:
-                return jjMoveStringLiteralDfa14_0(active2, 0x400000L);
-            case 83:
-                return jjMoveStringLiteralDfa14_0(active2, 0x4000000000000L);
-            case 84:
-                return jjMoveStringLiteralDfa14_0(active2, 0x820000000000000L);
             case 97:
                 return jjMoveStringLiteralDfa14_0(active2, 0x40000000000000L);
+            case 68:
             case 100:
                 if ((active2 & 0x10000000000000L) != 0L) {
                     jjmatchedKind = 180;
                     jjmatchedPos = 13;
                 }
                 break;
+            case 69:
             case 101:
                 return jjMoveStringLiteralDfa14_0(active2, 0x140000L);
+            case 71:
             case 103:
                 return jjMoveStringLiteralDfa14_0(active2, 0x20000L);
+            case 73:
             case 105:
                 return jjMoveStringLiteralDfa14_0(active2, 0xa00000L);
+            case 78:
             case 110:
                 return jjMoveStringLiteralDfa14_0(active2, 0x80000L);
+            case 79:
             case 111:
                 return jjMoveStringLiteralDfa14_0(active2, 0x400000L);
+            case 83:
             case 115:
                 return jjMoveStringLiteralDfa14_0(active2, 0x4000000000000L);
+            case 84:
             case 116:
                 return jjMoveStringLiteralDfa14_0(active2, 0x820000000000000L);
             default:
@@ -2307,43 +1560,31 @@ public class SQLTokenManager implements SQLConstants {
         }
         switch (curChar) {
             case 65:
-                return jjMoveStringLiteralDfa15_0(active2, 0x800000000000000L);
-            case 68:
-                if ((active2 & 0x40000000000000L) != 0L) {
-                    jjmatchedKind = 182;
-                    jjmatchedPos = 14;
-                }
-                break;
-            case 69:
-                return jjMoveStringLiteralDfa15_0(active2, 0x20000000000000L);
-            case 71:
-                return jjMoveStringLiteralDfa15_0(active2, 0x80000L);
-            case 77:
-                return jjMoveStringLiteralDfa15_0(active2, 0x400000L);
-            case 78:
-                return jjMoveStringLiteralDfa15_0(active2, 0x140000L);
-            case 79:
-                return jjMoveStringLiteralDfa15_0(active2, 0x4000000200000L);
-            case 84:
-                return jjMoveStringLiteralDfa15_0(active2, 0x820000L);
             case 97:
                 return jjMoveStringLiteralDfa15_0(active2, 0x800000000000000L);
+            case 68:
             case 100:
                 if ((active2 & 0x40000000000000L) != 0L) {
                     jjmatchedKind = 182;
                     jjmatchedPos = 14;
                 }
                 break;
+            case 69:
             case 101:
                 return jjMoveStringLiteralDfa15_0(active2, 0x20000000000000L);
+            case 71:
             case 103:
                 return jjMoveStringLiteralDfa15_0(active2, 0x80000L);
+            case 77:
             case 109:
                 return jjMoveStringLiteralDfa15_0(active2, 0x400000L);
+            case 78:
             case 110:
                 return jjMoveStringLiteralDfa15_0(active2, 0x140000L);
+            case 79:
             case 111:
                 return jjMoveStringLiteralDfa15_0(active2, 0x4000000200000L);
+            case 84:
             case 116:
                 return jjMoveStringLiteralDfa15_0(active2, 0x820000L);
             default:
@@ -2362,63 +1603,42 @@ public class SQLTokenManager implements SQLConstants {
         }
         switch (curChar) {
             case 68:
-                if ((active2 & 0x20000000000000L) != 0L) {
-                    jjmatchedKind = 181;
-                    jjmatchedPos = 15;
-                }
-                break;
-            case 71:
-                return jjMoveStringLiteralDfa16_0(active2, 0x140000L);
-            case 72:
-                if ((active2 & 0x20000L) != 0L) {
-                    jjmatchedKind = 145;
-                    jjmatchedPos = 15;
-                }
-                break;
-            case 73:
-                return jjMoveStringLiteralDfa16_0(active2, 0x800000L);
-            case 76:
-                return jjMoveStringLiteralDfa16_0(active2, 0x4000000000000L);
-            case 77:
-                return jjMoveStringLiteralDfa16_0(active2, 0x800000000000000L);
-            case 78:
-                if ((active2 & 0x200000L) != 0L) {
-                    jjmatchedKind = 149;
-                    jjmatchedPos = 15;
-                }
-                break;
-            case 80:
-                return jjMoveStringLiteralDfa16_0(active2, 0x400000L);
-            case 84:
-                return jjMoveStringLiteralDfa16_0(active2, 0x80000L);
             case 100:
                 if ((active2 & 0x20000000000000L) != 0L) {
                     jjmatchedKind = 181;
                     jjmatchedPos = 15;
                 }
                 break;
+            case 71:
             case 103:
                 return jjMoveStringLiteralDfa16_0(active2, 0x140000L);
+            case 72:
             case 104:
                 if ((active2 & 0x20000L) != 0L) {
                     jjmatchedKind = 145;
                     jjmatchedPos = 15;
                 }
                 break;
+            case 73:
             case 105:
                 return jjMoveStringLiteralDfa16_0(active2, 0x800000L);
+            case 76:
             case 108:
                 return jjMoveStringLiteralDfa16_0(active2, 0x4000000000000L);
+            case 77:
             case 109:
                 return jjMoveStringLiteralDfa16_0(active2, 0x800000000000000L);
+            case 78:
             case 110:
                 if ((active2 & 0x200000L) != 0L) {
                     jjmatchedKind = 149;
                     jjmatchedPos = 15;
                 }
                 break;
+            case 80:
             case 112:
                 return jjMoveStringLiteralDfa16_0(active2, 0x400000L);
+            case 84:
             case 116:
                 return jjMoveStringLiteralDfa16_0(active2, 0x80000L);
             default:
@@ -2437,39 +1657,26 @@ public class SQLTokenManager implements SQLConstants {
         }
         switch (curChar) {
             case 65:
-                return jjMoveStringLiteralDfa17_0(active2, 0x4000000000000L);
-            case 72:
-                if ((active2 & 0x80000L) != 0L) {
-                    jjmatchedKind = 147;
-                    jjmatchedPos = 16;
-                }
-                break;
-            case 79:
-                return jjMoveStringLiteralDfa17_0(active2, 0xc00000L);
-            case 80:
-                if ((active2 & 0x800000000000000L) != 0L) {
-                    jjmatchedKind = 187;
-                    jjmatchedPos = 16;
-                }
-                break;
-            case 84:
-                return jjMoveStringLiteralDfa17_0(active2, 0x140000L);
             case 97:
                 return jjMoveStringLiteralDfa17_0(active2, 0x4000000000000L);
+            case 72:
             case 104:
                 if ((active2 & 0x80000L) != 0L) {
                     jjmatchedKind = 147;
                     jjmatchedPos = 16;
                 }
                 break;
+            case 79:
             case 111:
                 return jjMoveStringLiteralDfa17_0(active2, 0xc00000L);
+            case 80:
             case 112:
                 if ((active2 & 0x800000000000000L) != 0L) {
                     jjmatchedKind = 187;
                     jjmatchedPos = 16;
                 }
                 break;
+            case 84:
             case 116:
                 return jjMoveStringLiteralDfa17_0(active2, 0x140000L);
             default:
@@ -2488,24 +1695,6 @@ public class SQLTokenManager implements SQLConstants {
         }
         switch (curChar) {
             case 72:
-                if ((active2 & 0x40000L) != 0L) {
-                    jjmatchedKind = 146;
-                    jjmatchedPos = 17;
-                } else if ((active2 & 0x100000L) != 0L) {
-                    jjmatchedKind = 148;
-                    jjmatchedPos = 17;
-                }
-                break;
-            case 78:
-                if ((active2 & 0x800000L) != 0L) {
-                    jjmatchedKind = 151;
-                    jjmatchedPos = 17;
-                }
-                break;
-            case 83:
-                return jjMoveStringLiteralDfa18_0(active2, 0x400000L);
-            case 84:
-                return jjMoveStringLiteralDfa18_0(active2, 0x4000000000000L);
             case 104:
                 if ((active2 & 0x40000L) != 0L) {
                     jjmatchedKind = 146;
@@ -2515,14 +1704,17 @@ public class SQLTokenManager implements SQLConstants {
                     jjmatchedPos = 17;
                 }
                 break;
+            case 78:
             case 110:
                 if ((active2 & 0x800000L) != 0L) {
                     jjmatchedKind = 151;
                     jjmatchedPos = 17;
                 }
                 break;
+            case 83:
             case 115:
                 return jjMoveStringLiteralDfa18_0(active2, 0x400000L);
+            case 84:
             case 116:
                 return jjMoveStringLiteralDfa18_0(active2, 0x4000000000000L);
             default:
@@ -2541,7 +1733,6 @@ public class SQLTokenManager implements SQLConstants {
         }
         switch (curChar) {
             case 73:
-                return jjMoveStringLiteralDfa19_0(active2, 0x4000000400000L);
             case 105:
                 return jjMoveStringLiteralDfa19_0(active2, 0x4000000400000L);
             default:
@@ -2560,11 +1751,9 @@ public class SQLTokenManager implements SQLConstants {
         }
         switch (curChar) {
             case 79:
-                return jjMoveStringLiteralDfa20_0(active2, 0x4000000000000L);
-            case 84:
-                return jjMoveStringLiteralDfa20_0(active2, 0x400000L);
             case 111:
                 return jjMoveStringLiteralDfa20_0(active2, 0x4000000000000L);
+            case 84:
             case 116:
                 return jjMoveStringLiteralDfa20_0(active2, 0x400000L);
             default:
@@ -2583,11 +1772,9 @@ public class SQLTokenManager implements SQLConstants {
         }
         switch (curChar) {
             case 73:
-                return jjMoveStringLiteralDfa21_0(active2, 0x400000L);
-            case 78:
-                return jjMoveStringLiteralDfa21_0(active2, 0x4000000000000L);
             case 105:
                 return jjMoveStringLiteralDfa21_0(active2, 0x400000L);
+            case 78:
             case 110:
                 return jjMoveStringLiteralDfa21_0(active2, 0x4000000000000L);
             default:
@@ -2608,7 +1795,6 @@ public class SQLTokenManager implements SQLConstants {
             case 32:
                 return jjMoveStringLiteralDfa22_0(active2, 0x4000000000000L);
             case 79:
-                return jjMoveStringLiteralDfa22_0(active2, 0x400000L);
             case 111:
                 return jjMoveStringLiteralDfa22_0(active2, 0x400000L);
             default:
@@ -2627,15 +1813,9 @@ public class SQLTokenManager implements SQLConstants {
         }
         switch (curChar) {
             case 76:
-                return jjMoveStringLiteralDfa23_0(active2, 0x4000000000000L);
-            case 78:
-                if ((active2 & 0x400000L) != 0L) {
-                    jjmatchedKind = 150;
-                    jjmatchedPos = 22;
-                }
-                break;
             case 108:
                 return jjMoveStringLiteralDfa23_0(active2, 0x4000000000000L);
+            case 78:
             case 110:
                 if ((active2 & 0x400000L) != 0L) {
                     jjmatchedKind = 150;
@@ -2658,7 +1838,6 @@ public class SQLTokenManager implements SQLConstants {
         }
         switch (curChar) {
             case 69:
-                return jjMoveStringLiteralDfa24_0(active2, 0x4000000000000L);
             case 101:
                 return jjMoveStringLiteralDfa24_0(active2, 0x4000000000000L);
             default:
@@ -2677,7 +1856,6 @@ public class SQLTokenManager implements SQLConstants {
         }
         switch (curChar) {
             case 86:
-                return jjMoveStringLiteralDfa25_0(active2, 0x4000000000000L);
             case 118:
                 return jjMoveStringLiteralDfa25_0(active2, 0x4000000000000L);
             default:
@@ -2696,7 +1874,6 @@ public class SQLTokenManager implements SQLConstants {
         }
         switch (curChar) {
             case 69:
-                return jjMoveStringLiteralDfa26_0(active2, 0x4000000000000L);
             case 101:
                 return jjMoveStringLiteralDfa26_0(active2, 0x4000000000000L);
             default:
@@ -2715,11 +1892,6 @@ public class SQLTokenManager implements SQLConstants {
         }
         switch (curChar) {
             case 76:
-                if ((active2 & 0x4000000000000L) != 0L) {
-                    jjmatchedKind = 178;
-                    jjmatchedPos = 26;
-                }
-                break;
             case 108:
                 if ((active2 & 0x4000000000000L) != 0L) {
                     jjmatchedKind = 178;
@@ -3272,7 +2444,7 @@ public class SQLTokenManager implements SQLConstants {
                     }
                 } while (i != startsAt);
             } else {
-                int hiByte = (int) (curChar >> 8);
+                int hiByte = curChar >> 8;
                 int i1 = hiByte >> 6;
                 long l1 = 1L << (hiByte & 077);
                 int i2 = (curChar & 0xff) >> 6;
@@ -3435,7 +2607,7 @@ public class SQLTokenManager implements SQLConstants {
     }
 
     public void SwitchTo(int lexState) {
-        if (lexState >= 1 || lexState < 0)
+        if (lexState != 0)
             throw new TokenMgrError("Error: Ignoring invalid lexical state : " + lexState + ". State unchanged.", TokenMgrError.INVALID_LEXICAL_STATE);
         else
             curLexState = lexState;
@@ -3486,7 +2658,7 @@ public class SQLTokenManager implements SQLConstants {
                     matchedToken = jjFillToken();
                     return matchedToken;
                 } else {
-                    continue EOFLoop;
+                    continue;
                 }
             }
             int error_line = input_stream.getEndLine();

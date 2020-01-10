@@ -19,6 +19,7 @@ package com.pony.database;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import com.pony.util.IntegerVector;
 
@@ -238,7 +239,7 @@ public final class ConnectionTriggerManager {
                 TriggerInfo trigger_info = new TriggerInfo();
                 trigger_info.schema = trig_schem.getObject().toString();
                 trigger_info.name = trig_name.getObject().toString();
-                trigger_info.type = type.toBigNumber().intValue();
+                trigger_info.type = Objects.requireNonNull(type.toBigNumber()).intValue();
                 trigger_info.on_object = on_object.getObject().toString();
                 trigger_info.action = action.getObject().toString();
                 trigger_info.misc = misc;

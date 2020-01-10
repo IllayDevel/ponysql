@@ -21,6 +21,7 @@ import com.pony.util.IntegerVector;
 import com.pony.debug.*;
 
 //import com.pony.database.sql.SelectStatement;    // Evaluating sub-selects
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.io.IOException;
@@ -344,7 +345,7 @@ public abstract class Table implements TableDataSource {
             if (Debug().isInterestedIn(Lvl.INFORMATION)) {
                 Debug().write(Lvl.INFORMATION, this,
                         table + " = " + this + ".rangeSelect(" +
-                                col_var + ", " + ranges + " )");
+                                col_var + ", " + Arrays.toString(ranges) + " )");
             }
         }
 
@@ -1235,7 +1236,7 @@ public abstract class Table implements TableDataSource {
         if (DEBUG_QUERY) {
             if (Debug().isInterestedIn(Lvl.INFORMATION)) {
                 Debug().write(Lvl.INFORMATION, this,
-                        vt + " = " + this + ".distinct(" + col_map + ")");
+                        vt + " = " + this + ".distinct(" + Arrays.toString(col_map) + ")");
             }
         }
 

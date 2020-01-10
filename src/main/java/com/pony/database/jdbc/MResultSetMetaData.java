@@ -60,20 +60,16 @@ public class MResultSetMetaData implements ResultSetMetaData {
             case (SQLTypes.BIGINT):
                 return Long.class;
             case (SQLTypes.FLOAT):
+            case (SQLTypes.DOUBLE):
                 return Double.class;
             case (SQLTypes.REAL):
                 return Float.class;
-            case (SQLTypes.DOUBLE):
-                return Double.class;
             case (SQLTypes.NUMERIC):
-                return BigDecimal.class;
             case (SQLTypes.DECIMAL):
                 return BigDecimal.class;
             case (SQLTypes.CHAR):
-                return String.class;
-            case (SQLTypes.VARCHAR):
-                return String.class;
             case (SQLTypes.LONGVARCHAR):
+            case (SQLTypes.VARCHAR):
                 return String.class;
             case (SQLTypes.DATE):
                 return java.sql.Date.class;
@@ -82,35 +78,26 @@ public class MResultSetMetaData implements ResultSetMetaData {
             case (SQLTypes.TIMESTAMP):
                 return java.sql.Timestamp.class;
             case (SQLTypes.BINARY):
-                return byte[].class;
+            case (SQLTypes.LONGVARBINARY):
             case (SQLTypes.VARBINARY):
                 return byte[].class;
-            case (SQLTypes.LONGVARBINARY):
-                return byte[].class;
-            case (SQLTypes.NULL):
-                return Object.class;
-            case (SQLTypes.OTHER):
-                return Object.class;
-            case (SQLTypes.JAVA_OBJECT):
-                return Object.class;
-            case (SQLTypes.DISTINCT):
-                // (Not supported)
-                return Object.class;
-            case (SQLTypes.STRUCT):
-                // (Not supported)
-                return Object.class;
-            case (SQLTypes.ARRAY):
-                // (Not supported)
-                return Object.class;
 //#IFDEF(JDBC2.0)
             case (SQLTypes.BLOB):
                 return java.sql.Blob.class;
             case (SQLTypes.CLOB):
                 return java.sql.Clob.class;
             case (SQLTypes.REF):
+            case (SQLTypes.ARRAY):
+            case (SQLTypes.STRUCT):
+            case (SQLTypes.DISTINCT):
+            case (SQLTypes.JAVA_OBJECT):
+            case (SQLTypes.OTHER):
+            case (SQLTypes.NULL):
                 // (Not supported)
-                return Object.class;
-//#ENDIF
+                // (Not supported)
+                // (Not supported)
+                // (Not supported)
+                //#ENDIF
             default:
                 return Object.class;
         }

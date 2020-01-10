@@ -348,7 +348,7 @@ public class MConnection implements Connection, DatabaseCallBack {
         try {
             for (Object var : vars) {
                 // For each streamable object.
-                if (var != null && var instanceof StreamableObject) {
+                if (var instanceof StreamableObject) {
                     // Buffer size is fixed to 64 KB
                     final int BUF_SIZE = 64 * 1024;
 
@@ -371,7 +371,7 @@ public class MConnection implements Connection, DatabaseCallBack {
                         // Fill the buffer
                         int index = 0;
                         final int block_read =
-                                (int) Math.min((long) BUF_SIZE, (total_len - offset));
+                                (int) Math.min(BUF_SIZE, (total_len - offset));
                         int to_read = block_read;
                         while (to_read > 0) {
                             int count = i_stream.read(buf, index, to_read);

@@ -189,8 +189,7 @@ public abstract class Statement {
      */
     Variable resolveColumn(Variable v) {
         // Try and resolve against alias names first,
-        ArrayList list = new ArrayList();
-        list.addAll(resolveAgainstAliases(v));
+        ArrayList list = new ArrayList(resolveAgainstAliases(v));
 
         TableName tname = v.getTableName();
         String sch_name = null;

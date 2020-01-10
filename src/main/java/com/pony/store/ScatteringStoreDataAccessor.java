@@ -305,7 +305,7 @@ public class ScatteringStoreDataAccessor implements StoreDataAccessor {
         while (len > 0) {
             int file_i = (int) (position / max_slice_size);
             long file_p = (position % max_slice_size);
-            int file_len = (int) Math.min((long) len, max_slice_size - file_p);
+            int file_len = (int) Math.min(len, max_slice_size - file_p);
 
             FileSlice slice;
             synchronized (lock) {
@@ -329,7 +329,7 @@ public class ScatteringStoreDataAccessor implements StoreDataAccessor {
         while (len > 0) {
             int file_i = (int) (position / max_slice_size);
             long file_p = (position % max_slice_size);
-            int file_len = (int) Math.min((long) len, max_slice_size - file_p);
+            int file_len = (int) Math.min(len, max_slice_size - file_p);
 
             FileSlice slice;
             synchronized (lock) {

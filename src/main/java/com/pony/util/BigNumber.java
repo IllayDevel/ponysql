@@ -330,7 +330,7 @@ public final class BigNumber extends Number {
                 // Comparing NaN number with a NaN number.
                 // This compares -Inf less than Inf and NaN and NaN greater than
                 // Inf and -Inf.  -Inf < Inf < NaN
-                return (int) (number_state - number.number_state);
+                return number_state - number.number_state;
             }
         }
     }

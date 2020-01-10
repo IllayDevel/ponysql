@@ -122,7 +122,7 @@ public final class FunctionDef implements java.io.Serializable, Cloneable {
     public Object clone() throws CloneNotSupportedException {
         FunctionDef v = (FunctionDef) super.clone();
         // Deep clone the parameters
-        Expression[] exps = (Expression[]) ((Expression[]) v.params).clone();
+        Expression[] exps = v.params.clone();
         // Clone each element of the array
         for (int n = 0; n < exps.length; ++n) {
             exps[n] = (Expression) exps[n].clone();

@@ -94,7 +94,7 @@ class MBlob implements Blob {
 
             ++i;
             if (found_index >= pattern.length) {
-                return (long) i;
+                return i;
             }
 
         }

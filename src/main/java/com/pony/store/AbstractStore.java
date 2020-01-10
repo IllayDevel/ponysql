@@ -103,7 +103,7 @@ public abstract class AbstractStore implements Store {
     protected AbstractStore(boolean read_only) {
         free_bin_list = new long[BIN_ENTRIES + 1];
         for (int i = 0; i < BIN_ENTRIES + 1; ++i) {
-            free_bin_list[i] = (long) -1;
+            free_bin_list[i] = -1;
         }
         wilderness_pointer = -1;
         this.read_only = read_only;
@@ -499,7 +499,7 @@ public abstract class AbstractStore implements Store {
         // Rebuild the free bins,
         free_bin_list = new long[BIN_ENTRIES + 1];
         for (int i = 0; i < BIN_ENTRIES + 1; ++i) {
-            free_bin_list[i] = (long) -1;
+            free_bin_list[i] = -1;
         }
 
         terminal.println("+ Rebuilding free bins.");

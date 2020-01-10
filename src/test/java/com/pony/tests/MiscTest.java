@@ -105,12 +105,12 @@ public class MiscTest {
             PreparedStatement in1 = connection.prepareStatement(
                     "INSERT INTO MiscTest ( cola ) VALUES ( ? )");
 
-            String big_string = "bigstringbigstringbigstringbigstring";
+            StringBuilder big_string = new StringBuilder("bigstringbigstringbigstringbigstring");
             for (int i = 0; i < 10; ++i) {
-                big_string = big_string + big_string;
+                big_string.append(big_string);
             }
 
-            in1.setString(1, big_string);
+            in1.setString(1, big_string.toString());
             in1.executeUpdate();
 
             in1.executeUpdate();

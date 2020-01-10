@@ -95,10 +95,10 @@ final class GTConnectionInfoDataSource extends GTDataSource {
     public TObject getCellContents(final int column, final int row) {
         switch (column) {
             case 0:  // var
-                return columnValue(column, (String) key_value_pairs.get(row * 2));
+                return columnValue(column, key_value_pairs.get(row * 2));
             case 1:  // value
                 return columnValue(column,
-                        (String) key_value_pairs.get((row * 2) + 1));
+                        key_value_pairs.get((row * 2) + 1));
             default:
                 throw new Error("Column out of bounds.");
         }

@@ -99,6 +99,7 @@ public class ControlAPITest {
 
         File[] list = new File("./data").listFiles();
         System.out.println("Files in data directory before close:");
+        assert list != null;
         for (File value : list) {
             System.out.println(value.toString());
         }
@@ -108,6 +109,7 @@ public class ControlAPITest {
 
         list = new File("./data").listFiles();
         System.out.println("Files in data directory after close:");
+        assert list != null;
         for (File file : list) {
             System.out.println(file.toString());
         }

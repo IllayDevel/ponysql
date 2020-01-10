@@ -493,8 +493,8 @@ final class DataCellSerialization extends ByteArrayOutputStream
         int ch2 = read();
         int ch3 = read();
         int ch4 = read();
-        return (int) ((ch1 << 24) + (ch2 << 16) +
-                (ch3 << 8) + (ch4 << 0));
+        return (ch1 << 24) + (ch2 << 16) +
+                (ch3 << 8) + (ch4 << 0);
     }
 
     public long readLong() throws IOException {

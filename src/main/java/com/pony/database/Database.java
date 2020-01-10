@@ -2073,7 +2073,7 @@ public final class Database implements DatabaseConstants {
                         // If there was a change
                         if (changes.size() > 0) {
                             // Update the row
-                            Assignment[] assignments = (Assignment[]) changes.toArray(
+                            Assignment[] assignments = changes.toArray(
                                     new Assignment[changes.size()]);
                             Table st = table.singleRowSelect(row_index);
                             table.update(context, st, assignments, -1);

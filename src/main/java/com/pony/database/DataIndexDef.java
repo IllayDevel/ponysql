@@ -65,7 +65,7 @@ public class DataIndexDef {
                         int index_pointer, String index_type, boolean unique) {
 
         this.index_name = index_name;
-        this.column_names = (String[]) column_names.clone();
+        this.column_names = column_names.clone();
         this.index_pointer = index_pointer;
         this.index_type = index_type;
         this.unique = unique;

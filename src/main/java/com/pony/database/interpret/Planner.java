@@ -2517,7 +2517,7 @@ public class Planner {
             StringBuffer buf = new StringBuffer();
             buf.append("PLANNER:\n");
             for (int i = 0; i < table_list.size(); ++i) {
-                buf.append("TABLE " + i + "\n");
+                buf.append("TABLE ").append(i).append("\n");
                 ((PlanTableSource) table_list.get(i)).getPlan().debugString(2, buf);
                 buf.append("\n");
             }

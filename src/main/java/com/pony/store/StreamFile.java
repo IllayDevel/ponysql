@@ -180,7 +180,7 @@ public class StreamFile {
                 if (len == 0) {
                     return 0;
                 }
-                len = (int) Math.min((long) len, end_pointer - fp);
+                len = (int) Math.min(len, end_pointer - fp);
                 if (len <= 0) {
                     return -1;
                 }

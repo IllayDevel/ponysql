@@ -418,7 +418,7 @@ public abstract class AbstractJDBCDatabaseInterface
             for (int i = 0; i < vars.length; ++i) {
                 Object ob = vars[i];
                 // This is a streamable object, so convert it to a *Ref
-                if (ob != null && ob instanceof StreamableObject) {
+                if (ob instanceof StreamableObject) {
                     StreamableObject s_object = (StreamableObject) ob;
                     // Flush the streamable object from the cache
                     // Note that this also marks the blob as complete in the blob store.

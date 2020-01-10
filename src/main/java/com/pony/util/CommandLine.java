@@ -98,7 +98,7 @@ public class CommandLine {
                 list.addElement(arg);
             }
         }
-        return (String[]) list.toArray(new String[list.size()]);
+        return list.toArray(new String[list.size()]);
     }
 
     /**

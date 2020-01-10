@@ -480,9 +480,7 @@ public abstract class SimpleTransaction {
         }
 
         // Add any internal system tables to the list
-        for (int i = 0; i < internal_tables.length; ++i) {
-            tables[sz + i] = internal_tables[i];
-        }
+        System.arraycopy(internal_tables, 0, tables, sz + 0, internal_tables.length);
 
         return tables;
     }

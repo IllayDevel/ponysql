@@ -19,6 +19,7 @@ package com.pony.database.jdbc;
 
 import java.io.*;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 import com.pony.database.global.ObjectTransfer;
 import com.pony.database.global.ObjectTranslator;
@@ -129,9 +130,7 @@ public final class SQLQuery {
     public void clear() {
         parameters_index = 0;
         parameter_count = 0;
-        for (int i = 0; i < parameters.length; ++i) {
-            parameters[i] = null;
-        }
+        Arrays.fill(parameters, null);
     }
 
 
@@ -301,7 +300,7 @@ public final class SQLQuery {
     public SQLQuery copy() {
         SQLQuery q = new SQLQuery();
         q.query = query;
-        q.parameters = (Object[]) parameters.clone();
+        q.parameters = parameters.clone();
         q.parameters_index = parameters_index;
         q.parameter_count = parameter_count;
         q.prepared = prepared;

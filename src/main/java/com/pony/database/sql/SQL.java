@@ -2882,7 +2882,7 @@ public class SQL implements SQLConstants {
                         case COLLATE:
                             jj_consume_token(COLLATE);
                             t = jj_consume_token(STRING_LITERAL);
-                            loc = ((TObject) Util.toParamObject(t, case_insensitive_identifiers)).toString();
+                            loc = Util.toParamObject(t, case_insensitive_identifiers).toString();
                             switch ((jj_ntk == -1) ? jj_ntk() : jj_ntk) {
                                 case PRIMARY_STRENGTH:
                                 case SECONDARY_STRENGTH:
@@ -3428,7 +3428,7 @@ public class SQL implements SQLConstants {
                         case REGEX_LITERAL:
                             t = jj_consume_token(REGEX_LITERAL);
                             regex_ob = Util.toParamObject(t, case_insensitive_identifiers);
-                            exp.text().append(" regex " + regex_ob);
+                            exp.text().append(" regex ").append(regex_ob);
                             expOperator(exp, stack, Operator.get("regex"));
                             exp.addElement(regex_ob);
                             break;
@@ -3684,7 +3684,7 @@ public class SQL implements SQLConstants {
                 jj_la1[155] = jj_gen;
                 exp_arr = ExpressionList();
                 exp.addElement(Util.toArrayParamObject(exp_arr));
-                exp.text().append(" (" + Util.expressionListToString(exp_arr) + ")");
+                exp.text().append(" (").append(Util.expressionListToString(exp_arr)).append(")");
         }
         jj_consume_token(209);
     }
@@ -3766,7 +3766,7 @@ public class SQL implements SQLConstants {
             }
         }
         expOperator(exp, stack, op);
-        exp.text().append(" " + op + " ");
+        exp.text().append(" ").append(op).append(" ");
     }
 
     final public void BetweenPredicate(Expression exp, Stack stack) throws ParseException {
@@ -3817,7 +3817,7 @@ public class SQL implements SQLConstants {
         op_string = GetBooleanOperator();
         op = Operator.get(op_string);
         expOperator(exp, stack, op);
-        exp.text().append(" " + op + " ");
+        exp.text().append(" ").append(op).append(" ");
     }
 
     final public void NumericOperator(Expression exp, Stack stack) throws ParseException {
@@ -3827,7 +3827,7 @@ public class SQL implements SQLConstants {
         op_string = GetNumericOperator();
         op = Operator.get(op_string);
         expOperator(exp, stack, op);
-        exp.text().append(" " + op + " ");
+        exp.text().append(" ").append(op).append(" ");
     }
 
     final public void StringOperator(Expression exp, Stack stack) throws ParseException {
@@ -3837,7 +3837,7 @@ public class SQL implements SQLConstants {
         op_string = GetStringOperator();
         op = Operator.get(op_string);
         expOperator(exp, stack, op);
-        exp.text().append(" " + op + " ");
+        exp.text().append(" ").append(op).append(" ");
     }
 
     final public String GetBooleanOperator() throws ParseException {
@@ -4064,9 +4064,9 @@ public class SQL implements SQLConstants {
                 Object str_char = t3 == null ? TObject.stringVal(" ") :
                         Util.toParamObject(t3, case_insensitive_identifiers);
                 exp_list[0] = new Expression(TObject.stringVal(ttype));
-                exp_list[0].text().append("'" + ttype + "'");
+                exp_list[0].text().append("'").append(ttype).append("'");
                 exp_list[1] = new Expression(str_char);
-                exp_list[1].text().append("'" + str_char + "'");
+                exp_list[1].text().append("'").append(str_char).append("'");
                 exp_list[2] = exp1;
             {
                 if (true) return Util.resolveFunctionName("sql_trim", exp_list);
@@ -4083,7 +4083,7 @@ public class SQL implements SQLConstants {
                 String enc_form = TType.asEncodedString(cast_type);
                 exp_list[0] = exp1;
                 exp_list[1] = new Expression(TObject.stringVal(enc_form));
-                exp_list[1].text().append("'" + enc_form + "'");
+                exp_list[1].text().append("'").append(enc_form).append("'");
             {
                 if (true) return Util.resolveFunctionName("sql_cast", exp_list);
             }
@@ -4119,7 +4119,7 @@ public class SQL implements SQLConstants {
         Expression[] comp_args = new Expression[args.length + 1];
         System.arraycopy(args, 0, comp_args, 1, args.length);
         comp_args[0] = new Expression(TObject.stringVal(t.image));
-        comp_args[0].text().append("'" + t.image + "'");
+        comp_args[0].text().append("'").append(t.image).append("'");
         {
             if (true) return Util.resolveFunctionName("_new_JavaObject", comp_args);
         }
@@ -6195,9 +6195,7 @@ public class SQL implements SQLConstants {
             jj_lasttokens[jj_endpos++] = kind;
         } else if (jj_endpos != 0) {
             jj_expentry = new int[jj_endpos];
-            for (int i = 0; i < jj_endpos; i++) {
-                jj_expentry[i] = jj_lasttokens[i];
-            }
+            System.arraycopy(jj_lasttokens, 0, jj_expentry, 0, jj_endpos);
             boolean exists = false;
             for (java.util.Enumeration en = jj_expentries.elements(); en.hasMoreElements(); ) {
                 int[] oldentry = (int[]) (en.nextElement());

@@ -847,7 +847,7 @@ public final class IndexStore {
                             MappedListBlock[] deleted_blocks = list.getDeletedBlocks();
                             for (MappedListBlock deleted_block : deleted_blocks) {
                                 // Put all deleted blocks on the list to GC
-                                MappedListBlock block = (MappedListBlock) deleted_block;
+                                MappedListBlock block = deleted_block;
                                 // Make sure the block is mapped to a sector
                                 int sector = block.getIndexSector();
                                 if (sector != -1) {
@@ -1141,7 +1141,7 @@ public final class IndexStore {
                 }
                 // Put in the cache
                 synchronized (sector_cache) {
-                    sector_cache.put(index_sector, (int[]) array);
+                    sector_cache.put(index_sector, array);
                 }
                 mutable_block = false;
                 prepareMutate(immutable);
@@ -1165,7 +1165,7 @@ public final class IndexStore {
         private void prepareMutate(boolean immutable) {
             // If list is to be mutable
             if (!immutable && !mutable_block) {
-                array = (int[]) array.clone();
+                array = array.clone();
                 mutable_block = true;
             }
         }
@@ -1265,8 +1265,7 @@ public final class IndexStore {
          * Returns the array of all MappedListBlock that are in this list.
          */
         public MappedListBlock[] getAllBlocks() {
-            return (MappedListBlock[])
-                    block_list.toArray(new MappedListBlock[block_list.size()]);
+            return block_list.toArray(new MappedListBlock[block_list.size()]);
         }
 
         /**

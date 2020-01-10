@@ -490,7 +490,7 @@ public class BlockIntegerList extends AbstractBlockIntegerList {
         public String toString() {
             int[] arr = getArray(true);
             StringBuffer buf = new StringBuffer();
-            buf.append("( VALUES: " + count + " ) ");
+            buf.append("( VALUES: ").append(count).append(" ) ");
             for (int i = 0; i < count; ++i) {
                 buf.append(arr[i]);
                 buf.append(", ");

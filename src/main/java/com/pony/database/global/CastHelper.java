@@ -333,6 +333,7 @@ public class CastHelper {
             Number n = (Number) ob;
             switch (sql_type) {
                 case (SQLTypes.BIT):
+                case (SQLTypes.BOOLEAN):
                     return n.intValue() == 0 ? Boolean.FALSE : Boolean.TRUE;
                 case (SQLTypes.TINYINT):
                     // fall through
@@ -345,11 +346,9 @@ public class CastHelper {
 //          return new BigDecimal(n.longValue());
                     return BigNumber.fromLong(n.longValue());
                 case (SQLTypes.FLOAT):
-                    return BigNumber.fromString(Double.toString(n.doubleValue()));
-                case (SQLTypes.REAL):
-                    return BigNumber.fromString(n.toString());
                 case (SQLTypes.DOUBLE):
                     return BigNumber.fromString(Double.toString(n.doubleValue()));
+                case (SQLTypes.REAL):
                 case (SQLTypes.NUMERIC):
                     // fall through
                 case (SQLTypes.DECIMAL):
@@ -357,14 +356,11 @@ public class CastHelper {
                 case (SQLTypes.CHAR):
                     return StringObject.fromString(paddedString(n.toString(), sql_size));
                 case (SQLTypes.VARCHAR):
-                    return StringObject.fromString(n.toString());
                 case (SQLTypes.LONGVARCHAR):
                     return StringObject.fromString(n.toString());
                 case (SQLTypes.DATE):
-                    return toDate(n.longValue());
-                case (SQLTypes.TIME):
-                    return toDate(n.longValue());
                 case (SQLTypes.TIMESTAMP):
+                case (SQLTypes.TIME):
                     return toDate(n.longValue());
                 case (SQLTypes.BLOB):
                     // fall through
@@ -378,8 +374,6 @@ public class CastHelper {
                     return null;
                 case (SQLTypes.JAVA_OBJECT):
                     return toJavaObject(ob);
-                case (SQLTypes.BOOLEAN):
-                    return n.intValue() == 0 ? Boolean.FALSE : Boolean.TRUE;
                 default:
                     throw new Error("Can't cast number to " + sql_type_string);
             }
@@ -390,6 +384,7 @@ public class CastHelper {
             String str = ob.toString();
             switch (sql_type) {
                 case (SQLTypes.BIT):
+                case (SQLTypes.BOOLEAN):
                     return str.equalsIgnoreCase("true") ? Boolean.TRUE : Boolean.FALSE;
                 case (SQLTypes.TINYINT):
                     // fall through
@@ -402,13 +397,10 @@ public class CastHelper {
 //          return new BigDecimal(toBigDecimal(str).longValue());
                     return BigNumber.fromLong(toBigNumber(str).longValue());
                 case (SQLTypes.FLOAT):
-                    return BigNumber.fromString(
-                            Double.toString(toBigNumber(str).doubleValue()));
-                case (SQLTypes.REAL):
-                    return toBigNumber(str);
                 case (SQLTypes.DOUBLE):
                     return BigNumber.fromString(
                             Double.toString(toBigNumber(str).doubleValue()));
+                case (SQLTypes.REAL):
                 case (SQLTypes.NUMERIC):
                     // fall through
                 case (SQLTypes.DECIMAL):
@@ -416,7 +408,7 @@ public class CastHelper {
                 case (SQLTypes.CHAR):
                     return StringObject.fromString(paddedString(str, sql_size));
                 case (SQLTypes.VARCHAR):
-                    return StringObject.fromString(str);
+                case (SQLTypes.CLOB):
                 case (SQLTypes.LONGVARCHAR):
                     return StringObject.fromString(str);
                 case (SQLTypes.DATE):
@@ -437,10 +429,6 @@ public class CastHelper {
                     return null;
                 case (SQLTypes.JAVA_OBJECT):
                     return toJavaObject(str);
-                case (SQLTypes.BOOLEAN):
-                    return str.equalsIgnoreCase("true") ? Boolean.TRUE : Boolean.FALSE;
-                case (SQLTypes.CLOB):
-                    return StringObject.fromString(str);
                 default:
                     throw new Error("Can't cast string to " + sql_type_string);
             }
@@ -451,6 +439,7 @@ public class CastHelper {
             Boolean b = (Boolean) ob;
             switch (sql_type) {
                 case (SQLTypes.BIT):
+                case (SQLTypes.BOOLEAN):
                     return b;
                 case (SQLTypes.TINYINT):
                     // fall through
@@ -473,15 +462,12 @@ public class CastHelper {
                 case (SQLTypes.CHAR):
                     return StringObject.fromString(paddedString(b.toString(), sql_size));
                 case (SQLTypes.VARCHAR):
-                    return StringObject.fromString(b.toString());
                 case (SQLTypes.LONGVARCHAR):
                     return StringObject.fromString(b.toString());
                 case (SQLTypes.NULL):
                     return null;
                 case (SQLTypes.JAVA_OBJECT):
                     return toJavaObject(ob);
-                case (SQLTypes.BOOLEAN):
-                    return b;
                 default:
                     throw new Error("Can't cast boolean to " + sql_type_string);
             }
@@ -512,14 +498,11 @@ public class CastHelper {
                 case (SQLTypes.CHAR):
                     return StringObject.fromString(paddedString(formatDateAsString(d), sql_size));
                 case (SQLTypes.VARCHAR):
-                    return StringObject.fromString(formatDateAsString(d));
                 case (SQLTypes.LONGVARCHAR):
                     return StringObject.fromString(formatDateAsString(d));
                 case (SQLTypes.DATE):
-                    return d;
-                case (SQLTypes.TIME):
-                    return d;
                 case (SQLTypes.TIMESTAMP):
+                case (SQLTypes.TIME):
                     return d;
                 case (SQLTypes.NULL):
                     return null;

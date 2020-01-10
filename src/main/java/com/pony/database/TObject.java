@@ -233,13 +233,13 @@ public final class TObject implements java.io.Serializable {
         } else if (ob instanceof java.util.Date) {
             return dateVal((java.util.Date) ob);
         } else if (ob instanceof ByteLongObject) {
-            return new TObject(TType.BINARY_TYPE, (ByteLongObject) ob);
+            return new TObject(TType.BINARY_TYPE, ob);
         } else if (ob instanceof byte[]) {
             return new TObject(TType.BINARY_TYPE, new ByteLongObject((byte[]) ob));
         } else if (ob instanceof BlobRef) {
-            return new TObject(TType.BINARY_TYPE, (BlobRef) ob);
+            return new TObject(TType.BINARY_TYPE, ob);
         } else if (ob instanceof ClobRef) {
-            return new TObject(TType.STRING_TYPE, (ClobRef) ob);
+            return new TObject(TType.STRING_TYPE, ob);
         } else {
             throw new Error("Don't know how to convert object type " + ob.getClass());
         }

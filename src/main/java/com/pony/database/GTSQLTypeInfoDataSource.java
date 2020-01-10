@@ -119,39 +119,34 @@ public class GTSQLTypeInfoDataSource extends GTDataSource {
         int i = (row * 6);
         switch (column) {
             case 0:  // type_name
-                return columnValue(column, (String) key_value_pairs.get(i));
+                return columnValue(column, key_value_pairs.get(i));
             case 1:  // data_type
-                return columnValue(column, (BigNumber) key_value_pairs.get(i + 1));
+                return columnValue(column, key_value_pairs.get(i + 1));
             case 2:  // precision
-                return columnValue(column, (BigNumber) key_value_pairs.get(i + 2));
+                return columnValue(column, key_value_pairs.get(i + 2));
             case 3:  // literal_prefix
-                return columnValue(column, (String) key_value_pairs.get(i + 3));
+                return columnValue(column, key_value_pairs.get(i + 3));
             case 4:  // literal_suffix
-                return columnValue(column, (String) key_value_pairs.get(i + 4));
+                return columnValue(column, key_value_pairs.get(i + 4));
             case 5:  // create_params
+            case 16:  // sql_datetype_sub
+            case 15:  // sql_data_type
+            case 12:  // local_type_name
                 return columnValue(column, null);
             case 6:  // nullable
                 return columnValue(column, TYPE_NULLABLE);
             case 7:  // case_sensitive
                 return columnValue(column, Boolean.TRUE);
             case 8:  // searchable
-                return columnValue(column, (BigNumber) key_value_pairs.get(i + 5));
+                return columnValue(column, key_value_pairs.get(i + 5));
             case 9:  // unsigned_attribute
-                return columnValue(column, Boolean.FALSE);
+            case 11:  // auto_increment
             case 10:  // fixed_prec_scale
                 return columnValue(column, Boolean.FALSE);
-            case 11:  // auto_increment
-                return columnValue(column, Boolean.FALSE);
-            case 12:  // local_type_name
-                return columnValue(column, null);
             case 13:  // minimum_scale
                 return columnValue(column, BigNumber.fromLong(0));
             case 14:  // maximum_scale
                 return columnValue(column, BigNumber.fromLong(10000000));
-            case 15:  // sql_data_type
-                return columnValue(column, null);
-            case 16:  // sql_datetype_sub
-                return columnValue(column, null);
             case 17:  // num_prec_radix
                 return columnValue(column, BigNumber.fromLong(10));
             default:

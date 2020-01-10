@@ -1459,7 +1459,7 @@ public class TableDataConglomerate {
                     int drop_count = 0;
 
                     for (int i = delete_list.length - 1; i >= 0; --i) {
-                        String fn = (String) delete_list[i].name;
+                        String fn = delete_list[i].name;
                         closeTable(fn, true);
                     }
 
@@ -1480,7 +1480,7 @@ public class TableDataConglomerate {
 //          catch (InterruptedException e) { /* ignore */ }
 
                     for (int i = delete_list.length - 1; i >= 0; --i) {
-                        String fn = (String) delete_list[i].name;
+                        String fn = delete_list[i].name;
                         boolean dropped = closeAndDropTable(fn);
                         // If we managed to drop the table, remove from the list.
                         if (dropped) {

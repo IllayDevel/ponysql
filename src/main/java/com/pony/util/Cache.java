@@ -100,7 +100,7 @@ public class Cache {
      * @deprecated
      */
     protected final int getHashSize() {
-        return (int) (max_cache_size * 2) + 1;
+        return (max_cache_size * 2) + 1;
     }
 
 

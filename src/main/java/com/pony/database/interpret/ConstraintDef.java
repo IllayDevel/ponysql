@@ -168,14 +168,14 @@ public final class ConstraintDef
      * Returns the first column list as a string array.
      */
     public String[] getColumnList() {
-        return (String[]) column_list.toArray(new String[column_list.size()]);
+        return column_list.toArray(new String[column_list.size()]);
     }
 
     /**
      * Returns the first column list as a string array.
      */
     public String[] getColumnList2() {
-        return (String[]) column_list2.toArray(new String[column_list2.size()]);
+        return column_list2.toArray(new String[column_list2.size()]);
     }
 
     /**

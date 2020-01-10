@@ -98,7 +98,7 @@ public abstract class PagedInputStream extends InputStream {
      */
     private void fillBuffer(long pos) throws IOException {
         final long read_pos = (pos / BUFFER_SIZE) * BUFFER_SIZE;
-        int to_read = (int) Math.min((long) BUFFER_SIZE, (size - read_pos));
+        int to_read = (int) Math.min(BUFFER_SIZE, (size - read_pos));
         if (to_read > 0) {
             readPageContent(buf, read_pos, to_read);
             buffer_pos = read_pos;
@@ -139,7 +139,7 @@ public abstract class PagedInputStream extends InputStream {
 
         int p = (int) (position - buffer_pos);
         long buffer_end = Math.min(buffer_pos + BUFFER_SIZE, size);
-        int to_read = (int) Math.min((long) len, buffer_end - position);
+        int to_read = (int) Math.min(len, buffer_end - position);
         if (to_read <= 0) {
             return -1;
         }
@@ -156,7 +156,7 @@ public abstract class PagedInputStream extends InputStream {
                 p -= BUFFER_SIZE;
             }
             buffer_end = Math.min(buffer_pos + BUFFER_SIZE, size);
-            to_read = (int) Math.min((long) len, buffer_end - position);
+            to_read = (int) Math.min(len, buffer_end - position);
         }
         return has_read;
     }
@@ -176,7 +176,7 @@ public abstract class PagedInputStream extends InputStream {
     }
 
     public int available() throws IOException {
-        return (int) Math.min((long) Integer.MAX_VALUE, (size - position));
+        return (int) Math.min(Integer.MAX_VALUE, (size - position));
     }
 
     public void close() throws IOException {

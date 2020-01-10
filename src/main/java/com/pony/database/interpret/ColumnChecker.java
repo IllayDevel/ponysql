@@ -147,7 +147,7 @@ abstract class ColumnChecker {
                 String found_col = null;
                 for (int n = 0; n < table_def.columnCount(); ++n) {
                     DataTableColumnDef col =
-                            (DataTableColumnDef) table_def.columnAt(n);
+                            table_def.columnAt(n);
                     if (!ignores_case) {
                         if (col.getName().equals(col_name)) {
                             return col_name;

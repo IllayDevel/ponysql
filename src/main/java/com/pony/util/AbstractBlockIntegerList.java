@@ -141,7 +141,7 @@ public abstract class AbstractBlockIntegerList
             for (int i = 0; i < in_blocks_count; ++i) {
                 // get the block.
                 IntegerListBlockInterface block =
-                        (IntegerListBlockInterface) in_blocks.get(i);
+                        in_blocks.get(i);
                 // Insert a new block in this object.
                 IntegerListBlockInterface dest_block =
                         insertListBlock(i, newListBlock());
@@ -209,7 +209,7 @@ public abstract class AbstractBlockIntegerList
         // Point to next in the list.
         if (index + 1 < block_list.size()) {
             IntegerListBlockInterface next_b =
-                    (IntegerListBlockInterface) block_list.get(index + 1);
+                    block_list.get(index + 1);
             list_block.next = next_b;
             next_b.previous = list_block;
         } else {
@@ -219,7 +219,7 @@ public abstract class AbstractBlockIntegerList
         // Point to previous in the list.
         if (index > 0) {
             IntegerListBlockInterface previous_b =
-                    (IntegerListBlockInterface) block_list.get(index - 1);
+                    block_list.get(index - 1);
             list_block.previous = previous_b;
             previous_b.next = list_block;
         } else {
@@ -238,10 +238,10 @@ public abstract class AbstractBlockIntegerList
         IntegerListBlockInterface new_prev = null;
         IntegerListBlockInterface new_next = null;
         if (index + 1 < block_list.size()) {
-            new_next = (IntegerListBlockInterface) block_list.get(index + 1);
+            new_next = block_list.get(index + 1);
         }
         if (index > 0) {
-            new_prev = (IntegerListBlockInterface) block_list.get(index - 1);
+            new_prev = block_list.get(index - 1);
         }
 
         if (new_prev != null) {
@@ -252,7 +252,7 @@ public abstract class AbstractBlockIntegerList
         }
 
         IntegerListBlockInterface been_removed =
-                (IntegerListBlockInterface) block_list.remove(index);
+                block_list.remove(index);
         deleteListBlock(been_removed);
     }
 
@@ -276,7 +276,7 @@ public abstract class AbstractBlockIntegerList
             // Is there a next block?
             if (block_index < block_list.size() - 1) {
                 IntegerListBlockInterface next_b =
-                        (IntegerListBlockInterface) block_list.get(block_index + 1);
+                        block_list.get(block_index + 1);
 //      IntegerListBlockInterface next_b = block.next;
 //      if (next_b != null) {
                 // Yes, can this block contain half the values from this block?
@@ -333,7 +333,7 @@ public abstract class AbstractBlockIntegerList
         while (low <= high) {
             int mid = (low + high) / 2;
             IntegerListBlockInterface block =
-                    (IntegerListBlockInterface) block_list.get(mid);
+                    block_list.get(mid);
 
             // Is what we are searching for lower than the bottom value?
             if (c.compare(block.bottomInt(), key) > 0) {
@@ -372,7 +372,7 @@ public abstract class AbstractBlockIntegerList
             if (high - low <= 2) {
                 for (int i = high; i >= low; --i) {
                     IntegerListBlockInterface block =
-                            (IntegerListBlockInterface) block_list.get(i);
+                            block_list.get(i);
                     if (c.compare(block.bottomInt(), key) <= 0) {
                         if (c.compare(block.topInt(), key) >= 0) {
                             return i;
@@ -386,7 +386,7 @@ public abstract class AbstractBlockIntegerList
 
             int mid = (low + high) / 2;
             IntegerListBlockInterface block =
-                    (IntegerListBlockInterface) block_list.get(mid);
+                    block_list.get(mid);
 
             // Is what we are searching for lower than the bottom value?
             if (c.compare(block.bottomInt(), key) > 0) {
@@ -426,7 +426,7 @@ public abstract class AbstractBlockIntegerList
             if (high - low <= 2) {
                 for (int i = low; i <= high; ++i) {
                     IntegerListBlockInterface block =
-                            (IntegerListBlockInterface) block_list.get(i);
+                            block_list.get(i);
                     if (c.compare(block.topInt(), key) >= 0) {
                         if (c.compare(block.bottomInt(), key) <= 0) {
                             return i;
@@ -440,7 +440,7 @@ public abstract class AbstractBlockIntegerList
 
             int mid = (low + high) / 2;
             IntegerListBlockInterface block =
-                    (IntegerListBlockInterface) block_list.get(mid);
+                    block_list.get(mid);
 
             // Is what we are searching for lower than the bottom value?
             if (c.compare(block.bottomInt(), key) > 0) {
@@ -478,7 +478,7 @@ public abstract class AbstractBlockIntegerList
             if (high - low <= 2) {
                 for (int i = low; i <= high; ++i) {
                     IntegerListBlockInterface block =
-                            (IntegerListBlockInterface) block_list.get(i);
+                            block_list.get(i);
                     if (block.topInt() >= val) {
                         if (block.bottomInt() <= val) {
                             return i;
@@ -492,7 +492,7 @@ public abstract class AbstractBlockIntegerList
 
             int mid = (low + high) / 2;
             IntegerListBlockInterface block =
-                    (IntegerListBlockInterface) block_list.get(mid);
+                    block_list.get(mid);
 
             // Is what we are searching for lower than the bottom value?
             if (block.bottomInt() > val) {
@@ -529,7 +529,7 @@ public abstract class AbstractBlockIntegerList
             if (high - low <= 2) {
                 for (int i = high; i >= low; --i) {
                     IntegerListBlockInterface block =
-                            (IntegerListBlockInterface) block_list.get(i);
+                            block_list.get(i);
                     if (block.bottomInt() <= val) {
                         if (block.topInt() >= val) {
                             return i;
@@ -543,7 +543,7 @@ public abstract class AbstractBlockIntegerList
 
             int mid = (low + high) / 2;
             IntegerListBlockInterface block =
-                    (IntegerListBlockInterface) block_list.get(mid);
+                    block_list.get(mid);
 
             // Is what we are searching for lower than the bottom value?
             if (block.bottomInt() > val) {
@@ -638,8 +638,8 @@ public abstract class AbstractBlockIntegerList
         int size = block_list.size();
         int start = 0;
         for (int i = 0; i < size; ++i) {
-            Object ob = block_list.get(i);
-            IntegerListBlockInterface block = (IntegerListBlockInterface) ob;
+            IntegerListBlockInterface ob = block_list.get(i);
+            IntegerListBlockInterface block = ob;
             int bsize = block.size();
             if (pos >= start && pos <= start + bsize) {
                 insertIntoBlock(val, i, block, pos - start);
@@ -658,7 +658,7 @@ public abstract class AbstractBlockIntegerList
 
         int size = block_list.size();
         IntegerListBlockInterface block =
-                (IntegerListBlockInterface) block_list.get(size - 1);
+                block_list.get(size - 1);
         insertIntoBlock(val, size - 1, block, block.size());
     }
 
@@ -673,7 +673,7 @@ public abstract class AbstractBlockIntegerList
         int start = 0;
         for (int i = 0; i < size; ++i) {
             IntegerListBlockInterface block =
-                    (IntegerListBlockInterface) block_list.get(i);
+                    block_list.get(i);
             int bsize = block.size();
             if (pos >= start && pos <= start + bsize) {
                 return removeFromBlock(i, block, pos - start);
@@ -701,7 +701,7 @@ public abstract class AbstractBlockIntegerList
 
         // We got a block, so find out if it's in the block or not.
         IntegerListBlockInterface block =
-                (IntegerListBlockInterface) block_list.get(block_num);
+                block_list.get(block_num);
 
         // Find, if not there then return false.
         int sr = block.searchLast(val);
@@ -728,7 +728,7 @@ public abstract class AbstractBlockIntegerList
 
         // We got a block, so find out if it's in the block or not.
         IntegerListBlockInterface block =
-                (IntegerListBlockInterface) block_list.get(block_num);
+                block_list.get(block_num);
 
         // The point to insert in the block,
         int i = block.searchLast(val);
@@ -767,7 +767,7 @@ public abstract class AbstractBlockIntegerList
 
         // We got a block, so find out if it's in the block or not.
         IntegerListBlockInterface block =
-                (IntegerListBlockInterface) block_list.get(block_num);
+                block_list.get(block_num);
 
         // The point to insert in the block,
         int i = block.searchLast(val);
@@ -808,7 +808,7 @@ public abstract class AbstractBlockIntegerList
 
         // We got a block, so find out if it's in the block or not.
         IntegerListBlockInterface block =
-                (IntegerListBlockInterface) block_list.get(block_num);
+                block_list.get(block_num);
 
         // The point to remove the block,
         int i = block.searchLast(val);
@@ -846,7 +846,7 @@ public abstract class AbstractBlockIntegerList
 
         // We got a block, so find out if it's in the block or not.
         IntegerListBlockInterface block =
-                (IntegerListBlockInterface) block_list.get(block_num);
+                block_list.get(block_num);
 
         // Find, if not there then return false.
         int sr = block.binarySearch(key, c);
@@ -876,7 +876,7 @@ public abstract class AbstractBlockIntegerList
 
         // We got a block, so find out if it's in the block or not.
         IntegerListBlockInterface block =
-                (IntegerListBlockInterface) block_list.get(block_num);
+                block_list.get(block_num);
 
         // The point to insert in the block,
         int i = block.searchLast(key, c);
@@ -916,7 +916,7 @@ public abstract class AbstractBlockIntegerList
 
 //    int i = -1;
         IntegerListBlockInterface block =
-                (IntegerListBlockInterface) block_list.get(block_num);
+                block_list.get(block_num);
 //    int search_from = block.searchFirst(key, c);
         int i = block.iterativeSearch(val);
         while (i == -1) {
@@ -925,7 +925,7 @@ public abstract class AbstractBlockIntegerList
             if (block_num > l_block_num) {
                 throw new Error("Value (" + key + ") was not found in the list.");
             }
-            block = (IntegerListBlockInterface) block_list.get(block_num);
+            block = block_list.get(block_num);
             // Try and find the value within this block
             i = block.iterativeSearch(val);
         }
@@ -959,7 +959,7 @@ public abstract class AbstractBlockIntegerList
         } else {
             // We got a block, so find out if it's in the block or not.
             IntegerListBlockInterface block =
-                    (IntegerListBlockInterface) block_list.get(block_num);
+                    block_list.get(block_num);
 
             // Try and find it in the block,
             sr = block.searchLast(key, c);
@@ -968,7 +968,7 @@ public abstract class AbstractBlockIntegerList
         int offset = 0;
         for (int i = 0; i < block_num; ++i) {
             IntegerListBlockInterface block =
-                    (IntegerListBlockInterface) block_list.get(i);
+                    block_list.get(i);
             offset += block.size();
         }
 
@@ -996,7 +996,7 @@ public abstract class AbstractBlockIntegerList
         } else {
             // We got a block, so find out if it's in the block or not.
             IntegerListBlockInterface block =
-                    (IntegerListBlockInterface) block_list.get(block_num);
+                    block_list.get(block_num);
 
             // Try and find it in the block,
             sr = block.searchFirst(key, c);
@@ -1005,7 +1005,7 @@ public abstract class AbstractBlockIntegerList
         int offset = 0;
         for (int i = 0; i < block_num; ++i) {
             IntegerListBlockInterface block =
-                    (IntegerListBlockInterface) block_list.get(i);
+                    block_list.get(i);
             offset += block.size();
         }
 
@@ -1054,7 +1054,7 @@ public abstract class AbstractBlockIntegerList
             int start = 0;
             for (block_index = 0; block_index < size; ++block_index) {
                 IntegerListBlockInterface block =
-                        (IntegerListBlockInterface) block_list.get(block_index);
+                        block_list.get(block_index);
                 int bsize = block.size();
                 if (pos < start + bsize) {
                     block_offset = pos - start;
@@ -1083,7 +1083,7 @@ public abstract class AbstractBlockIntegerList
             if (block_offset >= current_block_size) {
                 ++block_index;
                 current_block =
-                        (IntegerListBlockInterface) block_list.get(block_index);
+                        block_list.get(block_index);
 //        current_block = current_block.next;
                 current_block_size = current_block.size();
                 block_offset = 0;
@@ -1103,7 +1103,7 @@ public abstract class AbstractBlockIntegerList
 //        if (current_block.previous != null) {
                     --block_index;
                     current_block =
-                            (IntegerListBlockInterface) block_list.get(block_index);
+                            block_list.get(block_index);
 //          current_block = current_block.previous;
                     current_block_size = current_block.size();
                     block_offset = current_block.size() - 1;
@@ -1165,9 +1165,9 @@ public abstract class AbstractBlockIntegerList
 
     public String toString() {
         StringBuffer buf = new StringBuffer();
-        buf.append("Blocks: " + block_list.size() + "\n");
+        buf.append("Blocks: ").append(block_list.size()).append("\n");
         for (int i = 0; i < block_list.size(); ++i) {
-            buf.append("Block (" + i + "): " + block_list.get(i).toString() + "\n");
+            buf.append("Block (").append(i).append("): ").append(block_list.get(i).toString()).append("\n");
         }
         return new String(buf);
     }

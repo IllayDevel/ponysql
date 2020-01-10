@@ -91,15 +91,15 @@ public class HugeTest {
         StringBuffer query = new StringBuffer();
         query.append("CREATE TABLE HUGETABLE(");
         for (i = 1; i < 140; i++) {
-            query.append("INTFIELD" + i + " INTEGER INDEX_NONE,");
+            query.append("INTFIELD").append(i).append(" INTEGER INDEX_NONE,");
         }
 
         for (i = 1; i < 80; i++) {
-            query.append("DECFIELD" + i + " DECIMAL(9,2) INDEX_NONE,");
+            query.append("DECFIELD").append(i).append(" DECIMAL(9,2) INDEX_NONE,");
         }
 
         for (i = 1; i < 10; i++) {
-            query.append("STRINGFIELD" + i + " VARCHAR(40) INDEX_NONE,");
+            query.append("STRINGFIELD").append(i).append(" VARCHAR(40) INDEX_NONE,");
         }
         query.append("STRINGFIELD10 VARCHAR(40) INDEX_NONE)");
         statement.execute(new String(query));
@@ -114,25 +114,25 @@ public class HugeTest {
             query.setLength(0);
             query.append("INSERT INTO HUGETABLE(");
             for (k = 1; k < 140; k++) {
-                query.append("HUGETABLE.INTFIELD" + k + ",");
+                query.append("HUGETABLE.INTFIELD").append(k).append(",");
             }
             for (k = 1; k < 80; k++) {
-                query.append("HUGETABLE.DECFIELD" + k + ",");
+                query.append("HUGETABLE.DECFIELD").append(k).append(",");
             }
             for (k = 1; k < 9; k++) {
-                query.append("HUGETABLE.STRINGFIELD" + k + ",");
+                query.append("HUGETABLE.STRINGFIELD").append(k).append(",");
             }
             query.append("HUGETABLE.STRINGFIELD9) VALUES(");
             for (k = 1; k < 140; k++) {
-                query.append(k + ",");
+                query.append(k).append(",");
             }
 
             for (k = 1; k < 80; k++) {
-                query.append(k + ",");
+                query.append(k).append(",");
             }
 
             for (k = 1; k < 9; k++) {
-                query.append("'TESTSTRING" + i + "',");
+                query.append("'TESTSTRING").append(i).append("',");
             }
             query.append("'TESTSTRING9')");
             statement.execute(new String(query));

@@ -220,7 +220,7 @@ public final class StatementTree implements java.io.Serializable, Cloneable {
         } else if (entry instanceof Expression) {
             entry = ((Expression) entry).clone();
         } else if (entry instanceof Expression[]) {
-            Expression[] exps = (Expression[]) ((Expression[]) entry).clone();
+            Expression[] exps = ((Expression[]) entry).clone();
             // Clone each element of the array
             for (int n = 0; n < exps.length; ++n) {
                 exps[n] = (Expression) exps[n].clone();

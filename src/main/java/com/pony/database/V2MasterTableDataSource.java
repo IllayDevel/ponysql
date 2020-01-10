@@ -565,7 +565,7 @@ public final class V2MasterTableDataSource extends MasterTableDataSource {
             dout.writeInt(0);        // reserved for future use
             int cell_skip = 0;
             for (int i = 0; i < row_cells; ++i) {
-                dout.writeInt((int) cell_type[i]);
+                dout.writeInt(cell_type[i]);
                 dout.writeInt(cell_skip);
                 cell_skip += cell_sizes[i];
             }

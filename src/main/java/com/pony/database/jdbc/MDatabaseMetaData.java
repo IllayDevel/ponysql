@@ -981,7 +981,7 @@ public class MDatabaseMetaData implements DatabaseMetaData {
                              String typeNamePattern, int[] types)
             throws SQLException {
 
-        String where_clause = "true";
+        StringBuilder where_clause = new StringBuilder("true");
         if (types != null) {
             for (int i = 0; i < types.length; ++i) {
 
@@ -994,10 +994,9 @@ public class MDatabaseMetaData implements DatabaseMetaData {
                 }
 
                 if (i != 0) {
-                    where_clause += " AND";
+                    where_clause.append(" AND");
                 }
-                where_clause += " DATA_TYPE = '" +
-                        PonyConnection.quote(tstr) + "'";
+                where_clause.append(" DATA_TYPE = '").append(PonyConnection.quote(tstr)).append("'");
             }
         }
 

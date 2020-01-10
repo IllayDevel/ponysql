@@ -19,6 +19,8 @@ package com.pony.database;
 
 import com.pony.util.IntegerVector;
 
+import java.util.Arrays;
+
 /**
  * This object is a filter that sits atop a Table object.  Its purpose is to
  * only provide a view of the columns that are required.  In a Select
@@ -71,9 +73,7 @@ public final class SubsetColumnTable extends FilterTable
      */
     public void setColumnMap(int[] mapping, Variable[] aliases) {
         int[] reverse_column_map = new int[parent.getColumnCount()];
-        for (int i = 0; i < reverse_column_map.length; ++i) {
-            reverse_column_map[i] = -1;
-        }
+        Arrays.fill(reverse_column_map, -1);
         column_map = mapping;
 
         this.aliases = aliases;

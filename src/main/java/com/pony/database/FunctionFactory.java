@@ -156,7 +156,7 @@ public abstract class FunctionFactory implements FunctionLookup {
             // Function not handled by this factory so return null.
             return null;
         } else {
-            Constructor fun_constructor = (Constructor) ff_info.getConstructor();
+            Constructor fun_constructor = ff_info.getConstructor();
             Object[] args = new Object[]{params};
             try {
                 return (Function) fun_constructor.newInstance(args);

@@ -40,8 +40,8 @@ public class ByteLongObject implements java.io.Serializable, BlobAccessor {
      * Constructor.
      */
     public ByteLongObject(byte[] from, int offset, int length) {
-        data = new byte[(int) length];
-        System.arraycopy(from, (int) offset, data, 0, (int) length);
+        data = new byte[length];
+        System.arraycopy(from, offset, data, 0, length);
     }
 
     public ByteLongObject(byte[] from) {

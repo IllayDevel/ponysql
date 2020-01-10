@@ -1751,7 +1751,7 @@ public class DatabaseConnection implements TriggerListener {
         }
 
         public TObject getCellContents(final int column, final int row) {
-            if (row < 0 || row > 0) {
+            if (row != 0) {
                 throw new RuntimeException("Row index out of bounds.");
             }
             return content.getCellData(column);
@@ -1772,7 +1772,7 @@ public class DatabaseConnection implements TriggerListener {
                 throw new RuntimeException("Updating table '" +
                         getDataTableDef().getTableName() + "' is not permitted.");
             }
-            if (row_index < 0 || row_index > 0) {
+            if (row_index != 0) {
                 throw new RuntimeException("Row index out of bounds.");
             }
 

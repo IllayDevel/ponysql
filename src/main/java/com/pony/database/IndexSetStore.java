@@ -457,7 +457,7 @@ final class IndexSetStore {
     public synchronized IndexSet getSnapshotIndexSet() {
         // Clone the blocks list.  This represents the current snapshot of the
         // index state.
-        IndexBlock[] snapshot_index_blocks = (IndexBlock[]) index_blocks.clone();
+        IndexBlock[] snapshot_index_blocks = index_blocks.clone();
 
         // Add this as the reference
         for (IndexBlock snapshot_index_block : snapshot_index_blocks) {
@@ -537,7 +537,7 @@ final class IndexSetStore {
                     // For each IndexIntegerList in the index set,
                     for (IndexIntegerList indexIntegerList : lists) {
                         // Get the list
-                        IndexIntegerList list = (IndexIntegerList) indexIntegerList;
+                        IndexIntegerList list = indexIntegerList;
                         int index_num = list.getIndexNumber();
                         // The IndexBlock we are changing
                         IndexBlock cur_index_block = index_blocks[index_num];
@@ -915,7 +915,7 @@ final class IndexSetStore {
             // all the values are < 32768 then we store as shorts
             long largest_val = 0;
             for (int i = 0; i < count; ++i) {
-                long v = (long) array[i];
+                long v = array[i];
                 if (Math.abs(v) > Math.abs(largest_val)) {
                     largest_val = v;
                 }
@@ -1034,7 +1034,7 @@ final class IndexSetStore {
         private void prepareMutate(boolean immutable) {
             // If list is to be mutable
             if (!immutable && !mutable_block) {
-                array = (int[]) array.clone();
+                array = array.clone();
                 mutable_block = true;
             }
         }
@@ -1142,8 +1142,7 @@ final class IndexSetStore {
          * Returns the array of all MappedListBlock that are in this list.
          */
         public MappedListBlock[] getAllBlocks() {
-            return (MappedListBlock[])
-                    block_list.toArray(new MappedListBlock[block_list.size()]);
+            return block_list.toArray(new MappedListBlock[block_list.size()]);
         }
 
         /**

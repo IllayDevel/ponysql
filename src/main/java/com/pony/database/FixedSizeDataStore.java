@@ -1312,7 +1312,7 @@ public final class FixedSizeDataStore {
             readSector(i);
             // Deleted sector
             int next_chain = ByteArrayUtil.getInt(sector_buffer, 1);
-            sector_info.addInt((int) sector_buffer[0]);
+            sector_info.addInt(sector_buffer[0]);
             sector_info.addInt(next_chain);
 
             if (next_chain == -1) {

@@ -796,7 +796,7 @@ public final class Expression implements java.io.Serializable, Cloneable {
                 // For an array
                 else if (ttype instanceof TArrayType) {
                     Expression[] arr = (Expression[]) tob.getObject();
-                    arr = (Expression[]) arr.clone();
+                    arr = arr.clone();
                     for (int n = 0; n < arr.length; ++n) {
                         arr[n] = (Expression) arr[n].clone();
                     }

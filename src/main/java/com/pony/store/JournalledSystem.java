@@ -1434,7 +1434,7 @@ class JournalledSystem {
                 // The map index.
                 synchronized (journal_map) {
                     int i = ((int) (page_number & 0x0FFFFFFF) % journal_map.length);
-                    JournalEntry entry = (JournalEntry) journal_map[i];
+                    JournalEntry entry = journal_map[i];
                     JournalEntry prev = null;
 
                     while (entry != null) {
@@ -1537,7 +1537,7 @@ class JournalledSystem {
 
                 // The map index.
                 int i = ((int) (page_number & 0x0FFFFFFF) % journal_map.length);
-                JournalEntry entry = (JournalEntry) journal_map[i];
+                JournalEntry entry = journal_map[i];
                 // Make sure this entry is added to the END
                 if (entry == null) {
                     // Add at the head if no first entry
@@ -1559,7 +1559,7 @@ class JournalledSystem {
                     // on journals that have persisted
                     if (journal_entry_count > 35) {
                         int entries_cleaned = 0;
-                        entry = (JournalEntry) journal_map[i];
+                        entry = journal_map[i];
                         JournalEntry prev = null;
 
                         while (entry != null) {
@@ -1717,8 +1717,7 @@ class JournalledSystem {
                 ArrayList to_process = null;
                 synchronized (top_journal_lock) {
                     if (journal_archives.size() > 0) {
-                        to_process = new ArrayList();
-                        to_process.addAll(journal_archives);
+                        to_process = new ArrayList(journal_archives);
                     }
                 }
 

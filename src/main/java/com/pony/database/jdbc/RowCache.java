@@ -198,7 +198,7 @@ final class RowCache {
         }
 
         public int hashCode() {
-            return (int) table_id + (row * 35331);
+            return table_id + (row * 35331);
         }
 
         public boolean equals(Object ob) {

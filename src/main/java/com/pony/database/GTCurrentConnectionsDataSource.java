@@ -85,13 +85,13 @@ final class GTCurrentConnectionsDataSource extends GTDataSource {
     public TObject getCellContents(final int column, final int row) {
         switch (column) {
             case 0:  // username
-                return columnValue(column, (String) key_value_pairs.get(row * 4));
+                return columnValue(column, key_value_pairs.get(row * 4));
             case 1:  // host_string
-                return columnValue(column, (String) key_value_pairs.get((row * 4) + 1));
+                return columnValue(column, key_value_pairs.get((row * 4) + 1));
             case 2:  // last_command
-                return columnValue(column, (Date) key_value_pairs.get((row * 4) + 2));
+                return columnValue(column, key_value_pairs.get((row * 4) + 2));
             case 3:  // time_connected
-                return columnValue(column, (Date) key_value_pairs.get((row * 4) + 3));
+                return columnValue(column, key_value_pairs.get((row * 4) + 3));
             default:
                 throw new Error("Column out of bounds.");
         }

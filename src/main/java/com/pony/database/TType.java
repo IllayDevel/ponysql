@@ -476,7 +476,7 @@ public abstract class TType implements java.io.Serializable {
      * locale.
      */
     public static final TStringType STRING_TYPE = new TStringType(
-            SQLTypes.VARCHAR, -1, (String) null);
+            SQLTypes.VARCHAR, -1, null);
 
     /**
      * A default numeric (SQL NUMERIC) type of unlimited size and scale.

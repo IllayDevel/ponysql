@@ -223,7 +223,7 @@ public class ObjectTransfer {
 
             case (24): {
                 // 32-bit int numeric value
-                long val = (long) in.readInt();
+                long val = in.readInt();
                 return BigNumber.fromLong(val);
             }
 
