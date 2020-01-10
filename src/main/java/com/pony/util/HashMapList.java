@@ -29,7 +29,7 @@ import java.util.*;
 
 public class HashMapList {
 
-    private static final List EMPTY_LIST = Arrays.asList(new Object[0]);
+    private static final List EMPTY_LIST = Collections.emptyList();
 
     private final HashMap map;
 

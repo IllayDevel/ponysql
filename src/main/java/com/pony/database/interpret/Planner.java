@@ -1347,9 +1347,7 @@ public class Planner {
 
             // Make a working copy of the plan list.
             ArrayList<Object> working_plan_list = new ArrayList<>(all_plans.size());
-            for (Object all_plan : all_plans) {
-                working_plan_list.add(all_plan);
-            }
+            working_plan_list.addAll(all_plans);
 
             // We go through each plan in turn.
             while (working_plan_list.size() > 1) {
@@ -1487,9 +1485,7 @@ public class Planner {
 
             // Make a working copy of the plan list.
             ArrayList<Object> working_plan_list = new ArrayList<>(sz);
-            for (Object o : table_list) {
-                working_plan_list.add(o);
-            }
+            working_plan_list.addAll(table_list);
 
 //      System.out.println("----");
 

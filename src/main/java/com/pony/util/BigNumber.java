@@ -279,7 +279,7 @@ public final class BigNumber extends Number {
      */
     public int compareTo(BigNumber number) {
 
-        if (this == number) {
+        if (this.equals(number)) {
             return 0;
         }
 

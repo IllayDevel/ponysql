@@ -324,9 +324,7 @@ public class LoggingBufferManager {
                 // Remove all the elements from page_list and set it with the sorted
                 // list (minus the elements we removed).
                 page_list.clear();
-                for (int i = 0; i < pages.length - purge_size; ++i) {
-                    page_list.add(pages[i]);
-                }
+                page_list.addAll(Arrays.asList(pages).subList(0, pages.length - purge_size));
 
                 current_page_count -= purge_size;
 
