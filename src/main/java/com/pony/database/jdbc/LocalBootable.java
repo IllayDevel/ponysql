@@ -37,7 +37,6 @@ public interface LocalBootable {
      * the newly created database will be booted up.
      *
      * @param config the configuration variables.
-     * @returns a DatabaseInterface for talking to the database.
      */
     DatabaseInterface create(String username, String password,
                              DBConfig config) throws SQLException;
@@ -46,7 +45,6 @@ public interface LocalBootable {
      * Boots the database with the given configuration.
      *
      * @param config the configuration variables.
-     * @returns a DatabaseInterface for talking to the database.
      */
     DatabaseInterface boot(DBConfig config) throws SQLException;
 
@@ -67,7 +65,6 @@ public interface LocalBootable {
     /**
      * Connects this interface to the database currently running in this JVM.
      *
-     * @returns a DatabaseInterface for talking to the database.
      */
     DatabaseInterface connectToJVM() throws SQLException;
 

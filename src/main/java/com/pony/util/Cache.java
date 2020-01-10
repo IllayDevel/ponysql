@@ -392,7 +392,6 @@ public class Cache {
      * Cleans away some old elements in the cache.  This method walks from the
      * end, back 'wipe_count' elements putting each object on the recycle stack.
      *
-     * @returns the number entries that were cleaned.
      */
     protected final int clean() {
 

@@ -652,7 +652,6 @@ public abstract class Table implements TableDataSource {
      * @param op the operator to use.
      * @param right_table the subquery table should only contain on column.
      * @param context the context of the query.
-     * @returns the result of the ANY function on the table.
      */
     public Table any(QueryContext context, Expression lhs, Operator op,
                      Table right_table) {
@@ -799,7 +798,6 @@ public abstract class Table implements TableDataSource {
      * @param op the operator to use.
      * @param table The subquery table should only contain on column.
      * @param context The context of the query.
-     * @returns the result of the ALL function on the table.
      */
     public Table all(QueryContext context, Expression lhs, Operator op,
                      Table table) {

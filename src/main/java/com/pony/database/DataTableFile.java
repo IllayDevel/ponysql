@@ -166,7 +166,6 @@ interface DataTableFile extends TableDataSource {
      * <p>
      * This will update any column indices that are set.
      *
-     * @returns the raw row index of the row that was added.
      */
     int addRow(RowData row_data) throws IOException;
 
