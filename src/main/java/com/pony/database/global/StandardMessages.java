@@ -30,13 +30,13 @@ public final class StandardMessages {
     /**
      * The name of the author (me).
      */
-    public static String AUTHOR = "Tobias Downer";
+    public static String AUTHOR = "IllayDevel";
 
     /**
      * The standard copyright message.
      */
     public static final String COPYRIGHT =
-            "Copyright (C) 2000 - 2013 Diehl and Associates, Inc.  " +
+            "Copyright (C) 2019-2020 IllayDevel " +
                     "All rights reserved.";
 
     /**

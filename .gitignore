@@ -1,5 +1,6 @@
 # Intellij
 .idea/
+.parser/
 .deprecated/
 *.iml
 *.iws
