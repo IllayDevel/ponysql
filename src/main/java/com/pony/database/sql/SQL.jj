@@ -559,14 +559,17 @@ StatementTree Select() :
 { StatementTree cmd = new StatementTree("com.pony.database.interpret.Select");
   TableSelectExpression table_expr;
   ArrayList order_by = new ArrayList();
+  int limit = -1;
 }
 {
   ( table_expr = GetTableSelectExpression()
     [ <ORDERBY> SelectOrderByList(order_by) ]
+	[ <LIMIT> limit = PositiveIntegerConstant() ] 
   )
 
   { cmd.putObject("table_expression", table_expr);
     cmd.putObject("order_by", order_by);
+	cmd.putInt("limit", limit);
     return cmd; }
 }
 
@@ -1257,8 +1260,7 @@ TableSelectExpression GetTableSelectExpression() :
         [ table_expr.distinct = SetQuantifier() ]
         SelectColumnList(table_expr.columns)
         [ <FROM> SelectTableList(table_expr.from_clause) ]
-        [ <WHERE> ConditionsExpression(table_expr.where_clause) ]
-		[ <LIMIT> table_expr.limit_clause = PositiveIntegerConstant() ] 
+        [ <WHERE> ConditionsExpression(table_expr.where_clause) ]		
 		
         [ <GROUPBY> SelectGroupByList(table_expr.group_by)
           [ <GROUPMAX> table_expr.group_max = GroupMaxColumn() ] 

@@ -41,6 +41,11 @@ public class Select extends Statement {
     private ArrayList order_by;
 
     /**
+     * Limit of fetched rows
+     */
+    private Integer limit;
+
+    /**
      * The list of columns in the 'order_by' clause fully resolved.
      */
     private Variable[] order_cols;
@@ -101,6 +106,9 @@ public class Select extends Statement {
                 (TableSelectExpression) cmd.getObject("table_expression");
         // The order by information
         order_by = (ArrayList) cmd.getObject("order_by");
+
+        // Rows limit information
+        limit = (Integer) cmd.getInt("limit");
 
         // Generate the TableExpressionFromSet hierarchy for the expression,
         TableExpressionFromSet from_set =

@@ -522,8 +522,8 @@ public class TransactionSystem {
                 final File journal_path = db_path;
                 // Max slice size is 1 GB for file scattering class
                 final long max_slice_size = 16384 * 65536;
-                // First file extention is 'pony'
-                final String first_file_ext = "pony";
+                // First file extention is 'pds'
+                final String first_file_ext = "pds";
 
                 // Set up the BufferManager
                 buffer_manager = new LoggingBufferManager(

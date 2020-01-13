@@ -61,12 +61,7 @@ public final class TableSelectExpression
     /**
      * The where clause.
      */
-    public SearchExpression where_clause = new SearchExpression();
-	
-	/**
-     * The limit clause.
-     */
-    public Integer limit_clause = -1;
+    public SearchExpression where_clause = new SearchExpression();	
 
 
     /**
