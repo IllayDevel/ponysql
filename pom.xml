@@ -23,7 +23,7 @@
   <artifactId>ponysqldb</artifactId>
   <packaging>jar</packaging>
   <name>Pony SQL Database (PonySQLDB)</name>
-  <version>1.0.6</version>
+  <version>1.0.7</version>
   <url>http://www.ponysql.ru</url>
 
   <description>
