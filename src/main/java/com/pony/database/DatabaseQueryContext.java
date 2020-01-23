@@ -75,6 +75,15 @@ public class DatabaseQueryContext extends AbstractQueryContext {
         return database.getTable(name);
     }
 
+
+    /**
+     * Returns a DataTable from the database with the given table name and limited rows count.
+     */
+    public DataTable getTable(TableName name, Integer limit) {
+        database.addSelectedFromTable(name);
+        return database.getTable(name, limit);
+    }
+
     /**
      * Returns a DataTableDef for the given table name.
      */

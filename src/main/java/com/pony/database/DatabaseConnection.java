@@ -677,6 +677,44 @@ public class DatabaseConnection implements TriggerListener {
     }
 
     /**
+     * Returns a DataTable that represents the table from the given schema,
+     * name in the database.
+     */
+    public DataTable getTable(TableName name, Integer limit) {
+        name = substituteReservedTableName(name);
+
+        try {
+            // Special handling of NEW and OLD table, we cache the DataTable in the
+            // OldNewTableState object,
+            if (name.equals(Database.OLD_TRIGGER_TABLE)) {
+                if (current_old_new_state.OLD_data_table == null) {
+                    current_old_new_state.OLD_data_table =
+                            new DataTable(this, getTransaction().getTable(name));
+                }
+                return current_old_new_state.OLD_data_table;
+            } else if (name.equals(Database.NEW_TRIGGER_TABLE)) {
+                if (current_old_new_state.NEW_data_table == null) {
+                    current_old_new_state.NEW_data_table =
+                            new DataTable(this, getTransaction().getTable(name));
+                }
+                return current_old_new_state.NEW_data_table;
+            }
+
+            // Ask the transaction for the table
+            MutableTableDataSource table = getTransaction().getTable(name, limit);
+            //@@IllayDevel Warning: Check cache working
+            DataTable  dtable = new DataTable(this, table);
+            return dtable;
+
+        } catch (DatabaseException e) {
+            Debug().writeException(e);
+            throw new Error("Database Exception: " + e.getMessage());
+        }
+
+    }
+
+
+    /**
      * Returns a DataTable that represents the table with the given name in the
      * database from the current connection schema.
      */

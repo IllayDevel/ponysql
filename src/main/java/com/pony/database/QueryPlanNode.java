@@ -33,6 +33,8 @@ public interface QueryPlanNode extends java.io.Serializable, Cloneable {
      * Evaluates the node and returns the result as a Table.  The
      * VariableResolver resolves any outer variables
      */
+    Table evaluate(QueryContext context, Integer limit);
+
     Table evaluate(QueryContext context);
 
     /**

@@ -133,7 +133,8 @@ public class Select extends Statement {
 
         boolean error = true;
         try {
-            Table t = plan.evaluate(context);
+
+            Table t = plan.evaluate(context, limit);
             error = false;
             return t;
         } finally {

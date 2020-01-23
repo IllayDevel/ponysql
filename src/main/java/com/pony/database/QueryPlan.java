@@ -247,6 +247,17 @@ public class QueryPlan {
             return t;
         }
 
+        /*Evaluate with fetch limit */
+        public Table evaluate(QueryContext context, Integer limit) {            
+            // MILD HACK: Cast the context to a DatabaseQueryContext
+            DatabaseQueryContext db_context = (DatabaseQueryContext) context;
+            DataTable t = db_context.getTable(table_name, limit);
+            if (alias_name != null) {
+                return new ReferenceTable(t, alias_name);
+            }
+            return t;
+        }
+
         public ArrayList discoverCorrelatedVariables(int level, ArrayList list) {
             return list;
         }
@@ -287,6 +298,11 @@ public class QueryPlan {
             // MILD HACK: Cast the context to a DatabaseQueryContext
             DatabaseQueryContext db_context = (DatabaseQueryContext) context;
             return db_context.getDatabase().getSingleRowTable();
+        }
+
+        /*Evaluate with fetch limit */
+        public Table evaluate(QueryContext context, Integer limit) {
+            return evaluate(context);
         }
 
         public ArrayList discoverCorrelatedVariables(int level, ArrayList list) {
@@ -356,18 +372,20 @@ public class QueryPlan {
         }
 
         public Table evaluate(QueryContext context) {
-
             // Create the view child node
             QueryPlanNode node = createViewChildNode(context);
             // Evaluate the plan
             Table t = node.evaluate(context);
-
             if (alias_name != null) {
                 return new ReferenceTable(t, alias_name);
             } else {
                 return t;
             }
+        }
 
+        /*Evaluate with fetch limit */
+        public Table evaluate(QueryContext context, Integer limit) {            
+            return evaluate(context);
         }
 
         public ArrayList discoverCorrelatedVariables(int level, ArrayList list) {
@@ -523,13 +541,15 @@ public class QueryPlan {
             SelectableRangeSet range = new SelectableRangeSet();
             calcRange(context, field, range, exp);
 
-//      System.out.println("RANGE: ");
-//      System.out.println(range);
-
             // Select the range from the table
             SelectableRange[] ranges = range.toSelectableRangeArray();
             return t.rangeSelect(v, ranges);
 
+        }
+
+        /*Evaluate with fetch limit */
+        public Table evaluate(QueryContext context, Integer limit) {            
+            return evaluate(context);
         }
 
         public ArrayList discoverTableNames(ArrayList list) {
@@ -596,6 +616,11 @@ public class QueryPlan {
                     left_var, op, right_expression);
         }
 
+        /*Evaluate with fetch limit */
+        public Table evaluate(QueryContext context, Integer limit) {            
+            return evaluate(context);
+        }
+
         public ArrayList discoverTableNames(ArrayList list) {
             return right_expression.discoverTableNames(
                     super.discoverTableNames(list));
@@ -647,16 +672,18 @@ public class QueryPlan {
 
         public Table evaluate(QueryContext context) {
             Table t = child.evaluate(context);
-
             // PENDING: Exploit multi-column indexes when they are implemented...
-
             // We select each column in turn
             Operator EQUALS_OP = Operator.get("=");
             for (int i = 0; i < columns.length; ++i) {
                 t = t.simpleSelect(context, columns[i], EQUALS_OP, values[i]);
             }
-
             return t;
+        }
+
+        /*Evaluate with fetch limit */
+        public Table evaluate(QueryContext context, Integer limit) {            
+            return evaluate(context);
         }
 
         public ArrayList discoverTableNames(ArrayList list) {
@@ -710,6 +737,11 @@ public class QueryPlan {
             return t.exhaustiveSelect(context, expression);
         }
 
+        /*Evaluate with fetch limit */
+        public Table evaluate(QueryContext context, Integer limit) {            
+            return evaluate(context);
+        }
+
         public ArrayList discoverTableNames(ArrayList list) {
             return expression.discoverTableNames(super.discoverTableNames(list));
         }
@@ -751,6 +783,11 @@ public class QueryPlan {
         public Table evaluate(QueryContext context) {
             Table t = child.evaluate(context);
             return t.exhaustiveSelect(context, expression);
+        }
+
+        /*Evaluate with fetch limit */
+        public Table evaluate(QueryContext context, Integer limit) {            
+            return evaluate(context);
         }
 
         public ArrayList discoverTableNames(ArrayList list) {
@@ -800,6 +837,18 @@ public class QueryPlan {
                 return child.evaluate(context).emptySelect();
             } else {
                 return child.evaluate(context);
+            }
+        }
+
+        /*Evaluate with fetch limit */
+        public Table evaluate(QueryContext context, Integer limit) {            
+            // Evaluate the expression
+            TObject v = expression.evaluate(null, null, context);
+            // If it evaluates to NULL or FALSE then return an empty set
+            if (v.isNull() || v.getObject().equals(Boolean.FALSE)) {
+                return child.evaluate(context).emptySelect();
+            } else {
+                return child.evaluate(context, limit);
             }
         }
 
@@ -869,6 +918,11 @@ public class QueryPlan {
             }
         }
 
+        /*Evaluate with fetch limit */
+        public Table evaluate(QueryContext context, Integer limit) {            
+            return evaluate(context);
+        }
+
         public ArrayList discoverTableNames(ArrayList list) {
             return expression.discoverTableNames(super.discoverTableNames(list));
         }
@@ -920,36 +974,26 @@ public class QueryPlan {
 
         public Table evaluate(QueryContext context) {
             Table t = child.evaluate(context);
-
             int sz = original_columns.length;
             int[] col_map = new int[sz];
-
-//      // DEBUG
-//      for (int n = 0; n < t.getColumnCount(); ++n) {
-//        System.out.print(t.getResolvedVariable(n).toTechString());
-//        System.out.print(", ");
-//      }
-//      System.out.println();
-//      // - DEBUG
-
             for (int i = 0; i < sz; ++i) {
-
-//        // DEBUG
-//        System.out.print(t.getClass() + ".findFieldName(" +
-//                         original_columns[i].toTechString() + ") = ");
-//        // - DEBUG
-
                 col_map[i] = t.findFieldName(original_columns[i]);
-
-//        // DEBUG
-//        System.out.println(col_map[i]);
-//        // - DEBUG
-
             }
-
             SubsetColumnTable col_table = new SubsetColumnTable(t);
             col_table.setColumnMap(col_map, new_column_names);
+            return col_table;
+        }
 
+        /*Evaluate with fetch limit */
+        public Table evaluate(QueryContext context, Integer limit) {           
+            Table t = child.evaluate(context, limit);
+            int sz = original_columns.length;
+            int[] col_map = new int[sz];
+            for (int i = 0; i < sz; ++i) {
+                col_map[i] = t.findFieldName(original_columns[i]);
+            }
+            SubsetColumnTable col_table = new SubsetColumnTable(t);
+            col_table.setColumnMap(col_map, new_column_names);
             return col_table;
         }
 
@@ -1036,6 +1080,11 @@ public class QueryPlan {
             return t.distinct(col_map);
         }
 
+        /*Evaluate with fetch limit */
+        public Table evaluate(QueryContext context, Integer limit) {            
+            return evaluate(context);
+        }
+
         public Object clone() throws CloneNotSupportedException {
             DistinctNode node = (DistinctNode) super.clone();
             cloneArray(node.columns);
@@ -1112,6 +1161,11 @@ public class QueryPlan {
                 t = t.orderByColumn(columns[n], correct_ascending[n]);
             }
             return t;
+        }
+
+        /*Evaluate with fetch limit */
+        public Table evaluate(QueryContext context, Integer limit) {            
+            return evaluate(context);
         }
 
         public Object clone() throws CloneNotSupportedException {
@@ -1206,6 +1260,11 @@ public class QueryPlan {
             return fun_table.mergeWithReference(group_max_column);
         }
 
+        /*Evaluate with fetch limit */
+        public Table evaluate(QueryContext context, Integer limit) {            
+            return evaluate(context);
+        }
+
         public ArrayList discoverTableNames(ArrayList list) {
             list = super.discoverTableNames(list);
             for (Expression expression : function_list) {
@@ -1297,6 +1356,11 @@ public class QueryPlan {
             return t;
         }
 
+        /*Evaluate with fetch limit */
+        public Table evaluate(QueryContext context, Integer limit) {            
+            return evaluate(context);
+        }
+
         public ArrayList discoverTableNames(ArrayList list) {
             list = super.discoverTableNames(list);
             for (Expression expression : function_list) {
@@ -1360,6 +1424,11 @@ public class QueryPlan {
             return child_table;
         }
 
+        /*Evaluate with fetch limit */
+        public Table evaluate(QueryContext context, Integer limit) {            
+            return evaluate(context);
+        }
+
         public Object clone() throws CloneNotSupportedException {
             return super.clone();
         }
@@ -1408,6 +1477,11 @@ public class QueryPlan {
             return child_table;
         }
 
+        /*Evaluate with fetch limit */
+        public Table evaluate(QueryContext context, Integer limit) {            
+            return evaluate(context);
+        }
+
         public Object clone() throws CloneNotSupportedException {
             return super.clone();
         }
@@ -1436,6 +1510,11 @@ public class QueryPlan {
             Table left_result = left.evaluate(context);
             // Solve the Join (natural)
             return left_result.join(right.evaluate(context));
+        }
+
+        /*Evaluate with fetch limit */
+        public Table evaluate(QueryContext context, Integer limit) {            
+            return evaluate(context);
         }
 
         public String titleString() {
@@ -1516,6 +1595,11 @@ public class QueryPlan {
             return result;
         }
 
+        /*Evaluate with fetch limit */
+        public Table evaluate(QueryContext context, Integer limit) {            
+            return evaluate(context);
+        }
+
         public Object clone() throws CloneNotSupportedException {
             EquiJoinNode node = (EquiJoinNode) super.clone();
             cloneArray(node.left_columns);
@@ -1590,6 +1674,11 @@ public class QueryPlan {
             // The join operation.
             return left_result.simpleJoin(context, right_result,
                     lhs_var, op, right_expression);
+        }
+
+        /*Evaluate with fetch limit */
+        public Table evaluate(QueryContext context, Integer limit) {            
+            return evaluate(context);
         }
 
         public ArrayList discoverTableNames(ArrayList list) {
@@ -1668,6 +1757,11 @@ public class QueryPlan {
             return outer_table;
         }
 
+        /*Evaluate with fetch limit */
+        public Table evaluate(QueryContext context, Integer limit) {            
+            return evaluate(context);
+        }
+
         public String titleString() {
             return "LEFT OUTER JOIN";
         }
@@ -1697,6 +1791,11 @@ public class QueryPlan {
             Table right_result = right.evaluate(context);
 
             return left_result.union(right_result);
+        }
+
+        /*Evaluate with fetch limit */
+        public Table evaluate(QueryContext context, Integer limit) {            
+            return evaluate(context);
         }
 
         public String titleString() {
@@ -1748,6 +1847,11 @@ public class QueryPlan {
             return t;
         }
 
+        /*Evaluate with fetch limit */
+        public Table evaluate(QueryContext context, Integer limit) {            
+            return evaluate(context);
+        }
+
     }
 
     /**
@@ -1790,6 +1894,11 @@ public class QueryPlan {
             // given operator.
             return TableFunctions.anyAllNonCorrelated(left_result, left_columns,
                     sub_query_operator, right_result);
+        }
+
+        /*Evaluate with fetch limit */
+        public Table evaluate(QueryContext context, Integer limit) {            
+            return evaluate(context);
         }
 
         public Object clone() throws CloneNotSupportedException {

@@ -823,6 +823,12 @@ abstract class MasterTableDataSource {
                 new MasterTableJournal(getTableID()));
     }
 
+    MutableTableDataSource createTableDataSourceAtCommit(
+            SimpleTransaction transaction, Integer limit) {
+        return createTableDataSourceAtCommit(transaction,
+                new MasterTableJournal(getTableID()), limit);
+    }
+
     /**
      * Returns a MutableTableDataSource object that represents this data source
      * at the time the given transaction started, and also also makes any
@@ -834,6 +840,11 @@ abstract class MasterTableDataSource {
     MutableTableDataSource createTableDataSourceAtCommit(
             SimpleTransaction transaction, MasterTableJournal journal) {
         return new MMutableTableDataSource(transaction, journal);
+    }
+
+    MutableTableDataSource createTableDataSourceAtCommit(
+            SimpleTransaction transaction, MasterTableJournal journal, Integer limit) {
+        return new MMutableTableDataSource(transaction, journal, limit);
     }
 
     // ---------- File IO level table modification ----------
@@ -1361,6 +1372,11 @@ abstract class MasterTableDataSource {
         private int last_entry_ri_check;
 
         /**
+         * Limit fetched row in current transaction
+         */
+        private Integer limit_fetch = -1;
+
+        /**
          * Constructs the data source.
          */
         public MMutableTableDataSource(SimpleTransaction transaction,
@@ -1376,6 +1392,22 @@ abstract class MasterTableDataSource {
             column_schemes = new SelectableScheme[col_count];
             table_journal = journal;
             last_entry_ri_check = table_journal.entries();
+        }
+
+        public MMutableTableDataSource(SimpleTransaction transaction,
+                                       MasterTableJournal journal, Integer limit) {
+            this.transaction = transaction;
+            this.index_set =
+                    transaction.getIndexSetForTable(MasterTableDataSource.this);
+            int col_count = getDataTableDef().columnCount();
+            TableName table_name = getDataTableDef().getTableName();
+            this.tran_read_only = transaction.isReadOnly();
+            row_list_rebuild = 0;
+            scheme_rebuilds = new int[col_count];
+            column_schemes = new SelectableScheme[col_count];
+            table_journal = journal;
+            last_entry_ri_check = table_journal.entries();
+            limit_fetch = limit;
         }
 
         /**
@@ -1617,7 +1649,11 @@ abstract class MasterTableDataSource {
         public int getRowCount() {
             // Ensure the row list is up to date.
             ensureRowIndexListCurrent();
-            return getRowIndexList().size();
+            if (limit_fetch != -1) {
+                return limit_fetch;
+            } else {
+                return getRowIndexList().size();
+            }
         }
 
         public RowEnumeration rowEnumeration() {

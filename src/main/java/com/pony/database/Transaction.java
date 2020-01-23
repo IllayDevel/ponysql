@@ -221,6 +221,22 @@ public class Transaction extends SimpleTransaction {
     }
 
     /**
+     * Overwritten from SimpleTransaction.
+     * Returns a new MutableTableDataSource for the view of the
+     * MasterTableDataSource at the start of this transaction.  Note that this is
+     * only ever called once per table accessed in this transaction.
+     */
+    public MutableTableDataSource
+    createMutableTableDataSourceAtCommit(MasterTableDataSource master, Integer limit) {
+        // Create the table for this transaction.
+        MutableTableDataSource table = master.createTableDataSourceAtCommit(this, limit);
+        // Log in the journal that this table was touched by the transaction.
+        journal.entryAddTouchedTable(master.getTableID());
+        touched_tables.add(table);
+        return table;
+    }
+
+    /**
      * Called by the query evaluation layer when information is selected
      * from this table as part of this transaction.  When there is a select
      * query on a table, when the transaction is committed we should look for
