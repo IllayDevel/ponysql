@@ -1,5 +1,5 @@
 /*
- * Pony SQL Database ( http://www.ponysql.ru/ )
+ * Pony SQL Database ( http://i-devel.ru )
  * Copyright (C) 2019-2020 IllayDevel.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -769,7 +769,6 @@ public abstract class AbstractJDBCDatabaseInterface
                 }
                 col_desc[i] =
                         table.getColumnDefAt(i).columnDescriptionValue(field_name);
-//        col_desc[i] = new ColumnDescription(field_name, table.getFieldAt(i));
             }
 
             locked = 0;

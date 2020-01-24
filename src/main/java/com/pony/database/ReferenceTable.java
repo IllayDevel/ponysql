@@ -1,5 +1,5 @@
 /*
- * Pony SQL Database ( http://www.ponysql.ru/ )
+ * Pony SQL Database ( http://i-devel.ru )
  * Copyright (C) 2019-2020 IllayDevel.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
