@@ -702,8 +702,14 @@ public class DatabaseConnection implements TriggerListener {
 
             // Ask the transaction for the table
             MutableTableDataSource table = getTransaction().getTable(name, limit);
-            //@@IllayDevel Warning: Check cache working
-            DataTable  dtable = new DataTable(this, table);
+            // Is this table in the tables_cache?
+            DataTable dtable = (DataTable) tables_cache.get(table);
+            // No, so wrap it around a Datatable and put it in the cache
+            if (dtable == null) {
+                dtable = new DataTable(this, table);
+                tables_cache.put(table, dtable);
+            }
+            // Return the DataTable
             return dtable;
 
         } catch (DatabaseException e) {
