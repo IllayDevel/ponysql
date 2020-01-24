@@ -163,13 +163,13 @@ public class DefaultDBConfig extends AbstractDBConfig {
      * Adds a default property to the CONFIG_DEFAULTS map.
      */
     private static void addDefProperty(ConfigProperty property) {
-        CONFIG_DEFAULTS.put(property.getKey(), property);
+        CONFIG_DEFAULTS.put(property.getKey(), property);		
     }
 
     static {
         addDefProperty(new ConfigProperty("database_path", "./data", "PATH"));
 
-//    addDefProperty(new ConfigProperty("log_path", "./log", "PATH"));
+        addDefProperty(new ConfigProperty("log_path", "./log", "PATH"));
 
         addDefProperty(new ConfigProperty("root_path", "jvm", "STRING"));
 
