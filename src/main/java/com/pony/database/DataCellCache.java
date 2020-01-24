@@ -299,14 +299,14 @@ final class DataCellCache {
                 // Update the current cache size (before we wiped).
                 system.stats().set((int) getCurrentCacheSize(),
                         "DataCellCache.current_cache_size");
-                clean();
+                clear();
 
                 // The number of times we've cleared away old data cell nodes.
                 system.stats().increment("DataCellCache.cache_clean");
 
             }
         }
-
+/*
         protected boolean shouldWipeMoreNodes() {
             return (getCurrentCacheSize() >= (int) ((MAX_CACHE_SIZE * 100L) / 115L));
         }
@@ -327,7 +327,7 @@ final class DataCellCache {
                     "DataCellCache.current_cache_size");
             system.stats().set(nodeCount(), "DataCellCache.current_node_count");
         }
-
+*/
     }
 
 }

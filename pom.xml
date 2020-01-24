@@ -1,5 +1,5 @@
 <!--
-  ~ Pony SQL Database ( http://www.ponysql.ru/ )
+  ~ Pony SQL Database ( http://i-devel.ru )
   ~ Copyright (C) 2019-2020 IllayDevel.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +24,7 @@
   <packaging>jar</packaging>
   <name>Pony SQL Database (PonySQLDB)</name>
   <version>1.0.7</version>
-  <url>http://www.ponysql.ru</url>
+  <url>http://i-devel.ru</url>
 
   <description>
     A full SQL database system with JDBC driver that can be embedded in a Java
