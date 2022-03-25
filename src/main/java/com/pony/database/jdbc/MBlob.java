@@ -115,22 +115,22 @@ class MBlob implements Blob {
     //#IFDEF(JDBC3.0)
 
     // -------------------------- JDBC 3.0 -----------------------------------
-
+    String blobUpdate="BLOB updating is not supported";
     public int setBytes(long pos, byte[] bytes) throws SQLException {
-        throw new SQLException("BLOB updating is not supported");
+        throw new SQLException(blobUpdate);
     }
 
     public int setBytes(long pos, byte[] bytes, int offset, int len)
             throws SQLException {
-        throw new SQLException("BLOB updating is not supported");
+        throw new SQLException(blobUpdate);
     }
 
     public java.io.OutputStream setBinaryStream(long pos) throws SQLException {
-        throw new SQLException("BLOB updating is not supported");
+        throw new SQLException(blobUpdate);
     }
 
     public void truncate(long len) throws SQLException {
-        throw new SQLException("BLOB updating is not supported");
+        throw new SQLException(blobUpdate);
     }
 
     //#ENDIF
