@@ -45,7 +45,8 @@ final class MasterTableJournal {
      * set when the journal is a committed change to the database.
      */
     private long commit_id;
-
+    protected int[] list;
+    protected int index;
 
     /**
      * The master table id.
@@ -129,13 +130,41 @@ final class MasterTableJournal {
     private void addParameter(int param) {
         command_parameters.addInt(param);
     }
-
+    /**
+     * Crops the IntegerVector so it only contains values between start
+     * (inclusive) and end (exclusive).  So;
+     *   crop({ 4, 5, 4, 3, 9, 7 }, 0, 3)
+     *   would return {4, 5, 4)
+     * and,
+     *   crop({ 4, 5, 4, 3, 9, 7 }, 3, 4)
+     *   would return {3}
+     */
+    public void crop(int start, int end) {
+        if (start < 0) {
+            throw new Error("Crop start < 0.");
+        } else if (start == 0) {
+            if (end > index) {
+                throw new Error("Crop end was past end.");
+            }
+            index = end;
+        } else {
+            if (start >= index) {
+                throw new Error("start >= index");
+            }
+            int length = (end - start);
+            if (length < 0) {
+                throw new Error("end - start < 0");
+            }
+            System.arraycopy(list, start, list, 0, length);
+            index = length;
+        }
+    }
     /**
      * Removes the top n entries from the journal.
      */
     private void removeTopEntries(int n) {
         journal_entries = journal_entries - n;
-        command_parameters.crop(0, command_parameters.size() - n);
+        crop(0, command_parameters.size() - n);
     }
 
     /**
@@ -145,6 +174,7 @@ final class MasterTableJournal {
         addCommand(command);
         addParameter(row_index);
     }
+
 
     // ---------- Getters ----------
     // These methods assume the journal has been setup and no more entries
