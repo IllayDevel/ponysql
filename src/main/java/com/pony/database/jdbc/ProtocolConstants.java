@@ -46,12 +46,6 @@ public interface ProtocolConstants {
     int SUCCESS = 20;
 
     /**
-     * Operation failed (followed by a UTF String error message).
-     */
-    int FAILED = 25;
-
-
-    /**
      * Operation threw an exception.
      */
     int EXCEPTION = 30;
