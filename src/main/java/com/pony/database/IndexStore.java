@@ -301,9 +301,6 @@ public final class IndexStore {
         // Read the index store and set up this store with the information.
         readIndexTableList();
 
-        // The number of sectors (used and deleted) in the store.
-        int raw_sector_count = index_store.rawSectorCount();
-
         // Check that at least the reserved area is stable
         try {
             // Read the reserved area for the sector of the allocation information
@@ -317,6 +314,13 @@ public final class IndexStore {
             throw new IOException("Irrepairable index store.");
         }
 
+        return indexReader(terminal);
+
+    }
+
+    synchronized boolean indexReader(UserTerminal terminal)throws IOException{
+        // The number of sectors (used and deleted) in the store.
+        int raw_sector_count = index_store.rawSectorCount();
         try {
             readIndexTableList();
 
@@ -417,7 +421,6 @@ public final class IndexStore {
             terminal.println("! IO Error scanning index store: " + e.getMessage());
             return false;
         }
-
     }
 
     /**
