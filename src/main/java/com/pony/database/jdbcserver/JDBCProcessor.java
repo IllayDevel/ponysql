@@ -164,7 +164,7 @@ abstract class JDBCProcessor implements ProtocolConstants {
                 if (good == false) {
                     // Close after 12 tries.
                     if (authentication_tries >= 12) {
-                        close_connection();
+                        close();
                     } else {
                         ++authentication_tries;
                         return single(USER_AUTHENTICATION_FAILED);
@@ -282,7 +282,7 @@ abstract class JDBCProcessor implements ProtocolConstants {
         } else if (ins == DISPOSE_STREAMABLE_OBJECT) {
             result = disposeStreamableObject(dispatch_id, command);
         } else if (ins == CLOSE) {
-            close_connection();
+            close();
             result = null;
         } else {
             throw new Error("Command (" + ins + ") not understood.");
@@ -519,7 +519,7 @@ abstract class JDBCProcessor implements ProtocolConstants {
     /**
      * Closes the connection with the client.
      */
-    public abstract void close_connection  () throws IOException;
+    public abstract void close  () throws IOException;
 
     /**
      * Returns true if the connection to the client is closed.
