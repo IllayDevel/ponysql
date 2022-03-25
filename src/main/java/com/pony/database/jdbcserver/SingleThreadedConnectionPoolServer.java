@@ -65,7 +65,7 @@ final class SingleThreadedConnectionPoolServer
      * The list of ServerConnection objects that are pending to be added into the
      * current service provider list next time it is checked.
      */
-    private final ArrayList pending_connections_list;
+    private final ArrayList pending_connections;
 
     /**
      * The ServerFarmer object that polls for information from the clients and
@@ -79,7 +79,7 @@ final class SingleThreadedConnectionPoolServer
      */
     SingleThreadedConnectionPoolServer(Database database) {
         this.database = database;
-        pending_connections_list = new ArrayList();
+        pending_connections = new ArrayList();
         // Create the farmer thread that services all the connections.
         farmer = new ServerFarmer();
         farmer.start();
@@ -99,8 +99,8 @@ final class SingleThreadedConnectionPoolServer
      * we spawn off a worker thread to do the task.
      */
     public void addConnection(ServerConnection connection) {
-        synchronized (pending_connections_list) {
-            pending_connections_list.add(connection);
+        synchronized (pending_connections) {
+            pending_connections.add(connection);
         }
     }
 
@@ -123,7 +123,7 @@ final class SingleThreadedConnectionPoolServer
          * The list of ServerConnection objects that are currently being serviced
          * by this server.
          */
-        private final ArrayList server_connections_list;
+        private final ArrayList server_connections;
 
         /**
          * Staticial information collected.
@@ -154,7 +154,7 @@ final class SingleThreadedConnectionPoolServer
             // Default is '3 ms'
             poll_wait_time = 3;
 
-            server_connections_list = new ArrayList();
+            server_connections = new ArrayList();
             farmer_closed = false;
         }
 
@@ -163,14 +163,14 @@ final class SingleThreadedConnectionPoolServer
          * 'pending_connections_list'.
          */
         private void establishPendingConnections() throws IOException {
-            synchronized (pending_connections_list) {
-                int len = pending_connections_list.size();
+            synchronized (pending_connections) {
+                int len = pending_connections.size();
                 // Move all pending connections into the current connections list.
                 for (int i = 0; i < len; ++i) {
                     // Get the connection and create the new connection state
                     ServerConnection connection =
-                            (ServerConnection) pending_connections_list.remove(0);
-                    server_connections_list.add(new ServerConnectionState(connection));
+                            (ServerConnection) pending_connections.remove(0);
+                    server_connections.add(new ServerConnectionState(connection));
                 }
             }
         }
@@ -182,10 +182,10 @@ final class SingleThreadedConnectionPoolServer
          * command.
          */
         private void checkCurrentConnections() {
-            int len = server_connections_list.size();
+            int len = server_connections.size();
             for (int i = len - 1; i >= 0; --i) {
                 ServerConnectionState connection_state =
-                        (ServerConnectionState) server_connections_list.get(i);
+                        (ServerConnectionState) server_connections.get(i);
                 try {
                     // Is this connection not currently processing a command?
                     if (!connection_state.isProcessingRequest()) {
@@ -227,7 +227,7 @@ final class SingleThreadedConnectionPoolServer
                     try {
                         connection_state.getConnection().close();
                     } catch (IOException e2) { /* ignore */ }
-                    server_connections_list.remove(i);
+                    server_connections.remove(i);
 
                     // This happens if the connection closes.
                     Debug().write(Lvl.INFORMATION, this,
@@ -243,7 +243,7 @@ final class SingleThreadedConnectionPoolServer
          * the connection is closed.
          */
         private void doPings() {
-            int len = server_connections_list.size();
+            int len = server_connections.size();
             if (len == 0) {
                 if (DISPLAY_STATS) {
                     System.out.print("[TCPServer Stats] ");
@@ -261,7 +261,7 @@ final class SingleThreadedConnectionPoolServer
             }
 
             final ServerConnectionState connection_state =
-                    (ServerConnectionState) server_connections_list.get(i);
+                    (ServerConnectionState) server_connections.get(i);
 
             // Is this provider not currently processing a command?
             if (!connection_state.isProcessingRequest()) {
@@ -304,7 +304,7 @@ final class SingleThreadedConnectionPoolServer
                     int commands_waited = 0;
                     System.out.print(commands_waited);
                     System.out.print(" wait, ");
-                    System.out.print(server_connections_list.size());
+                    System.out.print(server_connections.size());
                     System.out.print(" worker count");
                     System.out.println();
                 } else {
@@ -338,7 +338,7 @@ final class SingleThreadedConnectionPoolServer
 
                     // First, determine if there are any pending service providers
                     // waiting to be established.
-                    if (pending_connections_list.size() > 0) {
+                    if (pending_connections.size() > 0) {
                         establishPendingConnections();
                     }
                     checkCurrentConnections();
