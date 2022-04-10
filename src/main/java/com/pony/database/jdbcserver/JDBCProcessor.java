@@ -519,7 +519,7 @@ abstract class JDBCProcessor implements ProtocolConstants {
     /**
      * Closes the connection with the client.
      */
-    public abstract void close() throws IOException;
+    public abstract void close  () throws IOException;
 
     /**
      * Returns true if the connection to the client is closed.

@@ -150,37 +150,6 @@ public final class IntegerVector implements java.io.Serializable {
     }
 
     /**
-     * Crops the IntegerVector so it only contains values between start
-     * (inclusive) and end (exclusive).  So;
-     *   crop({ 4, 5, 4, 3, 9, 7 }, 0, 3)
-     *   would return {4, 5, 4)
-     * and,
-     *   crop({ 4, 5, 4, 3, 9, 7 }, 3, 4)
-     *   would return {3}
-     */
-    public void crop(int start, int end) {
-        if (start < 0) {
-            throw new Error("Crop start < 0.");
-        } else if (start == 0) {
-            if (end > index) {
-                throw new Error("Crop end was past end.");
-            }
-            index = end;
-        } else {
-            if (start >= index) {
-                throw new Error("start >= index");
-            }
-            int length = (end - start);
-            if (length < 0) {
-                throw new Error("end - start < 0");
-            }
-            System.arraycopy(list, start, list, 0, length);
-            index = length;
-        }
-    }
-
-
-    /**
      * Inserts an int at the given position.
      */
     public void insertIntAt(int val, int pos) {

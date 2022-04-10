@@ -49,7 +49,10 @@ abstract class RemoteDatabaseInterface
      * are received from the database.
      */
     private DatabaseCallBack database_call_back;
-
+    /**
+     * Operation failed (followed by a UTF String error message).
+     */
+    int FAILED = 25;
 
     /**
      * Writes the exception to the JDBC log stream.

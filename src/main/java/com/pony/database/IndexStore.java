@@ -301,9 +301,6 @@ public final class IndexStore {
         // Read the index store and set up this store with the information.
         readIndexTableList();
 
-        // The number of sectors (used and deleted) in the store.
-        int raw_sector_count = index_store.rawSectorCount();
-
         // Check that at least the reserved area is stable
         try {
             // Read the reserved area for the sector of the allocation information
@@ -317,6 +314,13 @@ public final class IndexStore {
             throw new IOException("Irrepairable index store.");
         }
 
+        return indexReader(terminal);
+
+    }
+
+    synchronized boolean indexReader(UserTerminal terminal)throws IOException{
+        // The number of sectors (used and deleted) in the store.
+        int raw_sector_count = index_store.rawSectorCount();
         try {
             readIndexTableList();
 
@@ -417,7 +421,6 @@ public final class IndexStore {
             terminal.println("! IO Error scanning index store: " + e.getMessage());
             return false;
         }
-
     }
 
     /**
@@ -825,8 +828,8 @@ public final class IndexStore {
                         byte list_type = snapshot_buf.getByte();
                         int blocks_count = snapshot_buf.getInt();
                         int stat_sector = snapshot_buf.getInt();
-                        byte[] buf = new byte[blocks_count * (4 + 4 + 4 + 2)];
-                        snapshot_buf.get(buf, 0, buf.length);
+                        byte[] buffer = new byte[blocks_count * (4 + 4 + 4 + 2)];
+                        snapshot_buf.get(buffer, 0, buffer.length);
 
 //          System.out.println("blocks_count = " + blocks_count);
 //          System.out.println("blocks_capacity = " + blocks_capacity);
@@ -899,7 +902,7 @@ public final class IndexStore {
                             dout.writeByte(list_type);
                             dout.writeInt(blocks_count);
                             dout.writeInt(stat_sector);
-                            dout.write(buf, 0, buf.length);
+                            dout.write(buffer, 0, buffer.length);
 
                         }
 
