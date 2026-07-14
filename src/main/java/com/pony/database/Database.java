@@ -2619,12 +2619,4 @@ public final class Database implements DatabaseConstants {
 
     }
 
-
-    public void finalize() throws Throwable {
-        super.finalize();
-        if (isInitialized()) {
-            System.err.println("Database object was finalized and is initialized!");
-        }
-    }
-
 }

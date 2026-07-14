@@ -1847,11 +1847,4 @@ public final class MResultSet implements ResultSet {
     }
 
 //#ENDIF
-
-    // ---------- Finalize ----------
-
-    public void finalize() {
-        dispose();
-    }
-
 }

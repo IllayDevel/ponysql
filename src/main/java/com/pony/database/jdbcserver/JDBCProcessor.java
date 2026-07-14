@@ -526,14 +526,4 @@ abstract class JDBCProcessor implements ProtocolConstants {
      * Returns true if the connection to the client is closed.
      */
     public abstract boolean isClosed() throws IOException;
-
-    // ---------- Finalize ----------
-
-    public final void finalize() throws Throwable {
-        super.finalize();
-        try {
-            dispose();
-        } catch (Throwable e) { /* ignore */ }
-    }
-
 }

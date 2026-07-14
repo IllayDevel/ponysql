@@ -601,21 +601,6 @@ public abstract class AbstractJDBCDatabaseInterface
 
     }
 
-
-    // ---------- Clean up ----------
-
-    /**
-     * Clean up if this object is GC'd.
-     */
-    public void finalize() throws Throwable {
-        super.finalize();
-        try {
-            if (!disposed) {
-                dispose();
-            }
-        } catch (Throwable e) { /* ignore this */ }
-    }
-
     // ---------- Inner classes ----------
 
     /**

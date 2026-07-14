@@ -605,16 +605,4 @@ class MStatement implements Statement {
 
 //#ENDIF
 
-
-    // ---------- Finalize ----------
-
-    /**
-     * The statement will close when it is garbage collected.
-     */
-    public void finalize() {
-        try {
-            close();
-        } catch (SQLException e) { /* ignore */ }
-    }
-
 }

@@ -263,11 +263,4 @@ public final class SimpleTableQuery {
         }
     }
 
-    /**
-     * To be save we call dispose from the finalize method.
-     */
-    public void finalize() {
-        dispose();
-    }
-
 }

@@ -3252,10 +3252,4 @@ public class TableDataConglomerate {
 //      catch (InterruptedException e) { /* ignore */ }
 //    }
 //  }
-
-    public void finalize() {
-//    removeShutdownHook();
-    }
-
-
 }

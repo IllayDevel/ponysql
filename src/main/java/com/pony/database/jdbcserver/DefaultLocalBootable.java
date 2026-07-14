@@ -220,14 +220,6 @@ public class DefaultLocalBootable implements LocalBootable {
             }
 
         }
-
-        // ---------- Clean up ----------
-
-        public void finalize() throws Throwable {
-            super.finalize();
-            dispose();
-        }
-
     }
 
 }
