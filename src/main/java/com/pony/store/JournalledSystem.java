@@ -126,7 +126,7 @@ class JournalledSystem {
      */
     private static String getJournalFileName(int number) {
         if (number < 10 || number > 73) {
-            throw new Error("Journal file name out of range.");
+            throw new IllegalArgumentException("Journal file name out of range.");
         }
         return "jnl" + number;
     }
@@ -151,7 +151,7 @@ class JournalledSystem {
                         newTopJournalFile();
                     }
                 } else {
-                    throw new Error("Assertion failed - already started.");
+                    throw new IllegalStateException("Assertion failed - already started.");
                 }
             }
         }
@@ -171,7 +171,7 @@ class JournalledSystem {
                     journaling_thread.waitUntilFinished();
                     journaling_thread = null;
                 } else {
-                    throw new Error("Assertion failed - already stopped.");
+                    throw new IllegalStateException("Assertion failed - already stopped.");
                 }
             }
 
@@ -266,7 +266,7 @@ class JournalledSystem {
             // Assert that we are recovering the journals in the correct order
             JournalFile jf = summary.journal_file;
             if (jf.journal_number < last_journal_number) {
-                throw new Error("Assertion failed, sort failed.");
+                throw new IllegalStateException("Assertion failed, sort failed.");
             }
             last_journal_number = jf.journal_number;
 
@@ -803,7 +803,7 @@ class JournalledSystem {
                         finished = true;
                     }
                 } else {
-                    throw new Error("Unknown tag type: " + type + " position = " + position);
+                    throw new IOException("Unknown tag type: " + type + " position = " + position);
                 }
 
             }  // while (!finished)
@@ -1303,7 +1303,7 @@ class JournalledSystem {
                     size = data.getSize();
 //          System.out.println("Setting size of " + name + " to " + size);
                 } catch (IOException e) {
-                    throw new Error("Error getting size of resource: " + e.getMessage());
+                    throw new RuntimeException("Error getting size of resource: " + e.getMessage(), e);
                 }
             }
             really_open = false;
@@ -1790,7 +1790,8 @@ class JournalledSystem {
                     wait();
                 }
             } catch (InterruptedException e) {
-                throw new Error("Interrupted: " + e.getMessage());
+                Thread.currentThread().interrupt();
+                throw new IllegalStateException("Interrupted: " + e.getMessage(), e);
             }
         }
 
@@ -1819,4 +1820,3 @@ class JournalledSystem {
     }
 
 }
-

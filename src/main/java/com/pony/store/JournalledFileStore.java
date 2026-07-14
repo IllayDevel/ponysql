@@ -90,7 +90,8 @@ public final class JournalledFileStore extends AbstractStore {
         try {
             buffer_manager.lockForWrite();
         } catch (InterruptedException e) {
-            throw new Error("Interrupted: " + e.getMessage());
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException("Interrupted: " + e.getMessage(), e);
         }
     }
 
@@ -151,4 +152,3 @@ public final class JournalledFileStore extends AbstractStore {
     }
 
 }
-

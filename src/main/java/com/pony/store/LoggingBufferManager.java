@@ -284,10 +284,10 @@ public class LoggingBufferManager {
                 if (i != -1) {
                     BMPage f = (BMPage) page_list.get(i);
                     if (f == page) {
-                        throw new Error("Same page added multiple times.");
+                        throw new IllegalStateException("Same page added multiple times.");
                     }
                     if (f != null) {
-                        throw new Error("Duplicate pages.");
+                        throw new IllegalStateException("Duplicate pages.");
                     }
                 }
             }
@@ -696,7 +696,7 @@ public class LoggingBufferManager {
         void reset() {
             // Assert that this is 0
             if (reference_count != 0) {
-                throw new Error("reset when 'reference_count' is != 0 ( = " +
+                throw new IllegalStateException("reset when 'reference_count' is != 0 ( = " +
                         reference_count + " )");
             }
             this.initialized = false;
@@ -723,7 +723,7 @@ public class LoggingBufferManager {
          */
         private void referenceRemove() {
             if (reference_count <= 0) {
-                throw new Error("Too many reference remove.");
+                throw new IllegalStateException("Too many reference remove.");
             }
             --reference_count;
         }
@@ -752,7 +752,7 @@ public class LoggingBufferManager {
         private void readPageContent(
                 long page_number, byte[] buf, int pos) throws IOException {
             if (pos != 0) {
-                throw new Error("Assert failed: pos != 0");
+                throw new IllegalArgumentException("Assert failed: pos != 0");
             }
             // Read from the resource
             data.read(page_number, buf, pos);
@@ -970,4 +970,3 @@ public class LoggingBufferManager {
 
 
 }
-

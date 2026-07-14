@@ -118,7 +118,8 @@ class V1FileStoreSystem implements StoreSystem {
             system.Debug().writeException(e);
             throw new RuntimeException("IO Error: " + e.getMessage());
         } catch (InterruptedException e) {
-            throw new Error("Interrupted: " + e.getMessage());
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException("Interrupted: " + e.getMessage(), e);
         } finally {
             buffer_manager.unlockForWrite();
         }
@@ -142,7 +143,8 @@ class V1FileStoreSystem implements StoreSystem {
             system.Debug().writeException(e);
             throw new RuntimeException("IO Error: " + e.getMessage());
         } catch (InterruptedException e) {
-            throw new Error("Interrupted: " + e.getMessage());
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException("Interrupted: " + e.getMessage(), e);
         } finally {
             buffer_manager.unlockForWrite();
         }
@@ -160,7 +162,8 @@ class V1FileStoreSystem implements StoreSystem {
             system.Debug().writeException(e);
             throw new RuntimeException("IO Error: " + e.getMessage());
         } catch (InterruptedException e) {
-            throw new Error("Interrupted: " + e.getMessage());
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException("Interrupted: " + e.getMessage(), e);
         } finally {
             buffer_manager.unlockForWrite();
         }
@@ -177,7 +180,8 @@ class V1FileStoreSystem implements StoreSystem {
             system.Debug().writeException(e);
             throw new RuntimeException("IO Error: " + e.getMessage());
         } catch (InterruptedException e) {
-            throw new Error("Interrupted: " + e.getMessage());
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException("Interrupted: " + e.getMessage(), e);
         } finally {
             buffer_manager.unlockForWrite();
         }
@@ -238,4 +242,3 @@ class V1FileStoreSystem implements StoreSystem {
     }
 
 }
-

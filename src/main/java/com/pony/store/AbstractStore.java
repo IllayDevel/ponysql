@@ -928,7 +928,7 @@ public abstract class AbstractStore implements Store {
         long right_size = cur_size - new_boundary;
 
         if (right_size < 0) {
-            throw new Error("right_size < 0");
+            throw new IllegalArgumentException("right_size < 0");
         }
 
         ByteArrayUtil.setLong(left_size, header_buf, 0);
@@ -983,7 +983,7 @@ public abstract class AbstractStore implements Store {
                 long next = header_info[1];
                 // Assert - the header must have deleted flag
                 if ((header & 0x08000000000000000L) == 0) {
-                    throw new Error("Assert failed - area not marked as deleted.  " +
+                    throw new IllegalStateException("Assert failed - area not marked as deleted.  " +
                             "pos = " + cur_pointer +
                             " this = " + toString());
                 }
@@ -1728,4 +1728,3 @@ public abstract class AbstractStore implements Store {
     private final static int MAX_BIN_SIZE = BIN_SIZES[BIN_ENTRIES - 1];
 
 }
-
