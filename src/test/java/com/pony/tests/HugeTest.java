@@ -18,127 +18,135 @@
 
 package com.pony.tests;
 
-import java.sql.*;
-import java.io.*;
+import com.pony.database.control.DBController;
+import com.pony.database.control.DBSystem;
+import com.pony.database.control.DefaultDBConfig;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
-public class HugeTest {
-    public static Connection connection;
-    public static Statement statement;
-    public static ResultSet result;
-    public static boolean create;
+import java.nio.file.Path;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
-    private static void displayResult(ResultSet result_set) throws SQLException {
-        PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
-        com.pony.util.ResultOutputUtil.formatAsText(result_set, out);
-        result_set.close();
-        out.flush();
-    }
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Regression coverage for the old manual HugeTest main program.
+ */
+class HugeTest {
 
-    public static void main(String[] args) {
-        try {
-            if (args.length != 1) {
-                System.out.println("Ussage: HugeDemo CREATE -> Create Database");
-                System.out.println("        HugeDemo READ   -> Read Test");
-                return;
+    private static final int INT_FIELDS = 139;
+    private static final int DEC_FIELDS = 79;
+    private static final int STRING_FIELDS = 10;
+    private static final int ROW_COUNT = 16;
+
+    @TempDir
+    Path tempDir;
+
+    @Test
+    void createsInsertsAndScansWideTable() throws Exception {
+        DefaultDBConfig config = new DefaultDBConfig();
+        config.setDatabasePath(tempDir.resolve("data").toString());
+        config.setLogPath(tempDir.resolve("log").toString());
+
+        DBSystem database = DBController.getDefault()
+                .createDatabase(config, "test", "test");
+        database.setDeleteOnClose(true);
+
+        try (Connection connection = database.getConnection("test", "test");
+             Statement statement = connection.createStatement()) {
+            connection.setAutoCommit(false);
+            statement.executeUpdate(createTableSql());
+            try (PreparedStatement insert =
+                         connection.prepareStatement(insertSql())) {
+                for (int row = 1; row <= ROW_COUNT; ++row) {
+                    bindRow(insert, row);
+                    assertEquals(1, insert.executeUpdate());
+                }
             }
-            create = args[0].equals("CREATE");
+            connection.commit();
 
-            Class.forName("com.pony.JDBCDriver").newInstance();
+            int scanned = 0;
+            try (ResultSet result = statement.executeQuery(
+                    "SELECT * FROM HUGETABLE ORDER BY INTFIELD1")) {
+                assertEquals(
+                        INT_FIELDS + DEC_FIELDS + STRING_FIELDS,
+                        result.getMetaData().getColumnCount());
+                while (result.next()) {
+                    ++scanned;
+                    assertEquals(scanned * 1000 + 1,
+                            result.getInt("HUGETABLE.INTFIELD1"));
+                    assertEquals(scanned * 1000 + INT_FIELDS,
+                            result.getInt("HUGETABLE.INTFIELD" + INT_FIELDS));
+                    assertEquals(scanned * 100 + DEC_FIELDS,
+                            result.getInt("HUGETABLE.DECFIELD" + DEC_FIELDS));
+                    assertEquals("row-" + scanned + "-string-" + STRING_FIELDS,
+                            result.getString("HUGETABLE.STRINGFIELD" + STRING_FIELDS));
+                }
+            }
+            assertEquals(ROW_COUNT, scanned);
 
-            String url;
-            if (create)
-                url = ":jdbc:pony:local://../configs/ExampleDB.conf?create=true";
-            else
-                url = ":jdbc:pony:local://../configs/ExampleDB.conf";
-
-            String username = "user";
-            String password = "pass1212";
-            connection = DriverManager.getConnection(url, username, password);
-            statement = connection.createStatement();
-            result = null;
-
-            if (create) {
-                createTable();
-                fillTable();
-            } else
-                runDemo();
-
-            statement.close();
-            connection.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return;
+            try (ResultSet status = statement.executeQuery("SHOW STATUS")) {
+                assertTrue(status.next());
+                assertFalse(status.isAfterLast());
+            }
+        } finally {
+            database.close();
         }
     }
 
-    public static void runDemo() throws Exception {
-        System.out.println("Start reading");
-        result = statement.executeQuery("SELECT * FROM HUGETABLE");
-        long start = System.currentTimeMillis();
-        while (result.next()) {
-            result.getInt("HUGETABLE.INTFIELD1");
+    private String createTableSql() {
+        StringBuilder sql = new StringBuilder();
+        sql.append("CREATE TABLE HUGETABLE(");
+        for (int i = 1; i <= INT_FIELDS; ++i) {
+            appendColumn(sql, "INTFIELD" + i + " INTEGER INDEX_NONE");
         }
-        long end = System.currentTimeMillis();
-        System.out.println("Time to walk through 131 records: " + (end - start) + "ms");
-
-        displayResult(statement.executeQuery("show status"));
+        for (int i = 1; i <= DEC_FIELDS; ++i) {
+            appendColumn(sql, "DECFIELD" + i + " DECIMAL(9,2) INDEX_NONE");
+        }
+        for (int i = 1; i <= STRING_FIELDS; ++i) {
+            appendColumn(sql, "STRINGFIELD" + i + " VARCHAR(40) INDEX_NONE");
+        }
+        sql.append(")");
+        return sql.toString();
     }
 
-    public static void createTable() throws Exception {
-        System.out.println("Create Table");
-        int i;
-        StringBuffer query = new StringBuffer();
-        query.append("CREATE TABLE HUGETABLE(");
-        for (i = 1; i < 140; i++) {
-            query.append("INTFIELD").append(i).append(" INTEGER INDEX_NONE,");
+    private void appendColumn(StringBuilder sql, String columnDef) {
+        if (sql.charAt(sql.length() - 1) != '(') {
+            sql.append(", ");
         }
-
-        for (i = 1; i < 80; i++) {
-            query.append("DECFIELD").append(i).append(" DECIMAL(9,2) INDEX_NONE,");
-        }
-
-        for (i = 1; i < 10; i++) {
-            query.append("STRINGFIELD").append(i).append(" VARCHAR(40) INDEX_NONE,");
-        }
-        query.append("STRINGFIELD10 VARCHAR(40) INDEX_NONE)");
-        statement.execute(new String(query));
+        sql.append(columnDef);
     }
 
-    public static void fillTable() throws Exception {
-        System.out.println("Filling Table");
-        statement.execute("SET AUTO COMMIT OFF");
-        StringBuffer query = new StringBuffer();
-        int i, k;
-        for (i = 1; i <= 131; i++) {
-            query.setLength(0);
-            query.append("INSERT INTO HUGETABLE(");
-            for (k = 1; k < 140; k++) {
-                query.append("HUGETABLE.INTFIELD").append(k).append(",");
+    private String insertSql() {
+        int columnCount = INT_FIELDS + DEC_FIELDS + STRING_FIELDS;
+        StringBuilder sql = new StringBuilder();
+        sql.append("INSERT INTO HUGETABLE VALUES (");
+        for (int i = 0; i < columnCount; ++i) {
+            if (i > 0) {
+                sql.append(", ");
             }
-            for (k = 1; k < 80; k++) {
-                query.append("HUGETABLE.DECFIELD").append(k).append(",");
-            }
-            for (k = 1; k < 9; k++) {
-                query.append("HUGETABLE.STRINGFIELD").append(k).append(",");
-            }
-            query.append("HUGETABLE.STRINGFIELD9) VALUES(");
-            for (k = 1; k < 140; k++) {
-                query.append(k).append(",");
-            }
-
-            for (k = 1; k < 80; k++) {
-                query.append(k).append(",");
-            }
-
-            for (k = 1; k < 9; k++) {
-                query.append("'TESTSTRING").append(i).append("',");
-            }
-            query.append("'TESTSTRING9')");
-            statement.execute(new String(query));
+            sql.append("?");
         }
-        statement.execute("COMMIT");
+        sql.append(")");
+        return sql.toString();
     }
+
+    private void bindRow(PreparedStatement insert, int row) throws Exception {
+        int parameter = 1;
+        for (int i = 1; i <= INT_FIELDS; ++i) {
+            insert.setInt(parameter++, row * 1000 + i);
+        }
+        for (int i = 1; i <= DEC_FIELDS; ++i) {
+            insert.setInt(parameter++, row * 100 + i);
+        }
+        for (int i = 1; i <= STRING_FIELDS; ++i) {
+            insert.setString(parameter++, "row-" + row + "-string-" + i);
+        }
+    }
+
 }
-
