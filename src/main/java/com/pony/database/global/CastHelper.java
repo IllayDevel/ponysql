@@ -75,7 +75,8 @@ public class CastHelper {
         try {
             return ObjectTranslator.serialize(ob);
         } catch (Throwable e) {
-            throw new Error("Can't serialize object " + ob.getClass());
+            throw new IllegalArgumentException(
+                    "Can't serialize object " + ob.getClass(), e);
         }
     }
 
@@ -240,7 +241,8 @@ public class CastHelper {
                 } catch (Throwable e) {
                     // Couldn't deserialize so it must be a standard blob which means
                     // we are in error.
-                    throw new Error("Can't cast a BLOB to " + sql_type_string);
+                    throw new IllegalArgumentException(
+                            "Can't cast a BLOB to " + sql_type_string, e);
                 }
             } else {
                 // This is a ByteLongObject that is being cast to a binary type so
@@ -325,7 +327,8 @@ public class CastHelper {
                 case (SQLTypes.BOOLEAN):
                     return null;
                 default:
-                    throw new Error("Can't cast NULL to " + sql_type_string);
+                    throw new IllegalArgumentException(
+                            "Can't cast NULL to " + sql_type_string);
             }
         }
 
@@ -376,7 +379,8 @@ public class CastHelper {
                 case (SQLTypes.JAVA_OBJECT):
                     return toJavaObject(ob);
                 default:
-                    throw new Error("Can't cast number to " + sql_type_string);
+                    throw new IllegalArgumentException(
+                            "Can't cast number to " + sql_type_string);
             }
         }  // if (ob instanceof Number)
 
@@ -431,7 +435,8 @@ public class CastHelper {
                 case (SQLTypes.JAVA_OBJECT):
                     return toJavaObject(str);
                 default:
-                    throw new Error("Can't cast string to " + sql_type_string);
+                    throw new IllegalArgumentException(
+                            "Can't cast string to " + sql_type_string);
             }
         }  // if (ob instanceof String)
 
@@ -470,7 +475,8 @@ public class CastHelper {
                 case (SQLTypes.JAVA_OBJECT):
                     return toJavaObject(ob);
                 default:
-                    throw new Error("Can't cast boolean to " + sql_type_string);
+                    throw new IllegalArgumentException(
+                            "Can't cast boolean to " + sql_type_string);
             }
         }  // if (ob instanceof Boolean)
 
@@ -510,7 +516,8 @@ public class CastHelper {
                 case (SQLTypes.JAVA_OBJECT):
                     return toJavaObject(ob);
                 default:
-                    throw new Error("Can't cast date to " + sql_type_string);
+                    throw new IllegalArgumentException(
+                            "Can't cast date to " + sql_type_string);
             }
         }  // if (ob instanceof Date)
 
@@ -526,7 +533,8 @@ public class CastHelper {
                 case (SQLTypes.LONGVARBINARY):
                     return new ByteLongObject((byte[]) ob);
                 default:
-                    throw new Error("Can't cast byte[] to " + sql_type_string);
+                    throw new IllegalArgumentException(
+                            "Can't cast byte[] to " + sql_type_string);
             }
         }
 

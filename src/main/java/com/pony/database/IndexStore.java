@@ -209,11 +209,12 @@ public final class IndexStore {
     public synchronized void create(int block_size) throws IOException {
         // Make sure index store is closed
         if (index_store != null && !index_store.isClosed()) {
-            throw new Error("Index store is already open.");
+            throw new IllegalStateException("Index store is already open.");
         }
 
         if (block_size > 32767) {
-            throw new Error("block_size must be less than 32768");
+            throw new IllegalArgumentException(
+                    "block_size must be less than 32768");
         }
         if (exists()) {
             throw new IOException("Index store file '" + file +
@@ -251,7 +252,7 @@ public final class IndexStore {
     public synchronized boolean open(boolean read_only) throws IOException {
         // Make sure index store is closed
         if (index_store != null && !index_store.isClosed()) {
-            throw new Error("Index store is already open.");
+            throw new IllegalStateException("Index store is already open.");
         }
 
         if (index_store == null) {
@@ -266,7 +267,8 @@ public final class IndexStore {
         int sector_size = index_store.getSectorSize();
         // Assert that sector_size is divisible by 4
         if (sector_size % 4 != 0) {
-            throw new Error("Assert failed, sector size must be divisible by 4");
+            throw new IllegalStateException(
+                    "Assert failed, sector size must be divisible by 4");
         }
         // The block size
         this.block_size = sector_size / 4;
@@ -577,7 +579,7 @@ public final class IndexStore {
         // Remove from the set list
         boolean b = memory_index_set_list.remove(index_set);
         if (!b) {
-            throw new Error("IndexSet was not in the list!");
+            throw new IllegalStateException("IndexSet was not in the list!");
         }
 
         // Add to the list of garbage if it has deleted sectors
@@ -613,7 +615,8 @@ public final class IndexStore {
                         debug.write(Lvl.ERROR, this,
                                 "Error deleting index " + n + " of list " + to_delete);
                         debug.writeException(e);
-                        throw new Error("IO Error: " + e.getMessage());
+                        throw new RuntimeException(
+                                "IO Error: " + e.getMessage(), e);
                     }
                     index_set_garbage.remove(0);
 
@@ -667,7 +670,8 @@ public final class IndexStore {
         // index_set must be the last in the list of memory_index_set_list
         if (memory_index_set_list.get(memory_index_set_list.size() - 1) !=
                 index_set) {
-            throw new Error("Can not commit IndexSet because it is not current.");
+            throw new IllegalStateException(
+                    "Can not commit IndexSet because it is not current.");
         }
 
         SnapshotIndexSet iset = (SnapshotIndexSet) index_set;
@@ -796,7 +800,8 @@ public final class IndexStore {
         byte[] commit() {
 
             if (deleted_sectors != null) {
-                throw new Error("'deleted_sectors' contains sectors to delete.");
+                throw new IllegalStateException(
+                        "'deleted_sectors' contains sectors to delete.");
             }
 
             deleted_sectors = new IntegerVector();
@@ -915,7 +920,7 @@ public final class IndexStore {
 
                 } catch (IOException e) {
                     debug.writeException(e);
-                    throw new Error(e.getMessage());
+                    throw new RuntimeException(e.getMessage(), e);
                 }
 
             }  // synchronized (snapshot_buf)
@@ -944,7 +949,7 @@ public final class IndexStore {
                     for (Object integer_list : integer_lists) {
                         if (((IndexIntegerList) integer_list).getIndexNumber() ==
                                 original_n) {
-                            throw new Error(
+                            throw new IllegalStateException(
                                     "IntegerListInterface already created for this n.");
                         }
                     }
@@ -1130,7 +1135,8 @@ public final class IndexStore {
                         array = index_store.getSectorAsIntArray(index_sector, array);
                     } catch (IOException e) {
                         debug.writeException(e);
-                        throw new Error("IO Error: " + e.getMessage());
+                        throw new RuntimeException(
+                                "IO Error: " + e.getMessage(), e);
                     }
                 }
                 // Put in the cache
@@ -1169,7 +1175,7 @@ public final class IndexStore {
          */
         public int topInt() {
             if (count == 0) {
-                throw new Error("No first int in block.");
+                throw new IllegalStateException("No first int in block.");
             }
 
             synchronized (lock) {
@@ -1187,7 +1193,7 @@ public final class IndexStore {
          */
         public int bottomInt() {
             if (count == 0) {
-                throw new Error("No first int in block.");
+                throw new IllegalStateException("No first int in block.");
             }
 
             synchronized (lock) {
@@ -1238,7 +1244,7 @@ public final class IndexStore {
             if (!disposed) {
                 return new MappedListBlock(block_size);
             }
-            throw new Error("Integer list has been disposed.");
+            throw new IllegalStateException("Integer list has been disposed.");
         }
 
         /**

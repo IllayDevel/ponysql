@@ -198,7 +198,7 @@ final class DataCellSerialization extends ByteArrayOutputStream
 
                 return new ByteLongObject(buf);
             } else {
-                throw new Error("Don't understand type: " + type);
+                throw new IOException("Don't understand type: " + type);
             }
 
         }
@@ -259,7 +259,7 @@ final class DataCellSerialization extends ByteArrayOutputStream
         } else if (ttype instanceof TJavaObjectType) {
             type = Types.DB_OBJECT;
         } else {
-            throw new Error("Couldn't handle type: " + ttype.getClass());
+            throw new IOException("Couldn't handle type: " + ttype.getClass());
         }
 
         if (cell.isNull()) {
@@ -333,7 +333,8 @@ final class DataCellSerialization extends ByteArrayOutputStream
             writeInt(blob.length());
             write(blob.getByteArray());
         } else {
-            throw new Error("Don't know how to serialize class " + ob.getClass());
+            throw new IOException(
+                    "Don't know how to serialize class " + ob.getClass());
         }
 
     }
@@ -408,20 +409,20 @@ final class DataCellSerialization extends ByteArrayOutputStream
     }
 
     public int available() throws IOException {
-        throw new Error("Not supported");
+        throw new UnsupportedOperationException("Not supported");
     }
 
     public void mark(int readAheadLimit) throws IOException {
-        throw new Error("Not supported");
+        throw new UnsupportedOperationException("Not supported");
     }
 
 // [ Function clash here but it should be okay ]
 //  public void reset() throws IOException {
-//    throw new Error("Not supported");
+//    throw new UnsupportedOperationException("Not supported");
 //  }
 
     public void close() throws IOException {
-        throw new Error("Not supported");
+        throw new UnsupportedOperationException("Not supported");
     }
 
 
@@ -511,11 +512,11 @@ final class DataCellSerialization extends ByteArrayOutputStream
     }
 
     public String readLine() throws IOException {
-        throw new Error("Not implemented.");
+        throw new UnsupportedOperationException("Not implemented.");
     }
 
     public String readUTF() throws IOException {
-        throw new Error("Not implemented.");
+        throw new UnsupportedOperationException("Not implemented.");
     }
 
     // ---------- Some statics -----------

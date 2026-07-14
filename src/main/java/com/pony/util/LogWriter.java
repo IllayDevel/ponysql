@@ -63,7 +63,8 @@ public class LogWriter extends Writer {
             throws IOException {
 
         if (archive_count < 1) {
-            throw new Error("'archive_count' must be 1 or greater.");
+            throw new IllegalArgumentException(
+                    "'archive_count' must be 1 or greater.");
         }
 
         this.log_file = base_name;

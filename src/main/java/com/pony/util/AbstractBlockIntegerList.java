@@ -196,7 +196,7 @@ public abstract class AbstractBlockIntegerList
             }
             return;
         }
-        throw new Error("Size mismatch.");
+        throw new IllegalArgumentException("Size mismatch.");
     }
 
 
@@ -574,7 +574,7 @@ public abstract class AbstractBlockIntegerList
      */
     private void checkImmutable() {
         if (immutable) {
-            throw new Error("List is immutable.");
+            throw new IllegalStateException("List is immutable.");
         }
         // HACK: We have a side effect of checking whether the list is immutable.
         //   If the block list doesn't contain any entries we add one here.  This
@@ -627,7 +627,8 @@ public abstract class AbstractBlockIntegerList
             }
             start += bsize;
         }
-        throw new Error("'pos' (" + pos + ") out of bounds.");
+        throw new IndexOutOfBoundsException(
+                "'pos' (" + pos + ") out of bounds.");
     }
 
     /**
@@ -648,7 +649,8 @@ public abstract class AbstractBlockIntegerList
             }
             start += bsize;
         }
-        throw new Error("'pos' (" + pos + ") out of bounds.");
+        throw new IndexOutOfBoundsException(
+                "'pos' (" + pos + ") out of bounds.");
     }
 
     /**
@@ -681,7 +683,8 @@ public abstract class AbstractBlockIntegerList
             }
             start += bsize;
         }
-        throw new Error("'pos' (" + pos + ") out of bounds.");
+        throw new IndexOutOfBoundsException(
+                "'pos' (" + pos + ") out of bounds.");
     }
 
     // ---------- Fast methods ----------
@@ -822,7 +825,7 @@ public abstract class AbstractBlockIntegerList
         // Remove value into the block,
         int val_removed = removeFromBlock(block_num, block, i);
         if (val != val_removed) {
-            throw new Error("Incorrect value removed.");
+            throw new IllegalStateException("Incorrect value removed.");
         }
 
         // Value removed so return true.
@@ -912,7 +915,8 @@ public abstract class AbstractBlockIntegerList
 
         if (block_num < 0) {
             // Not found in a block,
-            throw new Error("Value (" + key + ") was not found in the list.");
+            throw new IllegalStateException(
+                    "Value (" + key + ") was not found in the list.");
         }
 
 //    int i = -1;
@@ -924,7 +928,8 @@ public abstract class AbstractBlockIntegerList
             // If not found, go to next block
             ++block_num;
             if (block_num > l_block_num) {
-                throw new Error("Value (" + key + ") was not found in the list.");
+                throw new IllegalStateException(
+                        "Value (" + key + ") was not found in the list.");
             }
             block = block_list.get(block_num);
             // Try and find the value within this block
@@ -1068,7 +1073,8 @@ public abstract class AbstractBlockIntegerList
                 }
                 start += bsize;
             }
-            throw new Error("'pos' (" + pos + ") out of bounds.");
+            throw new IndexOutOfBoundsException(
+                    "'pos' (" + pos + ") out of bounds.");
         }
 
 
@@ -1184,7 +1190,7 @@ public abstract class AbstractBlockIntegerList
             while (iterator.hasNext()) {
                 int cur = iterator.next();
                 if (c.compare(cur, last_index) < 0) {
-                    throw new Error("List not sorted!");
+                    throw new IllegalStateException("List not sorted!");
                 }
                 last_index = cur;
             }

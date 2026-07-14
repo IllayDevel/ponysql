@@ -534,7 +534,7 @@ abstract class MasterTableDataSource {
         } else if (scheme_type.equals("BlindSearch")) {
             return new BlindSearch(table, column);
         } else {
-            throw new Error("Unknown scheme type");
+            throw new IllegalStateException("Unknown scheme type");
         }
     }
 
@@ -625,7 +625,7 @@ abstract class MasterTableDataSource {
             }
 
             public SelectableScheme getColumnScheme(int column) {
-                throw new Error("Not implemented.");
+                throw new UnsupportedOperationException("Not implemented.");
             }
 
             public TObject getCellContents(int column, int row) {
@@ -729,7 +729,8 @@ abstract class MasterTableDataSource {
                                               MasterTableJournal change, IndexSet index_set) {
         // ASSERT: Can't do this if source is read only.
         if (isReadOnly()) {
-            throw new Error("Can't commit transaction journal, table is read only.");
+            throw new IllegalStateException(
+                    "Can't commit transaction journal, table is read only.");
         }
 
         change.setCommitID(commit_id);
@@ -773,8 +774,9 @@ abstract class MasterTableDataSource {
                     // it.
                     if ((old_type & 0x0F0) != 0) {
                         writeRecordType(row_index, old_type & 0x0F0);
-                        throw new Error("Record " + row_index + " of table " + this +
-                                " was not in an uncommitted state!");
+                        throw new IllegalStateException(
+                                "Record " + row_index + " of table " + this +
+                                        " was not in an uncommitted state!");
                     }
 
                 } else if (MasterTableJournal.isRemoveCommand(b)) {
@@ -785,8 +787,9 @@ abstract class MasterTableDataSource {
                     if ((old_type & 0x0F0) != 0x010) {
                         writeRecordType(row_index, old_type & 0x0F0);
 //            System.out.println(change);
-                        throw new Error("Record " + row_index + " of table " + this +
-                                " was not in an added state!");
+                        throw new IllegalStateException(
+                                "Record " + row_index + " of table " + this +
+                                        " was not in an added state!");
                     }
                     // Notify collector that this row has been marked as deleted.
                     garbage_collector.markRowAsDeleted(row_index);
@@ -796,7 +799,7 @@ abstract class MasterTableDataSource {
 
         } catch (IOException e) {
             Debug().writeException(e);
-            throw new Error("IO Error: " + e.getMessage());
+            throw new RuntimeException("IO Error: " + e.getMessage(), e);
         }
 
     }
@@ -810,7 +813,7 @@ abstract class MasterTableDataSource {
 
         // ASSERT: Can't do this is source is read only.
         if (isReadOnly()) {
-            throw new Error(
+            throw new IllegalStateException(
                     "Can't rollback transaction journal, table is read only.");
         }
 
@@ -833,8 +836,9 @@ abstract class MasterTableDataSource {
                     if ((old_type & 0x0F0) != 0) {
 //            data_store.writeRecordType(row_index + 1, old_type & 0x0F0);
                         writeRecordType(row_index, old_type & 0x0F0);
-                        throw new Error("Record " + row_index + " was not in an " +
-                                "uncommitted state!");
+                        throw new IllegalStateException(
+                                "Record " + row_index + " was not in an " +
+                                        "uncommitted state!");
                     }
                     // Notify collector that this row has been marked as deleted.
                     garbage_collector.markRowAsDeleted(row_index);
@@ -848,7 +852,7 @@ abstract class MasterTableDataSource {
             // to reflect this rollback.
         } catch (IOException e) {
             Debug().writeException(e);
-            throw new Error("IO Error: " + e.getMessage());
+            throw new RuntimeException("IO Error: " + e.getMessage(), e);
         }
     }
 
@@ -909,7 +913,8 @@ abstract class MasterTableDataSource {
 
         // Check table_id isn't too large.
         if ((table_id & 0x0F0000000) != 0) {
-            throw new Error("'table_id' exceeds maximum possible keys.");
+            throw new IllegalStateException(
+                    "'table_id' exceeds maximum possible keys.");
         }
 
         this.table_def = table_def;
@@ -1045,11 +1050,11 @@ abstract class MasterTableDataSource {
             if ((type_key & 0x0F0) == 0x020) {
                 doHardRowRemove(record_index);
             } else {
-                throw new Error(
+                throw new IllegalStateException(
                         "Row isn't marked as committed removed: " + record_index);
             }
         } else {
-            throw new Error("Assertion failed: " +
+            throw new IllegalStateException("Assertion failed: " +
                     "Can't remove row, table is under a root lock.");
         }
     }
@@ -1076,7 +1081,7 @@ abstract class MasterTableDataSource {
             }
             return false;
         } else {
-            throw new Error("Assertion failed: " +
+            throw new IllegalStateException("Assertion failed: " +
                     "Can't remove row, table is under a root lock.");
         }
     }
@@ -1218,7 +1223,7 @@ abstract class MasterTableDataSource {
      */
     TObject getCellContents(int column, int row) {
         if (row < 0) {
-            throw new Error("'row' is < 0");
+            throw new IllegalArgumentException("'row' is < 0");
         }
         return internalGetCellContents(column, row);
     }
@@ -1248,7 +1253,7 @@ abstract class MasterTableDataSource {
         if (!is_closed) {
             system.stats().decrement(root_lock_key);
             if (root_lock == 0) {
-                throw new Error("Too many root locks removed!");
+                throw new IllegalStateException("Too many root locks removed!");
             }
             --root_lock;
             // If the last lock is removed, schedule a possible collection.
@@ -1309,7 +1314,7 @@ abstract class MasterTableDataSource {
             try {
                 return rawRowCount();
             } catch (IOException e) {
-                throw new Error(e.getMessage());
+                throw new RuntimeException(e.getMessage(), e);
             }
         }
 
@@ -1321,7 +1326,7 @@ abstract class MasterTableDataSource {
             try {
                 return recordTypeInfo(record_index);
             } catch (IOException e) {
-                throw new Error(e.getMessage());
+                throw new RuntimeException(e.getMessage(), e);
             }
         }
 
@@ -1618,17 +1623,18 @@ abstract class MasterTableDataSource {
                     // Add to 'row_list'.
                     boolean b = getRowIndexList().uniqueInsertSort(row_index);
                     if (b == false) {
-                        throw new Error(
+                        throw new IllegalStateException(
                                 "Row index already used in this table (" + row_index + ")");
                     }
                 } else if (MasterTableJournal.isRemoveCommand(command)) {
                     // Remove from 'row_list'
                     boolean b = getRowIndexList().removeSort(row_index);
                     if (b == false) {
-                        throw new Error("Row index removed that wasn't in this table!");
+                        throw new IllegalStateException(
+                                "Row index removed that wasn't in this table!");
                     }
                 } else {
-                    throw new Error("Unrecognised journal command.");
+                    throw new IllegalStateException("Unrecognised journal command.");
                 }
                 ++rebuild_index;
             }
@@ -1656,7 +1662,7 @@ abstract class MasterTableDataSource {
                 } else if (MasterTableJournal.isRemoveCommand(command)) {
                     scheme.remove(row_index);
                 } else {
-                    throw new Error("Unrecognised journal command.");
+                    throw new IllegalStateException("Unrecognised journal command.");
                 }
                 ++rebuild_index;
             }
@@ -1679,7 +1685,7 @@ abstract class MasterTableDataSource {
                 } else if (MasterTableJournal.isRemoveCommand(command)) {
                     scheme.remove(row_index);
                 } else {
-                    throw new Error("Unrecognised journal command.");
+                    throw new IllegalStateException("Unrecognised journal command.");
                 }
                 ++rebuild_index;
             }
@@ -1822,7 +1828,8 @@ abstract class MasterTableDataSource {
 
             // Check this isn't a read only source
             if (isReadOnly()) {
-                throw new Error("Can not add row - table is read only.");
+                throw new IllegalStateException(
+                        "Can not add row - table is read only.");
             }
 
             checkUniqueIndexesForRow(row_data, -1);
@@ -1833,7 +1840,7 @@ abstract class MasterTableDataSource {
                 row_index = MasterTableDataSource.this.addRow(row_data);
             } catch (IOException e) {
                 Debug().writeException(e);
-                throw new Error("IO Error: " + e.getMessage());
+                throw new RuntimeException("IO Error: " + e.getMessage(), e);
             }
 
             // Note this doesn't need to be synchronized because we are exclusive on
@@ -1853,7 +1860,8 @@ abstract class MasterTableDataSource {
 
             // Check this isn't a read only source
             if (isReadOnly()) {
-                throw new Error("Can not remove row - table is read only.");
+                throw new IllegalStateException(
+                        "Can not remove row - table is read only.");
             }
 
             // NOTE: This must <b>NOT</b> call 'removeRow' in MasterTableDataSource.
@@ -1877,7 +1885,8 @@ abstract class MasterTableDataSource {
 
             // Check this isn't a read only source
             if (isReadOnly()) {
-                throw new Error("Can not update row - table is read only.");
+                throw new IllegalStateException(
+                        "Can not update row - table is read only.");
             }
 
             checkUniqueIndexesForRow(row_data, row_index);
@@ -1893,7 +1902,7 @@ abstract class MasterTableDataSource {
                 new_row_index = MasterTableDataSource.this.addRow(row_data);
             } catch (IOException e) {
                 Debug().writeException(e);
-                throw new Error("IO Error: " + e.getMessage());
+                throw new RuntimeException("IO Error: " + e.getMessage(), e);
             }
 
             // Note this doesn't need to be synchronized because we are exclusive on

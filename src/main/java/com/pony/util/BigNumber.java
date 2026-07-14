@@ -175,7 +175,7 @@ public final class BigNumber extends Number {
             case (NaN_STATE):
                 return "NaN";
             default:
-                throw new Error("Unknown number state");
+                throw new IllegalStateException("Unknown number state");
         }
     }
 
@@ -193,7 +193,7 @@ public final class BigNumber extends Number {
             case (NaN_STATE):
                 return Double.NaN;
             default:
-                throw new Error("Unknown number state");
+                throw new IllegalStateException("Unknown number state");
         }
     }
 
@@ -211,7 +211,7 @@ public final class BigNumber extends Number {
             case (NaN_STATE):
                 return Float.NaN;
             default:
-                throw new Error("Unknown number state");
+                throw new IllegalStateException("Unknown number state");
         }
     }
 
@@ -309,7 +309,7 @@ public final class BigNumber extends Number {
                 else if (number.number_state == NEG_INF_STATE) {
                     return 1;
                 } else {
-                    throw new Error("Unknown number state.");
+                    throw new IllegalStateException("Unknown number state.");
                 }
             }
         } else {
@@ -325,7 +325,7 @@ public final class BigNumber extends Number {
                         number_state == NaN_STATE) {
                     return 1;
                 } else {
-                    throw new Error("Unknown number state.");
+                    throw new IllegalStateException("Unknown number state.");
                 }
             } else {
                 // Comparing NaN number with a NaN number.
@@ -543,7 +543,7 @@ public final class BigNumber extends Number {
         } else if (state == NaN_STATE) {
             return NaN;
         } else {
-            throw new Error("Unknown number state.");
+            throw new IllegalStateException("Unknown number state.");
         }
     }
 

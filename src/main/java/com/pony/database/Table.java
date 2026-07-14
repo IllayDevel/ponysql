@@ -281,7 +281,7 @@ public abstract class Table implements TableDataSource {
      */
     public final Table columnMerge(Table table) {
         if (getRowCount() != table.getRowCount()) {
-            throw new Error("Tables have different row counts.");
+            throw new IllegalArgumentException("Tables have different row counts.");
         }
         // Create the new VirtualTable with the joined tables.
 
@@ -671,7 +671,7 @@ public abstract class Table implements TableDataSource {
 
         // Check the table only has 1 column
         if (table.getColumnCount() != 1) {
-            throw new Error("Input table <> 1 columns.");
+            throw new IllegalArgumentException("Input table <> 1 columns.");
         }
 
         // Handle trivial case of no entries to select from
@@ -716,7 +716,8 @@ public abstract class Table implements TableDataSource {
             source_table = this;
             lhs_col_index = source_table.findFieldName(lhs_var);
             if (lhs_col_index == -1) {
-                throw new Error("Can't find column '" + lhs_var + "'.");
+                throw new IllegalArgumentException(
+                        "Can't find column '" + lhs_var + "'.");
             }
         }
 
@@ -726,7 +727,8 @@ public abstract class Table implements TableDataSource {
         DataTableColumnDef source_col = source_table.getColumnDefAt(lhs_col_index);
         DataTableColumnDef dest_col = table.getColumnDefAt(0);
         if (!source_col.getTType().comparableTypes(dest_col.getTType())) {
-            throw new Error("The type of the sub-query expression " +
+            throw new IllegalArgumentException(
+                    "The type of the sub-query expression " +
                     source_col.getSQLTypeString() + " is incompatible " +
                     "with the sub-query " + dest_col.getSQLTypeString() +
                     ".");
@@ -772,7 +774,8 @@ public abstract class Table implements TableDataSource {
                 return this;
             }
         } else {
-            throw new Error("Don't understand operator '" + op + "' in ANY.");
+            throw new IllegalArgumentException(
+                    "Don't understand operator '" + op + "' in ANY.");
         }
 
         // Make into a table to return.
@@ -816,7 +819,7 @@ public abstract class Table implements TableDataSource {
 
         // Check the table only has 1 column
         if (table.getColumnCount() != 1) {
-            throw new Error("Input table <> 1 columns.");
+            throw new IllegalArgumentException("Input table <> 1 columns.");
         }
 
         // Handle trivial case of no entries to select from
@@ -851,7 +854,8 @@ public abstract class Table implements TableDataSource {
                 // true only if lhs_cell is not found in column.
                 compared_to_true = !table.columnContainsCell(0, lhs_const);
             } else {
-                throw new Error("Don't understand operator '" + op + "' in ALL.");
+                throw new IllegalArgumentException(
+                        "Don't understand operator '" + op + "' in ALL.");
             }
 
             // If matched return this table
@@ -880,7 +884,8 @@ public abstract class Table implements TableDataSource {
             source_table = this;
             lhs_col_index = source_table.findFieldName(lhs_var);
             if (lhs_col_index == -1) {
-                throw new Error("Can't find column '" + lhs_var + "'.");
+                throw new IllegalArgumentException(
+                        "Can't find column '" + lhs_var + "'.");
             }
         }
 
@@ -890,7 +895,8 @@ public abstract class Table implements TableDataSource {
         DataTableColumnDef source_col = source_table.getColumnDefAt(lhs_col_index);
         DataTableColumnDef dest_col = table.getColumnDefAt(0);
         if (!source_col.getTType().comparableTypes(dest_col.getTType())) {
-            throw new Error("The type of the sub-query expression " +
+            throw new IllegalArgumentException(
+                    "The type of the sub-query expression " +
                     source_col.getSQLTypeString() + " is incompatible " +
                     "with the sub-query " + dest_col.getSQLTypeString() +
                     ".");
@@ -937,7 +943,8 @@ public abstract class Table implements TableDataSource {
             // Equiv. to NOT IN
             select_vec = INHelper.notIn(source_table, table, lhs_col_index, 0);
         } else {
-            throw new Error("Don't understand operator '" + op + "' in ALL.");
+            throw new IllegalArgumentException(
+                    "Don't understand operator '" + op + "' in ALL.");
         }
 
         // Make into a table to return.
@@ -1083,7 +1090,7 @@ public abstract class Table implements TableDataSource {
                         ++row_list_index;
                     }
                 } else {
-                    throw new Error("'this_val' > 'in_val'");
+                    throw new IllegalStateException("'this_val' > 'in_val'");
                 }
             } else {
                 result_list.addInt(this_val);
@@ -1308,7 +1315,8 @@ public abstract class Table implements TableDataSource {
         }
         // A nice post condition to check on.
         if (getRowCount() != work.getRowCount()) {
-            throw new Error("Internal Error, row count != sorted row count");
+            throw new IllegalStateException(
+                    "Internal Error, row count != sorted row count");
         }
 
         return work;
@@ -1489,7 +1497,8 @@ public abstract class Table implements TableDataSource {
     public final VirtualTable orderByColumn(Variable column, boolean ascending) {
         int col_index = findFieldName(column);
         if (col_index == -1) {
-            throw new Error("Unknown column in 'orderByColumn' ( " + column + " )");
+            throw new IllegalArgumentException(
+                    "Unknown column in 'orderByColumn' ( " + column + " )");
         }
         return orderByColumn(col_index, ascending);
     }
@@ -1771,7 +1780,8 @@ public abstract class Table implements TableDataSource {
      */
     public final TObject[] getFirstCellContent(int[] col_map) {
         if (col_map.length > 1) {
-            throw new Error("Multi-column getLastCellContent not supported.");
+            throw new UnsupportedOperationException(
+                    "Multi-column getFirstCellContent not supported.");
         }
         return singleArrayCellMap(getFirstCellContent(col_map[0]));
     }
@@ -1794,7 +1804,8 @@ public abstract class Table implements TableDataSource {
      */
     public final TObject[] getLastCellContent(int[] col_map) {
         if (col_map.length > 1) {
-            throw new Error("Multi-column getLastCellContent not supported.");
+            throw new UnsupportedOperationException(
+                    "Multi-column getLastCellContent not supported.");
         }
         return singleArrayCellMap(getLastCellContent(col_map[0]));
     }
@@ -1820,7 +1831,8 @@ public abstract class Table implements TableDataSource {
      */
     public final TObject[] getSingleCellContent(int[] col_map) {
         if (col_map.length > 1) {
-            throw new Error("Multi-column getSingleCellContent not supported.");
+            throw new UnsupportedOperationException(
+                    "Multi-column getSingleCellContent not supported.");
         }
         return singleArrayCellMap(getSingleCellContent(col_map[0]));
     }
@@ -1862,7 +1874,7 @@ public abstract class Table implements TableDataSource {
             }
             return map;
         } else {
-            throw new Error("Table must have two columns.");
+            throw new IllegalStateException("Table must have two columns.");
         }
     }
 
@@ -1916,7 +1928,8 @@ public abstract class Table implements TableDataSource {
         private int findColumnName(Variable variable) {
             int col_index = fastFindFieldName(variable);
             if (col_index == -1) {
-                throw new Error("Can't find column: " + variable);
+                throw new IllegalArgumentException(
+                        "Can't find column: " + variable);
             }
             return col_index;
         }

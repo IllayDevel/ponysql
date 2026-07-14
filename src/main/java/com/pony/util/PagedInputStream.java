@@ -194,7 +194,7 @@ public abstract class PagedInputStream extends InputStream {
             try {
                 fillBuffer(fill_pos);
             } catch (IOException e) {
-                throw new Error(e.getMessage());
+                throw new IllegalStateException(e.getMessage(), e);
             }
         }
     }
@@ -204,4 +204,3 @@ public abstract class PagedInputStream extends InputStream {
     }
 
 }
-

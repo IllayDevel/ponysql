@@ -351,7 +351,8 @@ public class TableDataConglomerate {
                     loadMasterTable(master_table_id, file_name, table_type);
 
             if (master == null) {
-                throw new Error("Table file for " + file_name + " was not found.");
+                throw new IllegalStateException(
+                        "Table file for " + file_name + " was not found.");
             }
 
             if (master instanceof V1MasterTableDataSource) {
@@ -361,7 +362,8 @@ public class TableDataConglomerate {
                 V2MasterTableDataSource v2_master = (V2MasterTableDataSource) master;
                 v2_master.open(file_name);
             } else {
-                throw new Error("Unknown master table type: " + master.getClass());
+                throw new IllegalStateException(
+                        "Unknown master table type: " + master.getClass());
             }
 
             // Add the table to the table list
@@ -410,7 +412,8 @@ public class TableDataConglomerate {
                 V2MasterTableDataSource v2_master = (V2MasterTableDataSource) master;
                 v2_master.checkAndRepair(file_name, terminal);
             } else {
-                throw new Error("Unknown master table type: " + master.getClass());
+                throw new IllegalStateException(
+                        "Unknown master table type: " + master.getClass());
             }
 
             // Add the table to the table list
@@ -467,7 +470,8 @@ public class TableDataConglomerate {
                     V2MasterTableDataSource v2_master = (V2MasterTableDataSource) master;
                     v2_master.open(file_name);
                 } else {
-                    throw new Error("Unknown master table type: " + master.getClass());
+                    throw new IllegalStateException(
+                            "Unknown master table type: " + master.getClass());
                 }
 
                 // Add the table to the table list
@@ -709,7 +713,8 @@ public class TableDataConglomerate {
             transaction.closeAndCommit();
         } catch (TransactionException e) {
             Debug().writeException(e);
-            throw new Error("Transaction Exception creating conglomerate.");
+            throw new RuntimeException(
+                    "Transaction Exception creating conglomerate.", e);
         }
 
     }
@@ -727,7 +732,7 @@ public class TableDataConglomerate {
         DataTableDef table_def = table.getDataTableDef();
         int col_index = table_def.findColumnName("id");
         if (col_index == -1) {
-            throw new Error("Column name 'id' not found.");
+            throw new IllegalStateException("Column name 'id' not found.");
         }
         // Find the maximum 'id' value.
         SelectableScheme scheme = table.getColumnScheme(col_index);
@@ -746,7 +751,8 @@ public class TableDataConglomerate {
             transaction.closeAndCommit();
         } catch (TransactionException e) {
             Debug().writeException(e);
-            throw new Error("Transaction Exception creating conglomerate.");
+            throw new RuntimeException(
+                    "Transaction Exception creating conglomerate.", e);
         }
     }
 
@@ -845,7 +851,8 @@ public class TableDataConglomerate {
             transaction.closeAndCommit();
         } catch (TransactionException e) {
             Debug().writeException(e);
-            throw new Error("Transaction Exception initializing conglomerate.");
+            throw new RuntimeException(
+                    "Transaction Exception initializing conglomerate.", e);
         }
 
     }
@@ -1520,7 +1527,8 @@ public class TableDataConglomerate {
             int col_index = table.getDataTableDef().findColumnName(
                     variable.getName());
             if (col_index == -1) {
-                throw new Error("Can't find column: " + variable);
+                throw new IllegalArgumentException(
+                        "Can't find column: " + variable);
             }
             return col_index;
         }
@@ -1567,7 +1575,7 @@ public class TableDataConglomerate {
             case (Transaction.INITIALLY_DEFERRED):
                 return "Deferred";
             default:
-                throw new Error("Unknown deferred string.");
+                throw new IllegalArgumentException("Unknown deferred string.");
         }
     }
 
@@ -1669,8 +1677,9 @@ public class TableDataConglomerate {
             if (sz > 1) {
                 return false;
             } else if (sz == 0) {
-                throw new Error("Assertion failed: We must be able to find the " +
-                        "row we are testing uniqueness against!");
+                throw new IllegalStateException(
+                        "Assertion failed: We must be able to find the " +
+                                "row we are testing uniqueness against!");
             }
         }
         return true;
@@ -3044,7 +3053,7 @@ public class TableDataConglomerate {
             state_store.commit();
         } catch (IOException e) {
             Debug().writeException(e);
-            throw new Error("IO Error: " + e.getMessage());
+            throw new RuntimeException("IO Error: " + e.getMessage(), e);
         }
     }
 
@@ -3061,7 +3070,8 @@ public class TableDataConglomerate {
                     return t;
                 }
             }
-            throw new Error("Unable to find an open table with id: " + table_id);
+            throw new IllegalStateException(
+                    "Unable to find an open table with id: " + table_id);
         }
     }
 
@@ -3112,8 +3122,10 @@ public class TableDataConglomerate {
 
             } catch (IOException e) {
                 Debug().writeException(e);
-                throw new Error("Unable to create master table '" +
-                        table_def.getName() + "' - " + e.getMessage());
+                throw new RuntimeException(
+                        "Unable to create master table '" +
+                                table_def.getName() + "' - " + e.getMessage(),
+                        e);
             }
         }
 

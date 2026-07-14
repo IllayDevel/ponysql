@@ -167,7 +167,7 @@ public class BlockIntegerList extends AbstractBlockIntegerList {
             if (count > 0) {
                 return getArray(true)[0];
             }
-            throw new Error("no bottom integer.");
+            throw new IllegalStateException("no bottom integer.");
         }
 
         /**
