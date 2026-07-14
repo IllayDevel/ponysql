@@ -1573,12 +1573,6 @@ public class DatabaseConnection implements TriggerListener {
         }
     }
 
-
-    public void finalize() throws Throwable {
-        super.finalize();
-        close();
-    }
-
     // ---------- Inner classes ----------
 
     /**

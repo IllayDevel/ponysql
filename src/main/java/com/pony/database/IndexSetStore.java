@@ -797,18 +797,6 @@ final class IndexSetStore {
                 disposed = true;
             }
         }
-
-        public void finalize() {
-            try {
-                if (!disposed) {
-                    dispose();
-                }
-            } catch (Throwable e) {
-                debug.write(Lvl.ERROR, this, "Finalize error: " + e.getMessage());
-                debug.writeException(e);
-            }
-        }
-
     }
 
     /**

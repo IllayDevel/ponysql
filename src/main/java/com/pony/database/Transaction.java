@@ -2138,18 +2138,6 @@ public class Transaction extends SimpleTransaction {
         }
     }
 
-    /**
-     * Finalize, we should close the transaction.
-     */
-    public void finalize() throws Throwable {
-        super.finalize();
-        if (!closed) {
-            Debug().write(Lvl.ERROR, this, "Transaction not closed!");
-            closeAndRollback();
-        }
-    }
-
-
     // ---------- Transaction inner classes ----------
 
     /**

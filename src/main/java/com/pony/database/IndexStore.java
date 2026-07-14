@@ -1001,16 +1001,6 @@ public final class IndexStore {
             buf = null;
             removeIndexSetFromList(this);
         }
-
-        public void finalize() {
-            if (buf != null) {
-                debug.write(Lvl.WARNING, this, "IndexStore was not disposed!");
-                // We remove it manually from the index set list
-                removeIndexSetFromList(this);
-//        debug.writeException(DEBUG_CONSTRUCTOR);
-            }
-        }
-
     }
 
     /**

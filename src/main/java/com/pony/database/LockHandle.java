@@ -108,22 +108,6 @@ public final class LockHandle {
                 "The given DataTable was not found in the lock list for this handle");
     }
 
-    /**
-     * On garbage collection, this will call 'unlockAll' just in case the
-     * program did not use the 'LockingMechanism.unlockTables' method in error.
-     * This should ensure the database does not deadlock.  This method is a
-     * 'just in case' clause.
-     */
-    public void finalize() {
-        if (!unlocked) {
-            unlockAll();
-            debug.write(Lvl.ERROR, this, "Finalize released a table lock - " +
-                    "This indicates that there is a serious error.  Locks should " +
-                    "only have a very short life span.  The 'unlockAll' method should " +
-                    "have been called before finalization.  " + toString());
-        }
-    }
-
     public String toString() {
         StringBuffer str = new StringBuffer("LockHandle: ");
         for (Lock lock : lock_list) {
