@@ -220,7 +220,7 @@ public class DataTableColumnDef {
         } else if (db_type == com.pony.database.global.Types.DB_OBJECT) {
             sql_type = SQLTypes.JAVA_OBJECT;
         } else {
-            throw new Error("Unrecognised internal type.");
+            throw new IllegalArgumentException("Unrecognised internal type.");
         }
     }
 
@@ -316,7 +316,8 @@ public class DataTableColumnDef {
                 constraining_class = Class.forName(class_constraint);
             }
         } catch (ClassNotFoundException e) {
-            throw new Error("Unable to resolve class: " + class_constraint);
+            throw new IllegalArgumentException(
+                    "Unable to resolve class: " + class_constraint, e);
         }
     }
 
@@ -352,7 +353,7 @@ public class DataTableColumnDef {
             TJavaObjectType java_object_type = (TJavaObjectType) type;
             setClassConstraint(java_object_type.getJavaClassTypeString());
         } else {
-            throw new Error("Don't know how to handle this type: " +
+            throw new IllegalArgumentException("Don't know how to handle this type: " +
                     type.getClass());
         }
         this.type = type;
@@ -505,7 +506,7 @@ public class DataTableColumnDef {
      */
     public TType getTType() {
         if (type == null) {
-            throw new Error("'type' variable was not set.");
+            throw new IllegalStateException("'type' variable was not set.");
         }
         return type;
     }
@@ -670,7 +671,7 @@ public class DataTableColumnDef {
                 return TType.NULL_TYPE;
 
             default:
-                throw new Error("SQL type not recognized.");
+                throw new IllegalArgumentException("SQL type not recognized.");
         }
     }
 
@@ -820,7 +821,7 @@ public class DataTableColumnDef {
                         Integer.parseInt(other.substring(cur_i, next_break));
 
             } else {
-                throw new Error("Incorrectly formatted DataTableColumnDef data.");
+                throw new IOException("Incorrectly formatted DataTableColumnDef data.");
             }
         }
 

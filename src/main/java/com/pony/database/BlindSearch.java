@@ -53,7 +53,7 @@ public final class BlindSearch extends SelectableScheme {
      */
     public void insert(int row) {
         if (isImmutable()) {
-            throw new Error("Tried to change an immutable scheme.");
+            throw new IllegalStateException("Tried to change an immutable scheme.");
         }
     }
 
@@ -62,7 +62,7 @@ public final class BlindSearch extends SelectableScheme {
      */
     public void remove(int row) {
         if (isImmutable()) {
-            throw new Error("Tried to change an immutable scheme.");
+            throw new IllegalStateException("Tried to change an immutable scheme.");
         }
     }
 
@@ -295,7 +295,7 @@ public final class BlindSearch extends SelectableScheme {
                 } else if (lf == SelectableRange.AFTER_LAST_VALUE) {
                     lower_flags[i] = 1;  // >
                 } else {
-                    throw new Error("Incorrect lower flag.");
+                    throw new IllegalArgumentException("Incorrect lower flag.");
                 }
                 lower_cells[i] = resolveCell(l);
             }
@@ -311,7 +311,7 @@ public final class BlindSearch extends SelectableScheme {
                 } else if (uf == SelectableRange.BEFORE_FIRST_VALUE) {
                     upper_flags[i] = 1;  // <
                 } else {
-                    throw new Error("Incorrect upper flag.");
+                    throw new IllegalArgumentException("Incorrect upper flag.");
                 }
                 upper_cells[i] = resolveCell(u);
             }
@@ -346,7 +346,7 @@ public final class BlindSearch extends SelectableScheme {
                         } else if (lf == 2) {  // >=
                             result = (compare <= 0);
                         } else {
-                            throw new Error("Incorrect flag.");
+                            throw new IllegalStateException("Incorrect flag.");
                         }
                     }
                     if (result) {
@@ -360,7 +360,7 @@ public final class BlindSearch extends SelectableScheme {
                             } else if (uf == 2) {  // >=
                                 result = (compare >= 0);
                             } else {
-                                throw new Error("Incorrect flag.");
+                                throw new IllegalStateException("Incorrect flag.");
                             }
                         }
                         // Pick this row
@@ -380,4 +380,3 @@ public final class BlindSearch extends SelectableScheme {
     }
 
 }
-

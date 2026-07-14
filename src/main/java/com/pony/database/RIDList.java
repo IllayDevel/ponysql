@@ -239,7 +239,7 @@ final class RIDList {
         }
 
         if (new_rid_place == -1) {
-            throw new Error(
+            throw new IllegalStateException(
                     "Post condition not correct - new_rid_place shouldn't be -1");
         }
 
@@ -293,7 +293,7 @@ final class RIDList {
         int set_index = set_list.searchLast(cell, set_comparator);
 
         if (set_list.get(set_index) != row) {
-            throw new Error(
+            throw new IllegalStateException(
                     "set_list.searchLast(cell) didn't turn up expected row.");
         }
 
@@ -480,7 +480,7 @@ final class RIDList {
                         } else if (cmp < 0) {  // ASSERTION
                             // If current cell is less than last cell then the list ain't
                             // sorted!
-                            throw new Error("Internal Database Error: Index is corrupt " +
+                            throw new IllegalStateException("Internal Database Error: Index is corrupt " +
                                     " - InsertSearch list is not sorted.");
                         }
                         rid_list.placeIntAt(cur_rid, row_index);
@@ -519,7 +519,7 @@ final class RIDList {
                                 removeRID(row);
                                 ++remove_count;
                             } else {
-                                throw new Error("Unknown modification type.");
+                                throw new IllegalStateException("Unknown modification type.");
                             }
 
                             i += 2;
@@ -562,7 +562,7 @@ final class RIDList {
                     "{session} RIDList.rid_indices");
 
         } catch (IOException e) {
-            throw new Error("IO Error: " + e.getMessage());
+            throw new RuntimeException("IO Error: " + e.getMessage(), e);
         }
 
     }
@@ -603,7 +603,7 @@ final class RIDList {
             }
 
             public int compare(int index1, int index2) {
-                throw new Error("Shouldn't be called!");
+                throw new UnsupportedOperationException("Shouldn't be called!");
             }
         };
 
@@ -629,4 +629,3 @@ final class RIDList {
 
 
 }
-

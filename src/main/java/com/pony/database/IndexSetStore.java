@@ -626,7 +626,7 @@ final class IndexSetStore {
 
             } catch (IOException e) {
                 debug.writeException(e);
-                throw new Error("IO Error: " + e.getMessage());
+                throw new RuntimeException("IO Error: " + e.getMessage(), e);
             }
 
         } // synchronized
@@ -757,7 +757,7 @@ final class IndexSetStore {
                     IndexIntegerList i_list = (IndexIntegerList) integer_list;
                     if (i_list.getIndexNumber() == n) {
                         return i_list;
-//            throw new Error(
+//            throw new IllegalStateException(
 //                        "IntegerListInterface already created for this n.");
                     }
                 }
@@ -993,7 +993,7 @@ final class IndexSetStore {
                 } catch (IOException e) {
                     debug.write(Lvl.ERROR, this, "block_p = " + block_p);
                     debug.writeException(e);
-                    throw new Error("IO Error: " + e.getMessage());
+                    throw new RuntimeException("IO Error: " + e.getMessage(), e);
                 }
 
                 // Uncompact it into the int array
@@ -1040,7 +1040,7 @@ final class IndexSetStore {
          */
         public int topInt() {
             if (count == 0) {
-                throw new Error("No first int in block.");
+                throw new IllegalStateException("No first int in block.");
             }
 
             synchronized (lock) {
@@ -1058,7 +1058,7 @@ final class IndexSetStore {
          */
         public int bottomInt() {
             if (count == 0) {
-                throw new Error("No first int in block.");
+                throw new IllegalStateException("No first int in block.");
             }
 
             synchronized (lock) {
@@ -1117,7 +1117,7 @@ final class IndexSetStore {
             if (!disposed) {
                 return new MappedListBlock(max_block_size);
             }
-            throw new Error("Integer list has been disposed.");
+            throw new IllegalStateException("Integer list has been disposed.");
         }
 
         /**

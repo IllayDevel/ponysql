@@ -1706,7 +1706,7 @@ public final class Database implements DatabaseConstants {
                 connection.commit();
             } catch (TransactionException e) {
                 Debug().writeException(e);
-                throw new Error("Transaction Error: " + e.getMessage());
+                throw new RuntimeException("Transaction Error: " + e.getMessage(), e);
             }
 
             connection.getLockingMechanism().finishMode(
@@ -1718,10 +1718,10 @@ public final class Database implements DatabaseConstants {
 
         } catch (DatabaseException e) {
             Debug().writeException(e);
-            throw new Error("Database Exception: " + e.getMessage());
+            throw new RuntimeException("Database Exception: " + e.getMessage(), e);
         } catch (IOException e) {
             Debug().writeException(e);
-            throw new Error("IO Error: " + e.getMessage());
+            throw new RuntimeException("IO Error: " + e.getMessage(), e);
         }
 
     }
@@ -1807,10 +1807,10 @@ public final class Database implements DatabaseConstants {
         } catch (TransactionException e) {
             // This would be very strange error to receive for in initializing
             // database...
-            throw new Error("Transaction Error: " + e.getMessage());
+            throw new RuntimeException("Transaction Error: " + e.getMessage(), e);
         } catch (IOException e) {
             e.printStackTrace(System.err);
-            throw new Error("IO Error: " + e.getMessage());
+            throw new RuntimeException("IO Error: " + e.getMessage(), e);
         }
 
         // Sets up the system table listeners
@@ -1833,7 +1833,7 @@ public final class Database implements DatabaseConstants {
     public void shutdown() throws DatabaseException {
 
         if (initialised == false) {
-            throw new Error("The database is not initialized.");
+            throw new IllegalStateException("The database is not initialized.");
         }
 
         try {
@@ -1847,7 +1847,7 @@ public final class Database implements DatabaseConstants {
             }
         } catch (IOException e) {
             Debug().writeException(e);
-            throw new Error("IO Error: " + e.getMessage());
+            throw new RuntimeException("IO Error: " + e.getMessage(), e);
         }
 
         // Shut down the logs...
@@ -1915,7 +1915,7 @@ public final class Database implements DatabaseConstants {
      */
     public void liveCopyTo(File path) throws IOException {
         if (initialised == false) {
-            throw new Error("The database is not initialized.");
+            throw new IllegalStateException("The database is not initialized.");
         }
 
         // Set up the destination conglomerate to copy all the data to,
