@@ -197,7 +197,7 @@ public final class InsertSearch extends CollatedBaseSearch {
      */
     public void insert(int row) {
         if (isImmutable()) {
-            throw new Error("Tried to change an immutable scheme.");
+            throw new IllegalStateException("Tried to change an immutable scheme.");
         }
 
         final TObject cell = getCellContents(row);
@@ -217,14 +217,15 @@ public final class InsertSearch extends CollatedBaseSearch {
      */
     public void remove(int row) {
         if (isImmutable()) {
-            throw new Error("Tried to change an immutable scheme.");
+            throw new IllegalStateException("Tried to change an immutable scheme.");
         }
 
         TObject cell = getCellContents(row);
         int removed = set_list.removeSort(cell, row, set_comparator);
 
         if (removed != row) {
-            throw new Error("Removed value different than row asked to remove.  " +
+            throw new IllegalStateException(
+                    "Removed value different than row asked to remove.  " +
                     "To remove: " + row + "  Removed: " + removed);
         }
 
@@ -308,7 +309,8 @@ public final class InsertSearch extends CollatedBaseSearch {
         //   when the scheme was created.
         if (isImmutable()) {
             if (DEBUG_immutable_set_size != set_list.size()) {
-                throw new Error("Assert failed: " +
+                throw new IllegalStateException(
+                        "Assert failed: " +
                         "Immutable set size is different from when created.");
             }
         }
@@ -341,7 +343,7 @@ public final class InsertSearch extends CollatedBaseSearch {
 //      DataCell this_cell = getCellContents(row);
 //      if (last_cell != null) {
 //        if (this_cell.compareTo(last_cell) < 0) {
-//          throw new Error("checkSchemeSorted failed.  Corrupt index.");
+//          throw new IllegalStateException("checkSchemeSorted failed.  Corrupt index.");
 //        }
 //      }
 //      last_cell = this_cell;

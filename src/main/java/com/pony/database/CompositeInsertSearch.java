@@ -84,7 +84,8 @@ final class CompositeInsertSearch extends SelectableScheme {
 
     public SelectableScheme copy(TableDataSource table, boolean immutable) {
         if (isImmutable() && DEBUG_immutable_set_size != set_list.size()) {
-            throw new Error("Assert failed: " +
+            throw new IllegalStateException(
+                    "Assert failed: " +
                     "Immutable set size is different from when created.");
         }
         return new CompositeInsertSearch(table, this, immutable);
@@ -97,7 +98,7 @@ final class CompositeInsertSearch extends SelectableScheme {
 
     public void insert(int row) {
         if (isImmutable()) {
-            throw new Error("Tried to change an immutable scheme.");
+            throw new IllegalStateException("Tried to change an immutable scheme.");
         }
         CompositeKey key = keyForRow(row);
         if (unique && set_list.searchFirst(key, set_comparator) >= 0) {
@@ -110,12 +111,13 @@ final class CompositeInsertSearch extends SelectableScheme {
 
     public void remove(int row) {
         if (isImmutable()) {
-            throw new Error("Tried to change an immutable scheme.");
+            throw new IllegalStateException("Tried to change an immutable scheme.");
         }
         CompositeKey key = keyForRow(row);
         int removed = set_list.removeSort(key, row, set_comparator);
         if (removed != row) {
-            throw new Error("Removed value different than row asked to remove.  " +
+            throw new IllegalStateException(
+                    "Removed value different than row asked to remove.  " +
                     "To remove: " + row + "  Removed: " + removed);
         }
     }
