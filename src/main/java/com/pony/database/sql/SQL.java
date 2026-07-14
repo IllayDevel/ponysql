@@ -3525,7 +3525,13 @@ expEnd(exp, stack);
 //  Expression[] exp_arr;
   Expression regex_expression;
   Object regex_ob;
-    if (jj_2_11(3)) {
+    if (isSingleSubQueryOperatorAhead()) {
+      SingleSubQueryOperator(exp, stack);
+      SubQueryExpression(exp, stack);
+    } else if (isAnyAllSubQueryOperatorAhead()) {
+      SubQueryOperator(exp, stack);
+      SubQueryExpression(exp, stack);
+    } else if (jj_2_11(3)) {
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
       case ASSIGNMENT:
       case EQUALS:
@@ -3858,6 +3864,14 @@ exp.addElement(Util.toArrayParamObject(exp_arr));
         exp.text().append(" (" + Util.expressionListToString(exp_arr) + ")");
     }
     jj_consume_token(209);
+}
+
+  final public void SingleSubQueryOperator(Expression exp, Stack stack) throws ParseException {String op_string;
+  Operator op;
+    op_string = GetSubQueryBooleanOperator();
+op = Operator.get(op_string).getSubQueryForm("SINGLE");
+    expOperator(exp, stack, op);
+    exp.text().append(" " + op + " ");
 }
 
 // Parses a simple positive integer constant.
@@ -4896,6 +4910,44 @@ list.add(e);
     try { return (!jj_3_1()); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(0, xla); }
+  }
+
+  private boolean isSingleSubQueryOperatorAhead() {
+    return isSubQueryBooleanOperatorToken(getToken(1).kind) &&
+            getToken(2).kind == 208 &&
+            getToken(3).kind == SELECT;
+  }
+
+  private boolean isAnyAllSubQueryOperatorAhead() {
+    return isSubQueryBooleanOperatorToken(getToken(1).kind) &&
+            isAnyAllSubQueryToken(getToken(2).kind) &&
+            getToken(3).kind == 208;
+  }
+
+  private boolean isAnyAllSubQueryToken(int kind) {
+    switch (kind) {
+      case ANY:
+      case ALL:
+      case SOME:
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  private boolean isSubQueryBooleanOperatorToken(int kind) {
+    switch (kind) {
+      case ASSIGNMENT:
+      case EQUALS:
+      case GR:
+      case LE:
+      case GREQ:
+      case LEEQ:
+      case NOTEQ:
+        return true;
+      default:
+        return false;
+    }
   }
 
   private boolean jj_2_2(int xla)

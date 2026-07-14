@@ -1927,7 +1927,11 @@ void OpPart(Expression exp, Stack stack) :
 }
 {
 
-  (   LOOKAHEAD(3) (   BooleanOperator(exp, stack)
+  (   LOOKAHEAD(3) SingleSubQueryOperator(exp, stack) SubQueryExpression(exp, stack)
+
+    | LOOKAHEAD(3) AnyAllSubQueryOperator(exp, stack) SubQueryExpression(exp, stack)
+
+    | LOOKAHEAD(3) (   BooleanOperator(exp, stack)
                      | NumericOperator(exp, stack)
                      | StringOperator(exp, stack) )
                    Operand(exp, stack)
@@ -2071,6 +2075,32 @@ void SubQueryExpression(Expression exp, Stack stack) :
       }
   )
   ")"
+}
+
+void SingleSubQueryOperator(Expression exp, Stack stack) :
+{ String op_string;
+  Operator op;
+}
+{
+  op_string = GetSubQueryBooleanOperator()
+  { op = Operator.get(op_string).getSubQueryForm("SINGLE");
+    expOperator(exp, stack, op);
+    exp.text().append(" " + op + " ");
+  }
+}
+
+void AnyAllSubQueryOperator(Expression exp, Stack stack) :
+{ Token t;
+  String op_string;
+  Operator op;
+}
+{
+  op_string = GetSubQueryBooleanOperator()
+  ( t=<ANY> | t=<ALL> | t=<SOME> )
+  { op = Operator.get(op_string).getSubQueryForm(t.image);
+    expOperator(exp, stack, op);
+    exp.text().append(" " + op + " ");
+  }
 }
 
 
