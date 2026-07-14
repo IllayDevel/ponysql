@@ -449,7 +449,7 @@ public final class FixedSizeDataStore {
     public void writeReservedBuffer(byte[] info, int offset, int length,
                                     int res_offset) throws IOException {
         if ((length + res_offset) > 128) {
-            throw new Error("Attempted to write > 128 bytes in reserve buffer.");
+            throw new IllegalArgumentException("Attempted to write > 128 bytes in reserve buffer.");
         }
         data_store.seek(res_offset + 64);
         data_store.write(info, offset, length);
@@ -466,7 +466,7 @@ public final class FixedSizeDataStore {
     public void readReservedBuffer(byte[] info, int offset, int length)
             throws IOException {
         if (length > 128) {
-            throw new Error("Attempted to read > 128 bytes from reserve buffer.");
+            throw new IllegalArgumentException("Attempted to read > 128 bytes from reserve buffer.");
         }
         data_store.seek(64);
         data_store.readFully(info, offset, length);
@@ -707,7 +707,7 @@ public final class FixedSizeDataStore {
         if (data_store == null) {
             data_file.delete();
         } else {
-            throw new Error("Must close before FixedSizeDataStore is deleted.");
+            throw new IllegalStateException("Must close before FixedSizeDataStore is deleted.");
         }
     }
 
@@ -762,7 +762,7 @@ public final class FixedSizeDataStore {
     public void unlock() {
         --lock_count;
         if (lock_count < 0) {
-            throw new Error("Unlocked more times than we locked.");
+            throw new IllegalStateException("Unlocked more times than we locked.");
         }
     }
 

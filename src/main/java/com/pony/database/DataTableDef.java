@@ -97,7 +97,7 @@ public class DataTableDef {
      */
     private void checkMutable() {
         if (immutable()) {
-            throw new Error("Tried to mutate immutable object.");
+            throw new IllegalStateException("Tried to mutate immutable object.");
         }
     }
 
@@ -200,7 +200,7 @@ public class DataTableDef {
         if (clazz.equals("com.pony.database.VariableSizeDataTableFile")) {
             table_type_class = clazz;
         } else {
-            throw new Error("Unrecognised table class: " + clazz);
+            throw new IllegalArgumentException("Unrecognised table class: " + clazz);
         }
     }
 
@@ -210,7 +210,7 @@ public class DataTableDef {
         for (Object o : column_list) {
             DataTableColumnDef cd = (DataTableColumnDef) o;
             if (cd.getName().equals(col_def.getName())) {
-                throw new Error("Duplicated columns found.");
+                throw new IllegalArgumentException("Duplicated columns found.");
             }
         }
         column_list.add(col_def);
@@ -361,7 +361,7 @@ public class DataTableDef {
             }
 
         } else {
-            throw new Error("Unrecognized DataTableDef version (" + ver + ")");
+            throw new IOException("Unrecognized DataTableDef version (" + ver + ")");
         }
 
         dtf.setImmutable();

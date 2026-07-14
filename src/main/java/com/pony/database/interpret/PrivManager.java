@@ -77,7 +77,7 @@ public class PrivManager extends Statement {
             grant_object = GrantManager.SCHEMA;
             grant_param = schema_name.toString();
         } else {
-            throw new Error("Priv object formatting error.");
+            throw new IllegalArgumentException("Priv object formatting error.");
         }
 
         if (command_type.equals("GRANT")) {
@@ -102,7 +102,7 @@ public class PrivManager extends Statement {
                     } else if (grant_object == GrantManager.SCHEMA) {
                         priv_bit = Privileges.SCHEMA_ALL_PRIVS.toInt();
                     } else {
-                        throw new Error("Unrecognised grant object.");
+                        throw new IllegalArgumentException("Unrecognised grant object.");
                     }
                 } else {
                     priv_bit = Privileges.parseString(priv);
@@ -159,7 +159,7 @@ public class PrivManager extends Statement {
                     } else if (grant_object == GrantManager.SCHEMA) {
                         priv_bit = Privileges.SCHEMA_ALL_PRIVS.toInt();
                     } else {
-                        throw new Error("Unrecognised grant object.");
+                        throw new IllegalArgumentException("Unrecognised grant object.");
                     }
                 } else {
                     priv_bit = Privileges.parseString(priv);
@@ -185,7 +185,7 @@ public class PrivManager extends Statement {
             // All done.
 
         } else {
-            throw new Error("Unknown priv manager command: " + command_type);
+            throw new IllegalArgumentException("Unknown priv manager command: " + command_type);
         }
 
         return FunctionTable.resultTable(context, 0);
@@ -193,4 +193,3 @@ public class PrivManager extends Statement {
 
 
 }
-

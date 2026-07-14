@@ -1046,7 +1046,7 @@ public final class V2MasterTableDataSource extends MasterTableDataSource {
             // Status of the recycled block
             int status = block.getInt();
             if ((status & 0x020000) == 0) {
-                throw new Error("Assertion failed: record is not deleted.  " +
+                throw new IllegalStateException("Assertion failed: record is not deleted.  " +
                         "status = " + status + ", rec_pos = " + rec_pos);
             }
             // The pointer to the next in the chain.
@@ -1452,7 +1452,7 @@ public final class V2MasterTableDataSource extends MasterTableDataSource {
                 int status = list_block.getInt();
                 // Check it's not deleted
                 if ((status & 0x020000) != 0) {
-                    throw new Error("Unable to read deleted record.");
+                    throw new IllegalStateException("Unable to read deleted record.");
                 }
                 // Get the pointer to the record we are reading
                 record_p = list_block.getLong();
@@ -1544,7 +1544,7 @@ public final class V2MasterTableDataSource extends MasterTableDataSource {
                 }
             } catch (IOException e) {
                 Debug().writeException(e);
-                throw new Error("IO Error: " + e.getMessage());
+                throw new RuntimeException("IO Error: " + e.getMessage(), e);
             }
             return v;
         }
@@ -1568,7 +1568,7 @@ public final class V2MasterTableDataSource extends MasterTableDataSource {
                 }
             } catch (IOException e) {
                 Debug().writeException(e);
-                throw new Error("IO Error: " + e.getMessage());
+                throw new RuntimeException("IO Error: " + e.getMessage(), e);
             }
         }
     }

@@ -195,12 +195,12 @@ public class FromTableDirectSource implements FromTableInterface {
         if (schema != null &&
                 !stringCompare(schema, table_name.getSchema())) {
             // If schema is present and we can't resolve to this schema
-            throw new Error("Incorrect schema.");
+            throw new IllegalArgumentException("Incorrect schema.");
         }
         if (table != null &&
                 !stringCompare(table, table_name.getName())) {
             // If table name is present and we can't resolve to this table name
-            throw new Error("Incorrect table.");
+            throw new IllegalArgumentException("Incorrect table.");
         }
 
         if (column != null) {
@@ -208,7 +208,7 @@ public class FromTableDirectSource implements FromTableInterface {
                 // Can we resolve the column in this table?
                 int i = data_table_def.fastFindColumnName(column);
                 if (i == -1) {
-                    throw new Error("Could not resolve '" + column + "'");
+                    throw new IllegalArgumentException("Could not resolve '" + column + "'");
                 }
                 return new Variable(table_name, column);
             } else {
@@ -220,7 +220,7 @@ public class FromTableDirectSource implements FromTableInterface {
                         return new Variable(table_name, col_name);
                     }
                 }
-                throw new Error("Could not resolve '" + column + "'");
+                throw new IllegalArgumentException("Could not resolve '" + column + "'");
             }
         } else {  // if (column == null)
             // Return the first column in the table

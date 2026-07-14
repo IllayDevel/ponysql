@@ -154,7 +154,7 @@ public final class SimpleTableQuery {
         } else if (ivec.size() == 1) {
             return true;
         } else {
-            throw new Error("Assertion failed: existsSingle found multiple values.");
+            throw new IllegalStateException("Assertion failed: existsSingle found multiple values.");
         }
     }
 
@@ -168,7 +168,7 @@ public final class SimpleTableQuery {
         // All indexes in the table where the key value is found.
         IntegerVector ivec = selectIndexesEqual(key_column, key_value);
         if (ivec.size() > 1) {
-            throw new Error("Assertion failed: getVar found multiple key values.");
+            throw new IllegalStateException("Assertion failed: getVar found multiple key values.");
         } else if (ivec.size() == 0) {
             // Key found so return the value
             return get(value_column, ivec.intAt(0));
@@ -201,7 +201,7 @@ public final class SimpleTableQuery {
         // All indexes in the table where the key value is found.
         IntegerVector ivec = selectIndexesEqual(key_column, vals[key_column]);
         if (ivec.size() > 1) {
-            throw new Error("Assertion failed: setVar found multiple key values.");
+            throw new IllegalStateException("Assertion failed: setVar found multiple key values.");
         } else if (ivec.size() == 1) {
             // Remove the current key
             mtable.removeRow(ivec.intAt(0));
@@ -233,7 +233,7 @@ public final class SimpleTableQuery {
             mtable.removeRow(ivec.intAt(0));
             return true;
         } else {
-            throw new Error("Assertion failed: deleteSingle found multiple values.");
+            throw new IllegalStateException("Assertion failed: deleteSingle found multiple values.");
         }
     }
 

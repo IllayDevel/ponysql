@@ -54,7 +54,7 @@ public class ObjectTranslator {
             return serialize(ob);
         } else {
 //      System.out.println("Ob is: (" + ob.getClass() + ") " + ob);
-            throw new Error("Unable to translate object.  " +
+            throw new IllegalArgumentException("Unable to translate object.  " +
                     "It is not a primitive type or serializable.");
         }
     }
@@ -70,7 +70,7 @@ public class ObjectTranslator {
             ob_out.close();
             return new ByteLongObject(bout.toByteArray());
         } catch (IOException e) {
-            throw new Error("Serialization error: " + e.getMessage());
+            throw new RuntimeException("Serialization error: " + e.getMessage(), e);
         }
     }
 
@@ -89,9 +89,9 @@ public class ObjectTranslator {
                 ob_in.close();
                 return ob;
             } catch (ClassNotFoundException e) {
-                throw new Error("Class not found: " + e.getMessage());
+                throw new RuntimeException("Class not found: " + e.getMessage(), e);
             } catch (IOException e) {
-                throw new Error("De-serialization error: " + e.getMessage());
+                throw new RuntimeException("De-serialization error: " + e.getMessage(), e);
             }
         }
     }

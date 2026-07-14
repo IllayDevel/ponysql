@@ -67,7 +67,7 @@ public class ViewDef {
         try {
             return (QueryPlanNode) view_query_node.clone();
         } catch (CloneNotSupportedException e) {
-            throw new Error("Clone error: " + e.getMessage());
+            throw new IllegalStateException("Clone error: " + e.getMessage(), e);
         }
     }
 
@@ -92,7 +92,7 @@ public class ViewDef {
             return new ByteLongObject(byte_out.toByteArray());
 
         } catch (IOException e) {
-            throw new Error("IO Error: " + e.getMessage());
+            throw new RuntimeException("IO Error: " + e.getMessage(), e);
         }
 
     }
@@ -118,11 +118,10 @@ public class ViewDef {
             }
 
         } catch (IOException e) {
-            throw new Error("IO Error: " + e.getMessage());
+            throw new RuntimeException("IO Error: " + e.getMessage(), e);
         } catch (ClassNotFoundException e) {
-            throw new Error("Class not found: " + e.getMessage());
+            throw new RuntimeException("Class not found: " + e.getMessage(), e);
         }
     }
 
 }
-

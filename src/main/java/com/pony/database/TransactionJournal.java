@@ -255,7 +255,7 @@ final class TransactionJournal {
                     c == TABLE_CONSTRAINT_ALTER) {
                 param_index += 1;
             } else {
-                throw new Error("Unknown journal command.");
+                throw new IllegalStateException("Unknown journal command.");
             }
         }
 
@@ -286,7 +286,7 @@ final class TransactionJournal {
                 dropped_tables.addInt(command_parameters.intAt(param_index));
                 param_index += 1;
             } else {
-                throw new Error("Unknown journal command.");
+                throw new IllegalStateException("Unknown journal command.");
             }
         }
 
@@ -314,7 +314,7 @@ final class TransactionJournal {
                 created_tables.addInt(command_parameters.intAt(param_index));
                 param_index += 1;
             } else {
-                throw new Error("Unknown journal command.");
+                throw new IllegalStateException("Unknown journal command.");
             }
         }
 
@@ -343,7 +343,7 @@ final class TransactionJournal {
                 caltered_tables.addInt(command_parameters.intAt(param_index));
                 param_index += 1;
             } else {
-                throw new Error("Unknown journal command.");
+                throw new IllegalStateException("Unknown journal command.");
             }
         }
 
