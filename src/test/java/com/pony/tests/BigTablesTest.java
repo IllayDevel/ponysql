@@ -18,175 +18,117 @@
 
 package com.pony.tests;
 
-import com.pony.database.control.*;
+import com.pony.database.control.DBController;
+import com.pony.database.control.DBSystem;
+import com.pony.database.control.DefaultDBConfig;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
-import java.io.*;
-import java.sql.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Path;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * Database test that creates a massive (but practical) table.
- *
- * @author Tobias Downer
+ * Regression coverage for the old manual BigTablesTest main program.
  */
+class BigTablesTest {
 
-public class BigTablesTest {
+    @TempDir
+    Path tempDir;
 
-
-    public static long compareStreams(InputStream in1, InputStream in2,
-                                      long stream_size) throws IOException {
-        boolean end_reached = false;
-        long read_count = 0;
-        while (!end_reached) {
-            int val1 = in1.read();
-            int val2 = in2.read();
-            if (val1 != val2) {
-                throw new Error("Blob streams do not compare correctly.");
-            }
-            if (val1 == -1) {
-                end_reached = true;
-            }
-            ++read_count;
-        }
-
-        --read_count;
-        if (read_count != stream_size) {
-            throw new Error("Stream size mismatch.  Expecting " + stream_size +
-                    " but actually read " + read_count);
-        }
-
-        return read_count;
-    }
-
-
-    public static void main(String[] args) {
-
-        // Get the database controller from the com.pony.database.control API
-        DBController controller = DBController.getDefault();
-
-        // Make a database configuration object and set the paths of the database
-        // and log files.
+    @Test
+    void storesAndReadsBinaryStreams() throws Exception {
         DefaultDBConfig config = new DefaultDBConfig();
-        config.setDatabasePath("./data");
-        config.setLogPath("./log");
+        config.setDatabasePath(tempDir.resolve("data").toString());
+        config.setLogPath(tempDir.resolve("log").toString());
 
-        DBSystem database;
+        DBSystem database = DBController.getDefault()
+                .createDatabase(config, "test", "test");
+        database.setDeleteOnClose(true);
 
-        // Does the database exist already?
-        if (controller.databaseExists(config)) {
-            // Yes so report the error
-            throw new RuntimeException("Database already exists.");
-        }
-
-        // Now create the database
-        database = controller.createDatabase(config, "test", "test");
-
-        try {
-            // Make a JDBC connection to the database
-            Connection connection = database.getConnection("test", "test");
-
-            // The database meta data
-            DatabaseMetaData meta_data = connection.getMetaData();
-            System.out.println(meta_data.getDatabaseProductName());
-
+        try (Connection connection = database.getConnection("test", "test");
+             Statement statement = connection.createStatement()) {
             connection.setAutoCommit(false);
+            statement.executeQuery("CREATE TABLE AccountLog ( " +
+                    " id NUMERIC, " +
+                    " v1 NUMERIC INDEX_NONE, " +
+                    " v2 NUMERIC INDEX_NONE, " +
+                    " v3 NUMERIC INDEX_NONE, " +
+                    " data BINARY INDEX_NONE )");
 
-            // Create a table.
-            Statement stmt = connection.createStatement();
-            stmt.executeQuery("CREATE TABLE AccountLog ( " +
-                    " \"id\" NUMERIC, " +
-                    " \"v1\" NUMERIC INDEX_NONE, " +
-                    " \"v2\" NUMERIC INDEX_NONE, " +
-                    " \"v3\" NUMERIC INDEX_NONE, " +
-                    " \"data\" BINARY INDEX_NONE )");
-
+            insertBinaryRow(connection, 1, 1024, 17, 11);
+            insertBinaryRow(connection, 2, 9 * 1024, 29, 23);
             connection.commit();
 
-            // Start logging the history of a lot of accounts
-            PreparedStatement insert = connection.prepareStatement(
-                    "INSERT INTO AccountLog VALUES ( ?, ?, ?, ?, ? )");
-            PreparedStatement select = connection.prepareStatement(
-                    "SELECT * FROM AccountLog WHERE \"id\" = ?");
-
-            long tran_mults = 50;
-            long each_commit = 125;
-
-            System.out.println("Simulating " + (tran_mults * each_commit) +
-                    " simple transactions.");
-
-            long acct_seed = 1;
-            long amnt_seed = 1;
-
-
-            for (int n = 0; n < tran_mults; ++n) {
-                System.out.print(".");
-                for (int i = 0; i < each_commit; ++i) {
-                    acct_seed = ((acct_seed + 40031) * 541) % 147;
-                    amnt_seed = ((amnt_seed * 65543) + 23) % 2414779;
-
-                    int v1 = ((int) (Math.random() * 100000)) + 150000;
-                    int v2 = (int) ((acct_seed & 15) + 2);
-                    int v3 = (int) ((amnt_seed & 255) + 2);
-
-                    insert.setLong(1, ((long) n * each_commit) + i);
-                    insert.setInt(2, v1);
-                    insert.setInt(3, v2);
-                    insert.setInt(4, v3);
-                    insert.setBinaryStream(5,
-                            new LargeAlgorithmicBinaryStream(v1, v2, v3), v1);
-
-                    insert.executeUpdate();
-                }
-                connection.commit();
-
-                // Check everything we committed.
-                System.out.print("C");
-                for (int i = 0; i < each_commit; ++i) {
-                    if ((int) (Math.random() * 5) == 0) {
-                        select.setLong(1, ((long) n * each_commit) + i);
-                        ResultSet rs = select.executeQuery();
-                        rs.next();
-                        int v1 = rs.getInt(2);
-                        int v2 = rs.getInt(3);
-                        int v3 = rs.getInt(4);
-                        InputStream bin = rs.getBinaryStream(5);
-
-                        // Compare to check the data stored is the same as expected.
-                        compareStreams(bin,
-                                new LargeAlgorithmicBinaryStream(v1, v2, v3), v1);
-
-                        bin.close();
-                        rs.close();
-                    }
-                }
-
-            }
-
-        } catch (SQLException | IOException e) {
-            e.printStackTrace(System.err);
+            assertBinaryRow(connection, 1, 1024, 17, 11);
+            assertBinaryRow(connection, 2, 9 * 1024, 29, 23);
+        } finally {
+            database.close();
         }
-
-        // Close the database
-        database.close();
-
-        // Print the memory usage.
-        System.gc();
-        System.out.println("Total memory: " + Runtime.getRuntime().totalMemory());
-        System.out.println("Free memory:  " + Runtime.getRuntime().freeMemory());
-
     }
 
-
-    /**
-     * A simple InputStream implementation that iterates across a seeded
-     * algorithmic pattern of the given size.
-     */
-    private static class LargeRandomBinaryStream
-            extends LargeAlgorithmicBinaryStream {
-
-        public LargeRandomBinaryStream(int max_size) {
-            super(max_size, 3, 100);
+    private void insertBinaryRow(Connection connection, int id, int size,
+                                 int param1, int param2) throws Exception {
+        try (PreparedStatement insert = connection.prepareStatement(
+                "INSERT INTO AccountLog VALUES ( ?, ?, ?, ?, ? )")) {
+            insert.setInt(1, id);
+            insert.setInt(2, size);
+            insert.setInt(3, param1);
+            insert.setInt(4, param2);
+            insert.setBinaryStream(
+                    5,
+                    new LargeAlgorithmicBinaryStream(size, param1, param2),
+                    size);
+            assertEquals(1, insert.executeUpdate());
         }
+    }
 
+    private void assertBinaryRow(Connection connection, int id, int expectedSize,
+                                 int expectedParam1, int expectedParam2)
+            throws Exception {
+        try (PreparedStatement select = connection.prepareStatement(
+                "SELECT v1, v2, v3, data FROM AccountLog WHERE id = ?")) {
+            select.setInt(1, id);
+            try (ResultSet result = select.executeQuery()) {
+                assertTrue(result.next());
+                int size = result.getInt(1);
+                int param1 = result.getInt(2);
+                int param2 = result.getInt(3);
+                assertEquals(expectedSize, size);
+                assertEquals(expectedParam1, param1);
+                assertEquals(expectedParam2, param2);
+
+                try (InputStream actual = result.getBinaryStream(4);
+                     InputStream expected =
+                             new LargeAlgorithmicBinaryStream(
+                                     size, param1, param2)) {
+                    assertEquals(size, compareStreams(actual, expected));
+                }
+                assertFalse(result.next());
+            }
+        }
+    }
+
+    private long compareStreams(InputStream actual, InputStream expected)
+            throws IOException {
+        long readCount = 0;
+        while (true) {
+            int actualValue = actual.read();
+            int expectedValue = expected.read();
+            assertEquals(expectedValue, actualValue);
+            if (actualValue == -1) {
+                return readCount;
+            }
+            ++readCount;
+        }
     }
 
     /**
@@ -195,32 +137,27 @@ public class BigTablesTest {
      */
     private static class LargeAlgorithmicBinaryStream extends InputStream {
 
-        final int max_size;
-        int index;
+        private final int maxSize;
+        private int index;
 
-        final int param1;
-        final int param2;
+        private final int param1;
+        private final int param2;
 
-        public LargeAlgorithmicBinaryStream(int max_size, int param1, int param2) {
-            this.max_size = max_size;
+        LargeAlgorithmicBinaryStream(int maxSize, int param1, int param2) {
+            this.maxSize = maxSize;
             this.index = 0;
             this.param1 = param1;
             this.param2 = param2;
         }
 
-        public int read() throws IOException {
-            // If end of stream reached.
-            if (index == max_size) {
+        public int read() {
+            if (index == maxSize) {
                 return -1;
             }
-            // The idea here is to create a sequence of numbers that has very large
-            // repeat cycle.
-            int val = ((index * (param1 + (index / param2))) & 0x0FF);
+            int value = ((index * (param1 + (index / param2))) & 0x0FF);
             ++index;
-            return val;
+            return value;
         }
-
     }
 
 }
-
