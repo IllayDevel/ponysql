@@ -561,16 +561,24 @@ StatementTree Select() :
   TableSelectExpression table_expr;
   ArrayList order_by = new ArrayList();
   int limit = -1;
+  int offset = 0;
+  int count;
+  Token offset_token;
 }
 {
   ( table_expr = GetTableSelectExpression()
     [ <ORDERBY> SelectOrderByList(order_by) ]
-	[ <LIMIT> limit = PositiveIntegerConstant() ] 
+	[ <LIMIT> limit = PositiveIntegerConstant()
+          [ "," count = PositiveIntegerConstant() { offset = limit; limit = count; }
+          | offset_token = <IDENTIFIER>
+            { if (!offset_token.image.equalsIgnoreCase("offset")) throw new ParseException("Expected OFFSET"); }
+            offset = PositiveIntegerConstant() ] ]
   )
 
   { cmd.putObject("table_expression", table_expr);
     cmd.putObject("order_by", order_by);
 	cmd.putInt("limit", limit);
+	cmd.putInt("offset", offset);
     return cmd; }
 }
 
@@ -2437,4 +2445,3 @@ Token SQLIdentifier() :
   
   { return name; }
 }
-

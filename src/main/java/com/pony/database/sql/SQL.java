@@ -361,6 +361,9 @@ public class SQL implements SQLConstants {
   TableSelectExpression table_expr;
   ArrayList order_by = new ArrayList();
   int limit = -1;
+  int offset = 0;
+  int count;
+  Token offset_token;
     table_expr = GetTableSelectExpression();
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case ORDERBY:{
@@ -376,6 +379,22 @@ public class SQL implements SQLConstants {
     case LIMIT:{
       jj_consume_token(LIMIT);
       limit = PositiveIntegerConstant();
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case 210:{
+        jj_consume_token(210);
+        count = PositiveIntegerConstant();
+offset = limit; limit = count;
+        break;
+        }
+      case IDENTIFIER:{
+        offset_token = jj_consume_token(IDENTIFIER);
+if (!offset_token.image.equalsIgnoreCase("offset")) throw new ParseException("Expected OFFSET");
+        offset = PositiveIntegerConstant();
+        break;
+        }
+      default:
+        ;
+      }
       break;
       }
     default:
@@ -385,6 +404,7 @@ public class SQL implements SQLConstants {
 cmd.putObject("table_expression", table_expr);
     cmd.putObject("order_by", order_by);
         cmd.putInt("limit", limit);
+        cmd.putInt("offset", offset);
     {if ("" != null) return cmd;}
     throw new Error("Missing return statement in function");
 }

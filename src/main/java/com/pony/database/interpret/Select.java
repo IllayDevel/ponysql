@@ -47,6 +47,11 @@ public class Select extends Statement {
     private Integer limit;
 
     /**
+     * Offset of fetched rows
+     */
+    private Integer offset;
+
+    /**
      * The list of columns in the 'order_by' clause fully resolved.
      */
     private Variable[] order_cols;
@@ -110,6 +115,7 @@ public class Select extends Statement {
 
         // Rows limit information
         limit = (Integer) cmd.getInt("limit");
+        offset = (Integer) cmd.getInt("offset");
 
         // Generate the TableExpressionFromSet hierarchy for the expression,
         TableExpressionFromSet from_set =
@@ -135,7 +141,10 @@ public class Select extends Statement {
         boolean error = true;
         try {
 
-            Table t = plan.evaluate(context, limit);
+            Table t = plan.evaluate(context);
+            if (offset > 0 || limit >= 0) {
+                t = new RowSubsetTable(t, offset, limit);
+            }
             error = false;
             return t;
         } finally {
