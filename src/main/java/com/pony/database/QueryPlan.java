@@ -1054,11 +1054,29 @@ public class QueryPlan {
          */
         private final boolean[] correct_ascending;
 
+        /**
+         * The user requested ascending/descending order.
+         */
+        private final boolean[] order_ascending;
+
+        /**
+         * If greater than or equal to 0, the maximum number of rows this sort
+         * needs to preserve for an ORDER BY ... LIMIT plan.
+         */
+        private final int max_rows;
+
         public SortNode(QueryPlanNode child, Variable[] columns,
                         boolean[] ascending) {
+            this(child, columns, ascending, -1);
+        }
+
+        public SortNode(QueryPlanNode child, Variable[] columns,
+                        boolean[] ascending, int max_rows) {
             super(child);
             this.columns = columns;
-            this.correct_ascending = ascending;
+            this.order_ascending = ascending.clone();
+            this.correct_ascending = ascending.clone();
+            this.max_rows = max_rows;
 
             // How we handle ascending/descending order
             // ----------------------------------------
@@ -1075,10 +1093,10 @@ public class QueryPlan {
 
             int sz = ascending.length;
             for (int n = 0; n < sz - 1; ++n) {
-                if (!ascending[n]) {    // if descending...
+                if (!correct_ascending[n]) {    // if descending...
                     // Reverse order of all columns to the right...
                     for (int p = n + 1; p < sz; ++p) {
-                        ascending[p] = !ascending[p];
+                        correct_ascending[p] = !correct_ascending[p];
                     }
                 }
             }
@@ -1087,6 +1105,9 @@ public class QueryPlan {
 
         public Table evaluate(QueryContext context) {
             Table t = child.evaluate(context);
+            if (max_rows >= 0 && max_rows < t.getRowCount()) {
+                return t.orderByColumns(columns, order_ascending, max_rows);
+            }
             // Sort the results by the columns in reverse-safe order.
             int sz = correct_ascending.length;
             for (int n = sz - 1; n >= 0; --n) {
@@ -1106,7 +1127,7 @@ public class QueryPlan {
             buf.append("SORT: (");
             for (int i = 0; i < columns.length; ++i) {
                 buf.append(columns[i]);
-                if (correct_ascending[i]) {
+                if (order_ascending[i]) {
                     buf.append(" ASC");
                 } else {
                     buf.append(" DESC");
@@ -1114,6 +1135,10 @@ public class QueryPlan {
                 buf.append(", ");
             }
             buf.append(")");
+            if (max_rows >= 0) {
+                buf.append(" TOP ");
+                buf.append(max_rows);
+            }
             return new String(buf);
         }
 

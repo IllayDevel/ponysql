@@ -55,7 +55,9 @@ public class Explain extends Statement {
 
         TableExpressionFromSet from_set =
                 Planner.generateFromSet(select_expression, db);
-        plan = Planner.formQueryPlan(db, select_expression, from_set, order_by);
+        plan = Planner.formQueryPlan(
+                db, select_expression, from_set, order_by,
+                Select.orderByLimit(offset, limit));
     }
 
     public Table evaluate() throws DatabaseException {

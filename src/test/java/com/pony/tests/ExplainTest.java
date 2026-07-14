@@ -61,6 +61,8 @@ class ExplainTest {
                 String plan = result.getString(1);
                 assertTrue(plan.contains("FETCH: APP.explain_test"));
                 assertTrue(plan.contains("SIMPLE:") || plan.contains("RANGE:"));
+                assertTrue(plan.contains("SORT:"));
+                assertTrue(plan.contains("TOP 1"));
                 assertTrue(plan.contains("LIMIT/OFFSET: offset=0, limit=1"));
                 assertFalse(result.next());
             }

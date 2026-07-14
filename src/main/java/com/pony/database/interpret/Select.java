@@ -122,8 +122,28 @@ public class Select extends Statement {
                 Planner.generateFromSet(select_expression, db);
 
         // Form the plan
-        plan = Planner.formQueryPlan(db, select_expression, from_set, order_by);
+        plan = Planner.formQueryPlan(
+                db, select_expression, from_set, order_by,
+                orderByLimit(offset, limit));
 
+    }
+
+    /**
+     * Returns the number of rows an ORDER BY node must retain before the final
+     * RowSubsetTable applies LIMIT/OFFSET.  -1 means no Top-N bound.
+     */
+    static int orderByLimit(Integer offset, Integer limit) {
+        if (limit == null || limit < 0) {
+            return -1;
+        }
+        if (limit == 0) {
+            return 0;
+        }
+        long bound = (long) Math.max(0, offset) + limit;
+        if (bound > Integer.MAX_VALUE) {
+            return Integer.MAX_VALUE;
+        }
+        return (int) bound;
     }
 
 

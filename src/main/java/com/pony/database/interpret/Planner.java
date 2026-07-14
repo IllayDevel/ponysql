@@ -263,6 +263,19 @@ public class Planner {
                                               TableSelectExpression expression, TableExpressionFromSet from_set,
                                               ArrayList<Object> order_by)
             throws DatabaseException {
+        return formQueryPlan(db, expression, from_set, order_by, -1);
+    }
+
+    /**
+     * Forms a query plan with an optional ORDER BY row bound.  If
+     * 'order_by_limit' is greater than or equal to 0, ORDER BY nodes may use it
+     * to retain only the top rows needed by a following LIMIT/OFFSET.
+     */
+    public static QueryPlanNode formQueryPlan(DatabaseConnection db,
+                                              TableSelectExpression expression, TableExpressionFromSet from_set,
+                                              ArrayList<Object> order_by,
+                                              int order_by_limit)
+            throws DatabaseException {
 
         QueryContext context = new DatabaseQueryContext(db);
 
@@ -644,7 +657,8 @@ public class Planner {
             // after the distinct because distinct can affect the ordering of the
             // result.
             if (right_composite == null && order_by != null) {
-                node = planForOrderBy(node, order_by, from_set, s_col_list);
+                node = planForOrderBy(
+                        node, order_by, from_set, s_col_list, order_by_limit);
             }
 
             // Rename the columns as specified in the SELECT
@@ -653,7 +667,8 @@ public class Planner {
         } else {
             // Process the ORDER BY?
             if (right_composite == null && order_by != null) {
-                node = planForOrderBy(node, order_by, from_set, s_col_list);
+                node = planForOrderBy(
+                        node, order_by, from_set, s_col_list, order_by_limit);
             }
         }
 
@@ -664,7 +679,8 @@ public class Planner {
                     expression.composite_function, expression.is_composite_all);
             // Final order by?
             if (order_by != null) {
-                node = planForOrderBy(node, order_by, from_set, s_col_list);
+                node = planForOrderBy(
+                        node, order_by, from_set, s_col_list, order_by_limit);
             }
             // Ensure a final subset node
             if (!(node instanceof QueryPlan.SubsetNode) && aliases != null) {
@@ -685,6 +701,17 @@ public class Planner {
     public static QueryPlanNode planForOrderBy(QueryPlanNode plan,
                                                ArrayList<Object> order_by, TableExpressionFromSet from_set,
                                                ArrayList<Object> s_col_list)
+            throws DatabaseException {
+        return planForOrderBy(plan, order_by, from_set, s_col_list, -1);
+    }
+
+    /**
+     * Plans an ORDER BY set with an optional Top-N bound.
+     */
+    public static QueryPlanNode planForOrderBy(QueryPlanNode plan,
+                                               ArrayList<Object> order_by, TableExpressionFromSet from_set,
+                                               ArrayList<Object> s_col_list,
+                                               int order_by_limit)
             throws DatabaseException {
 
         TableName FUNCTION_TABLE = new TableName("FUNCTIONTABLE");
@@ -756,20 +783,23 @@ public class Planner {
                     // Defines the sort functions
                     plan = new QueryPlan.CreateFunctionsNode(plan, funs, fnames);
                     // Then plan the sort
-                    plan = new QueryPlan.SortNode(plan, order_list, ascending_list);
+                    plan = new QueryPlan.SortNode(
+                            plan, order_list, ascending_list, order_by_limit);
                     // Then plan the subset
                     plan = new QueryPlan.SubsetNode(plan, mapped_names, mapped_names);
                 } else {
                     // Defines the sort functions
                     plan = new QueryPlan.CreateFunctionsNode(plan, funs, fnames);
                     // Plan the sort
-                    plan = new QueryPlan.SortNode(plan, order_list, ascending_list);
+                    plan = new QueryPlan.SortNode(
+                            plan, order_list, ascending_list, order_by_limit);
                 }
 
             } else {
                 // No functional orders so we only need to sort by the columns
                 // defined.
-                plan = new QueryPlan.SortNode(plan, order_list, ascending_list);
+                plan = new QueryPlan.SortNode(
+                        plan, order_list, ascending_list, order_by_limit);
             }
 
         }

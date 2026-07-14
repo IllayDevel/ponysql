@@ -74,6 +74,32 @@ class LimitOffsetTest {
     }
 
     @Test
+    void topNOrderByLimitHandlesMultipleColumnsAndDirections() throws Exception {
+        DBSystem database = createDatabase();
+        try (Connection connection = database.getConnection("test", "test");
+             Statement statement = connection.createStatement()) {
+            statement.executeUpdate(
+                    "CREATE TABLE topn_test (" +
+                            " id INTEGER, group_id INTEGER, bucket INTEGER )");
+
+            insertTopNRow(connection, 1, 1, 2);
+            insertTopNRow(connection, 2, 1, 1);
+            insertTopNRow(connection, 3, 2, 2);
+            insertTopNRow(connection, 4, 2, 1);
+            insertTopNRow(connection, 5, 3, 1);
+
+            assertEquals(
+                    List.of(4, 3, 2),
+                    queryIds(connection,
+                            "SELECT id FROM topn_test " +
+                                    "ORDER BY group_id DESC, bucket ASC " +
+                                    "LIMIT 3 OFFSET 1"));
+        } finally {
+            database.close();
+        }
+    }
+
+    @Test
     void limitZeroReturnsNoRows() throws Exception {
         DBSystem database = createDatabase();
         try (Connection connection = database.getConnection("test", "test")) {
@@ -112,6 +138,18 @@ class LimitOffsetTest {
                 insert.setString(2, "row-" + value);
                 insert.executeUpdate();
             }
+        }
+    }
+
+    private void insertTopNRow(Connection connection, int id, int groupId,
+                               int bucket) throws Exception {
+        try (PreparedStatement insert = connection.prepareStatement(
+                "INSERT INTO topn_test ( id, group_id, bucket ) " +
+                        "VALUES ( ?, ?, ? )")) {
+            insert.setInt(1, id);
+            insert.setInt(2, groupId);
+            insert.setInt(3, bucket);
+            insert.executeUpdate();
         }
     }
 

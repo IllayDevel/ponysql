@@ -22,11 +22,14 @@ import com.pony.util.IntegerVector;
 import com.pony.debug.*;
 
 //import com.pony.database.sql.SelectStatement;    // Evaluating sub-selects
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.PriorityQueue;
 
 /**
  * This is a definition for a table in the database.  It stores the name of
@@ -1309,6 +1312,125 @@ public abstract class Table implements TableDataSource {
         }
 
         return work;
+    }
+
+    /**
+     * Returns this table ordered by the given columns, keeping only the top
+     * 'max_rows' rows in the requested order.  This is used for ORDER BY ...
+     * LIMIT plans where a full row sort would be unnecessary.
+     */
+    public final VirtualTable orderByColumns(Variable[] columns,
+                                             boolean[] ascending,
+                                             int max_rows) {
+        if (columns.length != ascending.length) {
+            throw new IllegalArgumentException(
+                    "columns and ascending arrays must have the same length");
+        }
+        if (max_rows < 0) {
+            throw new IllegalArgumentException(
+                    "max_rows must be greater than or equal to 0");
+        }
+
+        int[] col_map = new int[columns.length];
+        for (int i = 0; i < columns.length; ++i) {
+            int col_index = findFieldName(columns[i]);
+            if (col_index == -1) {
+                throw new RuntimeException(
+                        "Unknown column in 'orderByColumns' ( " +
+                                columns[i] + " )");
+            }
+            col_map[i] = col_index;
+        }
+        return orderByColumns(col_map, ascending, max_rows);
+    }
+
+    /**
+     * Returns this table ordered by the given column indexes, keeping only the
+     * top 'max_rows' rows in the requested order.
+     */
+    public final VirtualTable orderByColumns(int[] col_map,
+                                             boolean[] ascending,
+                                             int max_rows) {
+        if (col_map.length != ascending.length) {
+            throw new IllegalArgumentException(
+                    "col_map and ascending arrays must have the same length");
+        }
+        if (max_rows < 0) {
+            throw new IllegalArgumentException(
+                    "max_rows must be greater than or equal to 0");
+        }
+
+        IntegerVector rows = new IntegerVector(max_rows);
+        if (max_rows > 0) {
+            PriorityQueue<Integer> top_rows = new PriorityQueue<>(
+                    max_rows,
+                    (left, right) ->
+                            -compareRowsByColumns(
+                                    left, right, col_map, ascending));
+
+            RowEnumeration row_enum = rowEnumeration();
+            while (row_enum.hasMoreRows()) {
+                int row = row_enum.nextRowIndex();
+                if (top_rows.size() < max_rows) {
+                    top_rows.add(row);
+                } else {
+                    Integer worst_row = top_rows.peek();
+                    if (compareRowsByColumns(
+                            row, worst_row, col_map, ascending) < 0) {
+                        top_rows.poll();
+                        top_rows.add(row);
+                    }
+                }
+            }
+
+            ArrayList<Integer> sorted_rows = new ArrayList<>(top_rows);
+            Collections.sort(sorted_rows,
+                    (left, right) ->
+                            compareRowsByColumns(
+                                    left, right, col_map, ascending));
+            for (Integer row : sorted_rows) {
+                rows.addInt(row);
+            }
+        }
+
+        VirtualTable table = new VirtualTable(this);
+        table.set(this, rows);
+
+        if (DEBUG_QUERY) {
+            if (Debug().isInterestedIn(Lvl.INFORMATION)) {
+                Debug().write(Lvl.INFORMATION, this,
+                        table + " = " + this + ".orderByColumns(" +
+                                Arrays.toString(col_map) + ", " +
+                                Arrays.toString(ascending) + ", " +
+                                max_rows + ")");
+            }
+        }
+
+        return table;
+    }
+
+    /**
+     * Compares two rows using the requested ORDER BY columns and directions.
+     * A negative value means left_row should appear before right_row.
+     */
+    private int compareRowsByColumns(int left_row, int right_row,
+                                     int[] col_map, boolean[] ascending) {
+        for (int i = 0; i < col_map.length; ++i) {
+            TObject left = getCellContents(col_map[i], left_row);
+            TObject right = getCellContents(col_map[i], right_row);
+            int result = left.compareTo(right);
+            if (result != 0) {
+                return ascending[i] ? result : -result;
+            }
+        }
+
+        // Make equal keys deterministic and consistent with the row order.
+        if (left_row < right_row) {
+            return -1;
+        } else if (left_row > right_row) {
+            return 1;
+        }
+        return 0;
     }
 
     /**
