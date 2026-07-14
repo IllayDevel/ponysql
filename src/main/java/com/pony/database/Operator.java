@@ -69,7 +69,7 @@ public abstract class Operator implements java.io.Serializable {
 
     protected Operator(String op, int precedence, int set_type) {
         if (set_type != NONE && set_type != ANY && set_type != ALL) {
-            throw new Error("Invalid set_type.");
+            throw new IllegalArgumentException("Invalid set_type.");
         }
         this.op = op;
         this.precedence = precedence;
@@ -149,7 +149,8 @@ public abstract class Operator implements java.io.Serializable {
         } else if (equals(leq_op)) {
             return geq_op;
         }
-        throw new Error("Can't reverse a non conditional operator.");
+        throw new IllegalStateException(
+                "Can't reverse a non conditional operator.");
     }
 
     /**
@@ -203,7 +204,7 @@ public abstract class Operator implements java.io.Serializable {
         } else if (equals(isn_op)) {
             return is_op;
         } else {
-            throw new Error("Can't inverse operator '" + op + "'");
+            throw new IllegalStateException("Can't inverse operator '" + op + "'");
         }
 
     }
@@ -237,7 +238,8 @@ public abstract class Operator implements java.io.Serializable {
         }
 
         if (result_op == null) {
-            throw new Error("Couldn't change the form of operator '" + op + "'.");
+            throw new IllegalArgumentException(
+                    "Couldn't change the form of operator '" + op + "'.");
         }
         return result_op;
     }
@@ -252,7 +254,8 @@ public abstract class Operator implements java.io.Serializable {
         } else if (s.equals("ALL")) {
             return getSubQueryForm(ALL);
         }
-        throw new Error("Do not understand subquery type '" + type_str + "'");
+        throw new IllegalArgumentException(
+                "Do not understand subquery type '" + type_str + "'");
     }
 
     /**
@@ -351,7 +354,7 @@ public abstract class Operator implements java.io.Serializable {
         }
 
 
-        throw new Error("Unrecognised operator type: " + op);
+        throw new IllegalArgumentException("Unrecognised operator type: " + op);
     }
 
     // ---------- Convenience methods ----------
@@ -669,7 +672,7 @@ public abstract class Operator implements java.io.Serializable {
                 // nulls present, return null.
                 return ret_val;
             } else {
-                throw new Error("Unknown RHS of ANY.");
+                throw new IllegalArgumentException("Unknown RHS of ANY.");
             }
         }
     }
@@ -730,7 +733,7 @@ public abstract class Operator implements java.io.Serializable {
                 // true.  If all match and there are NULLs then return NULL.
                 return ret_val;
             } else {
-                throw new Error("Unknown RHS of ALL.");
+                throw new IllegalArgumentException("Unknown RHS of ALL.");
             }
         }
     }
@@ -889,7 +892,8 @@ public abstract class Operator implements java.io.Serializable {
         public TObject eval(TObject ob1, TObject ob2,
                             GroupResolver group, VariableResolver resolver,
                             QueryContext context) {
-            throw new Error("Parenthese should never be evaluated!");
+            throw new UnsupportedOperationException(
+                    "Parenthese should never be evaluated!");
         }
     }
 
@@ -907,7 +911,8 @@ public abstract class Operator implements java.io.Serializable {
         public TObject eval(TObject ob1, TObject ob2,
                             GroupResolver group, VariableResolver resolver,
                             QueryContext context) {
-            throw new Error("SimpleOperator should never be evaluated!");
+            throw new UnsupportedOperationException(
+                    "SimpleOperator should never be evaluated!");
         }
     }
 

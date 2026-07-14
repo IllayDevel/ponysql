@@ -198,7 +198,8 @@ public final class Expression implements java.io.Serializable, Cloneable {
         ) {
             elements.add(ob);
         } else {
-            throw new Error("Unknown element type added to expression: " +
+            throw new IllegalArgumentException(
+                    "Unknown element type added to expression: " +
                     ob.getClass());
         }
     }
@@ -528,7 +529,8 @@ public final class Expression implements java.io.Serializable, Cloneable {
      */
     public Expression[] split() {
         if (size() <= 1) {
-            throw new Error("Can only split expressions with more than 1 element.");
+            throw new IllegalStateException(
+                    "Can only split expressions with more than 1 element.");
         }
 
         int midpoint = -1;
@@ -547,7 +549,8 @@ public final class Expression implements java.io.Serializable, Cloneable {
         }
 
         if (midpoint == -1) {
-            throw new Error("postfix format error: Midpoint not found.");
+            throw new IllegalStateException(
+                    "postfix format error: Midpoint not found.");
         }
 
         Expression lhs = new Expression();
@@ -712,7 +715,8 @@ public final class Expression implements java.io.Serializable, Cloneable {
             if (ob == null) {
                 throw new NullPointerException("Null element in expression");
             }
-            throw new Error("Unknown element type: " + ob.getClass());
+            throw new IllegalStateException(
+                    "Unknown element type: " + ob.getClass());
         }
     }
 
@@ -765,7 +769,8 @@ public final class Expression implements java.io.Serializable, Cloneable {
             CorrelatedVariable variable = (CorrelatedVariable) ob;
             return variable.returnTType();
         } else {
-            throw new Error("Unable to determine type for expression.");
+            throw new IllegalStateException(
+                    "Unable to determine type for expression.");
         }
     }
 

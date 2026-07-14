@@ -76,7 +76,7 @@ public class TableFunctions {
                     left_table.getColumnDefAt(left_col_map[i]);
             DataTableColumnDef right_type = right_table.getColumnDefAt(i);
             if (!left_type.getTType().comparableTypes(right_type.getTType())) {
-                throw new Error(
+                throw new IllegalArgumentException(
                         "The type of the sub-query expression " + left_vars[i] + "(" +
                                 left_type.getSQLTypeString() + ") is incompatible with " +
                                 "the sub-query type " + right_type.getSQLTypeString() + ".");
