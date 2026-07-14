@@ -182,7 +182,7 @@ abstract class JDBCProcessor implements ProtocolConstants {
             // Process the query
             return processQuery(command);
         } else {
-            throw new Error("Illegal state: " + state);
+            throw new IllegalStateException("Illegal state: " + state);
         }
 
     }
@@ -267,7 +267,7 @@ abstract class JDBCProcessor implements ProtocolConstants {
         int dispatch_id = ByteArrayUtil.getInt(command, 4);
 
         if (dispatch_id == -1) {
-            throw new Error("Special case dispatch id of -1 in query");
+            throw new IllegalArgumentException("Special case dispatch id of -1 in query");
         }
 
         if (ins == RESULT_SECTION) {
@@ -286,7 +286,7 @@ abstract class JDBCProcessor implements ProtocolConstants {
             close();
             result = null;
         } else {
-            throw new Error("Command (" + ins + ") not understood.");
+            throw new IllegalArgumentException("Command (" + ins + ") not understood.");
         }
 
         return result;

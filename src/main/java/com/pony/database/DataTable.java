@@ -565,7 +565,7 @@ public final class DataTable extends DefaultDataTable {
         // There is no reason why we would need to know this information at
         // this level.
         // We need to deprecate this properly.
-        throw new Error("hasRootsLocked is deprecated.");
+        throw new UnsupportedOperationException("hasRootsLocked is deprecated.");
     }
 
 
@@ -583,10 +583,10 @@ public final class DataTable extends DefaultDataTable {
             } else if (lock_type == Lock.WRITE) {
                 ++debug_write_lock_count;
                 if (debug_write_lock_count > 1) {
-                    throw new Error(">1 write lock on table " + getTableName());
+                    throw new IllegalStateException(">1 write lock on table " + getTableName());
                 }
             } else {
-                throw new Error("Unknown lock type: " + lock_type);
+                throw new IllegalArgumentException("Unknown lock type: " + lock_type);
             }
         }
     }

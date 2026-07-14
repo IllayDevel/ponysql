@@ -66,7 +66,7 @@ public final class StatementTree implements java.io.Serializable, Cloneable {
      */
     public StatementTree(String statement_class) {
         if (!statement_class.startsWith("com.pony.database.interpret.")) {
-            throw new Error("statement_class must be in the " +
+            throw new IllegalArgumentException("statement_class must be in the " +
                     "com.pony.database.interpret package.");
         }
         this.statement_class = statement_class;
@@ -97,12 +97,12 @@ public final class StatementTree implements java.io.Serializable, Cloneable {
 
             Object v = map.put(entry_name, ob);
             if (v != null) {
-                throw new Error("Entry '" + entry_name +
+                throw new IllegalStateException("Entry '" + entry_name +
                         "' is already present in this tree.");
             }
 
         } else {
-            throw new Error("ob of entry '" + entry_name +
+            throw new IllegalArgumentException("ob of entry '" + entry_name +
                     "' is not derived from a recognised class");
         }
 

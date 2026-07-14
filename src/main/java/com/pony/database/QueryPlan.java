@@ -483,7 +483,7 @@ public class QueryPlan {
                     range.union(left);
                     range.union(right);
                 } else {
-                    throw new Error("Unrecognised logical operator.");
+                    throw new IllegalArgumentException("Unrecognised logical operator.");
                 }
             } else {
                 // Not an operator so this is the value.
@@ -506,7 +506,7 @@ public class QueryPlan {
                 Variable cv = (Variable) all_var;
                 if (v != null) {
                     if (!cv.equals(v)) {
-                        throw new Error("Assertion failed: " +
+                        throw new IllegalStateException("Assertion failed: " +
                                 "Range plan does not contain common variable.");
                     }
                 }
@@ -516,7 +516,7 @@ public class QueryPlan {
             // Find the variable field in the table.
             int col = t.findFieldName(v);
             if (col == -1) {
-                throw new Error("Couldn't find column reference in table: " + v);
+                throw new IllegalArgumentException("Couldn't find column reference in table: " + v);
             }
             DataTableColumnDef field = t.getColumnDefAt(col);
             // Calculate the range

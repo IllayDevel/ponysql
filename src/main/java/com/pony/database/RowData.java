@@ -362,13 +362,13 @@ public class RowData implements Types {
 
             int col_index = table_def.findColumnName(col_name);
             if (col_index == -1) {
-                throw new Error("Can't find column: " + col_name);
+                throw new IllegalArgumentException("Can't find column: " + col_name);
             }
 
             TObject cell = data_cell_list[col_index];
 
             if (cell == null) {
-                throw new Error("Column " + col_name + " hasn't been set yet.");
+                throw new IllegalStateException("Column " + col_name + " hasn't been set yet.");
             }
 
             return cell;
@@ -379,7 +379,7 @@ public class RowData implements Types {
 
             int col_index = table_def.findColumnName(col_name);
             if (col_index == -1) {
-                throw new Error("Can't find column: " + col_name);
+                throw new IllegalArgumentException("Can't find column: " + col_name);
             }
 
             return table_def.columnAt(col_index).getTType();

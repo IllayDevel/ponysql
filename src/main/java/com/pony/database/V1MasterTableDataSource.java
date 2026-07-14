@@ -327,7 +327,7 @@ public final class V1MasterTableDataSource extends MasterTableDataSource {
         for (int i = 0; i < column_count; ++i) {
             int len = data_cell_serializer.skipSerialization(cell_in);
             if (len <= 0) {
-                throw new Error("Corrupt data - cell size is <= 0");
+                throw new IOException("Corrupt data - cell size is <= 0");
             }
             cell_in.skip(len);
             size += 4 + len;
@@ -769,7 +769,7 @@ public final class V1MasterTableDataSource extends MasterTableDataSource {
             for (int i = start_col; i < column; ++i) {
                 int len = data_cell_serializer.skipSerialization(cell_in);
                 if (len <= 0) {
-                    throw new Error("Corrupt data - cell size is <= 0");
+                    throw new IOException("Corrupt data - cell size is <= 0");
                 }
                 cell_in.skip(len);
                 ++OPT_last_col;
@@ -794,8 +794,8 @@ public final class V1MasterTableDataSource extends MasterTableDataSource {
 
         } catch (IOException e) {
             Debug().writeException(e);
-            throw new Error("IOError getting cell at (" + column + ", " +
-                    row + ").");
+            throw new RuntimeException("IOError getting cell at (" + column + ", " +
+                    row + ").", e);
         }
 
     }
@@ -842,4 +842,3 @@ public final class V1MasterTableDataSource extends MasterTableDataSource {
     }
 
 }
-

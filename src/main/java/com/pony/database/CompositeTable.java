@@ -104,7 +104,7 @@ public class CompositeTable extends Table implements RootTable {
      * composite index is already in sorted order.
      */
     private void removeDuplicates(boolean pre_sorted) {
-        throw new Error("PENDING");
+        throw new UnsupportedOperationException("PENDING");
     }
 
     /**
@@ -125,7 +125,7 @@ public class CompositeTable extends Table implements RootTable {
                 removeDuplicates(false);
             }
         } else {
-            throw new Error("Unrecognised composite function");
+            throw new IllegalArgumentException("Unrecognised composite function");
         }
 
     }
@@ -208,7 +208,7 @@ public class CompositeTable extends Table implements RootTable {
                 row -= sz;
             }
         }
-        throw new Error("Row '" + row + "' out of bounds.");
+        throw new IndexOutOfBoundsException("Row '" + row + "' out of bounds.");
     }
 
     public RowEnumeration rowEnumeration() {

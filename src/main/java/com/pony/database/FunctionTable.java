@@ -754,7 +754,7 @@ public class FunctionTable extends DefaultDataTable {
 
             int col_index = getReferenceTable().fastFindFieldName(variable);
             if (col_index == -1) {
-                throw new Error("Can't find column: " + variable);
+                throw new IllegalArgumentException("Can't find column: " + variable);
             }
 
             ensureGroup();
@@ -787,7 +787,7 @@ public class FunctionTable extends DefaultDataTable {
             // ---------- Implemented from VariableResolver ----------
 
             public int setID() {
-                throw new Error("setID not implemented here...");
+                throw new UnsupportedOperationException("setID not implemented here...");
             }
 
             public TObject resolve(Variable variable) {
@@ -797,7 +797,7 @@ public class FunctionTable extends DefaultDataTable {
             public TType returnTType(Variable variable) {
                 int col_index = getReferenceTable().fastFindFieldName(variable);
                 if (col_index == -1) {
-                    throw new Error("Can't find column: " + variable);
+                    throw new IllegalArgumentException("Can't find column: " + variable);
                 }
 
                 return getReferenceTable().getDataTableDef().columnAt(

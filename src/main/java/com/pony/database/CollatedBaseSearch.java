@@ -57,7 +57,7 @@ public abstract class CollatedBaseSearch extends SelectableScheme {
     public void insert(int row) {
         // Ignore insert (no state to maintain)
         if (isImmutable()) {
-            throw new Error("Tried to change an immutable scheme.");
+            throw new IllegalStateException("Tried to change an immutable scheme.");
         }
     }
 
@@ -67,7 +67,7 @@ public abstract class CollatedBaseSearch extends SelectableScheme {
     public void remove(int row) {
         // Ignore remove (no state to maintain)
         if (isImmutable()) {
-            throw new Error("Tried to change an immutable scheme.");
+            throw new IllegalStateException("Tried to change an immutable scheme.");
         }
     }
 
@@ -241,7 +241,7 @@ public abstract class CollatedBaseSearch extends SelectableScheme {
                 return p + 1;
 
             default:
-                throw new Error("Unrecognised flag.");
+                throw new IllegalArgumentException("Unrecognised flag.");
         }
 
     }
@@ -304,4 +304,3 @@ public abstract class CollatedBaseSearch extends SelectableScheme {
     }
 
 }
-
