@@ -18,89 +18,77 @@
 
 package com.pony.tests;
 
-import com.pony.util.CommandLine;
+import com.pony.database.control.DBController;
+import com.pony.database.control.DBSystem;
+import com.pony.database.control.DefaultDBConfig;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
-import java.sql.*;
+import java.nio.file.Path;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- *
- *
- * @author Tobias Downer
+ * Regression coverage for the old manual InsertPerformanceTest main program.
  */
+class InsertPerformanceTest {
 
-public class InsertPerformanceTest {
+    private static final int INSERT_COUNT = 512;
 
-    /**
-     * The application start.
-     */
-    public static void main(String[] args) {
-        CommandLine command_line = new CommandLine(args);
+    @TempDir
+    Path tempDir;
 
-        // Register the Pony JDBC Driver
-        try {
-            Class.forName("com.pony.JDBCDriver").newInstance();
-        } catch (Exception e) {
-            System.out.println(
-                    "Unable to register the JDBC Driver.\n" +
-                            "Make sure the classpath is correct.\n");
-            return;
-        }
+    @Test
+    void insertsPreparedRowsAcrossCommitBatches() throws Exception {
+        DefaultDBConfig config = new DefaultDBConfig();
+        config.setDatabasePath(tempDir.resolve("data").toString());
+        config.setLogPath(tempDir.resolve("log").toString());
 
-        // Get the command line arguments
-        String url = command_line.switchArgument("-url");
-        String username = command_line.switchArgument("-u");
-        String password = command_line.switchArgument("-p");
+        DBSystem database = DBController.getDefault()
+                .createDatabase(config, "test", "test");
+        database.setDeleteOnClose(true);
 
-        if (url == null) {
-            System.out.println("Please provide a JDBC url.");
-            System.exit(-1);
-        } else if (username == null || password == null) {
-            System.out.println("Please provide a username and password.");
-            System.exit(-1);
-        }
-
-        // Make a connection with the database.  This will create the database
-        // and log into the newly created database.
-        try {
-            Connection connection = DriverManager.getConnection(url, username, password);
-
-            Statement stmt = connection.createStatement();
-            stmt.executeQuery(
-                    "CREATE TABLE TTable ( c1 NUMERIC, c2 NUMERIC, c3 TEXT, c4 TEXT )");
-
-            PreparedStatement ins = connection.prepareStatement(
-                    "INSERT INTO TTable ( c1, c2, c3, c4 ) VALUES ( ?, ?, ?, ? )");
-
-            final int insert_count = 20000;
-            long t_in = System.currentTimeMillis();
+        try (Connection connection = database.getConnection("test", "test");
+             Statement statement = connection.createStatement()) {
+            statement.executeQuery(
+                    "CREATE TABLE TTable (" +
+                            " c1 NUMERIC, c2 NUMERIC, c3 TEXT, c4 TEXT )");
 
             connection.setAutoCommit(false);
-            for (int i = 0; i < insert_count; ++i) {
-                ins.setInt(1, i);
-                ins.setInt(2, i + 10000);
-                ins.setString(3, "" + i + " - a string");
-                ins.setString(4, "This is some data being inserted.");
-                ins.executeUpdate();
+            try (PreparedStatement insert = connection.prepareStatement(
+                    "INSERT INTO TTable ( c1, c2, c3, c4 ) " +
+                            "VALUES ( ?, ?, ?, ? )")) {
+                for (int i = 0; i < INSERT_COUNT; ++i) {
+                    insert.setInt(1, i);
+                    insert.setInt(2, i + 10000);
+                    insert.setString(3, i + " - a string");
+                    insert.setString(4, "This is some data being inserted.");
+                    assertEquals(1, insert.executeUpdate());
 
-                if ((i % 500) == 499) {
-                    connection.commit();
+                    if ((i % 128) == 127) {
+                        connection.commit();
+                    }
                 }
             }
-
             connection.commit();
 
-            long t_out = System.currentTimeMillis();
-            long t_taken = t_out - t_in;
-
-            System.out.println("Time taken: " + t_taken + "ms.");
-            System.out.println("Record count: " + insert_count);
-            System.out.println("Per Second: " + ((float) insert_count / ((float) t_taken / 1000)));
-
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            try (ResultSet result = statement.executeQuery(
+                    "SELECT COUNT(*), MIN(c1), MAX(c2) FROM TTable")) {
+                assertTrue(result.next());
+                assertEquals(INSERT_COUNT, result.getInt(1));
+                assertEquals(0, result.getInt(2));
+                assertEquals(10000 + INSERT_COUNT - 1, result.getInt(3));
+                assertFalse(result.next());
+            }
+        } finally {
+            database.close();
         }
     }
 
 }
-
