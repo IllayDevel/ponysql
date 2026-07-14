@@ -18,40 +18,45 @@
 
 package com.pony.tests;
 
-import java.sql.*;
+import org.junit.jupiter.api.Test;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 /**
- *
- *
- * @author Tobias Downer
+ * Opt-in integration coverage for the old manual RemoteConnectTest program.
  */
+class RemoteConnectTest {
 
-public class RemoteConnectTest {
+    @Test
+    void opensMultipleRemoteConnectionsWhenEnabled() throws Exception {
+        assumeTrue(Boolean.getBoolean("pony.remote.tests"),
+                "Set -Dpony.remote.tests=true to run remote integration tests.");
 
-    public static void main(String[] args) {
+        Class.forName("com.pony.JDBCDriver");
 
+        String url = System.getProperty(
+                "pony.remote.url", "jdbc:pony://linux2");
+        String user = System.getProperty("pony.remote.user", "test");
+        String password = System.getProperty("pony.remote.password", "test");
+        int connectionCount = Integer.getInteger(
+                "pony.remote.connectionCount", 10);
+
+        List<Connection> connections = new ArrayList<>();
         try {
-            Class.forName("com.pony.JDBCDriver");
-
-            System.out.println("STARTED");
-
-            Connection[] c = new Connection[50];
-
-            for (int i = 0; i < 50; ++i) {
-                c[i] =
-                        DriverManager.getConnection("jdbc:pony://linux2", "test", "test");
+            for (int i = 0; i < connectionCount; ++i) {
+                connections.add(DriverManager.getConnection(
+                        url, user, password));
             }
-
-            System.out.println("FINISHED");
-
-            Thread.sleep(10000);
-
-
-        } catch (Throwable e) {
-            e.printStackTrace();
+        } finally {
+            for (Connection connection : connections) {
+                connection.close();
+            }
         }
-
     }
 
 }
-

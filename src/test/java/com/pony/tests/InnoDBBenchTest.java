@@ -18,59 +18,55 @@
 
 package com.pony.tests;
 
-import java.sql.*;
+import org.junit.jupiter.api.Test;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 /**
- *
- *
- * @author Tobias Downer
+ * Opt-in integration coverage for the old manual InnoDBBenchTest program.
  */
+class InnoDBBenchTest {
 
-public class InnoDBBenchTest {
+    @Test
+    void runsRemoteInsertBenchmarkWhenEnabled() throws Exception {
+        assumeTrue(Boolean.getBoolean("pony.remote.tests"),
+                "Set -Dpony.remote.tests=true to run remote integration tests.");
 
-    public static void main(String[] args) {
+        Class.forName("com.pony.JDBCDriver");
 
-        try {
-            Class.forName("com.pony.JDBCDriver");
-        } catch (Exception e) {
-            throw new Error("No JDBC driver in classpath!");
-        }
+        String url = System.getProperty(
+                "pony.remote.url", "jdbc:pony://linux2/");
+        String user = System.getProperty("pony.remote.user", "test");
+        String password = System.getProperty("pony.remote.password", "test");
+        int rowCount = Integer.getInteger("pony.remote.benchRows", 1000);
 
-        try {
-            Connection c =
-                    DriverManager.getConnection("jdbc:pony://linux2/", "test", "test");
-
-            c.createStatement().executeQuery(
+        try (Connection connection =
+                     DriverManager.getConnection(url, user, password);
+             Statement statement = connection.createStatement()) {
+            statement.executeUpdate("DROP TABLE IF EXISTS T1");
+            statement.executeUpdate("DROP TABLE IF EXISTS T2");
+            statement.executeUpdate(
                     "CREATE TABLE T1 (A INT NOT NULL, B INT, PRIMARY KEY(A))");
-            c.createStatement().executeQuery(
+            statement.executeUpdate(
                     "CREATE TABLE T2 (A INT NOT NULL, B INT, PRIMARY KEY(A))");
 
-            PreparedStatement insert_stmt = c.prepareStatement(
-                    "INSERT INTO T1 ( A, B ) VALUES ( ?, ? )");
-
-            c.setAutoCommit(false);
-            long start_time = System.currentTimeMillis();
-            for (int i = 0; i < 100000; ++i) {
-                insert_stmt.setInt(1, i);
-                insert_stmt.setInt(2, i);
-                insert_stmt.executeQuery();
-                if ((i % 10000) == 0) {
-                    System.out.print(".");
-                    System.out.flush();
+            connection.setAutoCommit(false);
+            try (PreparedStatement insert = connection.prepareStatement(
+                    "INSERT INTO T1 ( A, B ) VALUES ( ?, ? )")) {
+                for (int i = 0; i < rowCount; ++i) {
+                    insert.setInt(1, i);
+                    insert.setInt(2, i);
+                    assertEquals(1, insert.executeUpdate());
                 }
             }
-            c.commit();
-
-            long total_time = System.currentTimeMillis() - start_time;
-            System.out.println("Total time: " + total_time);
-            System.out.println("Inserts per sec: " + (total_time / 100000));
-
-            c.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+            connection.commit();
         }
-
     }
 
 }
