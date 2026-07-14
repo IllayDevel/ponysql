@@ -433,7 +433,7 @@ public class DatabaseConnection implements TriggerListener {
         if (name.equals("serializable")) {
             transaction_isolation = 4;
         } else {
-            throw new Error("Can not set transaction isolation to " + name);
+            throw new IllegalArgumentException("Can not set transaction isolation to " + name);
         }
     }
 
@@ -672,7 +672,7 @@ public class DatabaseConnection implements TriggerListener {
 
         } catch (DatabaseException e) {
             Debug().writeException(e);
-            throw new Error("Database Exception: " + e.getMessage());
+            throw new RuntimeException("Database Exception: " + e.getMessage(), e);
         }
 
     }
@@ -1128,7 +1128,7 @@ public class DatabaseConnection implements TriggerListener {
         boolean ignore_case = isInCaseInsensitiveMode();
         SchemaDef schema = resolveSchemaCase(schema_name, ignore_case);
         if (schema == null) {
-            throw new Error("Schema '" + schema_name + "' does not exist.");
+            throw new IllegalArgumentException("Schema '" + schema_name + "' does not exist.");
         } else {
             // Set the default schema for this connection
             setCurrentSchema(schema.getName());
@@ -1140,7 +1140,7 @@ public class DatabaseConnection implements TriggerListener {
 
     private void checkExclusive() {
         if (!getLockingMechanism().isInExclusiveMode()) {
-            throw new Error("Assertion failed: Expected to be in exclusive mode.");
+            throw new IllegalStateException("Assertion failed: Expected to be in exclusive mode.");
         }
     }
 
@@ -1383,7 +1383,7 @@ public class DatabaseConnection implements TriggerListener {
                             TriggerEvent evt) {
 
         if (this != database) {
-            throw new Error("User object mismatch.");
+            throw new IllegalArgumentException("User object mismatch.");
         }
 
         try {

@@ -123,7 +123,7 @@ final class RawTableInformation {
         // First check number of tables in each merge is correct.
 
         if (merge1.length != merge2.length) {
-            throw new Error("Incorrect format in table union");
+            throw new IllegalArgumentException("Incorrect format in table union");
         }
 
         // Check each table in the merge1 set has identical length row_sets
@@ -133,7 +133,7 @@ final class RawTableInformation {
                 size1 = rawTableElement.row_set.size();
             } else {
                 if (size1 != rawTableElement.row_set.size()) {
-                    throw new Error("Incorrect format in table union");
+                    throw new IllegalArgumentException("Incorrect format in table union");
                 }
             }
         }
@@ -147,14 +147,14 @@ final class RawTableInformation {
             //  see AbstractDataTable.typeEquals method).
 
             if (!merge2[i].table.typeEquals(merge1[i].table)) {
-                throw new Error("Incorrect format in table union");
+                throw new IllegalArgumentException("Incorrect format in table union");
             }
 
             if (size2 == -1) {
                 size2 = merge2[i].row_set.size();
             } else {
                 if (size2 != merge2[i].row_set.size()) {
-                    throw new Error("Incorrect format in table union");
+                    throw new IllegalArgumentException("Incorrect format in table union");
                 }
             }
         }
@@ -163,7 +163,7 @@ final class RawTableInformation {
         // 0 for an empty table).
 
         if (size1 == -1 || size2 == -1) {
-            throw new Error("Incorrect format in table union");
+            throw new IllegalArgumentException("Incorrect format in table union");
         }
 
         // We don't need information in 'raw_info' vector anymore so clear it.

@@ -425,7 +425,7 @@ public class VariableSizeDataStore {
             } catch (DataFormatException e) {
                 e.printStackTrace();
                 debug.writeException(e);
-                throw new Error(e.getMessage());
+                throw new IOException(e.getMessage(), e);
             }
 
             return inflate_count;
@@ -479,11 +479,11 @@ public class VariableSizeDataStore {
             } catch (DataFormatException e) {
                 e.printStackTrace();
                 debug.writeException(e);
-                throw new Error(e.getMessage());
+                throw new IOException(e.getMessage(), e);
             }
 
             if (inflate_count != buf.length) {
-                throw new Error("Inflate size != buf.length (" +
+                throw new IOException("Inflate size != buf.length (" +
                         inflate_count + " != " + buf.length + ")");
             }
 
@@ -534,7 +534,7 @@ public class VariableSizeDataStore {
             sector_output_stream = data_store.getSectorOutputStream();
             return sector_output_stream;
         } else {
-            throw new Error("More than one record output stream opened.");
+            throw new IllegalStateException("More than one record output stream opened.");
         }
     }
 
@@ -563,7 +563,7 @@ public class VariableSizeDataStore {
             // Add to the allocation store last.
             return allocation_store.addSector(index_key);
         } else {
-            throw new Error("Output stream not available.");
+            throw new IllegalStateException("Output stream not available.");
         }
     }
 

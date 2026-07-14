@@ -142,19 +142,19 @@ final class MasterTableJournal {
      */
     public void crop(int start, int end) {
         if (start < 0) {
-            throw new Error("Crop start < 0.");
+            throw new IllegalArgumentException("Crop start < 0.");
         } else if (start == 0) {
             if (end > index) {
-                throw new Error("Crop end was past end.");
+                throw new IllegalArgumentException("Crop end was past end.");
             }
             index = end;
         } else {
             if (start >= index) {
-                throw new Error("start >= index");
+                throw new IllegalArgumentException("start >= index");
             }
             int length = (end - start);
             if (length < 0) {
-                throw new Error("end - start < 0");
+                throw new IllegalArgumentException("end - start < 0");
             }
             System.arraycopy(list, start, list, 0, length);
             index = length;
@@ -240,7 +240,7 @@ final class MasterTableJournal {
                     list.removeIntAt(found_at);
                 }
             } else {
-                throw new Error("Unknown command in journal.");
+                throw new IllegalStateException("Unknown command in journal.");
             }
         }
 

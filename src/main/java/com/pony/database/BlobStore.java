@@ -432,7 +432,7 @@ final class BlobStore implements BlobStoreInterface {
                 // Status of the recycled block
                 int status = block.getInt();
                 if ((status & 0x020000) == 0) {
-                    throw new Error("Assertion failed: record is not deleted!");
+                    throw new IllegalStateException("Assertion failed: record is not deleted!");
                 }
                 // Reference count (currently unused in delete chains).
                 block.getInt();
@@ -534,7 +534,7 @@ final class BlobStore implements BlobStoreInterface {
             int status = block.getInt();
             // Assert that the status is not deleted
             if ((status & 0x020000) != 0) {
-                throw new Error("Assertion failed: record is deleted!");
+                throw new IllegalStateException("Assertion failed: record is deleted!");
             }
             // Get the reference count
             int reference_count = block.getInt();
@@ -769,7 +769,7 @@ final class BlobStore implements BlobStoreInterface {
             status = block.getInt();
             // Assert that the status is not deleted
             if ((status & 0x020000) != 0) {
-                throw new Error("Assertion failed: record is deleted!");
+                throw new IllegalStateException("Assertion failed: record is deleted!");
             }
             // Get the reference count
             reference_count = block.getInt();
@@ -860,7 +860,7 @@ final class BlobStore implements BlobStoreInterface {
             status = block.getInt();
             // Assert that the status is not deleted
             if ((status & 0x020000) != 0) {
-                throw new Error("Assertion failed: record is deleted!");
+                throw new IllegalStateException("Assertion failed: record is deleted!");
             }
             // Get the reference count
             reference_count = block.getInt();
@@ -1001,7 +1001,7 @@ final class BlobStore implements BlobStoreInterface {
          */
         void assertIsOpen() {
             if (!open_for_write) {
-                throw new Error("Large object ref is newly allocated.");
+                throw new IllegalStateException("Large object ref is newly allocated.");
             }
         }
 
@@ -1130,4 +1130,3 @@ final class BlobStore implements BlobStoreInterface {
     }
 
 }
-

@@ -1518,7 +1518,7 @@ public class Transaction extends SimpleTransaction {
             }
 
             if (data.size() > 1) {
-                throw new Error("Assertion failed: multiple primary key for: " +
+                throw new IllegalStateException("Assertion failed: multiple primary key for: " +
                         table_name);
             } else if (data.size() == 1) {
                 int row_index = data.intAt(0);
@@ -1568,7 +1568,7 @@ public class Transaction extends SimpleTransaction {
                     2, table.getSchema());
 
             if (data.size() > 1) {
-                throw new Error("Assertion failed: multiple unique constraint name: " +
+                throw new IllegalStateException("Assertion failed: multiple unique constraint name: " +
                         constraint_name);
             } else if (data.size() == 1) {
                 int row_index = data.intAt(0);
@@ -1614,7 +1614,7 @@ public class Transaction extends SimpleTransaction {
                     2, table.getSchema());
 
             if (data.size() > 1) {
-                throw new Error("Assertion failed: multiple check constraint name: " +
+                throw new IllegalStateException("Assertion failed: multiple check constraint name: " +
                         constraint_name);
             } else if (data.size() == 1) {
                 // Delete the check constraint
@@ -1657,7 +1657,7 @@ public class Transaction extends SimpleTransaction {
                     2, table.getSchema());
 
             if (data.size() > 1) {
-                throw new Error("Assertion failed: multiple foreign key constraint " +
+                throw new IllegalStateException("Assertion failed: multiple foreign key constraint " +
                         "name: " + constraint_name);
             } else if (data.size() == 1) {
                 int row_index = data.intAt(0);
@@ -1780,7 +1780,7 @@ public class Transaction extends SimpleTransaction {
                     2, table_name.getSchema());
 
             if (data.size() > 1) {
-                throw new Error("Assertion failed: multiple primary key for: " +
+                throw new IllegalStateException("Assertion failed: multiple primary key for: " +
                         table_name);
             } else if (data.size() == 1) {
                 int row_index = data.intAt(0);
