@@ -18,35 +18,90 @@
 
 package com.pony.tests;
 
-import java.sql.*;
+import com.pony.database.control.DBController;
+import com.pony.database.control.DBSystem;
+import com.pony.database.control.DefaultDBConfig;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import java.nio.file.Path;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- *
- *
- * @author Tobias Downer
+ * Regression coverage for the old manual ManyTableTest main program.
  */
+class ManyTableTest {
 
-public class ManyTableTest {
+    private static final int TABLE_COUNT = 128;
 
-    public static void main(String[] args) {
+    @TempDir
+    Path tempDir;
 
-        try {
+    @Test
+    void createsAndQueriesManyTables() throws Exception {
+        DefaultDBConfig config = new DefaultDBConfig();
+        config.setDatabasePath(tempDir.resolve("data").toString());
+        config.setLogPath(tempDir.resolve("log").toString());
 
-            Class.forName("com.pony.JDBCDriver");
+        DBSystem database = DBController.getDefault()
+                .createDatabase(config, "test", "test");
+        database.setDeleteOnClose(true);
 
-            Connection c = DriverManager.getConnection(
-                    "jdbc:pony:local://db.conf", "test", "test");
-            Statement stmt = c.createStatement();
-
-            for (int i = 0; i < 1000; ++i) {
-                stmt.executeQuery("CREATE TABLE Table" + i + " ( c1 int, c2 varchar )");
+        try (Connection connection = database.getConnection("test", "test");
+             Statement statement = connection.createStatement()) {
+            for (int i = 0; i < TABLE_COUNT; ++i) {
+                statement.executeQuery(
+                        "CREATE TABLE Table" + i +
+                                " ( c1 INTEGER, c2 VARCHAR )");
             }
 
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
+            insertRow(connection, 0, 10, "first");
+            insertRow(connection, TABLE_COUNT - 1, 20, "last");
 
+            assertEquals("first", queryValue(connection, 0, 10));
+            assertEquals("last", queryValue(connection, TABLE_COUNT - 1, 20));
+            assertEquals(TABLE_COUNT, visibleUserTableCount(statement));
+        } finally {
+            database.close();
+        }
+    }
+
+    private void insertRow(Connection connection, int tableNumber, int value,
+                           String text) throws Exception {
+        try (PreparedStatement insert = connection.prepareStatement(
+                "INSERT INTO Table" + tableNumber +
+                        " ( c1, c2 ) VALUES ( ?, ? )")) {
+            insert.setInt(1, value);
+            insert.setString(2, text);
+            insert.executeUpdate();
+        }
+    }
+
+    private String queryValue(Connection connection, int tableNumber, int value)
+            throws Exception {
+        try (PreparedStatement select = connection.prepareStatement(
+                "SELECT c2 FROM Table" + tableNumber + " WHERE c1 = ?")) {
+            select.setInt(1, value);
+            try (ResultSet result = select.executeQuery()) {
+                result.next();
+                return result.getString(1);
+            }
+        }
+    }
+
+    private int visibleUserTableCount(Statement statement) throws Exception {
+        int count = 0;
+        try (ResultSet result = statement.executeQuery("SHOW TABLES")) {
+            while (result.next()) {
+                ++count;
+            }
+        }
+        return count;
     }
 
 }
-
