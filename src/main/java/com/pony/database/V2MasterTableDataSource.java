@@ -20,6 +20,7 @@ package com.pony.database;
 
 import com.pony.store.*;
 import com.pony.debug.*;
+import com.pony.util.BlockIntegerList;
 import com.pony.util.IntegerListInterface;
 import com.pony.util.UserTerminal;
 import com.pony.database.global.ObjectTransfer;
@@ -1197,6 +1198,147 @@ public final class V2MasterTableDataSource extends MasterTableDataSource {
         index_set.dispose();
     }
 
+    synchronized void createIndex(String index_name, String[] column_names,
+                                  boolean unique) throws IOException {
+        validateIndexDefinition(index_name, column_names);
+        if (unique) {
+            validateUniqueIndex(column_names);
+        }
+
+        int pointer = index_store.indexListCount();
+        index_store.addIndexLists(1, (byte) 1, 1024);
+
+        DataIndexSetDef new_index_def = new DataIndexSetDef(getDataIndexSetDef());
+        new_index_def.addDataIndexDef(new DataIndexDef(index_name,
+                column_names, pointer, "BLIST", unique));
+        persistDataIndexSetDef(new_index_def);
+        index_def = new_index_def;
+
+        buildIndex(index_def.indexCount() - 1);
+    }
+
+    synchronized void dropIndex(String index_name) throws IOException {
+        DataIndexSetDef current = getDataIndexSetDef();
+        int index_number = current.findIndexWithName(index_name);
+        if (index_number == -1) {
+            throw new StatementException("Index '" + index_name + "' not found.");
+        }
+
+        DataIndexDef drop_def = current.indexAt(index_number);
+        if (drop_def.getName().startsWith("ANON-COLUMN:")) {
+            throw new StatementException(
+                    "Can not drop internal column index '" + index_name + "'.");
+        }
+
+        DataIndexSetDef new_index_def = new DataIndexSetDef(current);
+        new_index_def.removeDataIndexDef(index_number);
+        persistDataIndexSetDef(new_index_def);
+        index_def = new_index_def;
+
+        index_store.commitDropIndex(drop_def.getPointer());
+    }
+
+    private void validateIndexDefinition(String index_name, String[] column_names) {
+        if (index_name == null || index_name.length() == 0) {
+            throw new StatementException("Index name must not be empty.");
+        }
+        if (index_name.startsWith("ANON-COLUMN:")) {
+            throw new StatementException(
+                    "Index name '" + index_name + "' is reserved.");
+        }
+        if (getDataIndexSetDef().findIndexWithName(index_name) != -1) {
+            throw new StatementException(
+                    "Index '" + index_name + "' already exists.");
+        }
+        if (column_names == null || column_names.length == 0) {
+            throw new StatementException("Index must contain at least one column.");
+        }
+
+        DataTableDef table_def = getDataTableDef();
+        for (int i = 0; i < column_names.length; ++i) {
+            String column = column_names[i];
+            int col_index = table_def.findColumnName(column);
+            if (col_index == -1) {
+                throw new StatementException("Column '" + column + "' not found.");
+            }
+            DataTableColumnDef column_def = table_def.columnAt(col_index);
+            if (!column_def.isIndexableType()) {
+                throw new StatementException("Column '" + column +
+                        "' can not be indexed.");
+            }
+            for (int n = i + 1; n < column_names.length; ++n) {
+                if (column.equals(column_names[n])) {
+                    throw new StatementException(
+                            "Duplicate column in index: " + column);
+                }
+            }
+        }
+    }
+
+    private void validateUniqueIndex(String[] column_names) throws IOException {
+        int[] columns = new int[column_names.length];
+        DataTableDef table_def = getDataTableDef();
+        for (int i = 0; i < column_names.length; ++i) {
+            columns[i] = table_def.findColumnName(column_names[i]);
+        }
+
+        IndexSet index_set = createIndexSet();
+        try {
+            IntegerListInterface scratch_list = new BlockIntegerList();
+            SelectableScheme scheme;
+            IntegerListInterface master_index = index_set.getIndex(0);
+            TableDataSource min_table_source = minimalTableDataSource(master_index);
+            if (columns.length == 1) {
+                scheme = new InsertSearch(min_table_source, columns[0],
+                        scratch_list, true);
+            } else {
+                scheme = new CompositeInsertSearch(min_table_source, columns,
+                        scratch_list, true);
+            }
+
+            int row_count = rawRowCount();
+            for (int row_index = 0; row_index < row_count; ++row_index) {
+                if (!recordDeleted(row_index)) {
+                    scheme.insert(row_index);
+                }
+            }
+        } finally {
+            index_set.dispose();
+        }
+    }
+
+    private void persistDataIndexSetDef(DataIndexSetDef new_index_def)
+            throws IOException {
+        ByteArrayOutputStream bout = new ByteArrayOutputStream();
+        DataOutputStream dout = getDOut(bout);
+        dout.writeInt(1);
+        new_index_def.write(dout);
+        dout.close();
+        byte[] index_set_def_buf = bout.toByteArray();
+
+        try {
+            store.lockForWrite();
+
+            header_area.position(24);
+            long old_index_def_p = header_area.getLong();
+
+            AreaWriter data_index_set_writer =
+                    store.createArea(index_set_def_buf.length);
+            long data_index_set_def_p = data_index_set_writer.getID();
+            data_index_set_writer.put(index_set_def_buf);
+            data_index_set_writer.finish();
+
+            header_area.position(24);
+            header_area.putLong(data_index_set_def_p);
+            header_area.position(0);
+            header_area.checkOut();
+
+            store.deleteArea(old_index_def_p);
+        } finally {
+            store.unlockForWrite();
+        }
+    }
+
     int internalAddRow(RowData data) throws IOException {
 
         long row_number;
@@ -1484,4 +1626,3 @@ public final class V2MasterTableDataSource extends MasterTableDataSource {
     }
 
 }
-

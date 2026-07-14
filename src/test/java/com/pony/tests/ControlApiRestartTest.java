@@ -18,6 +18,7 @@
 
 package com.pony.tests;
 
+import com.pony.database.control.DBConfig;
 import com.pony.database.control.DBController;
 import com.pony.database.control.DBSystem;
 import com.pony.database.control.DefaultDBConfig;
@@ -35,15 +36,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
- * Regression coverage for the old manual ControlAPITest main program.
+ * Regression coverage for the old manual ControlAPITest2 main program.
  */
-class ControlAPITest {
+class ControlApiRestartTest {
 
     @TempDir
     Path tempDir;
 
     @Test
-    void controlApiCreatesDatabaseAndServesJdbcConnections()
+    void controlApiRestartsDatabaseAndKeepsCommittedRows()
             throws Exception {
         DBController controller = DBController.getDefault();
         DefaultDBConfig config = new DefaultDBConfig();
@@ -51,8 +52,22 @@ class ControlAPITest {
         config.setLogPath(tempDir.resolve("log").toString());
 
         DBSystem database = controller.createDatabase(config, "test", "test");
-        database.setDeleteOnClose(true);
+        try {
+            populateDatabase(database);
+        } finally {
+            database.close();
+        }
 
+        for (int i = 0; i < 10; ++i) {
+            assertRestartedDatabase(config);
+        }
+
+        database = controller.startDatabase(config);
+        database.setDeleteOnClose(true);
+        database.close();
+    }
+
+    private void populateDatabase(DBSystem database) throws Exception {
         try (Connection connection = database.getConnection("test", "test");
              Statement statement = connection.createStatement()) {
             DatabaseMetaData metaData = connection.getMetaData();
@@ -72,20 +87,31 @@ class ControlAPITest {
             }
 
             connection.commit();
-
-            int rowCount = 0;
-            try (ResultSet result = statement.executeQuery(
-                    "SELECT a, b FROM test WHERE a <= 10 OR a >= 60")) {
-                while (result.next()) {
-                    int value = result.getInt(1);
-                    assertEquals("record:" + value, result.getString(2));
-                    ++rowCount;
-                }
-            }
-            assertEquals(51, rowCount);
-        } finally {
-            database.close();
+            assertSelectedRows(connection);
         }
+    }
+
+    private void assertRestartedDatabase(DBConfig config) throws Exception {
+        DBSystem session = DBController.getDefault().startDatabase(config);
+        try (Connection connection = session.getConnection("test", "test")) {
+            assertSelectedRows(connection);
+        } finally {
+            session.close();
+        }
+    }
+
+    private void assertSelectedRows(Connection connection) throws Exception {
+        int rowCount = 0;
+        try (Statement statement = connection.createStatement();
+             ResultSet result = statement.executeQuery(
+                     "SELECT a, b FROM test WHERE a <= 10 OR a >= 60")) {
+            while (result.next()) {
+                int value = result.getInt(1);
+                assertEquals("record:" + value, result.getString(2));
+                ++rowCount;
+            }
+        }
+        assertEquals(51, rowCount);
     }
 
 }

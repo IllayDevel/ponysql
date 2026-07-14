@@ -289,11 +289,6 @@ public abstract class SimpleTransaction {
      */
     abstract MutableTableDataSource createMutableTableDataSourceAtCommit(
             MasterTableDataSource master);
-    abstract MutableTableDataSource createMutableTableDataSourceAtCommit(
-            MasterTableDataSource master, Integer limit);
-
-    // -----
-
     /**
      * Flushes the table cache and purges the cache of the entry for the given
      * table name.
@@ -434,39 +429,6 @@ public abstract class SimpleTransaction {
 
             // Put table name in the cache
             table_cache.put(table_name, table);
-        }
-
-        return table;
-
-    }
-
-    /**
-     * Returns a MutableTableDataSource object that represents the table with
-     * the given name within this transaction and row count limitation.  Any changes made to this table
-     * are only made within the context of this transaction.  This means if a
-     * row is added or removed, it is not made perminant until the transaction
-     * is committed.
-     * <p>
-     * If the table does not exist then an exception is thrown.
-     */
-    public MutableTableDataSource getTable(TableName table_name, Integer limit) {
-
-        // If table is in the cache, return it
-        MutableTableDataSource table = null;
-
-        // Is it represented as a master table?
-        MasterTableDataSource master = findVisibleTable(table_name, false);
-
-        // Not a master table, so see if it's a dynamic table instead,
-        if (master == null) {
-            // Is this a dynamic table?
-            if (isDynamicTable(table_name)) {
-                return getDynamicTable(table_name);
-            }
-        } else {
-            // Otherwise make a view of tha master table data source and put it in
-            // the cache.
-            table = createMutableTableDataSourceAtCommit(master, limit);
         }
 
         return table;
@@ -767,4 +729,3 @@ public abstract class SimpleTransaction {
 
 
 }
-

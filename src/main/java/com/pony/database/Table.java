@@ -121,6 +121,14 @@ public abstract class Table implements TableDataSource {
     abstract SelectableScheme getSelectableSchemeFor(int column, int original_column, Table table);
 
     /**
+     * Returns a SelectableScheme for an exact multi-column index in this table
+     * domain, or null if no such index is available.
+     */
+    SelectableScheme getSelectableSchemeForColumns(int[] columns) {
+        return null;
+    }
+
+    /**
      * Given a set, this trickles down through the Table hierarchy resolving
      * the given row_set to a form that the given ancestor understands.
      * Say you give the set { 0, 1, 2, 3, 4, 5, 6 }, this function may check
@@ -1390,9 +1398,33 @@ public abstract class Table implements TableDataSource {
      * NOTE: This can be used to exploit multi-column indexes if they exist.
      */
     final IntegerVector selectRows(int[] cols, Operator op, TObject[] cells) {
-        // PENDING: Look for an multi-column index to make this a lot faster,
         if (cols.length > 1) {
-            throw new Error("Multi-column select not supported.");
+            for (int i = 0; i < cols.length; ++i) {
+                TType col_type = getTTypeForColumn(cols[i]);
+                if (!cells[i].getTType().comparableTypes(col_type)) {
+                    return new IntegerVector(0);
+                }
+            }
+            if (op.is("=")) {
+                SelectableScheme scheme = getSelectableSchemeForColumns(cols);
+                if (scheme instanceof CompositeInsertSearch) {
+                    return ((CompositeInsertSearch) scheme).selectEqual(cells);
+                }
+            }
+            // Fall back to applying each equality in turn. This preserves
+            // correctness for unsupported operators or missing composite indexes.
+            Table table = this;
+            for (int i = 0; i < cols.length; ++i) {
+                table = table.simpleSelect(null, getResolvedVariable(cols[i]), op,
+                        new Expression(cells[i]));
+            }
+            IntegerVector row_set = new IntegerVector(table.getRowCount());
+            RowEnumeration e = table.rowEnumeration();
+            while (e.hasMoreRows()) {
+                row_set.addInt(e.nextRowIndex());
+            }
+            table.setToRowTableDomain(cols[0], row_set, this);
+            return row_set;
         }
         return selectRows(cols[0], op, cells[0]);
     }

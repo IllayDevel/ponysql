@@ -222,22 +222,6 @@ public class Transaction extends SimpleTransaction {
     }
 
     /**
-     * Overwritten from SimpleTransaction.
-     * Returns a new MutableTableDataSource for the view of the
-     * MasterTableDataSource at the start of this transaction.  Note that this is
-     * only ever called once per table accessed in this transaction.
-     */
-    public MutableTableDataSource
-    createMutableTableDataSourceAtCommit(MasterTableDataSource master, Integer limit) {
-        // Create the table for this transaction.
-        MutableTableDataSource table = master.createTableDataSourceAtCommit(this, limit);
-        // Log in the journal that this table was touched by the transaction.
-        journal.entryAddTouchedTable(master.getTableID());
-        touched_tables.add(table);
-        return table;
-    }
-
-    /**
      * Called by the query evaluation layer when information is selected
      * from this table as part of this transaction.  When there is a select
      * query on a table, when the transaction is committed we should look for
@@ -786,6 +770,61 @@ public class Transaction extends SimpleTransaction {
             copyTable(current_table, index_set);
         }
 
+    }
+
+    /**
+     * Creates an index on the table with the given name. This should only be
+     * called under an exclusive lock on the connection.
+     */
+    public void createIndex(TableName table_name, String index_name,
+                            String[] column_names, boolean unique) {
+        MasterTableDataSource current_table = findVisibleTable(table_name, false);
+        if (current_table == null) {
+            throw new StatementException(
+                    "Table '" + table_name + "' doesn't exist.");
+        }
+
+        try {
+            IndexSet old_index_set = getIndexSetForTable(current_table);
+            current_table.createIndex(index_name, column_names, unique);
+            old_index_set.dispose();
+            setIndexSetForTable(current_table, current_table.createIndexSet());
+            flushTableCache(table_name);
+
+            int table_id = current_table.getTableID();
+            journal.entryAddTouchedTable(table_id);
+            journal.entryTableConstraintAlter(table_id);
+        } catch (IOException e) {
+            Debug().writeException(e);
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    /**
+     * Drops an index from the table with the given name. This should only be
+     * called under an exclusive lock on the connection.
+     */
+    public void dropIndex(TableName table_name, String index_name) {
+        MasterTableDataSource current_table = findVisibleTable(table_name, false);
+        if (current_table == null) {
+            throw new StatementException(
+                    "Table '" + table_name + "' doesn't exist.");
+        }
+
+        try {
+            IndexSet old_index_set = getIndexSetForTable(current_table);
+            current_table.dropIndex(index_name);
+            old_index_set.dispose();
+            setIndexSetForTable(current_table, current_table.createIndexSet());
+            flushTableCache(table_name);
+
+            int table_id = current_table.getTableID();
+            journal.entryAddTouchedTable(table_id);
+            journal.entryTableConstraintAlter(table_id);
+        } catch (IOException e) {
+            Debug().writeException(e);
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
 

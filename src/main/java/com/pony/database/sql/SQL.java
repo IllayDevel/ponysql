@@ -179,6 +179,10 @@ public class SQL implements SQLConstants {
       ob = Select();
       break;
       }
+    case EXPLAIN:{
+      ob = Explain();
+      break;
+      }
     case UPDATE:{
       ob = Update();
       break;
@@ -405,6 +409,15 @@ cmd.putObject("table_expression", table_expr);
     cmd.putObject("order_by", order_by);
         cmd.putInt("limit", limit);
         cmd.putInt("offset", offset);
+    {if ("" != null) return cmd;}
+    throw new Error("Missing return statement in function");
+}
+
+  final public StatementTree Explain() throws ParseException {StatementTree cmd = new StatementTree("com.pony.database.interpret.Explain");
+  StatementTree select_statement;
+    jj_consume_token(EXPLAIN);
+    select_statement = Select();
+cmd.putObject("select_statement", select_statement);
     {if ("" != null) return cmd;}
     throw new Error("Missing return statement in function");
 }
@@ -744,10 +757,15 @@ cmd.putObject("type", "drop");
     throw new Error("Missing return statement in function");
 }
 
-  final public StatementTree CreateIndex() throws ParseException {StatementTree cmd = new StatementTree("com.pony.database.interpret.NoOp");
+  final public StatementTree CreateIndex() throws ParseException {StatementTree cmd = new StatementTree("com.pony.database.interpret.Index");
+  boolean unique = false;
+  String index_name;
+  String table_name;
+  ArrayList column_list = new ArrayList();
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case UNIQUE:{
       jj_consume_token(UNIQUE);
+unique = true;
       break;
       }
     default:
@@ -755,13 +773,18 @@ cmd.putObject("type", "drop");
       ;
     }
     jj_consume_token(INDEX);
-    IndexName();
+    index_name = IndexName();
     jj_consume_token(ON);
-    TableName();
+    table_name = TableName();
     jj_consume_token(208);
-    BasicColumnList(new ArrayList());
+    BasicColumnList(column_list);
     jj_consume_token(209);
-{if ("" != null) return cmd;}
+cmd.putObject("type", "create");
+    cmd.putObject("index_name", index_name);
+    cmd.putBoolean("unique", unique);
+    cmd.putObject("table_name", table_name);
+    cmd.putObject("column_list", column_list);
+    {if ("" != null) return cmd;}
     throw new Error("Missing return statement in function");
 }
 
@@ -804,12 +827,18 @@ cmd.putBoolean("only_if_exists", only_if_exists);
     throw new Error("Missing return statement in function");
 }
 
-  final public StatementTree DropIndex() throws ParseException {StatementTree cmd = new StatementTree("com.pony.database.interpret.NoOp");
+  final public StatementTree DropIndex() throws ParseException {StatementTree cmd = new StatementTree("com.pony.database.interpret.Index");
+  String index_name;
+  String table_name;
     jj_consume_token(INDEX);
-    IndexName();
+    index_name = IndexName();
     jj_consume_token(ON);
-    TableName();
-{if ("" != null) return cmd;}
+    table_name = TableName();
+cmd.putObject("type", "drop");
+    cmd.putObject("index_name", index_name);
+    cmd.putBoolean("unique", false);
+    cmd.putObject("table_name", table_name);
+    {if ("" != null) return cmd;}
     throw new Error("Missing return statement in function");
 }
 

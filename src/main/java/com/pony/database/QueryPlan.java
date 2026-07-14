@@ -21,6 +21,8 @@ package com.pony.database;
 import java.util.List;
 import java.util.ArrayList;
 
+import com.pony.util.IntegerVector;
+
 /**
  * Various helper methods for constructing a plan tree, and the plan node
  * implementations themselves.
@@ -248,17 +250,6 @@ public class QueryPlan {
             return t;
         }
 
-        /*Evaluate with fetch limit */
-        public Table evaluate(QueryContext context, Integer limit) {            
-            // MILD HACK: Cast the context to a DatabaseQueryContext
-            DatabaseQueryContext db_context = (DatabaseQueryContext) context;
-            DataTable t = db_context.getTable(table_name, limit);
-            if (alias_name != null) {
-                return new ReferenceTable(t, alias_name);
-            }
-            return t;
-        }
-
         public ArrayList discoverCorrelatedVariables(int level, ArrayList list) {
             return list;
         }
@@ -299,11 +290,6 @@ public class QueryPlan {
             // MILD HACK: Cast the context to a DatabaseQueryContext
             DatabaseQueryContext db_context = (DatabaseQueryContext) context;
             return db_context.getDatabase().getSingleRowTable();
-        }
-
-        /*Evaluate with fetch limit */
-        public Table evaluate(QueryContext context, Integer limit) {
-            return evaluate(context);
         }
 
         public ArrayList discoverCorrelatedVariables(int level, ArrayList list) {
@@ -382,11 +368,6 @@ public class QueryPlan {
             } else {
                 return t;
             }
-        }
-
-        /*Evaluate with fetch limit */
-        public Table evaluate(QueryContext context, Integer limit) {            
-            return evaluate(context);
         }
 
         public ArrayList discoverCorrelatedVariables(int level, ArrayList list) {
@@ -548,11 +529,6 @@ public class QueryPlan {
 
         }
 
-        /*Evaluate with fetch limit */
-        public Table evaluate(QueryContext context, Integer limit) {            
-            return evaluate(context);
-        }
-
         public ArrayList discoverTableNames(ArrayList list) {
             return expression.discoverTableNames(super.discoverTableNames(list));
         }
@@ -617,11 +593,6 @@ public class QueryPlan {
                     left_var, op, right_expression);
         }
 
-        /*Evaluate with fetch limit */
-        public Table evaluate(QueryContext context, Integer limit) {            
-            return evaluate(context);
-        }
-
         public ArrayList discoverTableNames(ArrayList list) {
             return right_expression.discoverTableNames(
                     super.discoverTableNames(list));
@@ -673,26 +644,31 @@ public class QueryPlan {
 
         public Table evaluate(QueryContext context) {
             Table t = child.evaluate(context);
-            // PENDING: Exploit multi-column indexes when they are implemented...
-            // We select each column in turn
             Operator EQUALS_OP = Operator.get("=");
+            int[] column_indexes = new int[columns.length];
+            TObject[] cells = new TObject[values.length];
             for (int i = 0; i < columns.length; ++i) {
-                t = t.simpleSelect(context, columns[i], EQUALS_OP, values[i]);
+                column_indexes[i] = t.findFieldName(columns[i]);
+                if (column_indexes[i] == -1) {
+                    throw new RuntimeException(
+                            "Unable to find column in multi-column select: " +
+                                    columns[i]);
+                }
+                cells[i] = values[i].evaluate(null, context);
             }
-            return t;
-        }
 
-        /*Evaluate with fetch limit */
-        public Table evaluate(QueryContext context, Integer limit) {            
-            return evaluate(context);
+            IntegerVector rows = t.selectRows(column_indexes, EQUALS_OP, cells);
+            VirtualTable table = new VirtualTable(t);
+            table.set(t, rows);
+            return table;
         }
 
         public ArrayList discoverTableNames(ArrayList list) {
-            throw new Error("PENDING");
+            return child.discoverTableNames(list);
         }
 
         public ArrayList discoverCorrelatedVariables(int level, ArrayList list) {
-            throw new Error("PENDING");
+            return child.discoverCorrelatedVariables(level, list);
         }
 
         public Object clone() throws CloneNotSupportedException {
@@ -738,11 +714,6 @@ public class QueryPlan {
             return t.exhaustiveSelect(context, expression);
         }
 
-        /*Evaluate with fetch limit */
-        public Table evaluate(QueryContext context, Integer limit) {            
-            return evaluate(context);
-        }
-
         public ArrayList discoverTableNames(ArrayList list) {
             return expression.discoverTableNames(super.discoverTableNames(list));
         }
@@ -784,11 +755,6 @@ public class QueryPlan {
         public Table evaluate(QueryContext context) {
             Table t = child.evaluate(context);
             return t.exhaustiveSelect(context, expression);
-        }
-
-        /*Evaluate with fetch limit */
-        public Table evaluate(QueryContext context, Integer limit) {            
-            return evaluate(context);
         }
 
         public ArrayList discoverTableNames(ArrayList list) {
@@ -838,18 +804,6 @@ public class QueryPlan {
                 return child.evaluate(context).emptySelect();
             } else {
                 return child.evaluate(context);
-            }
-        }
-
-        /*Evaluate with fetch limit */
-        public Table evaluate(QueryContext context, Integer limit) {            
-            // Evaluate the expression
-            TObject v = expression.evaluate(null, null, context);
-            // If it evaluates to NULL or FALSE then return an empty set
-            if (v.isNull() || v.getObject().equals(Boolean.FALSE)) {
-                return child.evaluate(context).emptySelect();
-            } else {
-                return child.evaluate(context, limit);
             }
         }
 
@@ -919,11 +873,6 @@ public class QueryPlan {
             }
         }
 
-        /*Evaluate with fetch limit */
-        public Table evaluate(QueryContext context, Integer limit) {            
-            return evaluate(context);
-        }
-
         public ArrayList discoverTableNames(ArrayList list) {
             return expression.discoverTableNames(super.discoverTableNames(list));
         }
@@ -975,19 +924,6 @@ public class QueryPlan {
 
         public Table evaluate(QueryContext context) {
             Table t = child.evaluate(context);
-            int sz = original_columns.length;
-            int[] col_map = new int[sz];
-            for (int i = 0; i < sz; ++i) {
-                col_map[i] = t.findFieldName(original_columns[i]);
-            }
-            SubsetColumnTable col_table = new SubsetColumnTable(t);
-            col_table.setColumnMap(col_map, new_column_names);
-            return col_table;
-        }
-
-        /*Evaluate with fetch limit */
-        public Table evaluate(QueryContext context, Integer limit) {           
-            Table t = child.evaluate(context, limit);
             int sz = original_columns.length;
             int[] col_map = new int[sz];
             for (int i = 0; i < sz; ++i) {
@@ -1081,11 +1017,6 @@ public class QueryPlan {
             return t.distinct(col_map);
         }
 
-        /*Evaluate with fetch limit */
-        public Table evaluate(QueryContext context, Integer limit) {            
-            return evaluate(context);
-        }
-
         public Object clone() throws CloneNotSupportedException {
             DistinctNode node = (DistinctNode) super.clone();
             cloneArray(node.columns);
@@ -1162,11 +1093,6 @@ public class QueryPlan {
                 t = t.orderByColumn(columns[n], correct_ascending[n]);
             }
             return t;
-        }
-
-        /*Evaluate with fetch limit */
-        public Table evaluate(QueryContext context, Integer limit) {            
-            return evaluate(context);
         }
 
         public Object clone() throws CloneNotSupportedException {
@@ -1261,11 +1187,6 @@ public class QueryPlan {
             return fun_table.mergeWithReference(group_max_column);
         }
 
-        /*Evaluate with fetch limit */
-        public Table evaluate(QueryContext context, Integer limit) {            
-            return evaluate(context);
-        }
-
         public ArrayList discoverTableNames(ArrayList list) {
             list = super.discoverTableNames(list);
             for (Expression expression : function_list) {
@@ -1357,11 +1278,6 @@ public class QueryPlan {
             return t;
         }
 
-        /*Evaluate with fetch limit */
-        public Table evaluate(QueryContext context, Integer limit) {            
-            return evaluate(context);
-        }
-
         public ArrayList discoverTableNames(ArrayList list) {
             list = super.discoverTableNames(list);
             for (Expression expression : function_list) {
@@ -1425,11 +1341,6 @@ public class QueryPlan {
             return child_table;
         }
 
-        /*Evaluate with fetch limit */
-        public Table evaluate(QueryContext context, Integer limit) {            
-            return evaluate(context);
-        }
-
         public Object clone() throws CloneNotSupportedException {
             return super.clone();
         }
@@ -1478,11 +1389,6 @@ public class QueryPlan {
             return child_table;
         }
 
-        /*Evaluate with fetch limit */
-        public Table evaluate(QueryContext context, Integer limit) {            
-            return evaluate(context);
-        }
-
         public Object clone() throws CloneNotSupportedException {
             return super.clone();
         }
@@ -1511,11 +1417,6 @@ public class QueryPlan {
             Table left_result = left.evaluate(context);
             // Solve the Join (natural)
             return left_result.join(right.evaluate(context));
-        }
-
-        /*Evaluate with fetch limit */
-        public Table evaluate(QueryContext context, Integer limit) {            
-            return evaluate(context);
         }
 
         public String titleString() {
@@ -1561,44 +1462,47 @@ public class QueryPlan {
             // Solve the right branch result
             Table right_result = right.evaluate(context);
 
-            // PENDING: This needs to migrate to a better implementation that
-            //   exploits multi-column indexes if one is defined that can be used.
-
-            Variable first_left = left_columns[0];
-            Variable first_right = right_columns[0];
-
             Operator EQUALS_OP = Operator.get("=");
 
-            Table result = left_result.simpleJoin(context, right_result,
-                    first_left, EQUALS_OP, new Expression(first_right));
-
             int sz = left_columns.length;
-            // If there are columns left to equi-join, we resolve the rest with a
-            // single exhaustive select of the form,
-            //   ( table1.col2 = table2.col2 AND table1.col3 = table2.col3 AND ... )
-            if (sz > 1) {
-                // Form the expression
-                Expression rest_expression = new Expression();
-                for (int i = 1; i < sz; ++i) {
-                    Variable left_var = left_columns[i];
-                    Variable right_var = right_columns[i];
-                    rest_expression.addElement(left_var);
-                    rest_expression.addElement(right_var);
-                    rest_expression.addOperator(EQUALS_OP);
+            int[] left_indexes = new int[sz];
+            int[] right_indexes = new int[sz];
+            for (int i = 0; i < sz; ++i) {
+                left_indexes[i] = left_result.findFieldName(left_columns[i]);
+                right_indexes[i] = right_result.findFieldName(right_columns[i]);
+                if (left_indexes[i] == -1 || right_indexes[i] == -1) {
+                    throw new RuntimeException(
+                            "Unable to find column in equi-join.");
                 }
-                Operator AND_OP = Operator.get("and");
-                for (int i = 2; i < sz; ++i) {
-                    rest_expression.addOperator(AND_OP);
-                }
-                result = result.exhaustiveSelect(context, rest_expression);
             }
 
-            return result;
-        }
+            IntegerVector left_row_set = new IntegerVector();
+            IntegerVector right_row_set = new IntegerVector();
+            RowEnumeration e = right_result.rowEnumeration();
+            while (e.hasMoreRows()) {
+                int row_index = e.nextRowIndex();
+                TObject[] cells = new TObject[sz];
+                for (int i = 0; i < sz; ++i) {
+                    cells[i] = right_result.getCellContents(right_indexes[i],
+                            row_index);
+                }
 
-        /*Evaluate with fetch limit */
-        public Table evaluate(QueryContext context, Integer limit) {            
-            return evaluate(context);
+                IntegerVector selected_set =
+                        left_result.selectRows(left_indexes, EQUALS_OP, cells);
+                int size = selected_set.size();
+                for (int i = 0; i < size; ++i) {
+                    right_row_set.addInt(row_index);
+                }
+                left_row_set.append(selected_set);
+            }
+
+            Table[] tabs = new Table[]{left_result, right_result};
+            IntegerVector[] row_sets = new IntegerVector[]
+                    {left_row_set, right_row_set};
+
+            VirtualTable result = new VirtualTable(tabs);
+            result.set(tabs, row_sets);
+            return result;
         }
 
         public Object clone() throws CloneNotSupportedException {
@@ -1677,11 +1581,6 @@ public class QueryPlan {
                     lhs_var, op, right_expression);
         }
 
-        /*Evaluate with fetch limit */
-        public Table evaluate(QueryContext context, Integer limit) {            
-            return evaluate(context);
-        }
-
         public ArrayList discoverTableNames(ArrayList list) {
             return right_expression.discoverTableNames(
                     super.discoverTableNames(list));
@@ -1758,11 +1657,6 @@ public class QueryPlan {
             return outer_table;
         }
 
-        /*Evaluate with fetch limit */
-        public Table evaluate(QueryContext context, Integer limit) {            
-            return evaluate(context);
-        }
-
         public String titleString() {
             return "LEFT OUTER JOIN";
         }
@@ -1792,11 +1686,6 @@ public class QueryPlan {
             Table right_result = right.evaluate(context);
 
             return left_result.union(right_result);
-        }
-
-        /*Evaluate with fetch limit */
-        public Table evaluate(QueryContext context, Integer limit) {            
-            return evaluate(context);
         }
 
         public String titleString() {
@@ -1848,11 +1737,6 @@ public class QueryPlan {
             return t;
         }
 
-        /*Evaluate with fetch limit */
-        public Table evaluate(QueryContext context, Integer limit) {            
-            return evaluate(context);
-        }
-
     }
 
     /**
@@ -1895,11 +1779,6 @@ public class QueryPlan {
             // given operator.
             return TableFunctions.anyAllNonCorrelated(left_result, left_columns,
                     sub_query_operator, right_result);
-        }
-
-        /*Evaluate with fetch limit */
-        public Table evaluate(QueryContext context, Integer limit) {            
-            return evaluate(context);
         }
 
         public Object clone() throws CloneNotSupportedException {

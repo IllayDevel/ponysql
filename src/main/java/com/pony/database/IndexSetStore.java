@@ -445,6 +445,13 @@ final class IndexSetStore {
     }
 
     /**
+     * Returns the number of physical index lists currently held by this store.
+     */
+    synchronized int indexListCount() {
+        return index_blocks.length;
+    }
+
+    /**
      * Returns a current snapshot of the current indexes that are committed in
      * this store.  The returned object can be used to create mutable
      * IntegerListInterface objects.  The created index lists are isolated from
@@ -1468,4 +1475,3 @@ final class IndexSetStore {
     }
 
 }
-

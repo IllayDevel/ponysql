@@ -53,6 +53,12 @@ public final class InsertSearch extends CollatedBaseSearch {
     private IntegerListInterface set_list;
 
     /**
+     * If true, duplicate keys are rejected when rows are inserted into this
+     * scheme.
+     */
+    private boolean unique;
+
+    /**
      * If this is true, then this SelectableScheme records additional rid
      * information that can be used to very quickly identify whether a value is
      * greater, equal or less.
@@ -80,6 +86,7 @@ public final class InsertSearch extends CollatedBaseSearch {
      */
     public InsertSearch(TableDataSource table, int column) {
         super(table, column);
+        unique = false;
         set_list = new BlockIntegerList();
 
         // The internal comparator that enables us to sort and lookup on the data
@@ -110,8 +117,18 @@ public final class InsertSearch extends CollatedBaseSearch {
      * low key to high key.
      */
     InsertSearch(TableDataSource table, int column, IntegerListInterface list) {
+        this(table, column, list, false);
+    }
+
+    /**
+     * Constructor sets the scheme with a pre-sorted list and optional unique
+     * enforcement.
+     */
+    InsertSearch(TableDataSource table, int column, IntegerListInterface list,
+                 boolean unique) {
         this(table, column);
         this.set_list = list;
+        this.unique = unique;
 
         // NOTE: This must be removed in final, this is a post condition check to
         //   make sure 'vec' is infact sorted
@@ -126,6 +143,7 @@ public final class InsertSearch extends CollatedBaseSearch {
     private InsertSearch(TableDataSource table, InsertSearch from,
                          boolean immutable) {
         super(table, from.getColumn());
+        unique = from.unique;
 
         if (immutable) {
             setImmutable();
@@ -183,6 +201,11 @@ public final class InsertSearch extends CollatedBaseSearch {
         }
 
         final TObject cell = getCellContents(row);
+        if (unique && set_list.searchFirst(cell, safeSetComparator()) >= 0) {
+            throw new DatabaseConstraintViolationException(
+                    DatabaseConstraintViolationException.UNIQUE_VIOLATION,
+                    "Unique index violation.");
+        }
         set_list.insertSort(cell, row, set_comparator);
 
     }

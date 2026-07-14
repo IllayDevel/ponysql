@@ -706,6 +706,12 @@ public final class DataTable extends DefaultDataTable {
         return super.getSelectableSchemeFor(column, original_column, table);
     }
 
+    SelectableScheme getSelectableSchemeForColumns(int[] columns) {
+        checkReadLock();  // read op
+
+        return data_source.getIndexSchemeForColumns(columns);
+    }
+
     RawTableInformation resolveToRawTable(RawTableInformation info) {
         checkReadLock();  // read op
 

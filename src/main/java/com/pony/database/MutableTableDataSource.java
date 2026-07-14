@@ -62,6 +62,14 @@ public interface MutableTableDataSource extends TableDataSource {
     int updateRow(int row_index, RowData row_data);
 
     /**
+     * Returns a SelectableScheme for the exact index over the given column
+     * sequence, or null if no such index exists.
+     */
+    default SelectableScheme getIndexSchemeForColumns(int[] columns) {
+        return null;
+    }
+
+    /**
      * Flushes all changes made on this MutableTableDataSource to the backing
      * index scheme (IndexSet).  This is used during the commit phase of this
      * objects lifetime.  The transaction control mechanism has found that there

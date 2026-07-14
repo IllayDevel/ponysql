@@ -487,6 +487,7 @@ StatementTree Statement() :
 {
   (
     (   ob=Select()
+      | ob=Explain()
       | ob=Update()
       | ob=Alter()
       | ob=Compact()
@@ -579,6 +580,19 @@ StatementTree Select() :
     cmd.putObject("order_by", order_by);
 	cmd.putInt("limit", limit);
 	cmd.putInt("offset", offset);
+    return cmd; }
+}
+
+
+StatementTree Explain() :
+{ StatementTree cmd = new StatementTree("com.pony.database.interpret.Explain");
+  StatementTree select_statement;
+}
+{
+  ( <EXPLAIN> select_statement = Select()
+  )
+
+  { cmd.putObject("select_statement", select_statement);
     return cmd; }
 }
 
@@ -844,13 +858,22 @@ StatementTree DropView() :
 
 StatementTree CreateIndex() :
 {
-  StatementTree cmd = new StatementTree("com.pony.database.interpret.NoOp");
+  StatementTree cmd = new StatementTree("com.pony.database.interpret.Index");
+  boolean unique = false;
+  String index_name;
+  String table_name;
+  ArrayList column_list = new ArrayList();
 }
 {
-  (   [<UNIQUE>] <INDEX> IndexName() <ON>
-        TableName() "(" BasicColumnList(new ArrayList()) ")" )
+  (   [<UNIQUE> { unique = true; }] <INDEX> index_name = IndexName() <ON>
+        table_name = TableName() "(" BasicColumnList(column_list) ")" )
   
-  { return cmd; }
+  { cmd.putObject("type", "create");
+    cmd.putObject("index_name", index_name);
+    cmd.putBoolean("unique", unique);
+    cmd.putObject("table_name", table_name);
+    cmd.putObject("column_list", column_list);
+    return cmd; }
 }
 
 
@@ -876,13 +899,19 @@ StatementTree DropTable() :
 
 StatementTree DropIndex() :
 {
-  StatementTree cmd = new StatementTree("com.pony.database.interpret.NoOp");
+  StatementTree cmd = new StatementTree("com.pony.database.interpret.Index");
+  String index_name;
+  String table_name;
 }
 {
-  (   <INDEX> IndexName() <ON> TableName()
+  (   <INDEX> index_name = IndexName() <ON> table_name = TableName()
   )
   
-  { return cmd; }
+  { cmd.putObject("type", "drop");
+    cmd.putObject("index_name", index_name);
+    cmd.putBoolean("unique", false);
+    cmd.putObject("table_name", table_name);
+    return cmd; }
 
 }
 

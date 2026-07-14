@@ -304,6 +304,38 @@ abstract class MasterTableDataSource {
         return index_def;
     }
 
+    /**
+     * Adds a user-defined BLIST index to this table. Storage implementations
+     * that can persist index metadata should override this.
+     */
+    synchronized void createIndex(String index_name, String[] column_names,
+                                  boolean unique) throws IOException {
+        throw new StatementException(
+                "CREATE INDEX is not supported by this table storage format.");
+    }
+
+    /**
+     * Drops a user-defined BLIST index from this table. Storage implementations
+     * that can persist index metadata should override this.
+     */
+    synchronized void dropIndex(String index_name) throws IOException {
+        throw new StatementException(
+                "DROP INDEX is not supported by this table storage format.");
+    }
+
+    /**
+     * Returns the index definition number for the given column indexes, or -1 if
+     * no matching index definition exists.
+     */
+    synchronized int findIndexForColumns(int[] columns) {
+        DataTableDef table_def = getDataTableDef();
+        String[] names = new String[columns.length];
+        for (int i = 0; i < columns.length; ++i) {
+            names[i] = table_def.columnAt(columns[i]).getName();
+        }
+        return getDataIndexSetDef().findIndexForColumns(names);
+    }
+
     // ---------- Convenient statics ----------
 
     /**
@@ -528,11 +560,22 @@ abstract class MasterTableDataSource {
                 // scheme.
                 IntegerListInterface index_list =
                         index_set.getIndex(index_def.getPointer());
-                InsertSearch iis = new InsertSearch(table, col_index, index_list);
-                return iis;
+                return new InsertSearch(table, col_index, index_list,
+                        index_def.isUniqueIndex());
             } else {
-                throw new RuntimeException(
-                        "Multi-column indexes not supported at this time.");
+                int[] col_indexes = new int[cols.length];
+                for (int i = 0; i < cols.length; ++i) {
+                    int col_index = table_def.findColumnName(cols[i]);
+                    if (col_index == -1) {
+                        throw new RuntimeException(
+                                "Index column '" + cols[i] + "' was not found.");
+                    }
+                    col_indexes[i] = col_index;
+                }
+                IntegerListInterface index_list =
+                        index_set.getIndex(index_def.getPointer());
+                return new CompositeInsertSearch(table, col_indexes, index_list,
+                        index_def.isUniqueIndex());
             }
         } else {
             throw new RuntimeException("Unrecognised type.");
@@ -824,12 +867,6 @@ abstract class MasterTableDataSource {
                 new MasterTableJournal(getTableID()));
     }
 
-    MutableTableDataSource createTableDataSourceAtCommit(
-            SimpleTransaction transaction, Integer limit) {
-        return createTableDataSourceAtCommit(transaction,
-                new MasterTableJournal(getTableID()), limit);
-    }
-
     /**
      * Returns a MutableTableDataSource object that represents this data source
      * at the time the given transaction started, and also also makes any
@@ -841,11 +878,6 @@ abstract class MasterTableDataSource {
     MutableTableDataSource createTableDataSourceAtCommit(
             SimpleTransaction transaction, MasterTableJournal journal) {
         return new MMutableTableDataSource(transaction, journal);
-    }
-
-    MutableTableDataSource createTableDataSourceAtCommit(
-            SimpleTransaction transaction, MasterTableJournal journal, Integer limit) {
-        return new MMutableTableDataSource(transaction, journal, limit);
     }
 
     // ---------- File IO level table modification ----------
@@ -1351,6 +1383,12 @@ abstract class MasterTableDataSource {
         private int[] scheme_rebuilds;
 
         /**
+         * The 'recovery point' to which the index schemes in this table source
+         * have rebuilt to.
+         */
+        private int[] index_scheme_rebuilds;
+
+        /**
          * The IndexSet for this mutable table source.
          */
         private IndexSet index_set;
@@ -1362,6 +1400,12 @@ abstract class MasterTableDataSource {
         private final SelectableScheme[] column_schemes;
 
         /**
+         * The SelectableScheme array that represents every physical index
+         * definition within this transaction.
+         */
+        private final SelectableScheme[] index_schemes;
+
+        /**
          * A journal of changes to this source since it was created.
          */
         private MasterTableJournal table_journal;
@@ -1371,11 +1415,6 @@ abstract class MasterTableDataSource {
          * integrity violations.
          */
         private int last_entry_ri_check;
-
-        /**
-         * Limit fetched row in current transaction
-         */
-        private Integer limit_fetch = -1;
 
         /**
          * Constructs the data source.
@@ -1391,24 +1430,11 @@ abstract class MasterTableDataSource {
             row_list_rebuild = 0;
             scheme_rebuilds = new int[col_count];
             column_schemes = new SelectableScheme[col_count];
+            int index_count = getDataIndexSetDef().indexCount();
+            index_scheme_rebuilds = new int[index_count];
+            index_schemes = new SelectableScheme[index_count];
             table_journal = journal;
             last_entry_ri_check = table_journal.entries();
-        }
-
-        public MMutableTableDataSource(SimpleTransaction transaction,
-                                       MasterTableJournal journal, Integer limit) {
-            this.transaction = transaction;
-            this.index_set =
-                    transaction.getIndexSetForTable(MasterTableDataSource.this);
-            int col_count = getDataTableDef().columnCount();
-            TableName table_name = getDataTableDef().getTableName();
-            this.tran_read_only = transaction.isReadOnly();
-            row_list_rebuild = 0;
-            scheme_rebuilds = new int[col_count];
-            column_schemes = new SelectableScheme[col_count];
-            table_journal = journal;
-            last_entry_ri_check = table_journal.entries();
-            limit_fetch = limit;
         }
 
         /**
@@ -1637,6 +1663,43 @@ abstract class MasterTableDataSource {
             scheme_rebuilds[column] = rebuild_index;
         }
 
+        /**
+         * Ensures that an index scheme is as current as the latest journal
+         * change.
+         */
+        private void ensureIndexSchemeCurrent(int index_number) {
+            SelectableScheme scheme = index_schemes[index_number];
+            int rebuild_index = index_scheme_rebuilds[index_number];
+            int journal_count = table_journal.entries();
+            while (rebuild_index < journal_count) {
+                byte command = table_journal.getCommand(rebuild_index);
+                int row_index = table_journal.getRowIndex(rebuild_index);
+                if (MasterTableJournal.isAddCommand(command)) {
+                    scheme.insert(row_index);
+                } else if (MasterTableJournal.isRemoveCommand(command)) {
+                    scheme.remove(row_index);
+                } else {
+                    throw new Error("Unrecognised journal command.");
+                }
+                ++rebuild_index;
+            }
+            index_scheme_rebuilds[index_number] = rebuild_index;
+        }
+
+        /**
+         * Returns the scheme for the index definition number.
+         */
+        private SelectableScheme getIndexScheme(int index_number) {
+            SelectableScheme scheme = index_schemes[index_number];
+            if (scheme == null) {
+                scheme = createSelectableSchemeForIndex(index_set, this,
+                        index_number);
+                index_schemes[index_number] = scheme;
+            }
+            ensureIndexSchemeCurrent(index_number);
+            return scheme;
+        }
+
         // ---------- Implemented from MutableTableDataSource ----------
 
         public TransactionSystem getSystem() {
@@ -1650,11 +1713,7 @@ abstract class MasterTableDataSource {
         public int getRowCount() {
             // Ensure the row list is up to date.
             ensureRowIndexListCurrent();
-            if (limit_fetch != -1) {
-                return limit_fetch;
-            } else {
-                return getRowIndexList().size();
-            }
+            return getRowIndexList().size();
         }
 
         public RowEnumeration rowEnumeration() {
@@ -1680,17 +1739,76 @@ abstract class MasterTableDataSource {
 
         // NOTE: Returns an immutable version of the scheme...
         public SelectableScheme getColumnScheme(int column) {
-            SelectableScheme scheme = column_schemes[column];
-            // Cache the scheme in this object.
-            if (scheme == null) {
-                scheme = createSelectableSchemeForColumn(index_set, this, column);
-                column_schemes[column] = scheme;
+            DataTableColumnDef column_def = getDataTableDef().columnAt(column);
+            if (column_def.isIndexableType() &&
+                    column_def.getIndexScheme().equals("InsertSearch")) {
+                int index_number = findIndexForColumns(new int[]{column});
+                if (index_number != -1) {
+                    return getIndexScheme(index_number);
+                }
             }
 
-            // Update the underlying scheme to the most current version.
+            SelectableScheme scheme = column_schemes[column];
+            if (scheme == null) {
+                scheme = new BlindSearch(this, column);
+                column_schemes[column] = scheme;
+            }
             ensureColumnSchemeCurrent(column);
 
             return scheme;
+        }
+
+        public SelectableScheme getIndexSchemeForColumns(int[] columns) {
+            int index_number = findIndexForColumns(columns);
+            if (index_number == -1) {
+                return null;
+            }
+            return getIndexScheme(index_number);
+        }
+
+        private void checkUniqueIndexesForRow(RowData row_data,
+                                              int row_to_ignore) {
+            DataIndexSetDef index_set_def = getDataIndexSetDef();
+            DataTableDef table_def = getDataTableDef();
+            for (int i = 0; i < index_set_def.indexCount(); ++i) {
+                DataIndexDef index_def = index_set_def.indexAt(i);
+                if (index_def.isUniqueIndex()) {
+                    String[] column_names = index_def.getColumnNames();
+                    int[] columns = new int[column_names.length];
+                    for (int n = 0; n < column_names.length; ++n) {
+                        columns[n] = table_def.findColumnName(column_names[n]);
+                    }
+                    checkUniqueIndexForRow(index_def.getName(), columns,
+                            row_data, row_to_ignore);
+                }
+            }
+        }
+
+        private void checkUniqueIndexForRow(String index_name, int[] columns,
+                                            RowData row_data,
+                                            int row_to_ignore) {
+            RowEnumeration e = rowEnumeration();
+            while (e.hasMoreRows()) {
+                int row_index = e.nextRowIndex();
+                if (row_index != row_to_ignore &&
+                        uniqueIndexValuesEqual(columns, row_data, row_index)) {
+                    throw new DatabaseConstraintViolationException(
+                            DatabaseConstraintViolationException.UNIQUE_VIOLATION,
+                            "Unique index violation: " + index_name);
+                }
+            }
+        }
+
+        private boolean uniqueIndexValuesEqual(int[] columns, RowData row_data,
+                                               int row_index) {
+            for (int column : columns) {
+                TObject existing = getCellContents(column, row_index);
+                TObject next = row_data.getCellData(column);
+                if (existing.compareTo(next) != 0) {
+                    return false;
+                }
+            }
+            return true;
         }
 
         // ---------- Table Modification ----------
@@ -1706,6 +1824,8 @@ abstract class MasterTableDataSource {
             if (isReadOnly()) {
                 throw new Error("Can not add row - table is read only.");
             }
+
+            checkUniqueIndexesForRow(row_data, -1);
 
             // Add to the master.
             int row_index;
@@ -1760,6 +1880,8 @@ abstract class MasterTableDataSource {
                 throw new Error("Can not update row - table is read only.");
             }
 
+            checkUniqueIndexesForRow(row_data, row_index);
+
             // Note this doesn't need to be synchronized because we are exclusive on
             // this table.
             // Add this change to the table journal.
@@ -1785,9 +1907,15 @@ abstract class MasterTableDataSource {
 
         public void flushIndexChanges() {
             ensureRowIndexListCurrent();
-            // This will flush all of the column schemes
+            // This will flush all physical index definitions, including
+            // user-defined composite indexes that do not map to a single column.
+            for (int i = 0; i < index_schemes.length; ++i) {
+                getIndexScheme(i);
+            }
             for (int i = 0; i < column_schemes.length; ++i) {
-                getColumnScheme(i);
+                if (column_schemes[i] != null) {
+                    ensureColumnSchemeCurrent(i);
+                }
             }
         }
 

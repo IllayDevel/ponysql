@@ -138,6 +138,10 @@ public class FilterTable extends Table {
         return scheme;
     }
 
+    SelectableScheme getSelectableSchemeForColumns(int[] columns) {
+        return parent.getSelectableSchemeForColumns(columns);
+    }
+
     /**
      * Given a set, this trickles down through the Table hierarchy resolving
      * the given row_set to a form that the given ancestor understands.

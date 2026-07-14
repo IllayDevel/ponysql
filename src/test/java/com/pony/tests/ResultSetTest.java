@@ -18,179 +18,116 @@
 
 package com.pony.tests;
 
-import com.pony.util.CommandLine;
+import com.pony.database.control.DBController;
+import com.pony.database.control.DBSystem;
+import com.pony.database.control.DefaultDBConfig;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
-import java.sql.*;
-import java.io.*;
+import java.nio.file.Path;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * A test of the ResultSet.
- *
- * @author Tobias Downer
+ * Regression coverage for the old manual ResultSetTest main program.
  */
+class ResultSetTest {
 
-public class ResultSetTest {
+    @TempDir
+    Path tempDir;
 
-    private static void printSyntax() {
-        System.out.println(
-                "Syntax: ResultSetTest -url [jdbc_url] -u [username] -p [password]");
-        System.out.println();
-    }
+    @Test
+    void preparedStatementsExposeResultSetsForUpdatesAndQueries()
+            throws Exception {
+        DefaultDBConfig config = new DefaultDBConfig();
+        config.setDatabasePath(tempDir.resolve("data").toString());
+        config.setLogPath(tempDir.resolve("log").toString());
 
-    private static void displayResult(ResultSet result_set) throws SQLException {
-        PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
-        com.pony.util.ResultOutputUtil.formatAsText(result_set, out);
-        result_set.close();
-        out.flush();
-    }
+        DBSystem database = DBController.getDefault()
+                .createDatabase(config, "test", "test");
+        database.setDeleteOnClose(true);
 
-    public static void main(String[] args) {
+        try (Connection connection = database.getConnection("test", "test");
+             Statement statement = connection.createStatement()) {
+            DatabaseMetaData metaData = connection.getMetaData();
+            assertNotNull(metaData.getDatabaseProductName());
+            assertNotNull(metaData.getDatabaseProductVersion());
 
-        CommandLine command_line = new CommandLine(args);
-
-        // Register the Pony JDBC Driver
-        try {
-            Class.forName("com.pony.JDBCDriver").newInstance();
-        } catch (Exception e) {
-            System.out.println(
-                    "Unable to register the JDBC Driver.\n" +
-                            "Make sure the classpath is correct.\n");
-            return;
-        }
-
-        // Get the command line arguments
-        final String url = command_line.switchArgument("-url");
-        final String username = command_line.switchArgument("-u");
-        final String password = command_line.switchArgument("-p");
-
-        if (url == null) {
-            printSyntax();
-            System.out.println("Please provide a JDBC url.");
-            System.exit(-1);
-        } else if (username == null || password == null) {
-            printSyntax();
-            System.out.println("Please provide a username and password.");
-            System.exit(-1);
-        }
-
-        // Make a connection with the database.  This will create the database
-        // and log into the newly created database.
-        Connection connection;
-        try {
-            connection = DriverManager.getConnection(url, username, password);
-        } catch (SQLException e) {
-            System.out.println(
-                    "Unable to create the database.\n" +
-                            "The reason: " + e.getMessage());
-            return;
-        }
-
-        // ---------- Tests start point ----------
-
-        try {
-
-            // Display information about the database,
-            DatabaseMetaData db_meta = connection.getMetaData();
-            String name = db_meta.getDatabaseProductName();
-            String version = db_meta.getDatabaseProductVersion();
-
-            System.out.println("Database Product Name: " + name);
-            System.out.println("Database Product Version: " + version);
-
-            // Create a Statement object to execute the queries on,
-            Statement statement = connection.createStatement();
-            ResultSet result;
-
-            // First we create some test table,
+            statement.executeQuery("DROP TABLE IF EXISTS RSTest");
             statement.executeQuery(
-                    "  DROP TABLE IF EXISTS RSTest");
+                    "CREATE TABLE IF NOT EXISTS RSTest ( " +
+                            " cola VARCHAR(60), " +
+                            " colb VARCHAR(60), " +
+                            " colc INTEGER, " +
+                            " cold NUMERIC, " +
+                            " cole BOOLEAN )");
 
-            // First we create some test table,
-            statement.executeQuery(
-                    "  CREATE TABLE IF NOT EXISTS RSTest ( " +
-                            "     cola        VARCHAR(60), " +
-                            "     colb        VARCHAR(60), " +
-                            "     colc        INTEGER, " +
-                            "     cold        NUMERIC, " +
-                            "     cole        BOOLEAN " +
-                            " ) ");
-
-            PreparedStatement ts1 = connection.prepareStatement(
+            try (PreparedStatement insert = connection.prepareStatement(
                     "INSERT INTO RSTest ( cola, colb, colc, cold, cole ) " +
-                            "VALUES ( ?, ?, ?, ?, ? )");
+                            "VALUES ( ?, ?, ?, ?, ? )")) {
+                for (int value : new int[]{5, 6, 7, 8}) {
+                    insert.setString(1, "Bah1");
+                    insert.setString(2, "Bah2");
+                    insert.setInt(3, value);
+                    insert.setDouble(4, 90.55);
+                    insert.setBoolean(5, true);
+                    assertEquals(1, insert.executeUpdate());
+                }
+            }
 
+            try (PreparedStatement delete = connection.prepareStatement(
+                    "DELETE FROM RSTest WHERE colc = ?")) {
+                assertUpdateCount(delete, 6, 1);
+                assertUpdateCount(delete, 7, 1);
+                assertUpdateCount(delete, 10, 0);
+            }
 
-            ResultSet r;
-
-            ts1.setString(1, "Bah1");
-            ts1.setString(2, "Bah2");
-            ts1.setInt(3, 5);
-            ts1.setDouble(4, 90.55);
-            ts1.setBoolean(5, true);
-            ts1.executeUpdate();
-            ts1.setString(1, "Bah1");
-            ts1.setString(2, "Bah2");
-            ts1.setInt(3, 6);
-            ts1.setDouble(4, 90.55);
-            ts1.setBoolean(5, true);
-            ts1.executeUpdate();
-            ts1.setString(1, "Bah1");
-            ts1.setString(2, "Bah2");
-            ts1.setInt(3, 7);
-            ts1.setDouble(4, 90.55);
-            ts1.setBoolean(5, true);
-            ts1.executeUpdate();
-            ts1.setString(1, "Bah1");
-            ts1.setString(2, "Bah2");
-            ts1.setInt(3, 8);
-            ts1.setDouble(4, 90.55);
-            ts1.setBoolean(5, true);
-            ts1.executeUpdate();
-
-            PreparedStatement ts2 = connection.prepareStatement(
-                    "DELETE FROM RSTest WHERE colc = ? ");
-
-            ts2.setInt(1, 6);
-            r = ts2.executeQuery();
-            r.next();
-            System.out.println(r.getInt(1));
-            ts2.setInt(1, 7);
-            r = ts2.executeQuery();
-            r.next();
-            System.out.println(r.getInt(1));
-            ts2.setInt(1, 10);
-            r = ts2.executeQuery();
-            r.next();
-            System.out.println(r.getInt(1));
-
-            System.out.println("\n--- All Tests Complete ---");
-
-            connection.commit();
-
-            displayResult(statement.executeQuery("show status"));
-            displayResult(statement.executeQuery("show connections"));
-
-            // Close the statement and the connection.
-            statement.close();
-            connection.close();
-
-        } catch (SQLException e) {
-            System.out.println(
-                    "An error occured\n" +
-                            "The SQLException message is: " + e.getMessage());
-            e.printStackTrace();
-            return;
+            assertEquals(List.of(5, 8), remainingColcValues(connection));
+            assertHasRows(statement, "SHOW STATUS");
+            assertHasRows(statement, "SHOW CONNECTIONS");
+        } finally {
+            database.close();
         }
-
-//    // Close the the connection.
-//    try {
-//      connection.close();
-//    }
-//    catch (SQLException e2) {
-//      e2.printStackTrace(System.err);
-//    }
-
     }
 
+    private void assertUpdateCount(PreparedStatement statement,
+                                   int value, int expectedCount)
+            throws Exception {
+        statement.setInt(1, value);
+        try (ResultSet result = statement.executeQuery()) {
+            assertTrue(result.next());
+            assertEquals(expectedCount, result.getInt(1));
+            assertFalse(result.next());
+        }
+    }
+
+    private List<Integer> remainingColcValues(Connection connection)
+            throws Exception {
+        List<Integer> values = new ArrayList<>();
+        try (Statement statement = connection.createStatement();
+             ResultSet result = statement.executeQuery(
+                     "SELECT colc FROM RSTest ORDER BY colc")) {
+            while (result.next()) {
+                values.add(result.getInt(1));
+            }
+        }
+        return values;
+    }
+
+    private void assertHasRows(Statement statement, String sql) throws Exception {
+        try (ResultSet result = statement.executeQuery(sql)) {
+            assertTrue(result.next());
+        }
+    }
 
 }

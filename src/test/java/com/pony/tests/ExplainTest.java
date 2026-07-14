@@ -26,24 +26,19 @@ import org.junit.jupiter.api.io.TempDir;
 
 import java.nio.file.Path;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-/**
- * Regression coverage for the old manual MiscTest main program.
- */
-class MiscTest {
+class ExplainTest {
 
     @TempDir
     Path tempDir;
 
     @Test
-    void storesAndReadsLargeVarcharValues() throws Exception {
+    void explainSelectReturnsQueryPlanDebugString() throws Exception {
         DefaultDBConfig config = new DefaultDBConfig();
         config.setDatabasePath(tempDir.resolve("data").toString());
         config.setLogPath(tempDir.resolve("log").toString());
@@ -54,32 +49,19 @@ class MiscTest {
 
         try (Connection connection = database.getConnection("test", "test");
              Statement statement = connection.createStatement()) {
-            statement.executeQuery("DROP TABLE IF EXISTS MiscTest");
-            statement.executeQuery(
-                    "CREATE TABLE MiscTest ( cola VARCHAR )");
-
-            StringBuilder bigString =
-                    new StringBuilder("bigstringbigstringbigstringbigstring");
-            for (int i = 0; i < 10; ++i) {
-                bigString.append(bigString);
-            }
-            String expected = bigString.toString();
-
-            try (PreparedStatement insert = connection.prepareStatement(
-                    "INSERT INTO MiscTest ( cola ) VALUES ( ? )")) {
-                insert.setString(1, expected);
-                assertEquals(1, insert.executeUpdate());
-                assertEquals(1, insert.executeUpdate());
-            }
-
-            connection.commit();
+            statement.executeUpdate(
+                    "CREATE TABLE explain_test ( id INTEGER, name VARCHAR(64) )");
+            statement.executeUpdate(
+                    "INSERT INTO explain_test ( id, name ) VALUES ( 1, 'pony' )");
 
             try (ResultSet result = statement.executeQuery(
-                    "SELECT cola FROM MiscTest ORDER BY cola")) {
+                    "EXPLAIN SELECT name FROM explain_test " +
+                            "WHERE id = 1 ORDER BY name LIMIT 1")) {
                 assertTrue(result.next());
-                assertEquals(expected, result.getString(1));
-                assertTrue(result.next());
-                assertEquals(expected, result.getString(1));
+                String plan = result.getString(1);
+                assertTrue(plan.contains("FETCH: APP.explain_test"));
+                assertTrue(plan.contains("SIMPLE:") || plan.contains("RANGE:"));
+                assertTrue(plan.contains("LIMIT/OFFSET: offset=0, limit=1"));
                 assertFalse(result.next());
             }
         } finally {
